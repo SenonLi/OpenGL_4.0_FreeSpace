@@ -2,7 +2,7 @@
 
 Sen_01_Triangles::Sen_01_Triangles()
 {
-
+	strWindowName = "2D Two Triangles";
 }
 
 
@@ -32,11 +32,10 @@ void Sen_01_Triangles::initialGlutGlewGL()
 	};
 	glGenBuffers(1, Buffers);
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),
-		vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),	vertices, GL_STATIC_DRAW);
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./vsTeapotExplosion/01_Triangles/triangles.vert" },
-		{ GL_FRAGMENT_SHADER, "./vsTeapotExplosion/01_Triangles/triangles.frag" },
+		{ GL_VERTEX_SHADER, "./Chapters/01_Triangles/triangles.vert" },
+		{ GL_FRAGMENT_SHADER, "./Chapters/01_Triangles/triangles.frag" },
 		{ GL_NONE, NULL }
 	};
 	GLuint program = LoadShaders(shaders);

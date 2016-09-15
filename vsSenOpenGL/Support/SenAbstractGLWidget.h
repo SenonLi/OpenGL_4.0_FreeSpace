@@ -3,6 +3,7 @@
 #include <stdio.h>  
 #include <iostream>
 #include <Windows.h>
+#include <string>
 
 #include "vgl.h"
 #include "LoadShaders.h"
@@ -23,11 +24,25 @@ protected:
 	virtual void initialGlutGlewGL();
 	virtual void paintGL();
 
+	char* strWindowName;
 	float xRot, yRot;
+	float aspect;
 
 	int qtNormalizeAngle(int angle);
 	void mouseMove(int x, int y);
 
+	void vglAttachShaderSource(GLuint prog, GLenum type, const char * source)
+	{
+		GLuint sh;
+
+		sh = glCreateShader(type);
+		glShaderSource(sh, 1, &source, NULL);
+		glCompileShader(sh);
+		char buffer[4096];
+		glGetShaderInfoLog(sh, sizeof(buffer), NULL, buffer);
+		glAttachShader(prog, sh);
+		glDeleteShader(sh);
+	}
 
 private:
 	void drawMethodRegister();

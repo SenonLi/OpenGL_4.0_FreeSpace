@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Support\SenAbstractGLWidget.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\teapotExplosion\SenTeapotObservationWidget.cpp">
+      <Filter>Sinks\teapotExplosion</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapters\01_Triangles\Sen_01_Triangles.cpp">
+      <Filter>Chapters\01_Triangles</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapters\06_CubeMap\Sen_06_CubeMap.cpp">
+      <Filter>Chapters\06_CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oglpg-8th-edition\lib\LoadShaders.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.cpp">
+      <Filter>Chapters\03_DrawCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Support">
+      <UniqueIdentifier>{af28d588-1685-427b-bd0f-5c7e6b4941bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sinks">
+      <UniqueIdentifier>{1870d093-680f-430d-9f23-81e69bcc150e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chapters">
+      <UniqueIdentifier>{95c95508-f77a-4e9d-8dd2-9e6c25b03fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sinks\teapotExplosion">
+      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chapters\01_Triangles">
+      <UniqueIdentifier>{f738327a-8d2d-4bcb-8464-1982895cdb14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chapters\06_CubeMap">
+      <UniqueIdentifier>{eceb8c15-6e35-476b-b688-6fa89c79dc3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chapters\03_DrawCommands">
+      <UniqueIdentifier>{e1c97b1b-ff33-432b-a615-9134bda380af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Support\SenAbstractGLWidget.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\teapotExplosion\SenTeapotObservationWidget.h">
+      <Filter>Sinks\teapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\teapotExplosion\teapot.h">
+      <Filter>Sinks\teapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapters\01_Triangles\Sen_01_Triangles.h">
+      <Filter>Chapters\01_Triangles</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapters\06_CubeMap\Sen_06_CubeMap.h">
+      <Filter>Chapters\06_CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.h">
+      <Filter>Chapters\03_DrawCommands</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Chapters\01_Triangles\triangles.frag">
+      <Filter>Chapters\01_Triangles</Filter>
+    </None>
+    <None Include="Chapters\01_Triangles\triangles.vert">
+      <Filter>Chapters\01_Triangles</Filter>
+    </None>
+    <None Include="Chapters\03_DrawCommands\primitive_restart.fs.glsl">
+      <Filter>Chapters\03_DrawCommands</Filter>
+    </None>
+    <None Include="Chapters\03_DrawCommands\primitive_restart.vs.glsl">
+      <Filter>Chapters\03_DrawCommands</Filter>
+    </None>
+  </ItemGroup>
+</Project>
