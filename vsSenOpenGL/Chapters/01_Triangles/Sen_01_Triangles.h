@@ -13,6 +13,5 @@ protected:
 	void initialGlutGlewGL();
 
 	enum Attrib_IDs { vPosition = 0 };
-	GLuint verArrObjArray[1];
 	GLuint Buffers[1];
 };

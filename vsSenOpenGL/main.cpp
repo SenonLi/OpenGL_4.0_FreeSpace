@@ -1,14 +1,19 @@
 #include "SenTeapotObservationWidget.h"
+#include "SenShaderTeapotExplosion.h"
 #include "Sen_01_Triangles.h"
 #include "SenAbstractGLWidget.h"
 #include "Sen_06_CubeMap.h"
 #include "Sen_03_DrawCommands.h"
+
+
 int main(int argc, char *argv[])
 {
-	//glutInit(&argc, argv);
-
 	//SenTeapotObservationWidget teapotWidget;
 	//teapotWidget.showWidget();
+
+	SenShaderTeapotExplosion shaderTeapotWidget;
+	shaderTeapotWidget.showWidget();
+
 
 	//Sen_01_Triangles triangleWidget;
 	//triangleWidget.showWidget();
@@ -16,8 +21,8 @@ int main(int argc, char *argv[])
 	Sen_03_DrawCommands drawCommandWidget;
 	drawCommandWidget.showWidget();
 
-	Sen_06_CubeMap cubeMapWidget;
-	cubeMapWidget.showWidget();
+	//Sen_06_CubeMap cubeMapWidget;
+	//cubeMapWidget.showWidget();
 
 	return 1;
 }

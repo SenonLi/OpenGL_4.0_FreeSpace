@@ -24,8 +24,8 @@ void Sen_06_CubeMap::initialGlutGlewGL()
 
 	SenAbstractGLWidget::initialGlutGlewGL();
 
-	glGenVertexArrays(1, verArrObjArray);
-	glBindVertexArray(verArrObjArray[0]);
+	//glGenVertexArrays(1, verArrObjArray);
+	//glBindVertexArray(verArrObjArray[0]);
 	GLfloat vertices[6][2] = {
 		{ -0.90, -0.90 }, // Triangle 1
 		{ 0.85, -0.90 },

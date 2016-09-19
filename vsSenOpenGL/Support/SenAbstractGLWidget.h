@@ -18,18 +18,30 @@ public:
 
 	void showWidget();
 	void _protectedPaintGL() { paintGL(); }
+	void _protectedReshape(int width, int height) { reshape(width, height); }
 	void _protectedMouseMove(int x, int y) { mouseMove(x,  y); }
 
 protected:
-	virtual void initialGlutGlewGL();
-	virtual void paintGL();
-
 	char* strWindowName;
 	float xRot, yRot;
 	float aspect;
 
+	virtual void initialGlutGlewGL();
+	virtual void paintGL();
+	virtual void reshape(int width, int height);
+	virtual void mouseMove(int x, int y);
+
 	int qtNormalizeAngle(int angle);
-	void mouseMove(int x, int y);
+
+	
+	// shader info variables
+	GLuint verArrObjArray[1];
+	GLuint program;
+	GLuint verBufferObjArray[1];
+	GLuint verIndicesObjArray[1];
+
+	GLint modelMatrixLocation;
+	GLint projectionMatrixLocation;
 
 	void vglAttachShaderSource(GLuint prog, GLenum type, const char * source)
 	{
@@ -47,6 +59,7 @@ protected:
 private:
 	void drawMethodRegister();
 	void mouseMoveRegister();
+	void reshapeRegister();
 
 };
 
@@ -54,5 +67,4 @@ private:
 
 void mousePress(int button, int state, int x, int y);
 
-static void _Reshape(int width, int height);
 static void _Key(unsigned char key, int x, int y);

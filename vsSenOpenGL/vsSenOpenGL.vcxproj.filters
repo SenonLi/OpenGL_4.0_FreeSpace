@@ -4,9 +4,6 @@
     <ClCompile Include="Support\SenAbstractGLWidget.cpp">
       <Filter>Support</Filter>
     </ClCompile>
-    <ClCompile Include="Sinks\teapotExplosion\SenTeapotObservationWidget.cpp">
-      <Filter>Sinks\teapotExplosion</Filter>
-    </ClCompile>
     <ClCompile Include="Chapters\01_Triangles\Sen_01_Triangles.cpp">
       <Filter>Chapters\01_Triangles</Filter>
     </ClCompile>
@@ -20,6 +17,12 @@
       <Filter>Chapters\03_DrawCommands</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp">
+      <Filter>Sinks\oldTeapotExplosion</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp">
+      <Filter>Sinks\shaderTeapotExplosion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -31,9 +34,6 @@
     <Filter Include="Chapters">
       <UniqueIdentifier>{95c95508-f77a-4e9d-8dd2-9e6c25b03fc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sinks\teapotExplosion">
-      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Chapters\01_Triangles">
       <UniqueIdentifier>{f738327a-8d2d-4bcb-8464-1982895cdb14}</UniqueIdentifier>
     </Filter>
@@ -43,16 +43,16 @@
     <Filter Include="Chapters\03_DrawCommands">
       <UniqueIdentifier>{e1c97b1b-ff33-432b-a615-9134bda380af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sinks\oldTeapotExplosion">
+      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sinks\shaderTeapotExplosion">
+      <UniqueIdentifier>{34d66eaf-ade3-406e-8690-966645be2558}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Support\SenAbstractGLWidget.h">
       <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\teapotExplosion\SenTeapotObservationWidget.h">
-      <Filter>Sinks\teapotExplosion</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\teapotExplosion\teapot.h">
-      <Filter>Sinks\teapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Chapters\01_Triangles\Sen_01_Triangles.h">
       <Filter>Chapters\01_Triangles</Filter>
@@ -63,6 +63,21 @@
     <ClInclude Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.h">
       <Filter>Chapters\03_DrawCommands</Filter>
     </ClInclude>
+    <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h">
+      <Filter>Sinks\shaderTeapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h">
+      <Filter>Sinks\oldTeapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h">
+      <Filter>Sinks\oldTeapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h">
+      <Filter>Sinks\shaderTeapotExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapters\03_DrawCommands\shaderTeapotTest.h">
+      <Filter>Chapters\03_DrawCommands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Chapters\01_Triangles\triangles.frag">
@@ -71,11 +86,17 @@
     <None Include="Chapters\01_Triangles\triangles.vert">
       <Filter>Chapters\01_Triangles</Filter>
     </None>
-    <None Include="Chapters\03_DrawCommands\primitive_restart.fs.glsl">
+    <None Include="Chapters\03_DrawCommands\primitive_restart.vert">
       <Filter>Chapters\03_DrawCommands</Filter>
     </None>
-    <None Include="Chapters\03_DrawCommands\primitive_restart.vs.glsl">
+    <None Include="Chapters\03_DrawCommands\primitive_restart.frag">
       <Filter>Chapters\03_DrawCommands</Filter>
+    </None>
+    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag">
+      <Filter>Sinks\shaderTeapotExplosion</Filter>
+    </None>
+    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert">
+      <Filter>Sinks\shaderTeapotExplosion</Filter>
     </None>
   </ItemGroup>
 </Project>

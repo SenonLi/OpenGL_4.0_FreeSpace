@@ -13,6 +13,7 @@ SenAbstractGLWidget::SenAbstractGLWidget()
 	mouseLeftDown = false;
 	xRot = 0; 
 	yRot = 0;
+	aspect = 1;
 }
 
 SenAbstractGLWidget::~SenAbstractGLWidget()
@@ -22,14 +23,20 @@ SenAbstractGLWidget::~SenAbstractGLWidget()
 
 void SenAbstractGLWidget::initialGlutGlewGL()
 {
+	int one = 1;
+	char * name = "name";
+
 	// initial GLUT for windowing
+	glutInit(&one, &name);
 	glutInitContextFlags(GLUT_DEBUG);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH);	//set display mode to have:	- a colour buffer (RGBA)- double buffering (for swap)- a depth buffer
-	//glutInitWindowSize(640, 480);// set window size 
+	glutInitWindowSize(500, 500);// set window size 
 	glutInitWindowPosition(600, 300);           // window location
 
-	if (strWindowName == "")	glutCreateWindow("Sen Teapot");
-	else					glutCreateWindow(strWindowName);
+	if (strWindowName == "")	
+		glutCreateWindow("Sen Teapot");
+	else					
+		glutCreateWindow(strWindowName);
 	glClearColor(0.2, 0.2, 0.2, 1.0f);
 
 	glewExperimental = GL_TRUE;
@@ -37,6 +44,8 @@ void SenAbstractGLWidget::initialGlutGlewGL()
 		cerr << "Unable to initialize GLEW ... exiting" << endl;
 		exit(EXIT_FAILURE);
 	}
+
+
 
 	/* enable lighting */
 	glEnable(GL_LIGHTING);
@@ -69,27 +78,34 @@ void SenAbstractGLWidget::paintGL(void)
 	/* draw and show buffers */
 	//glFlush();
 }
-
-void _Reshape(int width, int height)
+extern "C" void _reshape(int width, int height)
 {
-	//int side = width > height ? height : width;
-	///* set the viewport to the window width and height */
-	//glViewport((width - side) / 2, (height - side) / 2, side, side);
+	currentInstance->_protectedReshape(width, height);
+}
 
-	///* load a projection matrix that matches the window aspect ratio */
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	////gluPerspective(45.0, (double)width / (double)height, 1.0, 100.0);
-	//glOrtho(-5.0, +5.0, -5.0, +5.0, -5.0, +5.0);
+void SenAbstractGLWidget::reshapeRegister()
+{
+	::currentInstance = this;
+	::glutReshapeFunc(::_reshape);
+}
 
-	///* return to modelview matrix mode*/
-	//glMatrixMode(GL_MODELVIEW);
+void SenAbstractGLWidget::reshape(int width, int height)
+{
+	int side = width > height ? height : width;
+	/* set the viewport to the window width and height */
+	glViewport((width - side) / 2, (height - side) / 2, side, side);
 
-	//glutPostRedisplay();
+	/* load a projection matrix that matches the window aspect ratio */
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	//gluPerspective(45.0, (double)width / (double)height, 1.0, 100.0);
+	glOrtho(-5.0, +5.0, -5.0, +5.0, -5.0, +5.0);
 
-	glViewport(0, 0, width, height);
+	/* return to modelview matrix mode*/
+	glMatrixMode(GL_MODELVIEW);
 
-	//aspect = float(height) / float(width);
+	glutPostRedisplay();
+
 }
 
 void _Key(unsigned char key, int x, int y)
@@ -128,10 +144,10 @@ void SenAbstractGLWidget::showWidget()
 {
 	initialGlutGlewGL();
 
-	glutReshapeFunc(_Reshape); /* register callback for window resize */
 	glutKeyboardFunc(_Key);    /* register callback for keyboard input */
 	glutMouseFunc(mousePress);
 	//glutDisplayFunc(SenAbstractGLWidget::_Draw);    /* register callback for window redraw */
+	reshapeRegister();
 	drawMethodRegister();
 	mouseMoveRegister();
 

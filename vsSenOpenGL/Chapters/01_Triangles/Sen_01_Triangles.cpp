@@ -15,8 +15,6 @@ Sen_01_Triangles::~Sen_01_Triangles()
 
 void Sen_01_Triangles::initialGlutGlewGL()
 {
-	glutInitContextVersion(4, 0);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
 
 	SenAbstractGLWidget::initialGlutGlewGL();
 
@@ -51,7 +49,7 @@ void Sen_01_Triangles::paintGL(void)
 {
 	SenAbstractGLWidget::paintGL();
 
-	glBindVertexArray(verArrObjArray[0]);
+	//glBindVertexArray(verArrObjArray[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	/* swap front and back buffers */
