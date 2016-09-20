@@ -45,6 +45,14 @@ void SenShaderTeapotExplosion::initialGlutGlewGL()
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
+
+	GLuint vertexNormalArray[1];
+	glGenBuffers(1, vertexNormalArray);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexNormalArray[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(shaderTeapotNormals), shaderTeapotNormals, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(1);
 	
 	vmath::mat4 projection_matrix(vmath::perspective(60, aspect, 1.0f, 500.0f));
 	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, projection_matrix);
