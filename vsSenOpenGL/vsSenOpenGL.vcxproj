@@ -11,13 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\oglpg-8th-edition\lib\LoadShaders.cpp" />
     <ClCompile Include="Chapters\01_Triangles\Sen_01_Triangles.cpp" />
     <ClCompile Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.cpp" />
     <ClCompile Include="Chapters\06_CubeMap\Sen_06_CubeMap.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp" />
     <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp" />
+    <ClCompile Include="Support\LoadShaders.cpp" />
+    <ClCompile Include="Support\SenAbstractGLFW.cpp" />
     <ClCompile Include="Support\SenAbstractGLWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -25,10 +28,13 @@
     <ClInclude Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.h" />
     <ClInclude Include="Chapters\03_DrawCommands\shaderTeapotTest.h" />
     <ClInclude Include="Chapters\06_CubeMap\Sen_06_CubeMap.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h" />
     <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h" />
     <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h" />
+    <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +42,10 @@
     <None Include="Chapters\01_Triangles\triangles.vert" />
     <None Include="Chapters\03_DrawCommands\primitive_restart.frag" />
     <None Include="Chapters\03_DrawCommands\primitive_restart.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_07_TextureGLFW.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_07_TextureGLFW.vert" />
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag" />
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert" />
   </ItemGroup>
@@ -68,8 +78,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\oglpg-8th-edition\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\03_DrawCommands;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Support;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\06_CubeMap;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\oglpg-8th-edition\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\01_Triangles;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\shaderTeapotExplosion;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\oldTeapotExplosion;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\oglpg-8th-edition\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include\soil;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\LearnOpenGL_GLFW\Shaders;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\LearnOpenGL_GLFW;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\03_DrawCommands;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Support;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\06_CubeMap;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\oglpg-8th-edition\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Chapters\01_Triangles;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\shaderTeapotExplosion;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\oldTeapotExplosion;C:\OpenGL\SenOpenGLusr\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,7 +90,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glut32.lib; kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>soil.lib; glew32.lib; glfw3.lib; opengl32.lib;glut32.lib; kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
