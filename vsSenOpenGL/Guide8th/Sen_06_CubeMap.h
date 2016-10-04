@@ -5,7 +5,7 @@
 #include "SenAbstractGLWidget.h"
 
 //#include "vapp.h"
-#include "vmath.h"
+#include "Guide8th/vmath.h"
 
 
 class Sen_06_CubeMap :	public SenAbstractGLWidget

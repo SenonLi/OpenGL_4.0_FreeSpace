@@ -1,6 +1,8 @@
 #pragma once
 #include "SenAbstractGLWidget.h"
-#include "vmath.h"
+#include "Guide8th/vmath.h"
+
+using namespace vmath;
 
 class SenShaderTeapotExplosion : public SenAbstractGLWidget
 {

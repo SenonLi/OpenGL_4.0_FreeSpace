@@ -32,8 +32,8 @@ void Sen_01_Triangles::initialGlutGlewGL()
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),	vertices, GL_STATIC_DRAW);
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./Chapters/01_Triangles/triangles.vert" },
-		{ GL_FRAGMENT_SHADER, "./Chapters/01_Triangles/triangles.frag" },
+		{ GL_VERTEX_SHADER, "./Guide8th/Shaders/Sen_01_Triangles.vert" },
+		{ GL_FRAGMENT_SHADER, "./Guide8th/Shaders/Sen_01_Triangles.frag" },
 		{ GL_NONE, NULL }
 	};
 	GLuint program = LoadShaders(shaders);

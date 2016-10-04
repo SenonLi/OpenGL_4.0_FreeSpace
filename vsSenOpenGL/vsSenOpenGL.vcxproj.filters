@@ -4,18 +4,12 @@
     <ClCompile Include="Support\SenAbstractGLWidget.cpp">
       <Filter>Support</Filter>
     </ClCompile>
-    <ClCompile Include="Chapters\06_CubeMap\Sen_06_CubeMap.cpp">
-      <Filter>Guide8th\06_CubeMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.cpp">
-      <Filter>Guide8th\03_DrawCommands</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp">
-      <Filter>Sinks\oldTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
     </ClCompile>
     <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp">
-      <Filter>Sinks\shaderTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </ClCompile>
     <ClCompile Include="Support\SenAbstractGLFW.cpp">
       <Filter>Support</Filter>
@@ -26,39 +20,22 @@
     <ClCompile Include="Support\LoadShaders.cpp">
       <Filter>Support</Filter>
     </ClCompile>
-    <ClCompile Include="Chapters\01_Triangles\Sen_01_Triangles.cpp">
-      <Filter>Guide8th\01_Triangles</Filter>
-    </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="Guide8th\Sen_01_Triangles.cpp">
+      <Filter>Sources\Guide8th</Filter>
+    </ClCompile>
+    <ClCompile Include="Guide8th\Sen_03_DrawCommands.cpp">
+      <Filter>Sources\Guide8th</Filter>
+    </ClCompile>
+    <ClCompile Include="Guide8th\Sen_06_CubeMap.cpp">
+      <Filter>Sources\Guide8th</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
       <UniqueIdentifier>{af28d588-1685-427b-bd0f-5c7e6b4941bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sinks">
-      <UniqueIdentifier>{1870d093-680f-430d-9f23-81e69bcc150e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sinks\oldTeapotExplosion">
-      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sinks\shaderTeapotExplosion">
-      <UniqueIdentifier>{34d66eaf-ade3-406e-8690-966645be2558}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Guide8th">
-      <UniqueIdentifier>{95c95508-f77a-4e9d-8dd2-9e6c25b03fc3}</UniqueIdentifier>
-      <ParseFiles>true</ParseFiles>
-    </Filter>
-    <Filter Include="Guide8th\01_Triangles">
-      <UniqueIdentifier>{f738327a-8d2d-4bcb-8464-1982895cdb14}</UniqueIdentifier>
-      <ParseFiles>true</ParseFiles>
-    </Filter>
-    <Filter Include="Guide8th\06_CubeMap">
-      <UniqueIdentifier>{eceb8c15-6e35-476b-b688-6fa89c79dc3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Guide8th\03_DrawCommands">
-      <UniqueIdentifier>{e1c97b1b-ff33-432b-a615-9134bda380af}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{393c3412-b2c2-4a0c-8c60-8a465c65a871}</UniqueIdentifier>
@@ -78,34 +55,40 @@
     <Filter Include="Sources\LearnOpenGL_GLFW">
       <UniqueIdentifier>{3bc7a42c-f17e-4697-a1d4-6febd7dbbda0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Guide8th">
+      <UniqueIdentifier>{fc988d9c-dcd3-4c17-bacd-80aad279c948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks">
+      <UniqueIdentifier>{1870d093-680f-430d-9f23-81e69bcc150e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\oldTeapotExplosion">
+      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\shaderTeapotExplosion">
+      <UniqueIdentifier>{34d66eaf-ade3-406e-8690-966645be2558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Guide8th">
+      <UniqueIdentifier>{9115a61e-f16d-43ba-9881-52bcffe17708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Guide8th">
+      <UniqueIdentifier>{b713b438-d6e4-4ba6-8347-28877492e9e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Support\SenAbstractGLWidget.h">
       <Filter>Support</Filter>
     </ClInclude>
-    <ClInclude Include="Chapters\01_Triangles\Sen_01_Triangles.h">
-      <Filter>Guide8th\01_Triangles</Filter>
-    </ClInclude>
-    <ClInclude Include="Chapters\06_CubeMap\Sen_06_CubeMap.h">
-      <Filter>Guide8th\06_CubeMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Chapters\03_DrawCommands\Sen_03_DrawCommands.h">
-      <Filter>Guide8th\03_DrawCommands</Filter>
-    </ClInclude>
     <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h">
-      <Filter>Sinks\shaderTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h">
-      <Filter>Sinks\oldTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h">
-      <Filter>Sinks\oldTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h">
-      <Filter>Sinks\shaderTeapotExplosion</Filter>
-    </ClInclude>
-    <ClInclude Include="Chapters\03_DrawCommands\shaderTeapotTest.h">
-      <Filter>Guide8th\03_DrawCommands</Filter>
+      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Support\SenAbstractGLFW.h">
       <Filter>Support</Filter>
@@ -116,25 +99,25 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
+    <ClInclude Include="Guide8th\Sen_01_Triangles.h">
+      <Filter>Headers\Guide8th</Filter>
+    </ClInclude>
+    <ClInclude Include="Guide8th\Sen_03_DrawCommands.h">
+      <Filter>Headers\Guide8th</Filter>
+    </ClInclude>
+    <ClInclude Include="Guide8th\Sen_06_CubeMap.h">
+      <Filter>Headers\Guide8th</Filter>
+    </ClInclude>
+    <ClInclude Include="Guide8th\External\shaderTeapotTest.h">
+      <Filter>Headers\Guide8th</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Chapters\01_Triangles\triangles.frag">
-      <Filter>Guide8th\01_Triangles</Filter>
-    </None>
-    <None Include="Chapters\01_Triangles\triangles.vert">
-      <Filter>Guide8th\01_Triangles</Filter>
-    </None>
-    <None Include="Chapters\03_DrawCommands\primitive_restart.vert">
-      <Filter>Guide8th\03_DrawCommands</Filter>
-    </None>
-    <None Include="Chapters\03_DrawCommands\primitive_restart.frag">
-      <Filter>Guide8th\03_DrawCommands</Filter>
-    </None>
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag">
-      <Filter>Sinks\shaderTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </None>
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert">
-      <Filter>Sinks\shaderTeapotExplosion</Filter>
+      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
@@ -147,6 +130,24 @@
     </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_07_TextureGLFW.frag">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_01_Triangles.frag">
+      <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_01_Triangles.vert">
+      <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_03_DrawCommands.frag">
+      <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_03_DrawCommands.vert">
+      <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_06_CubeMap.frag">
+      <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="Guide8th\Shaders\Sen_06_CubeMap.vert">
+      <Filter>Shaders\Guide8th</Filter>
     </None>
   </ItemGroup>
 </Project>

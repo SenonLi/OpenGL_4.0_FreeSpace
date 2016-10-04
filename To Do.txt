@@ -1,3 +1,2 @@
-* Add material light onto the teapot (with depth test)
-
-* Add zoom feature
+* Going through Texture
+* Go to robot

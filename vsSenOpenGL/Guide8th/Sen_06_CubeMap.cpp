@@ -41,8 +41,8 @@ void Sen_06_CubeMap::initialGlutGlewGL()
 	ShaderInfo shaders[] = {
 		//{ GL_VERTEX_SHADER, "./Chapters/01_Triangles/triangles.vert" },
 		//{ GL_FRAGMENT_SHADER, "./Chapters/01_Triangles/triangles.frag" },
-		{ GL_VERTEX_SHADER, "./Chapters/06_CubeMap/primitive_restart.vert" },
-		{ GL_FRAGMENT_SHADER, "./Chapters/06_CubeMap/primitive_restart.frag" },
+		{ GL_VERTEX_SHADER, "./Guide8th/Shaders/Sen_06_CubeMap.vert" },
+		{ GL_FRAGMENT_SHADER, "./Guide8th/Shaders/Sen_06_CubeMap.frag" },
 		{ GL_NONE, NULL }
 	};
 	GLuint program = LoadShaders(shaders);

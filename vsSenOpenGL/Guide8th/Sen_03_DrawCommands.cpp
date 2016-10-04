@@ -21,8 +21,8 @@ void Sen_03_DrawCommands::initialGlutGlewGL()
 
 	ShaderInfo shader_info[] =
 	{
-		{ GL_VERTEX_SHADER, "./Chapters/03_DrawCommands/primitive_restart.vert" },
-		{ GL_FRAGMENT_SHADER, "./Chapters/03_DrawCommands/primitive_restart.frag" },
+		{ GL_VERTEX_SHADER, "./Guide8th/Shaders/Sen_03_DrawCommands.vert" },
+		{ GL_FRAGMENT_SHADER, "./Guide8th/Shaders/Sen_03_DrawCommands.frag" },
 		{ GL_NONE, NULL }
 	};
 

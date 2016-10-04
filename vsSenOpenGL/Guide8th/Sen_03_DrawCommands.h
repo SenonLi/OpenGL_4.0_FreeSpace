@@ -4,7 +4,7 @@
 
 #include "SenAbstractGLWidget.h"
 //#include "vapp.h"
-#include "vmath.h"
+#include "Guide8th/vmath.h"
 
 class Sen_03_DrawCommands :	public SenAbstractGLWidget
 {

@@ -1,7 +1,7 @@
 //#include "SenTeapotObservationWidget.h"
 //#include "Sen_01_Triangles.h"
-//#include "Sen_06_CubeMap.h"
 //#include "Sen_03_DrawCommands.h"
+//#include "Sen_06_CubeMap.h"
 
 //#include "SenShaderTeapotExplosion.h"
 #include "Sen_07_TextureGLFW.h"
@@ -9,8 +9,6 @@
 
 int main(int argc, char *argv[])
 {
-	//SenAbstractGLFW abstractWidget;
-	//abstractWidget.showWidget();
 
 	Sen_07_TextureGLFW glfwTextureWidget;
 	glfwTextureWidget.showWidget();
