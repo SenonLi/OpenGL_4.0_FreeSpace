@@ -32,6 +32,9 @@
     <ClCompile Include="Guide8th\Sen_06_CubeMap.cpp">
       <Filter>Sources\Guide8th</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -111,6 +114,9 @@
     <ClInclude Include="Guide8th\External\shaderTeapotTest.h">
       <Filter>Headers\Guide8th</Filter>
     </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag">
@@ -148,6 +154,15 @@
     </None>
     <None Include="Guide8th\Shaders\Sen_06_CubeMap.vert">
       <Filter>Shaders\Guide8th</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
   </ItemGroup>
 </Project>

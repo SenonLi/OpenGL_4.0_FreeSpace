@@ -16,6 +16,7 @@
     <ClCompile Include="Guide8th\Sen_06_CubeMap.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp" />
     <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp" />
@@ -30,6 +31,7 @@
     <ClInclude Include="Guide8th\Sen_06_CubeMap.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h" />
     <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h" />
@@ -48,6 +50,9 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_07_TextureGLFW.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag" />
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert" />
   </ItemGroup>
