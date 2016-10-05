@@ -15,5 +15,14 @@ protected:
 	void initialGlfwGlewGL();
 	void finalize();
 
+	void initialVertices();
+	void initialBackgroundTexture();
+	void initialNewLayerTexture();
+	void bindBackgroundTexture();
+	void bindNewLayerTexture();
+
+	unsigned char* textureImage;
+
+	GLuint newLayerTexture;
 };
 

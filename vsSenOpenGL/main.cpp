@@ -3,12 +3,14 @@
 //#include "Sen_03_DrawCommands.h"
 //#include "Sen_06_CubeMap.h"
 
-//#include "SenShaderTeapotExplosion.h"
+#include "SenShaderTeapotExplosion.h"
 #include "Sen_07_TextureGLFW.h"
-//#include "Sen_06_TrianglesGLFW.h"
+#include "Sen_06_TrianglesGLFW.h"
 
 int main(int argc, char *argv[])
 {
+	//Sen_06_TrianglesGLFW glfwTrianglesWidget;
+	//glfwTrianglesWidget.showWidget();
 
 	Sen_07_TextureGLFW glfwTextureWidget;
 	glfwTextureWidget.showWidget();

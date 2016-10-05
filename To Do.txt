@@ -1,2 +1,2 @@
-* Going through Texture
-* Go to robot
+* Add Geometry
+* Look Through Explode
