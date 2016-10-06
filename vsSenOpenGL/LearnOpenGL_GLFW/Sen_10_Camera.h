@@ -1,10 +1,8 @@
 #pragma once
-
-#ifndef __Sen_07_TextureGLFW__
-#define __Sen_07_TextureGLFW__
+#ifndef __Sen_30_GeometryShow__
+#define __Sen_30_GeometryShow__
 
 #include "SenAbstractGLFW.h"
-
 #include <SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
@@ -12,11 +10,11 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-class Sen_07_TextureGLFW :	public SenAbstractGLFW
+class Sen_10_Camera :	public SenAbstractGLFW
 {
 public:
-	Sen_07_TextureGLFW();
-	virtual ~Sen_07_TextureGLFW();
+	Sen_10_Camera();
+	virtual ~Sen_10_Camera();
 
 protected:
 	void paintGL(void);
@@ -25,13 +23,18 @@ protected:
 
 	void initialVertices();
 	void initialBackgroundTexture();
-	void initialNewLayerTexture();
-	void bindBackgroundTexture();
-	void bindNewLayerTexture();
+
+
+	void initModelViewProjection();
+	void updateModelViewProjection();
+
+	glm::mat4 model, view, projection;
 
 	unsigned char* textureImage;
 
-	GLuint newLayerTexture;
+	GLuint newLayerTexture, thirdLayerTexture;
+
 };
+
 
 #endif

@@ -5,14 +5,17 @@ layout (location = 2) in vec2 textureCoord;
 
 out vec2 fragInterpTextureCoord;
 
-uniform mat4 transform;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 
 void main()
 {
 
 	//gl_Position = vec4(vertexCoord, 1.0f);
 
-	gl_Position = transform * vec4(vertexCoord, 1.0f);
+	gl_Position = projection * view * model * vec4(vertexCoord, 1.0f);
 
 	fragInterpTextureCoord = textureCoord;
 }

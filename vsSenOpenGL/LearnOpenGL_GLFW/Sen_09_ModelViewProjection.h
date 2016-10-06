@@ -1,27 +1,27 @@
 #pragma once
-
-#ifndef __Sen_07_TextureGLFW__
-#define __Sen_07_TextureGLFW__
+#ifndef __Sen_09_ModelViewProjection__
+#define __Sen_09_ModelViewProjection__
 
 #include "SenAbstractGLFW.h"
-
 #include <SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
-class Sen_07_TextureGLFW :	public SenAbstractGLFW
+class Sen_09_ModelViewProjection :	public SenAbstractGLFW
 {
 public:
-	Sen_07_TextureGLFW();
-	virtual ~Sen_07_TextureGLFW();
+	Sen_09_ModelViewProjection();
+	virtual ~Sen_09_ModelViewProjection();
 
 protected:
 	void paintGL(void);
 	void initialGlfwGlewGL();
 	void finalize();
+
+	glm::mat4 model, view, projection;
+
 
 	void initialVertices();
 	void initialBackgroundTexture();
@@ -29,9 +29,16 @@ protected:
 	void bindBackgroundTexture();
 	void bindNewLayerTexture();
 
+	void initModelViewProjection();
+	void updateModelViewProjection();
+	void updateSecondModelViewProjection();
+
 	unsigned char* textureImage;
 
-	GLuint newLayerTexture;
+	GLuint newLayerTexture, thirdLayerTexture;
+
+	float viewCenter = -3.0f;
 };
+
 
 #endif

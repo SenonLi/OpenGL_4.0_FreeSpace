@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __Sen_01_Triangles__
+#define __Sen_01_Triangles__
 
 #include "SenAbstractGLWidget.h"
 
@@ -15,3 +17,6 @@ protected:
 	enum Attrib_IDs { vPosition = 0 };
 	GLuint Buffers[1];
 };
+
+
+#endif

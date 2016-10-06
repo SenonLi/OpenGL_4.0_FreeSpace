@@ -10,6 +10,33 @@ Sen_07_TextureGLFW::~Sen_07_TextureGLFW()
 {
 }
 
+void Sen_07_TextureGLFW::paintGL(void)
+{
+	SenAbstractGLFW::paintGL();
+
+	// Draw container
+	glUseProgram(programA);
+
+	// Draw Background Texture
+	bindBackgroundTexture();
+	bindNewLayerTexture();
+
+	// Create transformations
+	glm::mat4 transform;
+	//transform = glm::translate(transform, glm::vec3(0.0f, -0.0f, -1.0f));
+	transform = glm::rotate(transform, (GLfloat)glfwGetTime() * float(glm::radians(50.0)), glm::vec3(1.0f, 0.0f, 1.0f));
+
+	// Get matrix's uniform location and set matrix
+	GLint transformLoc = glGetUniformLocation(programA, "transform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
+	glBindVertexArray(verArrObjArray[0]);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void Sen_07_TextureGLFW::initialGlfwGlewGL()
 {
 	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
@@ -31,26 +58,6 @@ void Sen_07_TextureGLFW::initialGlfwGlewGL()
 	initialNewLayerTexture();
 
 	OutputDebugString(" Initial GLFW Texture\n\n");
-}
-
-void Sen_07_TextureGLFW::initialNewLayerTexture()
-{
-	int newLayerWidth, newLayerHeight;
-
-	glGenTextures(1, &newLayerTexture);
-	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
-	// Set our texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set texture filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Load, create texture and generate mipmaps
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImage);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
-	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
 void Sen_07_TextureGLFW::initialVertices()
@@ -95,6 +102,26 @@ void Sen_07_TextureGLFW::initialVertices()
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 }
 
+void Sen_07_TextureGLFW::initialNewLayerTexture()
+{
+	int newLayerWidth, newLayerHeight;
+
+	glGenTextures(1, &newLayerTexture);
+	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
+	// Set our texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Set texture filtering
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// Load, create texture and generate mipmaps
+	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImage);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(textureImage);
+	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
+}
+
 void Sen_07_TextureGLFW::initialBackgroundTexture()
 {
 	// Load and create a defaultTexture 
@@ -113,24 +140,6 @@ void Sen_07_TextureGLFW::initialBackgroundTexture()
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImage);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTexture when done, so we won't accidentily mess up our defaultTexture.
-}
-
-void Sen_07_TextureGLFW::paintGL(void)
-{
-	SenAbstractGLFW::paintGL();
-
-	// Draw container
-	glUseProgram(programA);
-
-	// Draw Background Texture
-	bindBackgroundTexture();
-	bindNewLayerTexture();
-
-	glBindVertexArray(verArrObjArray[0]);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Sen_07_TextureGLFW::bindNewLayerTexture()

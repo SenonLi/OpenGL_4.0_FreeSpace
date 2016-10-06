@@ -35,6 +35,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_10_Camera.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -117,6 +123,12 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag">
@@ -162,6 +174,18 @@
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_09_ModelViewProjection.frag">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_09_ModelViewProjection.vert">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.frag">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
   </ItemGroup>

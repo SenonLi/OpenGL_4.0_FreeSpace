@@ -36,6 +36,7 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 
 	glViewport(0, 0, widgetWidth, widgetHeight);
 
+	glEnable(GL_DEPTH_TEST);
 
 	OutputDebugString("\n Initial OpenGL\n");
 }
@@ -59,12 +60,14 @@ void SenAbstractGLFW::showWidget()
 {
 	initialGlfwGlewGL();
 
+
 	//glutKeyboardFunc(_Key);    /* register callback for keyboard input */
 	//glutMouseFunc(mousePress);
 	////glutDisplayFunc(SenAbstractGLWidget::_Draw);    /* register callback for window redraw */
 	//reshapeRegister();
 	//drawMethodRegister();
 	//mouseMoveRegister();
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(widgetGLFW))
@@ -75,7 +78,7 @@ void SenAbstractGLFW::showWidget()
 		// Render
 		// Clear the colorbuffer
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		paintGL();
 

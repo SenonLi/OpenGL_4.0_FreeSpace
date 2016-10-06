@@ -6,14 +6,19 @@
 //#include "SenShaderTeapotExplosion.h"
 //#include "Sen_06_TrianglesGLFW.h"
 //#include "Sen_07_TextureGLFW.h"
-#include "Sen_30_GeometryShow.h"
+#include "Sen_09_ModelViewProjection.h"
+#include "Sen_10_Camera.h"
+//#include "Sen_30_GeometryShow.h"
 
 int main(int argc, char *argv[])
 {
-	Sen_30_GeometryShow glfwGeometryWidget;
-	glfwGeometryWidget.showWidget();
+	//Sen_10_Camera glfwGeometryWidget;
+	//glfwGeometryWidget.showWidget();
 
-	//Sen_07_TextureGLFW glfwTextureWidget;
+	Sen_09_ModelViewProjection glfwSenCubeWidget;
+	glfwSenCubeWidget.showWidget();
+
+	//Sen_06_TrianglesGLFW glfwTextureWidget;
 	//glfwTextureWidget.showWidget();
 
 	//SenTeapotObservationWidget teapotWidget;
@@ -23,7 +28,7 @@ int main(int argc, char *argv[])
 	//shaderTeapotWidget.showWidget();
 
 
-	//Sen_01_Triangles triangleWidget;
+	//Sen_30_GeometryShow triangleWidget;
 	//triangleWidget.showWidget();
 
 	//Sen_03_DrawCommands drawCommandWidget;
