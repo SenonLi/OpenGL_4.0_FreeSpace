@@ -104,8 +104,8 @@ void Sen_09_ModelViewProjection::initialVertices()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	// TexCoord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
@@ -184,9 +184,9 @@ void Sen_09_ModelViewProjection::paintGL(void)
 
 	glBindVertexArray(verArrObjArray[0]);
 
-	GLfloat radius = 3.0f;
-	GLfloat camX = sin(glfwGetTime()) * radius;
-	GLfloat camZ = viewCenter + cos(glfwGetTime()) * radius;
+	GLfloat radius = abs(viewCenter);
+	GLfloat camX = float(sin(glfwGetTime()) * radius);
+	GLfloat camZ = float(viewCenter + cos(glfwGetTime()) * radius);
 	view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, viewCenter), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	updateModelViewProjection();

@@ -2,7 +2,7 @@
 
 
 SenAbstractGLFW::SenAbstractGLFW()
-	:widgetHeight(512), widgetWidth(512), xRot(0), yRot(0), aspect(1.0)
+	:widgetHeight(640), widgetWidth(640), xRot(0), yRot(0), aspect(1.0)
 {
 	strWindowName = "Sen GLFW Application";
 }
@@ -24,6 +24,7 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
 	widgetGLFW = glfwCreateWindow(widgetWidth, widgetHeight, strWindowName, nullptr, nullptr);
+	glfwSetWindowPos(widgetGLFW, 400, 240);
 	glfwMakeContextCurrent(widgetGLFW);
 
 	// Set the required callback functions
@@ -59,7 +60,6 @@ void SenAbstractGLFW::finalize(void)
 void SenAbstractGLFW::showWidget()
 {
 	initialGlfwGlewGL();
-
 
 	//glutKeyboardFunc(_Key);    /* register callback for keyboard input */
 	//glutMouseFunc(mousePress);

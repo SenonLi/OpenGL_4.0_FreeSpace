@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef __SenAbstractGLWidget__
+#define __SenAbstractGLWidget__
+
 #include <stdlib.h>
 #include <stdio.h>  
 #include <iostream>
@@ -68,3 +72,7 @@ private:
 void mousePress(int button, int state, int x, int y);
 
 static void _Key(unsigned char key, int x, int y);
+
+
+
+#endif // __SenAbstractGLWidget__

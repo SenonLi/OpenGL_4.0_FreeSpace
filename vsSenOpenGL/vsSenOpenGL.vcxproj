@@ -14,6 +14,7 @@
     <ClCompile Include="Guide8th\Sen_01_Triangles.cpp" />
     <ClCompile Include="Guide8th\Sen_03_DrawCommands.cpp" />
     <ClCompile Include="Guide8th\Sen_06_CubeMap.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\SenFreeSpaceAbstract.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp" />
@@ -31,17 +32,20 @@
     <ClInclude Include="Guide8th\Sen_01_Triangles.h" />
     <ClInclude Include="Guide8th\Sen_03_DrawCommands.h" />
     <ClInclude Include="Guide8th\Sen_06_CubeMap.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\SenFreeSpaceAbstract.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
+    <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h" />
     <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h" />
     <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h" />
     <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h" />
     <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
+    <ClInclude Include="Support\SenCameraViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Guide8th\Shaders\Sen_01_Triangles.frag" />

@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef __SenAbstractGLFW__
+#define __SenAbstractGLFW__
+
 #include <stdlib.h>
 #include <stdio.h>  
 #include <iostream>
@@ -29,11 +33,6 @@ protected:
 	virtual void initialGlfwGlewGL();
 	virtual void paintGL();
 	virtual void finalize();
-	//virtual void reshape(int width, int height);
-	//virtual void mouseMove(int x, int y);
-
-	//int qtNormalizeAngle(int angle);
-
 
 
 	// shader info variables
@@ -56,3 +55,11 @@ protected:
 // Function prototypes
 void _KeyDetection(GLFWwindow* widgetGLFW, int key, int scancode, int action, int mode);
 
+
+
+
+
+
+
+
+#endif //__SenAbstractGLFW__
