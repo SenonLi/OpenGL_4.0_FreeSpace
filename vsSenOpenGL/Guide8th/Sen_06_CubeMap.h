@@ -2,7 +2,7 @@
 #ifndef __Sen_06_CubeMap__
 #define __Sen_06_CubeMap__
 
-#include "SenAbstractGLWidget.h"
+#include "Support/SenAbstractGLWidget.h"
 
 //#include "vapp.h"
 #include "Guide8th/vmath.h"

@@ -2,7 +2,7 @@
 #ifndef __Sen_01_Triangles__
 #define __Sen_01_Triangles__
 
-#include "SenAbstractGLWidget.h"
+#include "Support/SenAbstractGLWidget.h"
 
 class Sen_01_Triangles : public SenAbstractGLWidget
 {

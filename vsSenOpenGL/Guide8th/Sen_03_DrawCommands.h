@@ -2,7 +2,7 @@
 #ifndef __Sen_03_DrawCommands__
 #define __Sen_03_DrawCommands__
 
-#include "SenAbstractGLWidget.h"
+#include "Support/SenAbstractGLWidget.h"
 //#include "vapp.h"
 #include "Guide8th/vmath.h"
 

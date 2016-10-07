@@ -3,9 +3,9 @@
 #ifndef __Sen_07_TextureGLFW__
 #define __Sen_07_TextureGLFW__
 
-#include "SenAbstractGLFW.h"
+#include "Support/SenAbstractGLFW.h"
 
-#include <SOIL.h>
+#include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

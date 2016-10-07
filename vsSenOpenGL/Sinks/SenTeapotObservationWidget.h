@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SenAbstractGLWidget.h"
+#include "Support/SenAbstractGLWidget.h"
 
 class SenTeapotObservationWidget: public SenAbstractGLWidget
 {

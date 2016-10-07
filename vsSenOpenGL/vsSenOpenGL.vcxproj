@@ -21,8 +21,8 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_10_Camera.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp" />
-    <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp" />
+    <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp" />
+    <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp" />
     <ClCompile Include="Support\LoadShaders.cpp" />
     <ClCompile Include="Support\SenAbstractGLFW.cpp" />
     <ClCompile Include="Support\SenAbstractGLWidget.cpp" />
@@ -39,10 +39,10 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
-    <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h" />
-    <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h" />
-    <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h" />
-    <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h" />
+    <ClInclude Include="Sinks\SenShaderTeapotExplosion.h" />
+    <ClInclude Include="Sinks\SenTeapotObservationWidget.h" />
+    <ClInclude Include="Sinks\shaderTeapot.h" />
+    <ClInclude Include="Sinks\teapot.h" />
     <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
     <ClInclude Include="Support\SenCameraViewModel.h" />
@@ -65,8 +65,8 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
-    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag" />
-    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert" />
+    <None Include="Sinks\Shaders\teapotExplosion.frag" />
+    <None Include="Sinks\Shaders\teapotExplosion.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BA8BF5E-5636-415D-945A-08534317CC12}</ProjectGuid>
@@ -98,7 +98,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\OpenGL\SenOpenGLusr\include\soil;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\LearnOpenGL_GLFW\Shaders;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Guide8th;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Guide8th\Shaders;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Guide8th\External;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\LearnOpenGL_GLFW;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Support;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\oldTeapotExplosion;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\Sinks\shaderTeapotExplosion;C:\OpenGL\SenOpenGLusr\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\OpenGL\SenOpenGLusr;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

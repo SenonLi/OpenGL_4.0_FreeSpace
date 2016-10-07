@@ -21,8 +21,8 @@ void SenShaderTeapotExplosion::initialGlutGlewGL()
 
 	ShaderInfo shader_info[] =
 	{
-		{ GL_VERTEX_SHADER, "./Sinks/shaderTeapotExplosion/teapotExplosion.vert" },
-		{ GL_FRAGMENT_SHADER, "./Sinks/shaderTeapotExplosion/teapotExplosion.frag" },
+		{ GL_VERTEX_SHADER, "./Sinks/Shaders/teapotExplosion.vert" },
+		{ GL_FRAGMENT_SHADER, "./Sinks/Shaders/teapotExplosion.frag" },
 		{ GL_NONE, NULL }
 	};
 

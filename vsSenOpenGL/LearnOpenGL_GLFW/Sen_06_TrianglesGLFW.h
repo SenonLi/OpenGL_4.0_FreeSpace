@@ -2,7 +2,7 @@
 #ifndef __Sen_06_TrianglesGLFW__
 #define __Sen_06_TrianglesGLFW__
 
-#include "SenAbstractGLFW.h"
+#include "Support/SenAbstractGLFW.h"
 
 
 class Sen_06_TrianglesGLFW :	public SenAbstractGLFW

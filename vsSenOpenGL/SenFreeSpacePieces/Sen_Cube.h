@@ -4,7 +4,7 @@
 #define __Sen_Cube__
 
 #include <GL/glew.h>
-#include <SOIL.h>
+#include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

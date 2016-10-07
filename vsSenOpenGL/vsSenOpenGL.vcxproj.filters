@@ -5,12 +5,6 @@
       <Filter>Support</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.cpp">
-      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
-    </ClCompile>
-    <ClCompile Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.cpp">
-      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
-    </ClCompile>
     <ClCompile Include="Support\SenAbstractGLFW.cpp">
       <Filter>Support</Filter>
     </ClCompile>
@@ -44,6 +38,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\SenFreeSpaceAbstract.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp">
+      <Filter>Sources\Sinks</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp">
+      <Filter>Sources\Sinks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -73,12 +73,6 @@
     <Filter Include="Sources\Sinks">
       <UniqueIdentifier>{1870d093-680f-430d-9f23-81e69bcc150e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Sinks\oldTeapotExplosion">
-      <UniqueIdentifier>{8b2e8ca6-f1cb-49ef-9df9-2ac74f62381f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Sinks\shaderTeapotExplosion">
-      <UniqueIdentifier>{34d66eaf-ade3-406e-8690-966645be2558}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Guide8th">
       <UniqueIdentifier>{9115a61e-f16d-43ba-9881-52bcffe17708}</UniqueIdentifier>
     </Filter>
@@ -88,22 +82,16 @@
     <Filter Include="FreeSpacePieces">
       <UniqueIdentifier>{f9f69361-3cd9-4163-b6fd-91b2c38e8d17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Sinks">
+      <UniqueIdentifier>{67d1b6e3-013c-489f-b8a8-a747f5a9d291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Sinks">
+      <UniqueIdentifier>{c2d44f44-f0a2-4b4d-94cf-2e3f02179d7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Support\SenAbstractGLWidget.h">
       <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\shaderTeapotExplosion\shaderTeapot.h">
-      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\oldTeapotExplosion\SenTeapotObservationWidget.h">
-      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\oldTeapotExplosion\teapot.h">
-      <Filter>Sources\Sinks\oldTeapotExplosion</Filter>
-    </ClInclude>
-    <ClInclude Include="Sinks\shaderTeapotExplosion\SenShaderTeapotExplosion.h">
-      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
     </ClInclude>
     <ClInclude Include="Support\SenAbstractGLFW.h">
       <Filter>Support</Filter>
@@ -144,14 +132,20 @@
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h">
       <Filter>FreeSpacePieces</Filter>
     </ClInclude>
+    <ClInclude Include="Sinks\SenShaderTeapotExplosion.h">
+      <Filter>Headers\Sinks</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\SenTeapotObservationWidget.h">
+      <Filter>Headers\Sinks</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\shaderTeapot.h">
+      <Filter>Headers\Sinks</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\teapot.h">
+      <Filter>Headers\Sinks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.frag">
-      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
-    </None>
-    <None Include="Sinks\shaderTeapotExplosion\teapotExplosion.vert">
-      <Filter>Sources\Sinks\shaderTeapotExplosion</Filter>
-    </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
@@ -202,6 +196,12 @@
     </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="Sinks\Shaders\teapotExplosion.frag">
+      <Filter>Shaders\Sinks</Filter>
+    </None>
+    <None Include="Sinks\Shaders\teapotExplosion.vert">
+      <Filter>Shaders\Sinks</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #pragma once
-#include "SenAbstractGLWidget.h"
+#include "Support/SenAbstractGLWidget.h"
 #include "Guide8th/vmath.h"
 
 using namespace vmath;

@@ -2,7 +2,7 @@
 #ifndef __Sen_30_GeometryShow__
 #define __Sen_30_GeometryShow__
 
-#include "SenAbstractGLFW.h"
+#include "Support/SenAbstractGLFW.h"
 
 class Sen_30_GeometryShow :	public SenAbstractGLFW
 {

@@ -3,10 +3,10 @@
 #ifndef __SenFreeSpaceAbstract__
 #define __SenFreeSpaceAbstract__
 
-#include "SenAbstractGLFW.h"
-#include "SenCameraViewModel.h"
+#include "Support/SenAbstractGLFW.h"
+#include "Support/SenCameraViewModel.h"
 
-#include <SOIL.h>
+#include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

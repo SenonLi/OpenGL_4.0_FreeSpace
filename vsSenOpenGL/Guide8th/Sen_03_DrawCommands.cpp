@@ -1,5 +1,5 @@
 #include "Sen_03_DrawCommands.h"
-#include "shaderTeapotTest.h"
+#include "Guide8th/External/shaderTeapotTest.h"
 
 
 Sen_03_DrawCommands::Sen_03_DrawCommands()

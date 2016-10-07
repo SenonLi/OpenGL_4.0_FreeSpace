@@ -1,0 +1,39 @@
+﻿Build started 10/7/2016 9:36:28 AM.
+     1>Project "C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\vsSenOpenGL.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Guide8th\Sen_01_Triangles.cpp Guide8th\Sen_03_DrawCommands.cpp Guide8th\Sen_06_CubeMap.cpp LearnOpenGL_GLFW\SenFreeSpaceAbstract.cpp LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp LearnOpenGL_GLFW\Sen_10_Camera.cpp LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp main.cpp Sinks\SenShaderTeapotExplosion.cpp Sinks\SenTeapotObservationWidget.cpp Support\LoadShaders.cpp Support\SenAbstractGLFW.cpp Support\SenAbstractGLWidget.cpp
+         Sen_01_Triangles.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_03_DrawCommands.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_06_CubeMap.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         SenFreeSpaceAbstract.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_06_TrianglesGLFW.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_07_TextureGLFW.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_09_ModelViewProjection.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_10_Camera.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         Sen_30_GeometryShow.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         main.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         SenShaderTeapotExplosion.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         SenTeapotObservationWidget.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         LoadShaders.cpp
+     1>Support\LoadShaders.cpp(11): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         SenAbstractGLFW.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+         SenAbstractGLWidget.cpp
+     1>C:\Program Files (x86)\Windows Kits\8.1\Include\um\vgl.h(15): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+     1>Done Building Project "C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL\vsSenOpenGL.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:13.92

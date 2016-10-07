@@ -2,8 +2,8 @@
 #ifndef __Sen_09_ModelViewProjection__
 #define __Sen_09_ModelViewProjection__
 
-#include "SenAbstractGLFW.h"
-#include <SOIL.h>
+#include "Support/SenAbstractGLFW.h"
+#include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

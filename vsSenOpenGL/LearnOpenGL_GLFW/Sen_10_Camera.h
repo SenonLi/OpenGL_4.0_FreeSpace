@@ -1,13 +1,13 @@
 #pragma once
 
-#ifndef __Sen_30_GeometryShow__
-#define __Sen_30_GeometryShow__
+#ifndef __Sen_10_Camera__
+#define __Sen_10_Camera__
 
 #include "Sen_09_ModelViewProjection.h"
 
-#include "SenFreeSpaceAbstract.h"
+#include "LearnOpenGL_GLFW/SenFreeSpaceAbstract.h"
 
-#include <SOIL.h>
+#include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
