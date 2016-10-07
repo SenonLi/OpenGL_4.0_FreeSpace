@@ -4,7 +4,7 @@
 Sen_10_Camera::Sen_10_Camera()
 {
 	strWindowName = "Sen GLFW CameraModel";
-
+	widgetWidth *= 1.2;
 }
 
 
@@ -12,50 +12,31 @@ Sen_10_Camera::~Sen_10_Camera()
 {
 }
 
+void Sen_10_Camera::initialGlfwGlewGL()
+{
+	SenFreeSpaceAbstract::initialGlfwGlewGL();
+
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.frag" },
+	//	{ GL_NONE, NULL }
+	//};
+	//programA = LoadShaders(shaders);
+
+
+	backgroundCube.initialCube();
+	stillCube.initialCube();
+
+	OutputDebugString(" Sen_10_Camera Initial \n\n");
+}
 
 void Sen_10_Camera::paintGL(void)
 {
-	SenAbstractGLFW::paintGL();
+	SenFreeSpaceAbstract::paintGL();
 
-	// Draw container
-	glUseProgram(programA);
+	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
+	backgroundCube.paintCube(projection, view);
 
-	glBindVertexArray(verArrObjArray[0]);
-
-	GLfloat radius = abs(viewCenter);
-	GLfloat camX = float(sin(glfwGetTime()) * radius);
-	GLfloat camZ = float(viewCenter + cos(glfwGetTime()) * radius);
-	view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, viewCenter), glm::vec3(0.0f, 1.0f, 0.0f));
-
-	updateModelViewProjection();
-
-	bindBackgroundTexture();
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-	bindNewLayerTexture();
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-	glBindTexture(GL_TEXTURE_2D, thirdLayerTexture);
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
-
-
-	//model = glm::translate(model, cubePositions[i]);
-	//GLfloat angle = 20.0f * i;
-	//model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
-	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-	updateSecondModelViewProjection();
-	bindBackgroundTexture();
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-	bindNewLayerTexture();
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-	glBindTexture(GL_TEXTURE_2D, thirdLayerTexture);
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
-
-
-
-
-
-
-	glBindVertexArray(0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
+	stillCube.setCubeWorldAddress(glm::vec3(-1.0f, 0.0f, viewCenter));
+	stillCube.paintCube(projection, view, 0.0f);
 }

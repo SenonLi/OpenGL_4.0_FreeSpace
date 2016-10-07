@@ -22,6 +22,9 @@ public:
 
 	void showWidget();
 
+	void _protectedKeyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode) { 
+		keyDetection(widget, key, scancode, action, mode);
+	}
 
 protected:
 	GLFWwindow* widgetGLFW;
@@ -33,6 +36,8 @@ protected:
 	virtual void initialGlfwGlewGL();
 	virtual void paintGL();
 	virtual void finalize();
+
+	virtual void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 
 
 	// shader info variables
@@ -47,18 +52,10 @@ protected:
 	GLint modelMatrixLocation;
 	GLint projectionMatrixLocation;
 
+private:
+	void keyboardRegister();
 
 };
-
-
-
-// Function prototypes
-void _KeyDetection(GLFWwindow* widgetGLFW, int key, int scancode, int action, int mode);
-
-
-
-
-
 
 
 

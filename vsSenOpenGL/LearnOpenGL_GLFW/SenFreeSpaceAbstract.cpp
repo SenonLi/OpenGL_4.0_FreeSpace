@@ -3,8 +3,6 @@
 SenFreeSpaceAbstract::SenFreeSpaceAbstract()
 {
 	strWindowName = "Sen GLFW Free Space";
-
-	//widgetWidth = int(widgetWidth*1.5);
 }
 
 SenFreeSpaceAbstract::~SenFreeSpaceAbstract()
@@ -16,49 +14,101 @@ void SenFreeSpaceAbstract::initialGlfwGlewGL()
 {
 	SenAbstractGLFW::initialGlfwGlewGL();
 
-	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.frag" },
-	//	{ GL_NONE, NULL }
-	//};
-	//programA = LoadShaders(shaders);
+	cursorPositionHandlerRegister();
+	mouseScrollHandlerRegister();
+
+	// Options
+	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 
 	//projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 0.1f, 100.0f);
 	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
 
-	backgroundCube.initialCube();
-
-	OutputDebugString(" Initial GLFW Texture\n\n");
+	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
 }
 
 void SenFreeSpaceAbstract::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
 
-	// Draw container
-	glUseProgram(programA);
-	glBindVertexArray(verArrObjArray[0]);
+	// Set frame time
+	GLfloat currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
 
-	//GLfloat radius = abs(viewCenter);
-	//GLfloat camX = float(sin(glfwGetTime()) * radius);
-	//GLfloat camZ = float(viewCenter + cos(glfwGetTime()) * radius);
-	//view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, viewCenter), glm::vec3(0.0f, 1.0f, 0.0f));
-	view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, viewCenter), glm::vec3(0.0f, 1.0f, 0.0f));
+	Do_Movement();
 
-
-
-	glBindVertexArray(0);
+	view = camera.GetViewMatrix();
+	projection = glm::perspective(camera.Zoom, (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
 
 
-	backgroundCube.setCubeWorldAddress(glm::vec3(0.0f, 0.0f, viewCenter));
-	backgroundCube.paintCube(projection, view);
+
+	//view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+void SenFreeSpaceAbstract::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
+{
+	//cout << key << endl;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(widget, GL_TRUE);
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			keys[key] = true;
+		else if (action == GLFW_RELEASE)
+			keys[key] = false;
+	}
 }
 
 
-void SenFreeSpaceAbstract::finalize(void)
-{
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
-	glDeleteBuffers(1, verIndicesObjArray);
 
+SenFreeSpaceAbstract* currentInstance;
+
+
+extern "C" void _CursorPositionDetect(GLFWwindow* widget, double xpos, double ypos)
+{
+	currentInstance->_protectedCursorPositionDetect(widget, xpos, ypos);
+}
+
+void SenFreeSpaceAbstract::cursorPositionHandlerRegister()
+{
+	::currentInstance = this;
+	::glfwSetCursorPosCallback(widgetGLFW, _CursorPositionDetect);
+	//glfwSetScrollCallback(widgetGLFW, scroll_callback);
+}
+
+void SenFreeSpaceAbstract::cursorPositionDetect(GLFWwindow* widget, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	GLfloat xoffset = xpos - lastX;
+	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+
+extern "C" void _mouseScrollHandler(GLFWwindow* widget, double xoffset, double yoffset)
+{
+	currentInstance->_protectedMouseScrollHandler(widget, xoffset, yoffset);
+}
+
+void SenFreeSpaceAbstract::mouseScrollHandlerRegister()
+{
+	::currentInstance = this;
+	::glfwSetScrollCallback(widgetGLFW, _mouseScrollHandler);
+}
+
+void SenFreeSpaceAbstract::mouseScrollHandler(GLFWwindow* widget, double xoffset, double yoffset)
+{
+	yoffset /= 6.0;
+	camera.ProcessMouseScroll(yoffset);
 }

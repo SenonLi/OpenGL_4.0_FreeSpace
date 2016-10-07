@@ -18,6 +18,10 @@ public:
 		strRollTexture = "./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg";
 		strYawTexture = "./LearnOpenGL_GLFW/Images/uky.jpg";
 		strPitchTexture = "./LearnOpenGL_GLFW/Images/lau2.jpg";
+		cubeWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);
+		selfSpinAngle = 0.0f;
 	}
 	Sen_Cube(const char* strRoll, const char* strYaw, const char*strPitch, glm::vec3 cubeWorldAddr = glm::vec3(0.0f, 0.0f, -3.0f))
 		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr)
@@ -62,6 +66,8 @@ protected:
 	glm::vec3 cubeWorldSpaceAddr;
 	glm::mat4 cubeModel;
 	GLuint cubeProgram;
+	glm::vec3 selfSpinAxis;
+	GLfloat selfSpinAngle;
 
 	unsigned char* textureImagePtr;
 	const char *strRollTexture, *strYawTexture, *strPitchTexture;
@@ -69,14 +75,24 @@ protected:
 	GLuint verArrObjArray, verBufferObjArray, verIndicesObjArray;
 
 	void initialCubeModel()	{
-		cubeModel = glm::rotate(cubeModel, float(glm::radians(-75.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
+		glm::mat4 identityMatrix;
+		cubeModel = glm::translate(identityMatrix, cubeWorldSpaceAddr);
+
+		selfSpinAngle = float(glm::radians(-70.0));
+		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);
+
+		cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 	}
 	void updateCubeModel(glm::vec3 &worldSpaceAddress, float spinSpeedRate = 0.0, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
-		if (spinSpeedRate != 0.0)	{
+		//if (spinSpeedRate != 0.0)	{
 			glm::mat4 identityMatrix;
 			cubeModel = glm::translate(identityMatrix, worldSpaceAddress);
-			cubeModel = glm::rotate(cubeModel, GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0)), vecSpinAxis);
-		}
+
+			if (spinSpeedRate != 0.0)	selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
+			selfSpinAxis = vecSpinAxis;
+
+			cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
+		//}
 	}
 
 	void initialTexture()	{

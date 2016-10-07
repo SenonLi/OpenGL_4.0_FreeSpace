@@ -12,6 +12,13 @@ SenAbstractGLFW::~SenAbstractGLFW()
 	OutputDebugString("\n ~SenAbstractGLWidget()\n");
 }
 
+void SenAbstractGLFW::paintGL(void)
+{
+	// Define the viewport dimensions
+	glfwGetFramebufferSize(widgetGLFW, &widgetWidth, &widgetHeight);
+	glViewport(0, 0, widgetWidth, widgetHeight);
+}
+
 void SenAbstractGLFW::initialGlfwGlewGL()
 {
 	// Init GLFW
@@ -28,7 +35,7 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 	glfwMakeContextCurrent(widgetGLFW);
 
 	// Set the required callback functions
-	glfwSetKeyCallback(widgetGLFW, _KeyDetection);
+	keyboardRegister();
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -40,14 +47,6 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 	glEnable(GL_DEPTH_TEST);
 
 	OutputDebugString("\n Initial OpenGL\n");
-}
-
-
-void SenAbstractGLFW::paintGL(void)
-{
-	// Define the viewport dimensions
-	glfwGetFramebufferSize(widgetGLFW, &widgetWidth, &widgetHeight);
-	glViewport(0, 0, widgetWidth, widgetHeight);
 }
 
 void SenAbstractGLFW::finalize(void)
@@ -92,9 +91,23 @@ void SenAbstractGLFW::showWidget()
 }
 
 
-// Is called whenever a key is pressed/released via GLFW
-void _KeyDetection(GLFWwindow* widgetGLFW, int key, int scancode, int action, int mode)
+SenAbstractGLFW* currentInstance;
+
+extern "C" void _KeyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
+{
+	currentInstance->_protectedKeyDetection(widget, key, scancode, action, mode);
+}
+
+void SenAbstractGLFW::keyboardRegister()
+{
+	::currentInstance = this;
+	::glfwSetKeyCallback(widgetGLFW, _KeyDetection);
+
+}
+
+void SenAbstractGLFW::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(widgetGLFW, GL_TRUE);
+		glfwSetWindowShouldClose(widget, GL_TRUE);
 }
+
