@@ -4,7 +4,6 @@
 Sen_10_Camera::Sen_10_Camera()
 {
 	strWindowName = "Sen GLFW CameraModel";
-	widgetWidth *= 1.2;
 }
 
 
@@ -27,7 +26,6 @@ void Sen_10_Camera::initialGlfwGlewGL()
 
 
 	backgroundCube.initialCube();
-	stillCube.initialCube();
 
 	OutputDebugString(" Sen_10_Camera Initial \n\n");
 }
@@ -38,12 +36,9 @@ void Sen_10_Camera::paintGL(void)
 
 	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
 	backgroundCube.paintCube(projection, view);
+}
 
-	stillCube.paintSenLogoCube(widgetWidth / DEFAULT_widgetWidth, widgetHeight / DEFAULT_widgetHeight);
 
-	//glm::vec3 stillCubeAddress = camera.getSenLogoPosition(GLfloat(widgetWidth)
-	//	, GLfloat(widgetHeight), camera.Zoom );
-	//stillCube.setCubeWorldAddress(stillCubeAddress);
-	//stillCube.setCubeScaleRatio( 8.0f * camera.Zoom * glm::vec3(1.0f, 1.0f, 1.0f) / float(glm::radians(60.0)));
-	//stillCube.paintCube(projection, view);
+void Sen_10_Camera::cleanFreeSpace(void)	{
+	backgroundCube.finalize();
 }

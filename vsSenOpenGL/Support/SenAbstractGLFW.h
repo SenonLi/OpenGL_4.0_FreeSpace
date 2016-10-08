@@ -39,7 +39,7 @@ protected:
 
 	virtual void initialGlfwGlewGL();
 	virtual void paintGL();
-	virtual void finalize();
+	virtual void finalize() { ; }
 
 	virtual void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 

@@ -17,10 +17,9 @@ public:
 protected:
 	void paintGL(void);
 	void initialGlfwGlewGL();
-	//void finalize();
+	void cleanFreeSpace();
 
-
-	Sen_Cube backgroundCube, stillCube;
+	Sen_Cube backgroundCube;
 
 	float viewCenter = -3.0f;
 };

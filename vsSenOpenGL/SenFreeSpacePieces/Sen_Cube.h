@@ -27,7 +27,9 @@ public:
 		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr), textureImagePtr(NULL)
 	{ ; }
 	
-	virtual ~Sen_Cube()	{ ; }
+	virtual ~Sen_Cube()	{ 
+		finalize(); 
+	}
 
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
@@ -42,24 +44,21 @@ public:
 
 	virtual void finalize()	{
 		// Properly de-allocate all resources once they've outlived their purpose
-		glDeleteTextures(1, &rollTexture);
-		glDeleteTextures(1, &yawTexture);
-		glDeleteTextures(1, &pitchTexture);
+		if (glIsTexture(rollTexture))			glDeleteTextures(1, &rollTexture);
+		if (glIsTexture(yawTexture))			glDeleteTextures(1, &yawTexture);
+		if (glIsTexture(pitchTexture))			glDeleteTextures(1, &pitchTexture);
 
-		glDeleteVertexArrays(1, &verArrObjArray);
-		glDeleteBuffers(1, &verBufferObjArray);
-		glDeleteBuffers(1, &verIndicesObjArray);
+		if (glIsVertexArray(verArrayObject))	glDeleteVertexArrays(1, &verArrayObject);
+		if (glIsBuffer(verBufferObject))		glDeleteBuffers(1, &verBufferObject);
+		if (glIsBuffer(verIndicesObject))		glDeleteBuffers(1, &verIndicesObject);
 
-		if (textureImagePtr)	delete textureImagePtr;
-		if (strRollTexture)		delete strRollTexture;
-		if (strYawTexture)		delete strYawTexture;
-		if (strPitchTexture)	delete strPitchTexture;
+		if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
 	}
 
 	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{
 
-		GLfloat widthMax = 1.0f * widthRatio;
-		GLfloat heightMax = 1.0f * heightRatio;
+		GLfloat widthMax = widthRatio;
+		GLfloat heightMax = heightRatio;
 
 		logoCubeCameraView = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 100.0f);
@@ -70,7 +69,7 @@ public:
 		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
 		glUseProgram(cubeProgram);
-		glBindVertexArray(verArrObjArray);
+		glBindVertexArray(verArrayObject);
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(logoCubeModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
@@ -85,13 +84,13 @@ public:
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
 		glBindVertexArray(0);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glUseProgram(0);
 	}
 	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 1.5, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
 
 		glUseProgram(cubeProgram);
-		glBindVertexArray(verArrObjArray);
+		glBindVertexArray(verArrayObject);
 
 		updateCubeModel(cubeWorldSpaceAddr, spinSpeedRate, vecSpinAxis);
 
@@ -109,8 +108,8 @@ public:
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
 		glBindVertexArray(0);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glUseProgram(0);
 	}
 
 protected:
@@ -123,7 +122,7 @@ protected:
 	unsigned char* textureImagePtr;
 	const char *strRollTexture, *strYawTexture, *strPitchTexture;
 	GLuint rollTexture, yawTexture, pitchTexture;
-	GLuint verArrObjArray, verBufferObjArray, verIndicesObjArray;
+	GLuint verArrayObject, verBufferObject, verIndicesObject;
 
 	void initialCubeModel()	{
 		glm::mat4 identityMatrix;
@@ -206,17 +205,17 @@ protected:
 		};
 
 
-		glGenVertexArrays(1, &verArrObjArray);
-		glGenBuffers(1, &verBufferObjArray);
-		glGenBuffers(1, &verIndicesObjArray);
+		glGenVertexArrays(1, &verArrayObject);
+		glGenBuffers(1, &verBufferObject);
+		glGenBuffers(1, &verIndicesObject);
 		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 
-		glBindVertexArray(verArrObjArray);
+		glBindVertexArray(verArrayObject);
 
-		glBindBuffer(GL_ARRAY_BUFFER, verBufferObjArray);
+		glBindBuffer(GL_ARRAY_BUFFER, verBufferObject);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, verIndicesObjArray);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, verIndicesObject);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		// Position attribute

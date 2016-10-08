@@ -213,10 +213,6 @@ void Sen_09_ModelViewProjection::paintGL(void)
 	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
 
-
-
-
-
 	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -270,8 +266,13 @@ void Sen_09_ModelViewProjection::bindBackgroundTexture()
 
 void Sen_09_ModelViewProjection::finalize(void)
 {
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
-	glDeleteBuffers(1, verIndicesObjArray);
+	if (glIsTexture(defaultTexture))			glDeleteTextures(1, &defaultTexture);
+	if (glIsTexture(newLayerTexture))			glDeleteTextures(1, &newLayerTexture);
+	if (glIsTexture(thirdLayerTexture))			glDeleteTextures(1, &thirdLayerTexture);
 
+	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
+	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
+	if (glIsBuffer(verIndicesObjArray[0]))		glDeleteBuffers(1, verIndicesObjArray);
+
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }

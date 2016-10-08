@@ -52,13 +52,6 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 	OutputDebugString("\n Initial OpenGL\n");
 }
 
-void SenAbstractGLFW::finalize(void)
-{
-	// Properly de-allocate all resources once they've outlived their purpose
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
-}
-
 void SenAbstractGLFW::showWidget()
 {
 	initialGlfwGlewGL();

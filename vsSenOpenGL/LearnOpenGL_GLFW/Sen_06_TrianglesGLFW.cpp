@@ -68,6 +68,8 @@ void Sen_06_TrianglesGLFW::paintGL(void)
 
 void Sen_06_TrianglesGLFW::finalize(void)
 {
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
+	if( glIsVertexArray(verArrObjArray[0]))	glDeleteVertexArrays(1, verArrObjArray);	
+	if (glIsBuffer(verBufferObjArray[0]))	glDeleteBuffers(1, verBufferObjArray);
+
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }

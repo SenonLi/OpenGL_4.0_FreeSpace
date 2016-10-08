@@ -28,12 +28,6 @@ void Sen_30_GeometryShow::paintGL(void)
 	glBindVertexArray(0);
 }
 
-void Sen_30_GeometryShow::finalize(void)
-{
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
-}
-
 void Sen_30_GeometryShow::initialGlfwGlewGL()
 {
 	SenAbstractGLFW::initialGlfwGlewGL();
@@ -68,15 +62,6 @@ void Sen_30_GeometryShow::initialVertices()
 	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 	glBindVertexArray(verArrObjArray[0]);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points, GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
-	//glBindVertexArray(0);
-
-
 	glBindBuffer(GL_ARRAY_BUFFER, verBufferObjArray[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
@@ -89,4 +74,13 @@ void Sen_30_GeometryShow::initialVertices()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+}
+
+
+void Sen_30_GeometryShow::finalize(void)
+{
+	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
+	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
+
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }

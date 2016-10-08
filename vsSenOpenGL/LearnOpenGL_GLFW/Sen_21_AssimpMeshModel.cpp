@@ -49,8 +49,7 @@ void Sen_21_AssimpMeshModel::paintFreeSpaceGL(void)
 
 void Sen_21_AssimpMeshModel::cleanFreeSpace(void)
 {
-
 	if (nanoSuitModel)	delete nanoSuitModel;
 
-
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }

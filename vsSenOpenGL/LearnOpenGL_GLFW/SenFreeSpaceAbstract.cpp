@@ -45,14 +45,13 @@ void SenFreeSpaceAbstract::paintGL(void)
 	// Paint from SubClass
 	paintFreeSpaceGL();
 
+
 	// Paint Sen FreeSpace Logo
-	SenFreeSpaceLogoCube.paintSenLogoCube(widgetWidth / SenFREESPACE_widgetWidth, widgetHeight / SenFREESPACE_widgetHeight);
+	SenFreeSpaceLogoCube.paintSenLogoCube(GLfloat(widgetWidth) / GLfloat(SenFREESPACE_widgetWidth), GLfloat(widgetHeight) / GLfloat(SenFREESPACE_widgetHeight));
 }
 
 void SenFreeSpaceAbstract::finalize(void)
 {
-	SenAbstractGLFW::finalize();
-
 	cleanFreeSpace();
 
 	// Clean SenFreeSpaceLogo

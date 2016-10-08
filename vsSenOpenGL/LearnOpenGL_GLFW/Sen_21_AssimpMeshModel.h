@@ -20,7 +20,6 @@ protected:
 	//void finalize();
 
 	SenMeshLinkModel *nanoSuitModel;
-
 };
 
 

@@ -163,8 +163,12 @@ void Sen_07_TextureGLFW::bindBackgroundTexture()
 
 void Sen_07_TextureGLFW::finalize(void)
 {
-	glDeleteVertexArrays(1, verArrObjArray);
-	glDeleteBuffers(1, verBufferObjArray);
-	glDeleteBuffers(1, verIndicesObjArray);
+	if (glIsTexture(defaultTexture))			glDeleteTextures(1, &defaultTexture);
+	if (glIsTexture(newLayerTexture))			glDeleteTextures(1, &newLayerTexture);
 
+	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
+	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
+	if (glIsBuffer(verIndicesObjArray[0]))		glDeleteBuffers(1, verIndicesObjArray);
+
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }
