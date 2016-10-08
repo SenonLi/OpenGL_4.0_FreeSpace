@@ -61,6 +61,7 @@ void SenFreeSpaceAbstract::keyDetection(GLFWwindow* widget, int key, int scancod
 }
 
 
+#pragma region "C style Registration of Class Method for Inheritance"
 
 SenFreeSpaceAbstract* currentInstance;
 
@@ -112,3 +113,5 @@ void SenFreeSpaceAbstract::mouseScrollHandler(GLFWwindow* widget, double xoffset
 	yoffset /= 6.0;
 	camera.ProcessMouseScroll(yoffset);
 }
+
+#pragma endregion

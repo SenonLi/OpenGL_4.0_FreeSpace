@@ -67,7 +67,6 @@ void SenAbstractGLFW::showWidget()
 	//drawMethodRegister();
 	//mouseMoveRegister();
 
-
 	// Game loop
 	while (!glfwWindowShouldClose(widgetGLFW))
 	{

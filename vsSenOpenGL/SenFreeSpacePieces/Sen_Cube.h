@@ -32,7 +32,7 @@ public:
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
 
-	void initialCube()	{
+	virtual void initialCube()	{
 		initialCubeShaders();
 		initialVertices();
 		initialTexture();
@@ -49,6 +49,8 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(cubeModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		glActiveTexture(GL_TEXTURE0);
 
 		glBindTexture(GL_TEXTURE_2D, rollTexture);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
