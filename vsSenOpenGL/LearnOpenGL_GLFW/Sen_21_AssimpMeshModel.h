@@ -4,7 +4,6 @@
 
 #include "LearnOpenGL_GLFW/SenFreeSpaceAbstract.h"
 
-#include "SenFreeSpacePieces/Sen_Cube.h"
 #include "Support/SenMeshLinkModel.h"
 
 class Sen_21_AssimpMeshModel :	public SenFreeSpaceAbstract
@@ -14,12 +13,12 @@ public:
 	virtual ~Sen_21_AssimpMeshModel();
 
 protected:
-	void paintGL(void);
 	void initialGlfwGlewGL();
+	void paintFreeSpaceGL(void);
+	void cleanFreeSpace(void);
 
 	//void finalize();
 
-	Sen_Cube stillCube;
 	SenMeshLinkModel *nanoSuitModel;
 
 };

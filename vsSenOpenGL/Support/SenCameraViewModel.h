@@ -69,9 +69,6 @@ public:
 
 	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix()		{	return glm::lookAt(this->Position, this->Position + this->Front, this->Up);	}
-	glm::vec3 getSenLogoPosition(GLfloat width, GLfloat height, GLfloat zoom)	{
-		return  this->Position + 8.0f * (8.5f * this->Front + zoom * 3.5f * this->Up + zoom * 4.1f * height * this->Right / width);
-	}
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter 
 	// in the form of camera defined ENUM (to abstract it from windowing systems)

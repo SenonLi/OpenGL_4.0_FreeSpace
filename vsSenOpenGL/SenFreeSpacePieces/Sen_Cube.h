@@ -13,7 +13,7 @@
 class Sen_Cube
 {
 public:
-	Sen_Cube()
+	Sen_Cube() : textureImagePtr(NULL), selfSpinAngle(0.0f)
 	{
 		strRollTexture = "./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg";
 		strYawTexture = "./LearnOpenGL_GLFW/Images/uky.jpg";
@@ -21,11 +21,10 @@ public:
 		cubeWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);
-		selfSpinAngle = 0.0f;
 		scaleRatio = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 	Sen_Cube(const char* strRoll, const char* strYaw, const char*strPitch, glm::vec3 cubeWorldAddr = glm::vec3(0.0f, 0.0f, -3.0f))
-		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr)
+		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr), textureImagePtr(NULL)
 	{ ; }
 	
 	virtual ~Sen_Cube()	{ ; }
@@ -39,6 +38,22 @@ public:
 		initialVertices();
 		initialTexture();
 		initialCubeModel();
+	}
+
+	virtual void finalize()	{
+		// Properly de-allocate all resources once they've outlived their purpose
+		glDeleteTextures(1, &rollTexture);
+		glDeleteTextures(1, &yawTexture);
+		glDeleteTextures(1, &pitchTexture);
+
+		glDeleteVertexArrays(1, &verArrObjArray);
+		glDeleteBuffers(1, &verBufferObjArray);
+		glDeleteBuffers(1, &verIndicesObjArray);
+
+		if (textureImagePtr)	delete textureImagePtr;
+		if (strRollTexture)		delete strRollTexture;
+		if (strYawTexture)		delete strYawTexture;
+		if (strPitchTexture)	delete strPitchTexture;
 	}
 
 	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{

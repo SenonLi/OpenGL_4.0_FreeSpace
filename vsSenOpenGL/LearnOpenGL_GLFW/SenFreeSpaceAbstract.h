@@ -3,9 +3,6 @@
 #ifndef __SenFreeSpaceAbstract__
 #define __SenFreeSpaceAbstract__
 
-#include "Support/SenAbstractGLFW.h"
-#include "Support/SenCameraViewModel.h"
-
 #include <soil/SOIL.h>
 // GLM Mathematics
 #include <glm/glm.hpp>
@@ -13,8 +10,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+#include "Support/SenAbstractGLFW.h"
+#include "Support/SenCameraViewModel.h"
+#include "SenFreeSpacePieces/Sen_Cube.h"
 
 
 class SenFreeSpaceAbstract : public SenAbstractGLFW
@@ -33,9 +31,12 @@ public:
 protected:
 	virtual void cursorPositionDetect(GLFWwindow* widget, double xpos, double ypos);
 	virtual void mouseScrollHandler(GLFWwindow* widget, double xoffset, double yoffset);
+	virtual void paintFreeSpaceGL(void)	{ ; }
+	virtual void cleanFreeSpace(void)	{ ; }
 
 	void paintGL(void);
 	void initialGlfwGlewGL();
+	void finalize();
 
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 
@@ -69,9 +70,14 @@ protected:
 	}
 
 
+	const GLint SenFREESPACE_widgetWidth = 960;
+	const GLint SenFREESPACE_widgetHeight = GLint(SenFREESPACE_widgetWidth * SenGOLDEN_SectionScale);
+
 private:
 	void cursorPositionHandlerRegister();
 	void mouseScrollHandlerRegister();
+
+	Sen_Cube SenFreeSpaceLogoCube;
 
 };
 

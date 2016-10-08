@@ -3,6 +3,8 @@
 SenFreeSpaceAbstract::SenFreeSpaceAbstract()
 {
 	strWindowName = "Sen GLFW Free Space";
+	widgetWidth = SenFREESPACE_widgetWidth;
+	widgetHeight = SenFREESPACE_widgetHeight;
 }
 
 SenFreeSpaceAbstract::~SenFreeSpaceAbstract()
@@ -13,16 +15,16 @@ SenFreeSpaceAbstract::~SenFreeSpaceAbstract()
 void SenFreeSpaceAbstract::initialGlfwGlewGL()
 {
 	SenAbstractGLFW::initialGlfwGlewGL();
-
 	cursorPositionHandlerRegister();
 	mouseScrollHandlerRegister();
-
 	// Options
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-
 	//projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 0.1f, 100.0f);
 	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
+
+
+	SenFreeSpaceLogoCube.initialCube();
 
 	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
 }
@@ -30,21 +32,33 @@ void SenFreeSpaceAbstract::initialGlfwGlewGL()
 void SenFreeSpaceAbstract::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
-
-	// Set frame time
+	
+	// Set CameraView and Projection
 	GLfloat currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
-
 	Do_Movement();
 
 	view = camera.GetViewMatrix();
 	projection = glm::perspective(camera.Zoom, (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
 
+	// Paint from SubClass
+	paintFreeSpaceGL();
 
-
-	//view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	// Paint Sen FreeSpace Logo
+	SenFreeSpaceLogoCube.paintSenLogoCube(widgetWidth / SenFREESPACE_widgetWidth, widgetHeight / SenFREESPACE_widgetHeight);
 }
+
+void SenFreeSpaceAbstract::finalize(void)
+{
+	SenAbstractGLFW::finalize();
+
+	cleanFreeSpace();
+
+	// Clean SenFreeSpaceLogo
+	SenFreeSpaceLogoCube.finalize();
+}
+
 
 void SenFreeSpaceAbstract::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
 {
