@@ -14,11 +14,11 @@
 
 int main(int argc, char *argv[])
 {
-	//Sen_10_Camera cameraWidget;
-	//cameraWidget.showWidget();
-
 	Sen_21_AssimpMeshModel glfwSenCubeWidget;
 	glfwSenCubeWidget.showWidget();
+
+	//Sen_10_Camera cameraWidget;
+	//cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;
 	//glfwTextureWidget.showWidget();

@@ -110,7 +110,7 @@ void SenFreeSpaceAbstract::mouseScrollHandlerRegister()
 
 void SenFreeSpaceAbstract::mouseScrollHandler(GLFWwindow* widget, double xoffset, double yoffset)
 {
-	yoffset /= 6.0;
+	yoffset /= DEFAULT_zoomRatio;
 	camera.ProcessMouseScroll(yoffset);
 }
 

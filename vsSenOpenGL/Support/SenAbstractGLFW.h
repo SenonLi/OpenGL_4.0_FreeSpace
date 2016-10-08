@@ -32,7 +32,7 @@ public:
 
 protected:
 	GLFWwindow* widgetGLFW;
-	int widgetWidth, widgetHeight;
+	GLint widgetWidth, widgetHeight;
 	char* strWindowName;
 	float xRot, yRot;
 	float aspect;
@@ -55,6 +55,11 @@ protected:
 
 	GLint modelMatrixLocation;
 	GLint projectionMatrixLocation;
+
+
+	const GLint DEFAULT_widgetWidth = 640;
+	const GLint DEFAULT_widgetHeight = 640;
+	const GLfloat DEFAULT_zoomRatio = 6.0;
 
 private:
 	void keyboardRegister();

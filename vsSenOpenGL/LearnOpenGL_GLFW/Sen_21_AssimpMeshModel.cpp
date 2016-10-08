@@ -34,8 +34,9 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 
 
 
-	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
+	//nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 
+	nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
 
 
 	OutputDebugString(" Sen_10_Camera Initial \n\n");
@@ -52,8 +53,7 @@ void Sen_21_AssimpMeshModel::paintGL(void)
 
 	nanoSuitModel->paintMeshLinkModel(programA, view, model, projection);
 
-	stillCube.setCubeWorldAddress(glm::vec3(-1.5f, 0.0f, -3.0f));
-	stillCube.paintCube(projection, view);
 
+	stillCube.paintSenLogoCube(widgetWidth / DEFAULT_widgetWidth, widgetHeight / DEFAULT_widgetHeight);
 }
 

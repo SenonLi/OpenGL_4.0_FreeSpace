@@ -68,9 +68,9 @@ public:
 	}
 
 	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
-	glm::mat4 GetViewMatrix()
-	{
-		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
+	glm::mat4 GetViewMatrix()		{	return glm::lookAt(this->Position, this->Position + this->Front, this->Up);	}
+	glm::vec3 getSenLogoPosition(GLfloat width, GLfloat height, GLfloat zoom)	{
+		return  this->Position + 8.0f * (8.5f * this->Front + zoom * 3.5f * this->Up + zoom * 4.1f * height * this->Right / width);
 	}
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter 
@@ -113,7 +113,7 @@ public:
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
 	void ProcessMouseScroll(GLfloat yoffset)
 	{
-		float maxRadianDegree = 90.0;
+		float maxRadianDegree = 60.0;
 
 		//if (this->Zoom >= 1.0f && this->Zoom <= maxRadianDegree)
 		//	this->Zoom -= yoffset;

@@ -22,6 +22,7 @@ public:
 
 		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);
 		selfSpinAngle = 0.0f;
+		scaleRatio = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 	Sen_Cube(const char* strRoll, const char* strYaw, const char*strPitch, glm::vec3 cubeWorldAddr = glm::vec3(0.0f, 0.0f, -3.0f))
 		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr)
@@ -31,6 +32,7 @@ public:
 
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
+	inline void setCubeScaleRatio(glm::vec3 scale) { scaleRatio = scale; }
 
 	virtual void initialCube()	{
 		initialCubeShaders();
@@ -39,6 +41,38 @@ public:
 		initialCubeModel();
 	}
 
+	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{
+
+		GLfloat widthMax = 1.0f * widthRatio;
+		GLfloat heightMax = 1.0f * heightRatio;
+
+		logoCubeCameraView = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 100.0f);
+
+		glm::mat4 identityMatrix;
+		logoCubeModel = glm::translate(identityMatrix, glm::vec3(0.8f * widthMax, 0.8f * heightMax, -18.0f));
+		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(0.16f, 0.16f, 0.16f));
+		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
+
+		glUseProgram(cubeProgram);
+		glBindVertexArray(verArrObjArray);
+
+		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(logoCubeModel));
+		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
+		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(logoCubeProjection));
+		glActiveTexture(GL_TEXTURE0);
+
+		glBindTexture(GL_TEXTURE_2D, rollTexture);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+		glBindTexture(GL_TEXTURE_2D, yawTexture);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
+		glBindTexture(GL_TEXTURE_2D, pitchTexture);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
+
+		glBindVertexArray(0);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 1.5, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
 
 		glUseProgram(cubeProgram);
@@ -65,8 +99,8 @@ public:
 	}
 
 protected:
-	glm::vec3 cubeWorldSpaceAddr;
-	glm::mat4 cubeModel;
+	glm::vec3 cubeWorldSpaceAddr, scaleRatio;
+	glm::mat4 cubeModel, logoCubeCameraView, logoCubeModel, logoCubeProjection;
 	GLuint cubeProgram;
 	glm::vec3 selfSpinAxis;
 	GLfloat selfSpinAngle;
@@ -85,10 +119,13 @@ protected:
 
 		cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 	}
+
 	void updateCubeModel(glm::vec3 &worldSpaceAddress, float spinSpeedRate = 0.0, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
 		//if (spinSpeedRate != 0.0)	{
 			glm::mat4 identityMatrix;
 			cubeModel = glm::translate(identityMatrix, worldSpaceAddress);
+
+			cubeModel = glm::scale(cubeModel, scaleRatio);
 
 			if (spinSpeedRate != 0.0)	selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
 			selfSpinAxis = vecSpinAxis;

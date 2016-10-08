@@ -2,9 +2,12 @@
 
 
 SenAbstractGLFW::SenAbstractGLFW()
-	:widgetHeight(640), widgetWidth(640), xRot(0), yRot(0), aspect(1.0)
+	:xRot(0), yRot(0), aspect(1.0)
 {
 	strWindowName = "Sen GLFW Application";
+
+	widgetWidth = DEFAULT_widgetWidth;
+	widgetHeight = DEFAULT_widgetHeight;
 }
 
 SenAbstractGLFW::~SenAbstractGLFW()

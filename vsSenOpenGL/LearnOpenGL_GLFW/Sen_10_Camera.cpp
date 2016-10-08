@@ -16,6 +16,8 @@ void Sen_10_Camera::initialGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initialGlfwGlewGL();
 
+	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
 	//ShaderInfo shaders[] = {
 	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
 	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.frag" },
@@ -37,6 +39,11 @@ void Sen_10_Camera::paintGL(void)
 	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
 	backgroundCube.paintCube(projection, view);
 
-	stillCube.setCubeWorldAddress(glm::vec3(-1.0f, 0.0f, viewCenter));
-	stillCube.paintCube(projection, view, 0.0f);
+	stillCube.paintSenLogoCube(widgetWidth / DEFAULT_widgetWidth, widgetHeight / DEFAULT_widgetHeight);
+
+	//glm::vec3 stillCubeAddress = camera.getSenLogoPosition(GLfloat(widgetWidth)
+	//	, GLfloat(widgetHeight), camera.Zoom );
+	//stillCube.setCubeWorldAddress(stillCubeAddress);
+	//stillCube.setCubeScaleRatio( 8.0f * camera.Zoom * glm::vec3(1.0f, 1.0f, 1.0f) / float(glm::radians(60.0)));
+	//stillCube.paintCube(projection, view);
 }
