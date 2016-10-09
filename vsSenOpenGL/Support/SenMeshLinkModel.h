@@ -52,7 +52,7 @@ protected:
 	string modelDirectory;
 	vector<SenMeshStruct> meshesVector;
 	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-	vector<TextureStruct> textures_loaded;	
+	vector<TextureStruct> meshLinkTotalLoadedTexStructVector;	
 
 private:
 	/*  Functions   */
@@ -171,11 +171,11 @@ private:
 			prtMeshMaterialStruct->GetTexture(texMaterialType, i, &imageNameStruct);
 			// Check if textureStruct was loaded before and if so, continue to next iteration: skip loading a new textureStruct
 			GLboolean skip = false;
-			for (GLuint j = 0; j < textures_loaded.size(); j++)
+			for (GLuint j = 0; j < meshLinkTotalLoadedTexStructVector.size(); j++)
 			{
-				if (textures_loaded[j].srcImageName == imageNameStruct)
+				if (meshLinkTotalLoadedTexStructVector[j].srcImageName == imageNameStruct)
 				{
-					materialTexStructVector.push_back(textures_loaded[j]);
+					materialTexStructVector.push_back(meshLinkTotalLoadedTexStructVector[j]);
 					skip = true; // A textureStruct with the same filepath has already been loaded, continue to next one. (optimization)
 					break;
 				}
@@ -189,22 +189,22 @@ private:
 
 				materialTexStructVector.push_back(textureStruct);
 				// Store it as textureStruct loaded for entire model, to ensure we won't unneceserily load duplicated materialTexStructVector.
-				this->textures_loaded.push_back(textureStruct);  
+				this->meshLinkTotalLoadedTexStructVector.push_back(textureStruct);  
 			}
 		}
 		return materialTexStructVector;
 	}
 
 
-	GLint TextureFromFile(const char* path, string modelDirectory)
+	GLint TextureFromFile(const char* imageName, string modelDirectory)
 	{
 		//Generate texture ID and load texture data 
-		string filename = string(path);
-		filename = modelDirectory + '/' + filename;
+		string imageFileName = string(imageName);
+		imageFileName = modelDirectory + '/' + imageFileName;
 		GLuint textureID;
 		glGenTextures(1, &textureID);
 		int width, height;
-		unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		unsigned char* image = SOIL_load_image(imageFileName.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 		// Assign texture to ID
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
