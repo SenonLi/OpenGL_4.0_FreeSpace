@@ -167,13 +167,13 @@ private:
 		vector<TextureStruct> materialTexStructVector;
 		for (GLuint i = 0; i < prtMeshMaterialStruct->GetTextureCount(texMaterialType); i++)
 		{
-			aiString str;
-			prtMeshMaterialStruct->GetTexture(texMaterialType, i, &str);
+			aiString imageNameStruct;
+			prtMeshMaterialStruct->GetTexture(texMaterialType, i, &imageNameStruct);
 			// Check if textureStruct was loaded before and if so, continue to next iteration: skip loading a new textureStruct
 			GLboolean skip = false;
 			for (GLuint j = 0; j < textures_loaded.size(); j++)
 			{
-				if (textures_loaded[j].srcImageName == str)
+				if (textures_loaded[j].srcImageName == imageNameStruct)
 				{
 					materialTexStructVector.push_back(textures_loaded[j]);
 					skip = true; // A textureStruct with the same filepath has already been loaded, continue to next one. (optimization)
@@ -183,9 +183,9 @@ private:
 			if (!skip)
 			{   // If textureStruct hasn't been loaded already, load it
 				TextureStruct textureStruct;
-				textureStruct.texID = TextureFromFile(str.C_Str(), this->modelDirectory);
+				textureStruct.texID = TextureFromFile(imageNameStruct.C_Str(), this->modelDirectory);
 				textureStruct.inShaderTexTypeName = texNameInShader;
-				textureStruct.srcImageName = str;
+				textureStruct.srcImageName = imageNameStruct;
 
 				materialTexStructVector.push_back(textureStruct);
 				// Store it as textureStruct loaded for entire model, to ensure we won't unneceserily load duplicated materialTexStructVector.
