@@ -25,7 +25,7 @@ void Sen_10_Camera::initialGlfwGlewGL()
 	//programA = LoadShaders(shaders);
 
 
-	backgroundCube.initialCube();
+	backgroundCube.initialCubeGL();
 
 	OutputDebugString(" Sen_10_Camera Initial \n\n");
 }

@@ -24,7 +24,7 @@ void SenFreeSpaceAbstract::initialGlfwGlewGL()
 	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
 
 
-	SenFreeSpaceLogoCube.initialCube();
+	SenFreeSpaceLogoCube.initialCubeGL();
 
 	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
 }

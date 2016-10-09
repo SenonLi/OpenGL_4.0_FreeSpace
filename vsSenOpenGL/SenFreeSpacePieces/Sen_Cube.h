@@ -35,7 +35,7 @@ public:
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
 	inline void setCubeScaleRatio(glm::vec3 scale) { scaleRatio = scale; }
 
-	virtual void initialCube()	{
+	virtual void initialCubeGL()	{
 		initialCubeShaders();
 		initialVertices();
 		initialTexture();

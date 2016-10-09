@@ -51,8 +51,8 @@ public:
 
 private:
 	/*  SenMeshLinkModel Data  */
-	vector<Mesh> meshes;
 	string directory;
+	vector<SenMeshStruct> meshes;
 	vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
 	/*  Functions   */
@@ -94,7 +94,7 @@ private:
 
 	}
 
-	Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+	SenMeshStruct processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		// Data to fill
 		vector<Vertex> vertices;
@@ -158,7 +158,7 @@ private:
 		}
 
 		// Return a mesh object created from the extracted mesh data
-		return Mesh(vertices, indices, textures);
+		return SenMeshStruct(vertices, indices, textures);
 	}
 
 	// Checks all material textures of a given type and loads the textures if they're not loaded yet.

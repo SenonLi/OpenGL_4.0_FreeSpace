@@ -27,9 +27,9 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 	programA = LoadShaders(shaders);
 
 
-	//nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
+	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 
-	nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
+	//nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
 
 
 	OutputDebugString(" Sen_10_Camera Initial \n\n");
@@ -51,5 +51,5 @@ void Sen_21_AssimpMeshModel::cleanFreeSpace(void)
 {
 	if (nanoSuitModel)	delete nanoSuitModel;
 
-	if (glIsProgram(programA))				glDeleteProgram(programA);
+	if (glIsProgram(programA))		glDeleteProgram(programA);
 }
