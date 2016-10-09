@@ -51,7 +51,8 @@ protected:
 	/*  SenMeshLinkModel Data  */
 	string modelDirectory;
 	vector<SenMeshStruct> meshesVector;
-	vector<TextureStruct> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+	vector<TextureStruct> textures_loaded;	
 
 private:
 	/*  Functions   */
@@ -95,46 +96,46 @@ private:
 	SenMeshStruct processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		// Data to fill
-		vector<VertexStruct> vertexStructVector;
-		vector<GLuint> indexVector;
-		vector<TextureStruct> textureStructVector;
+		vector<VertexStruct> meshVertexStructVector;
+		vector<GLuint> meshIndexVector;
+		vector<TextureStruct> meshTextureStructVector;
 
-		// Walk through each vertexStruct of the mesh's vertexStructVector
+		// Walk through each meshVertexStruct of the mesh's meshVertexStructVector
 		for (GLuint i = 0; i < mesh->mNumVertices; i++)
 		{
-			VertexStruct vertexStruct;
+			VertexStruct meshVertexStruct;
 			glm::vec3 tmpVerAttriVector; // We declare a placeholder tmpVerAttriVector since assimp uses its own tmpVerAttriVector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 			// Positions
 			tmpVerAttriVector.x = mesh->mVertices[i].x;
 			tmpVerAttriVector.y = mesh->mVertices[i].y;
 			tmpVerAttriVector.z = mesh->mVertices[i].z;
-			vertexStruct.Position = tmpVerAttriVector;
+			meshVertexStruct.Position = tmpVerAttriVector;
 			// Normals
 			tmpVerAttriVector.x = mesh->mNormals[i].x;
 			tmpVerAttriVector.y = mesh->mNormals[i].y;
 			tmpVerAttriVector.z = mesh->mNormals[i].z;
-			vertexStruct.Normal = tmpVerAttriVector;
+			meshVertexStruct.Normal = tmpVerAttriVector;
 			// TextureStruct Coordinates
 			if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 			{
 				glm::vec2 tmpTexCoordVector;
-				// A vertexStruct can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-				// use models where a vertexStruct can have multiple texture coordinates so we always take the first set (0).
+				// A meshVertexStruct can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+				// use models where a meshVertexStruct can have multiple texture coordinates so we always take the first set (0).
 				tmpTexCoordVector.x = mesh->mTextureCoords[0][i].x;
 				tmpTexCoordVector.y = mesh->mTextureCoords[0][i].y;
-				vertexStruct.TexCoords = tmpTexCoordVector;
+				meshVertexStruct.TexCoords = tmpTexCoordVector;
 			}
-			else	vertexStruct.TexCoords = glm::vec2(0.0f, 0.0f);
+			else	meshVertexStruct.TexCoords = glm::vec2(0.0f, 0.0f);
 
-			vertexStructVector.push_back(vertexStruct);
+			meshVertexStructVector.push_back(meshVertexStruct);
 		}
-		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertexStruct indexVector.
+		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding meshVertexStruct meshIndexVector.
 		for (GLuint i = 0; i < mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
-			// Retrieve all indexVector of the face and store them in the indexVector vector
+			// Retrieve all meshIndexVector of the face and store them in the meshIndexVector vector
 			for (GLuint j = 0; j < face.mNumIndices; j++)
-				indexVector.push_back(face.mIndices[j]);
+				meshIndexVector.push_back(face.mIndices[j]);
 		}
 		// Process materials
 		if (mesh->mMaterialIndex >= 0)
@@ -148,48 +149,50 @@ private:
 			// Normal: meshNormalTextureN
 
 			// 1. Diffuse maps
-			vector<TextureStruct> diffuseMaps = this->loadMaterialTextures(prtMeshMaterialStruct, aiTextureType_DIFFUSE, "meshDiffuseTexture");
-			textureStructVector.insert(textureStructVector.end(), diffuseMaps.begin(), diffuseMaps.end());
+			vector<TextureStruct> diffuseTexStructVector = this->retrieveMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_DIFFUSE, "meshDiffuseTexture");
+			meshTextureStructVector.insert(meshTextureStructVector.end(), diffuseTexStructVector.begin(), diffuseTexStructVector.end());
 			// 2. Specular maps
-			vector<TextureStruct> specularMaps = this->loadMaterialTextures(prtMeshMaterialStruct, aiTextureType_SPECULAR, "meshSpecularTexture");
-			textureStructVector.insert(textureStructVector.end(), specularMaps.begin(), specularMaps.end());
+			vector<TextureStruct> specularTexStructVector = this->retrieveMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_SPECULAR, "meshSpecularTexture");
+			meshTextureStructVector.insert(meshTextureStructVector.end(), specularTexStructVector.begin(), specularTexStructVector.end());
 		}
 
 		// Return a mesh object created from the extracted mesh data
-		return SenMeshStruct(vertexStructVector, indexVector, textureStructVector);
+		return SenMeshStruct(meshVertexStructVector, meshIndexVector, meshTextureStructVector);
 	}
 
-	// Checks all prtMeshMaterialStruct textures of a given type and loads the textures if they're not loaded yet.
+	// Checks all prtMeshMaterialStruct materialTexStructVector of a given texMaterialType and loads the materialTexStructVector if they're not loaded yet.
 	// The required info is returned as a TextureStruct struct.
-	vector<TextureStruct> loadMaterialTextures(aiMaterial* prtMeshMaterialStruct, aiTextureType type, string typeName)
+	vector<TextureStruct> retrieveMaterialTexStructVector(aiMaterial* prtMeshMaterialStruct, aiTextureType texMaterialType, string texNameInShader)
 	{
-		vector<TextureStruct> textures;
-		for (GLuint i = 0; i < prtMeshMaterialStruct->GetTextureCount(type); i++)
+		vector<TextureStruct> materialTexStructVector;
+		for (GLuint i = 0; i < prtMeshMaterialStruct->GetTextureCount(texMaterialType); i++)
 		{
 			aiString str;
-			prtMeshMaterialStruct->GetTexture(type, i, &str);
-			// Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
+			prtMeshMaterialStruct->GetTexture(texMaterialType, i, &str);
+			// Check if textureStruct was loaded before and if so, continue to next iteration: skip loading a new textureStruct
 			GLboolean skip = false;
 			for (GLuint j = 0; j < textures_loaded.size(); j++)
 			{
-				if (textures_loaded[j].path == str)
+				if (textures_loaded[j].srcImageName == str)
 				{
-					textures.push_back(textures_loaded[j]);
-					skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
+					materialTexStructVector.push_back(textures_loaded[j]);
+					skip = true; // A textureStruct with the same filepath has already been loaded, continue to next one. (optimization)
 					break;
 				}
 			}
 			if (!skip)
-			{   // If texture hasn't been loaded already, load it
-				TextureStruct texture;
-				texture.id = TextureFromFile(str.C_Str(), this->modelDirectory);
-				texture.type = typeName;
-				texture.path = str;
-				textures.push_back(texture);
-				this->textures_loaded.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+			{   // If textureStruct hasn't been loaded already, load it
+				TextureStruct textureStruct;
+				textureStruct.texID = TextureFromFile(str.C_Str(), this->modelDirectory);
+				textureStruct.inShaderTexTypeName = texNameInShader;
+				textureStruct.srcImageName = str;
+
+				materialTexStructVector.push_back(textureStruct);
+				// Store it as textureStruct loaded for entire model, to ensure we won't unneceserily load duplicated materialTexStructVector.
+				this->textures_loaded.push_back(textureStruct);  
 			}
 		}
-		return textures;
+		return materialTexStructVector;
 	}
 
 

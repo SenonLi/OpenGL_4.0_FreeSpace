@@ -21,9 +21,9 @@ struct VertexStruct {
 };
 
 struct TextureStruct {
-	GLuint id;
-	string type;//material
-	aiString path;
+	GLuint texID;
+	string inShaderTexTypeName;// Texture's material typeName in shader
+	aiString srcImageName;
 };
 
 class SenMeshStruct {
@@ -53,7 +53,7 @@ public:
 			// Retrieve texture number (the N in diffuse_textureN)
 			stringstream ss;
 			string number;
-			string name = this->meshTexturesVector[i].type;
+			string name = this->meshTexturesVector[i].inShaderTexTypeName;
 			if (name == "meshDiffuseTexture")
 				ss << diffuseNr++; // Transfer GLuint to stream
 			else if (name == "meshSpecularTexture")
@@ -62,7 +62,7 @@ public:
 			// Now set the sampler to the correct texture unit
 			glUniform1i(glGetUniformLocation(program, (name + number).c_str()), i);
 			// And finally bind the texture
-			glBindTexture(GL_TEXTURE_2D, this->meshTexturesVector[i].id);
+			glBindTexture(GL_TEXTURE_2D, this->meshTexturesVector[i].texID);
 		}
 
 		// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
@@ -86,8 +86,8 @@ public:
 	virtual void finalizeMesh()	{
 		for (GLuint i = 0; i < this->meshTexturesVector.size(); i++)
 		{
-			if (glIsTexture(this->meshTexturesVector[i].id))			
-				glDeleteTextures(1, &this->meshTexturesVector[i].id);
+			if (glIsTexture(this->meshTexturesVector[i].texID))			
+				glDeleteTextures(1, &this->meshTexturesVector[i].texID);
 		}
 
 		if (glIsVertexArray(meshVertexArrayObject))	glDeleteVertexArrays(1, &meshVertexArrayObject);
