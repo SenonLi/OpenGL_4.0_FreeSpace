@@ -14,13 +14,13 @@ using namespace std;
 #include <assimp/types.h>
 
 
-struct Vertex {
+struct VertexStruct {
 	glm::vec3 Position;
 	glm::vec3 Normal;
 	glm::vec2 TexCoords;
 };
 
-struct Texture {
+struct TextureStruct {
 	GLuint id;
 	string type;//material
 	aiString path;
@@ -28,14 +28,7 @@ struct Texture {
 
 class SenMeshStruct {
 public:
-	/*  SenMeshStruct Data  */
-	vector<Vertex> meshVerticesVector;
-	vector<GLuint> meshIndicesVector;
-	vector<Texture> meshTexturesVector;
-
-	/*  Functions  */
-	// Constructor
-	SenMeshStruct(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures)
+	SenMeshStruct(vector<VertexStruct> vertices, vector<GLuint> indices, vector<TextureStruct> textures)
 	{
 		this->meshVerticesVector = vertices;
 		this->meshIndicesVector = indices;
@@ -46,7 +39,7 @@ public:
 	}
 
 	// Render the mesh
-	void Draw(GLuint &program)
+	virtual void paintMesh(GLuint &program)
 	{
 		// Bind appropriate textures
 		GLuint diffuseNr = 1;
@@ -72,7 +65,7 @@ public:
 		// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
 		glUniform1f(glGetUniformLocation(program, "material.shininess"), 16.0f);
 
-		// Draw mesh
+		// paintMesh mesh
 		glBindVertexArray(this->vertexArrayObject);
 		glDrawElements(GL_TRIANGLES, this->meshIndicesVector.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -85,11 +78,27 @@ public:
 		}
 	}
 
-private:
-	/*  Render data  */
-	GLuint vertexArrayObject, vertexBufferObject, indicesBufferObject;
+	virtual void finalizeMesh()	{
+		for (GLuint i = 0; i < this->meshTexturesVector.size(); i++)
+		{
+			if (glIsTexture(this->meshTexturesVector[i].id))			
+				glDeleteTextures(1, &this->meshTexturesVector[i].id);
+		}
 
-	/*  Functions    */
+		if (glIsVertexArray(vertexArrayObject))	glDeleteVertexArrays(1, &vertexArrayObject);
+		if (glIsBuffer(vertexBufferObject))		glDeleteBuffers(1, &vertexBufferObject);
+		if (glIsBuffer(indicesBufferObject))		glDeleteBuffers(1, &indicesBufferObject);
+
+		//if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
+	}
+
+private:
+	GLuint vertexArrayObject, vertexBufferObject, indicesBufferObject;
+	/*  SenMeshStruct Data  */
+	vector<VertexStruct> meshVerticesVector;
+	vector<GLuint> meshIndicesVector;
+	vector<TextureStruct> meshTexturesVector;
+
 	// Initializes all the buffer objects/arrays
 	void initialMeshGL()
 	{
@@ -104,21 +113,21 @@ private:
 		// A great thing about structs is that their memory layout is sequential for all its items.
 		// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
 		// again translates to 3/2 floats which translates to a byte array.
-		glBufferData(GL_ARRAY_BUFFER, this->meshVerticesVector.size() * sizeof(Vertex), &this->meshVerticesVector[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, this->meshVerticesVector.size() * sizeof(VertexStruct), &this->meshVerticesVector[0], GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indicesBufferObject);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->meshIndicesVector.size() * sizeof(GLuint), &this->meshIndicesVector[0], GL_STATIC_DRAW);
 
 		// Set the vertex attribute pointers
-		// Vertex Positions
+		// VertexStruct Positions
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
-		// Vertex Normals
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexStruct), (GLvoid*)0);
+		// VertexStruct Normals
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
-		// Vertex Texture Coords
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexStruct), (GLvoid*)offsetof(VertexStruct, Normal));
+		// VertexStruct TextureStruct Coords
 		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexStruct), (GLvoid*)offsetof(VertexStruct, TexCoords));
 
 		glBindVertexArray(0);
 	}
