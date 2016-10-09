@@ -30,9 +30,9 @@ public:
 	//SenMeshLinkModel()	{ ; }
 
 	// Constructor, expects a filepath to a 3D model.
-	SenMeshLinkModel(GLchar* path)
+	SenMeshLinkModel(GLchar* modelAddress)
 	{
-		this->loadModel(path);
+		this->loadModel(modelAddress);
 	}
 
 	// Draws the model, and thus all its meshesVector
@@ -56,19 +56,19 @@ protected:
 private:
 	/*  Functions   */
 	// Loads a model with supported ASSIMP extensions from file and stores the resulting meshesVector in the meshesVector vector.
-	void loadModel(string path)
+	void loadModel(string modelAddress)
 	{
 		// Read file via ASSIMP
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(modelAddress, aiProcess_Triangulate | aiProcess_FlipUVs);
 		// Check for errors
 		if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 		{
 			cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
 			return;
 		}
-		// Retrieve the modelDirectory path of the filepath
-		this->modelDirectory = path.substr(0, path.find_last_of('/'));
+		// Retrieve the modelDirectory modelAddress of the filepath
+		this->modelDirectory = modelAddress.substr(0, modelAddress.find_last_of('/'));
 
 		// Process ASSIMP's root node recursively
 		this->processNode(scene->mRootNode, scene);
@@ -99,36 +99,36 @@ private:
 		vector<GLuint> indexVector;
 		vector<TextureStruct> textureStructVector;
 
-		// Walk through each of the mesh's vertexStructVector
+		// Walk through each vertexStruct of the mesh's vertexStructVector
 		for (GLuint i = 0; i < mesh->mNumVertices; i++)
 		{
-			VertexStruct vertex;
-			glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
+			VertexStruct vertexStruct;
+			glm::vec3 tmpVerAttriVector; // We declare a placeholder tmpVerAttriVector since assimp uses its own tmpVerAttriVector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 			// Positions
-			vector.x = mesh->mVertices[i].x;
-			vector.y = mesh->mVertices[i].y;
-			vector.z = mesh->mVertices[i].z;
-			vertex.Position = vector;
+			tmpVerAttriVector.x = mesh->mVertices[i].x;
+			tmpVerAttriVector.y = mesh->mVertices[i].y;
+			tmpVerAttriVector.z = mesh->mVertices[i].z;
+			vertexStruct.Position = tmpVerAttriVector;
 			// Normals
-			vector.x = mesh->mNormals[i].x;
-			vector.y = mesh->mNormals[i].y;
-			vector.z = mesh->mNormals[i].z;
-			vertex.Normal = vector;
+			tmpVerAttriVector.x = mesh->mNormals[i].x;
+			tmpVerAttriVector.y = mesh->mNormals[i].y;
+			tmpVerAttriVector.z = mesh->mNormals[i].z;
+			vertexStruct.Normal = tmpVerAttriVector;
 			// TextureStruct Coordinates
 			if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 			{
-				glm::vec2 vec;
-				// A vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-				// use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-				vec.x = mesh->mTextureCoords[0][i].x;
-				vec.y = mesh->mTextureCoords[0][i].y;
-				vertex.TexCoords = vec;
+				glm::vec2 tmpTexCoordVector;
+				// A vertexStruct can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+				// use models where a vertexStruct can have multiple texture coordinates so we always take the first set (0).
+				tmpTexCoordVector.x = mesh->mTextureCoords[0][i].x;
+				tmpTexCoordVector.y = mesh->mTextureCoords[0][i].y;
+				vertexStruct.TexCoords = tmpTexCoordVector;
 			}
-			else
-				vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-			vertexStructVector.push_back(vertex);
+			else	vertexStruct.TexCoords = glm::vec2(0.0f, 0.0f);
+
+			vertexStructVector.push_back(vertexStruct);
 		}
-		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indexVector.
+		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertexStruct indexVector.
 		for (GLuint i = 0; i < mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
@@ -139,19 +139,19 @@ private:
 		// Process materials
 		if (mesh->mMaterialIndex >= 0)
 		{
-			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+			aiMaterial* prtMeshMaterialStruct = scene->mMaterials[mesh->mMaterialIndex];
 			// We assume a convention for sampler names in the shaders. Each diffuse texture should be named
-			// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
+			// as 'meshDiffuseTextureN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
 			// Same applies to other texture as the following list summarizes:
-			// Diffuse: texture_diffuseN
-			// Specular: texture_specularN
-			// Normal: texture_normalN
+			// Diffuse: meshDiffuseTextureN
+			// Specular: meshSpecularTextureN
+			// Normal: meshNormalTextureN
 
 			// 1. Diffuse maps
-			vector<TextureStruct> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+			vector<TextureStruct> diffuseMaps = this->loadMaterialTextures(prtMeshMaterialStruct, aiTextureType_DIFFUSE, "meshDiffuseTexture");
 			textureStructVector.insert(textureStructVector.end(), diffuseMaps.begin(), diffuseMaps.end());
 			// 2. Specular maps
-			vector<TextureStruct> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+			vector<TextureStruct> specularMaps = this->loadMaterialTextures(prtMeshMaterialStruct, aiTextureType_SPECULAR, "meshSpecularTexture");
 			textureStructVector.insert(textureStructVector.end(), specularMaps.begin(), specularMaps.end());
 		}
 
@@ -159,15 +159,15 @@ private:
 		return SenMeshStruct(vertexStructVector, indexVector, textureStructVector);
 	}
 
-	// Checks all material textures of a given type and loads the textures if they're not loaded yet.
+	// Checks all prtMeshMaterialStruct textures of a given type and loads the textures if they're not loaded yet.
 	// The required info is returned as a TextureStruct struct.
-	vector<TextureStruct> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+	vector<TextureStruct> loadMaterialTextures(aiMaterial* prtMeshMaterialStruct, aiTextureType type, string typeName)
 	{
 		vector<TextureStruct> textures;
-		for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
+		for (GLuint i = 0; i < prtMeshMaterialStruct->GetTextureCount(type); i++)
 		{
 			aiString str;
-			mat->GetTexture(type, i, &str);
+			prtMeshMaterialStruct->GetTexture(type, i, &str);
 			// Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 			GLboolean skip = false;
 			for (GLuint j = 0; j < textures_loaded.size(); j++)

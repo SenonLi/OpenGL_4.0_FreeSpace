@@ -31,10 +31,6 @@ public:
 	SenMeshStruct(vector<VertexStruct> vertexStructVector, vector<GLuint> indexVector, vector<TextureStruct> textureVector)
 		: meshVerticesVector(vertexStructVector), meshIndicesVector(indexVector), meshTexturesVector(textureVector)
 	{
-		//this->meshVerticesVector = vertexStructVector;
-		//this->meshIndicesVector = indexVector;
-		//this->meshTexturesVector = textureVector;
-
 		// Now that we have all the required data, set the vertex buffers and its attribute pointers.
 		this->initialMeshGL();
 	}
@@ -58,9 +54,9 @@ public:
 			stringstream ss;
 			string number;
 			string name = this->meshTexturesVector[i].type;
-			if (name == "texture_diffuse")
+			if (name == "meshDiffuseTexture")
 				ss << diffuseNr++; // Transfer GLuint to stream
-			else if (name == "texture_specular")
+			else if (name == "meshSpecularTexture")
 				ss << specularNr++; // Transfer GLuint to stream
 			number = ss.str();
 			// Now set the sampler to the correct texture unit
