@@ -23,8 +23,6 @@ using namespace std;
 
 #include "SenMeshStruct.h"
 
-//GLint TextureFromFile(const char* path, string directory);
-
 class SenMeshLinkModel
 {
 public:
@@ -49,12 +47,13 @@ public:
 			this->meshesVector[i].paintMesh(program);
 	}
 
-private:
+protected:
 	/*  SenMeshLinkModel Data  */
-	string directory;
+	string modelDirectory;
 	vector<SenMeshStruct> meshesVector;
 	vector<TextureStruct> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
+private:
 	/*  Functions   */
 	// Loads a model with supported ASSIMP extensions from file and stores the resulting meshesVector in the meshesVector vector.
 	void loadModel(string path)
@@ -68,8 +67,8 @@ private:
 			cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
 			return;
 		}
-		// Retrieve the directory path of the filepath
-		this->directory = path.substr(0, path.find_last_of('/'));
+		// Retrieve the modelDirectory path of the filepath
+		this->modelDirectory = path.substr(0, path.find_last_of('/'));
 
 		// Process ASSIMP's root node recursively
 		this->processNode(scene->mRootNode, scene);
@@ -96,11 +95,11 @@ private:
 	SenMeshStruct processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		// Data to fill
-		vector<VertexStruct> vertices;
-		vector<GLuint> indices;
-		vector<TextureStruct> textures;
+		vector<VertexStruct> vertexStructVector;
+		vector<GLuint> indexVector;
+		vector<TextureStruct> textureStructVector;
 
-		// Walk through each of the mesh's vertices
+		// Walk through each of the mesh's vertexStructVector
 		for (GLuint i = 0; i < mesh->mNumVertices; i++)
 		{
 			VertexStruct vertex;
@@ -127,15 +126,15 @@ private:
 			}
 			else
 				vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-			vertices.push_back(vertex);
+			vertexStructVector.push_back(vertex);
 		}
-		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
+		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indexVector.
 		for (GLuint i = 0; i < mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
-			// Retrieve all indices of the face and store them in the indices vector
+			// Retrieve all indexVector of the face and store them in the indexVector vector
 			for (GLuint j = 0; j < face.mNumIndices; j++)
-				indices.push_back(face.mIndices[j]);
+				indexVector.push_back(face.mIndices[j]);
 		}
 		// Process materials
 		if (mesh->mMaterialIndex >= 0)
@@ -150,14 +149,14 @@ private:
 
 			// 1. Diffuse maps
 			vector<TextureStruct> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+			textureStructVector.insert(textureStructVector.end(), diffuseMaps.begin(), diffuseMaps.end());
 			// 2. Specular maps
 			vector<TextureStruct> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+			textureStructVector.insert(textureStructVector.end(), specularMaps.begin(), specularMaps.end());
 		}
 
 		// Return a mesh object created from the extracted mesh data
-		return SenMeshStruct(vertices, indices, textures);
+		return SenMeshStruct(vertexStructVector, indexVector, textureStructVector);
 	}
 
 	// Checks all material textures of a given type and loads the textures if they're not loaded yet.
@@ -183,7 +182,7 @@ private:
 			if (!skip)
 			{   // If texture hasn't been loaded already, load it
 				TextureStruct texture;
-				texture.id = TextureFromFile(str.C_Str(), this->directory);
+				texture.id = TextureFromFile(str.C_Str(), this->modelDirectory);
 				texture.type = typeName;
 				texture.path = str;
 				textures.push_back(texture);
@@ -194,11 +193,11 @@ private:
 	}
 
 
-	GLint TextureFromFile(const char* path, string directory)
+	GLint TextureFromFile(const char* path, string modelDirectory)
 	{
 		//Generate texture ID and load texture data 
 		string filename = string(path);
-		filename = directory + '/' + filename;
+		filename = modelDirectory + '/' + filename;
 		GLuint textureID;
 		glGenTextures(1, &textureID);
 		int width, height;
