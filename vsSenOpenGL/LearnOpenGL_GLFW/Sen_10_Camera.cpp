@@ -40,5 +40,5 @@ void Sen_10_Camera::paintGL(void)
 
 
 void Sen_10_Camera::cleanFreeSpace(void)	{
-	backgroundCube.finalize();
+	backgroundCube.finalizeCube();
 }

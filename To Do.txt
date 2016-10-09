@@ -1,2 +1,5 @@
-* Clean MeshLinkModel
+* add initialMeshLinkModel
+* add initial Mesh: Program, meshModel, meshCameraView, meshProjection into initialMeshLinkModel
+* add finalizeMeshLinkModel
+* add finalizeMesh
 * Look Through Explode

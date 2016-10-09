@@ -34,7 +34,7 @@ void SenFreeSpaceAbstract::paintGL(void)
 	SenAbstractGLFW::paintGL();
 	
 	// Set CameraView and Projection
-	GLfloat currentFrame = glfwGetTime();
+	GLfloat currentFrame = GLfloat(glfwGetTime());
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
 	Do_Movement();
@@ -55,7 +55,7 @@ void SenFreeSpaceAbstract::finalize(void)
 	cleanFreeSpace();
 
 	// Clean SenFreeSpaceLogo
-	SenFreeSpaceLogoCube.finalize();
+	SenFreeSpaceLogoCube.finalizeCube();
 }
 
 
@@ -95,16 +95,16 @@ void SenFreeSpaceAbstract::cursorPositionDetect(GLFWwindow* widget, double xpos,
 {
 	if (firstMouse)
 	{
-		lastX = xpos;
-		lastY = ypos;
+		lastX = GLfloat(xpos);
+		lastY = GLfloat(ypos);
 		firstMouse = false;
 	}
 
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLfloat xoffset = GLfloat(xpos) - lastX;
+	GLfloat yoffset = lastY - GLfloat(ypos);  // Reversed since y-coordinates go from bottom to left
 
-	lastX = xpos;
-	lastY = ypos;
+	lastX = GLfloat(xpos);
+	lastY = GLfloat(ypos);
 
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
@@ -124,7 +124,7 @@ void SenFreeSpaceAbstract::mouseScrollHandlerRegister()
 void SenFreeSpaceAbstract::mouseScrollHandler(GLFWwindow* widget, double xoffset, double yoffset)
 {
 	yoffset /= DEFAULT_zoomRatio;
-	camera.ProcessMouseScroll(yoffset);
+	camera.ProcessMouseScroll(GLfloat(yoffset));
 }
 
 #pragma endregion

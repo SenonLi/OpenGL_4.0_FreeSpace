@@ -9,7 +9,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include "Support/SenAbstractGLFW.h"
 #include "Support/SenCameraViewModel.h"
 #include "SenFreeSpacePieces/Sen_Cube.h"
@@ -69,7 +68,8 @@ protected:
 			camera.ProcessKeyboard(RIGHT, deltaTime);
 	}
 
-
+	const GLfloat DEFAULT_zoomRatio = 6.0;
+	const GLfloat SenGOLDEN_SectionScale = 0.618f;
 	const GLint SenFREESPACE_widgetWidth = 960;
 	const GLint SenFREESPACE_widgetHeight = GLint(SenFREESPACE_widgetWidth * SenGOLDEN_SectionScale);
 

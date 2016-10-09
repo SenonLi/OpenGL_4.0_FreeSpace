@@ -56,13 +56,6 @@ void SenAbstractGLFW::showWidget()
 {
 	initialGlfwGlewGL();
 
-	//glutKeyboardFunc(_Key);    /* register callback for keyboard input */
-	//glutMouseFunc(mousePress);
-	////glutDisplayFunc(SenAbstractGLWidget::_Draw);    /* register callback for window redraw */
-	//reshapeRegister();
-	//drawMethodRegister();
-	//mouseMoveRegister();
-
 	// Game loop
 	while (!glfwWindowShouldClose(widgetGLFW))
 	{

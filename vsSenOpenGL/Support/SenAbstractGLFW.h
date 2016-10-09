@@ -11,12 +11,7 @@
 
 #include "vgl.h"
 #include <GLFW/glfw3.h>
-//#include "cppShaderLoad.h"
 #include "LoadShaders.h"
-
-//#include "Support/SenMeshLinkModel.h"
-//#include "model.h"
-//#include "mesh.h"
 
 class SenAbstractGLFW
 {
@@ -59,8 +54,6 @@ protected:
 
 	const GLint DEFAULT_widgetWidth = 640;
 	const GLint DEFAULT_widgetHeight = 640;
-	const GLfloat DEFAULT_zoomRatio = 6.0;
-	const GLfloat SenGOLDEN_SectionScale = 0.618;
 
 private:
 	void keyboardRegister();

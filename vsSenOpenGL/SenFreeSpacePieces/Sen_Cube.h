@@ -28,7 +28,7 @@ public:
 	{ ; }
 	
 	virtual ~Sen_Cube()	{ 
-		finalize(); 
+		finalizeCube(); 
 	}
 
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
@@ -42,15 +42,15 @@ public:
 		initialCubeModel();
 	}
 
-	virtual void finalize()	{
+	virtual void finalizeCube()	{
 		// Properly de-allocate all resources once they've outlived their purpose
 		if (glIsTexture(rollTexture))			glDeleteTextures(1, &rollTexture);
 		if (glIsTexture(yawTexture))			glDeleteTextures(1, &yawTexture);
 		if (glIsTexture(pitchTexture))			glDeleteTextures(1, &pitchTexture);
 
-		if (glIsVertexArray(verArrayObject))	glDeleteVertexArrays(1, &verArrayObject);
-		if (glIsBuffer(verBufferObject))		glDeleteBuffers(1, &verBufferObject);
-		if (glIsBuffer(verIndicesObject))		glDeleteBuffers(1, &verIndicesObject);
+		if (glIsVertexArray(cubeVertexArrayObject))	glDeleteVertexArrays(1, &cubeVertexArrayObject);
+		if (glIsBuffer(cubeVertexBufferObject))		glDeleteBuffers(1, &cubeVertexBufferObject);
+		if (glIsBuffer(cubeVertexIndicesObject))		glDeleteBuffers(1, &cubeVertexIndicesObject);
 
 		if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
 	}
@@ -69,7 +69,7 @@ public:
 		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
 		glUseProgram(cubeProgram);
-		glBindVertexArray(verArrayObject);
+		glBindVertexArray(cubeVertexArrayObject);
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(logoCubeModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
@@ -90,7 +90,7 @@ public:
 	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 1.5, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
 
 		glUseProgram(cubeProgram);
-		glBindVertexArray(verArrayObject);
+		glBindVertexArray(cubeVertexArrayObject);
 
 		updateCubeModel(cubeWorldSpaceAddr, spinSpeedRate, vecSpinAxis);
 
@@ -122,7 +122,7 @@ protected:
 	unsigned char* textureImagePtr;
 	const char *strRollTexture, *strYawTexture, *strPitchTexture;
 	GLuint rollTexture, yawTexture, pitchTexture;
-	GLuint verArrayObject, verBufferObject, verIndicesObject;
+	GLuint cubeVertexArrayObject, cubeVertexBufferObject, cubeVertexIndicesObject;
 
 	void initialCubeModel()	{
 		glm::mat4 identityMatrix;
@@ -205,17 +205,17 @@ protected:
 		};
 
 
-		glGenVertexArrays(1, &verArrayObject);
-		glGenBuffers(1, &verBufferObject);
-		glGenBuffers(1, &verIndicesObject);
+		glGenVertexArrays(1, &cubeVertexArrayObject);
+		glGenBuffers(1, &cubeVertexBufferObject);
+		glGenBuffers(1, &cubeVertexIndicesObject);
 		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 
-		glBindVertexArray(verArrayObject);
+		glBindVertexArray(cubeVertexArrayObject);
 
-		glBindBuffer(GL_ARRAY_BUFFER, verBufferObject);
+		glBindBuffer(GL_ARRAY_BUFFER, cubeVertexBufferObject);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, verIndicesObject);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndicesObject);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		// Position attribute

@@ -38,6 +38,12 @@ public:
 		this->initialMeshGL();
 	}
 
+	// Initializes all the buffer objects/arrays
+	void initialMeshGL()
+	{
+		initialMeshVertices();
+	}
+
 	// Render the mesh
 	virtual void paintMesh(GLuint &program)
 	{
@@ -66,7 +72,7 @@ public:
 		glUniform1f(glGetUniformLocation(program, "material.shininess"), 16.0f);
 
 		// paintMesh mesh
-		glBindVertexArray(this->vertexArrayObject);
+		glBindVertexArray(this->meshVertexArrayObject);
 		glDrawElements(GL_TRIANGLES, this->meshIndicesVector.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
@@ -76,6 +82,8 @@ public:
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
+
+		//glUseProgram(0);
 	}
 
 	virtual void finalizeMesh()	{
@@ -85,37 +93,37 @@ public:
 				glDeleteTextures(1, &this->meshTexturesVector[i].id);
 		}
 
-		if (glIsVertexArray(vertexArrayObject))	glDeleteVertexArrays(1, &vertexArrayObject);
-		if (glIsBuffer(vertexBufferObject))		glDeleteBuffers(1, &vertexBufferObject);
-		if (glIsBuffer(indicesBufferObject))		glDeleteBuffers(1, &indicesBufferObject);
+		if (glIsVertexArray(meshVertexArrayObject))	glDeleteVertexArrays(1, &meshVertexArrayObject);
+		if (glIsBuffer(meshVertexBufferObject))		glDeleteBuffers(1, &meshVertexBufferObject);
+		if (glIsBuffer(meshIndicesBufferObject))		glDeleteBuffers(1, &meshIndicesBufferObject);
 
 		//if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
 	}
 
-private:
-	GLuint vertexArrayObject, vertexBufferObject, indicesBufferObject;
+protected:
+	GLuint meshProgram;
+	glm::mat4 meshCameraView, meshModel, meshProjection;
+	GLuint meshVertexArrayObject, meshVertexBufferObject, meshIndicesBufferObject;
 	/*  SenMeshStruct Data  */
 	vector<VertexStruct> meshVerticesVector;
 	vector<GLuint> meshIndicesVector;
 	vector<TextureStruct> meshTexturesVector;
 
-	// Initializes all the buffer objects/arrays
-	void initialMeshGL()
-	{
+	void initialMeshVertices()	{
 		// Create buffers/arrays
-		glGenVertexArrays(1, &this->vertexArrayObject);
-		glGenBuffers(1, &this->vertexBufferObject);
-		glGenBuffers(1, &this->indicesBufferObject);
+		glGenVertexArrays(1, &this->meshVertexArrayObject);
+		glGenBuffers(1, &this->meshVertexBufferObject);
+		glGenBuffers(1, &this->meshIndicesBufferObject);
 
-		glBindVertexArray(this->vertexArrayObject);
+		glBindVertexArray(this->meshVertexArrayObject);
 		// Load data into vertex buffers
-		glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferObject);
+		glBindBuffer(GL_ARRAY_BUFFER, this->meshVertexBufferObject);
 		// A great thing about structs is that their memory layout is sequential for all its items.
 		// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
 		// again translates to 3/2 floats which translates to a byte array.
 		glBufferData(GL_ARRAY_BUFFER, this->meshVerticesVector.size() * sizeof(VertexStruct), &this->meshVerticesVector[0], GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->indicesBufferObject);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->meshIndicesBufferObject);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->meshIndicesVector.size() * sizeof(GLuint), &this->meshIndicesVector[0], GL_STATIC_DRAW);
 
 		// Set the vertex attribute pointers
@@ -131,6 +139,7 @@ private:
 
 		glBindVertexArray(0);
 	}
+
 };
 
 
