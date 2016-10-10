@@ -13,6 +13,10 @@
 #include <GLFW/glfw3.h>
 #include "LoadShaders.h"
 
+#define SenGL_CheckError() SenGL_CheckError_(__FILE__, __LINE__)
+#define SenGL_MajorVersion 4
+#define SenGL_MinorVersion 0
+
 class SenAbstractGLFW
 {
 public:
@@ -60,6 +64,11 @@ private:
 
 };
 
+
+GLenum SenGL_CheckError_(const char *file, int line);
+
+void APIENTRY SenGL_DebugOutput(GLenum source,	GLenum type,	GLuint id,
+		GLenum severity,	GLsizei length,	const GLchar *message,	void *userParam);
 
 
 #endif //__SenAbstractGLFW__

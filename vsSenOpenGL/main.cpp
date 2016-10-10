@@ -6,19 +6,20 @@
 //#include "Sinks/SenShaderTeapotExplosion.h"
 //#include "LearnOpenGL_GLFW/Sen_06_TrianglesGLFW.h"
 //#include "LearnOpenGL_GLFW/Sen_07_TextureGLFW.h"
-#include "LearnOpenGL_GLFW/Sen_09_ModelViewProjection.h"
-#include "LearnOpenGL_GLFW/Sen_10_Camera.h"
-#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
+//#include "LearnOpenGL_GLFW/Sen_09_ModelViewProjection.h"
+//#include "LearnOpenGL_GLFW/Sen_10_Camera.h"
+//#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
 //#include "LearnOpenGL_GLFW/Sen_30_GeometryShow.h"
 #include "LearnOpenGL_GLFW/Sen_303_NanoSuitExplode.h"
+#include "LearnOpenGL_GLFW/Sen_430_DebugOutput.h"
 
 int main(int argc, char *argv[])
 {
-	Sen_09_ModelViewProjection glfwSenCubeWidget;
-	glfwSenCubeWidget.showWidget();
+	//Sen_09_ModelViewProjection glfwSenCubeWidget;
+	//glfwSenCubeWidget.showWidget();
 
-	//Sen_303_NanoSuitExplode cameraWidget;
-	//cameraWidget.showWidget();
+	Sen_430_DebugOutput cameraWidget;
+	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;
 	//glfwTextureWidget.showWidget();

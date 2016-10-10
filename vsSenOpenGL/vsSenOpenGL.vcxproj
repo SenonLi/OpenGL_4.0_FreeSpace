@@ -22,6 +22,7 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp" />
     <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
     <ClInclude Include="Sinks\SenShaderTeapotExplosion.h" />
     <ClInclude Include="Sinks\SenTeapotObservationWidget.h" />

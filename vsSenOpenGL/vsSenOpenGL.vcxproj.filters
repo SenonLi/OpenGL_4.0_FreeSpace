@@ -50,6 +50,9 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -163,6 +166,9 @@
       <Filter>Support</Filter>
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
   </ItemGroup>
