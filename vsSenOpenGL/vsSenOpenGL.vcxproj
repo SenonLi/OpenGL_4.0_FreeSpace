@@ -20,6 +20,7 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_10_Camera.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
     <ClInclude Include="Sinks\SenShaderTeapotExplosion.h" />
@@ -66,11 +68,14 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_09_ModelViewProjection.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert" />
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_21_AssimpMeshModel.frag" />
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_21_AssimpMeshModel.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.geom" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />
     <None Include="Sinks\Shaders\teapotExplosion.frag" />
     <None Include="Sinks\Shaders\teapotExplosion.vert" />
   </ItemGroup>

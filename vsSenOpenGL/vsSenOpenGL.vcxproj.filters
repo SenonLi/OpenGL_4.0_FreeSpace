@@ -47,6 +47,9 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -90,6 +93,9 @@
     </Filter>
     <Filter Include="Shaders\Sinks">
       <UniqueIdentifier>{c2d44f44-f0a2-4b4d-94cf-2e3f02179d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FreeSpacePieces\Shaders">
+      <UniqueIdentifier>{98d4ffa2-b77f-4dca-aaf7-78ca68276aa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +162,9 @@
     <ClInclude Include="Support\SenMeshLinkModel.h">
       <Filter>Support</Filter>
     </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">
@@ -215,10 +224,19 @@
     <None Include="Sinks\Shaders\teapotExplosion.vert">
       <Filter>Shaders\Sinks</Filter>
     </None>
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_21_AssimpMeshModel.frag">
+    <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.frag">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_21_AssimpMeshModel.vert">
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.geom">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
   </ItemGroup>

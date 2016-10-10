@@ -1,26 +1,25 @@
 #pragma once
-#ifndef __Sen_21_AssimpMeshModel__
-#define __Sen_21_AssimpMeshModel__
+
+#ifndef __Sen_303_NanoSuitExplode__
+#define __Sen_303_NanoSuitExplode__
 
 #include "LearnOpenGL_GLFW/SenFreeSpaceAbstract.h"
 #include "Support/SenMeshLinkModel.h"
 
-class Sen_21_AssimpMeshModel :	public SenFreeSpaceAbstract
+
+class Sen_303_NanoSuitExplode :	public SenFreeSpaceAbstract
 {
 public:
-	Sen_21_AssimpMeshModel();
-	virtual ~Sen_21_AssimpMeshModel();
+	Sen_303_NanoSuitExplode();
+	virtual ~Sen_303_NanoSuitExplode();
 
 protected:
 	void initialGlfwGlewGL();
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 
-	//void finalize();
-
 	SenMeshLinkModel *nanoSuitModel;
 };
-
 
 
 #endif

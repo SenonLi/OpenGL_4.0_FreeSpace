@@ -1,10 +1,10 @@
-#include "Sen_21_AssimpMeshModel.h"
+#include "Sen_303_NanoSuitExplode.h"
 
 
-Sen_21_AssimpMeshModel::Sen_21_AssimpMeshModel()
+Sen_303_NanoSuitExplode::Sen_303_NanoSuitExplode()
 	:nanoSuitModel(NULL)
 {
-	strWindowName = "Sen_21 NanoSuit in FreeSpace";
+	strWindowName = "Sen_303 NanoSuit Explode in FreeSpace";
 
 	camera.Position = glm::vec3(0.0f, 0.0f, 1.0f);
 
@@ -12,21 +12,22 @@ Sen_21_AssimpMeshModel::Sen_21_AssimpMeshModel()
 	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 }
 
-
-Sen_21_AssimpMeshModel::~Sen_21_AssimpMeshModel()
+Sen_303_NanoSuitExplode::~Sen_303_NanoSuitExplode()
 {
 }
 
 
-void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
+
+void Sen_303_NanoSuitExplode::initialGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initialGlfwGlewGL();
-	
+
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.vert" },
-		{ GL_FRAGMENT_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.frag" },
+		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.vert" },
+		{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.frag" },
+		{ GL_GEOMETRY_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.geom" },
 		{ GL_NONE, NULL }
 	};
 	programA = LoadShaders(shaders);
@@ -34,10 +35,10 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 	nanoSuitModel->initialMeshLinkModelGL();
 
 
-	OutputDebugString(" Sen_21_AssimpMeshModel Initial \n\n");
+	OutputDebugString(" Sen_303_NanoSuitExplode Initial \n\n");
 }
 
-void Sen_21_AssimpMeshModel::paintFreeSpaceGL(void)
+void Sen_303_NanoSuitExplode::paintFreeSpaceGL(void)
 {
 	// Draw the loaded model
 	glm::mat4 identity;
@@ -49,7 +50,7 @@ void Sen_21_AssimpMeshModel::paintFreeSpaceGL(void)
 }
 
 
-void Sen_21_AssimpMeshModel::cleanFreeSpace(void)
+void Sen_303_NanoSuitExplode::cleanFreeSpace(void)
 {
 	if (nanoSuitModel)	{
 		nanoSuitModel->finilizeMeshLinkModel();
