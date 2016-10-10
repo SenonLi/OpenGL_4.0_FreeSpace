@@ -40,7 +40,13 @@ void Sen_303_NanoSuitExplode::initialGlfwGlewGL()
 
 void Sen_303_NanoSuitExplode::paintFreeSpaceGL(void)
 {
-	// Draw the loaded model
+	// There might be more uniforms, 
+	// due to which the glUseProgram must be called in the control widget (Here, not in the MeshLinkModel)
+	glUseProgram(programA);
+
+	// Add time component to geometry shader in the form of a uniform
+	glUniform1f(glGetUniformLocation(programA, "time"), glfwGetTime());
+
 	glm::mat4 identity;
 	model = glm::translate(identity, glm::vec3(0.0f, -2.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene
 	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down

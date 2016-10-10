@@ -8,15 +8,16 @@
 //#include "LearnOpenGL_GLFW/Sen_07_TextureGLFW.h"
 //#include "LearnOpenGL_GLFW/Sen_09_ModelViewProjection.h"
 //#include "LearnOpenGL_GLFW/Sen_10_Camera.h"
-#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
+//#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
 //#include "LearnOpenGL_GLFW/Sen_30_GeometryShow.h"
+#include "LearnOpenGL_GLFW/Sen_303_NanoSuitExplode.h"
 
 int main(int argc, char *argv[])
 {
 	//Sen_21_AssimpMeshModel glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	Sen_21_AssimpMeshModel cameraWidget;
+	Sen_303_NanoSuitExplode cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;

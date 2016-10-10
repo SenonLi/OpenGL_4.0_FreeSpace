@@ -81,7 +81,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BA8BF5E-5636-415D-945A-08534317CC12}</ProjectGuid>
-    <RootNamespace>SenTeapotExplosion</RootNamespace>
+    <RootNamespace>SenOpenGLTutorial</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

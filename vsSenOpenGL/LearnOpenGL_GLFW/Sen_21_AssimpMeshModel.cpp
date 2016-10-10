@@ -39,6 +39,10 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 
 void Sen_21_AssimpMeshModel::paintFreeSpaceGL(void)
 {
+	// There might be more uniforms, 
+	// due to which the glUseProgram must be called in the control widget (Here, not in the MeshLinkModel)
+	glUseProgram(programA); 
+
 	// Draw the loaded model
 	glm::mat4 identity;
 	model = glm::translate(identity, glm::vec3(0.0f, -2.0f, -3.0f)); // Translate it down a bit so it's at the center of the scene

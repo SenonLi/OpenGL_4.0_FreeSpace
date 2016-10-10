@@ -43,7 +43,7 @@ public:
 	// Draws the model, and thus all its meshesVector
 	void paintMeshLinkModel(GLuint &program, glm::mat4 &view, glm::mat4 &model, glm::mat4 &projection)
 	{
-		glUseProgram(program);
+		// There might be other uniforms, due to which the glUseProgram must be called in the control widget
 		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
