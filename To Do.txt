@@ -1,5 +1,2 @@
-* add initialMeshLinkModel
-* add initial Mesh: Program, meshModel, meshCameraView, meshProjection into initialMeshLinkModel
-* add finalizeMeshLinkModel
-* add finalizeMesh
+* Learn and Migrate Explosion
 * Look Through Explode
