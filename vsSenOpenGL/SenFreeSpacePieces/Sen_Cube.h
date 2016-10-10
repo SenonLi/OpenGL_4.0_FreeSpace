@@ -15,9 +15,9 @@ class Sen_Cube
 public:
 	Sen_Cube() : textureImagePtr(NULL), selfSpinAngle(0.0f)
 	{
-		strRollTexture = "./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg";
-		strYawTexture = "./LearnOpenGL_GLFW/Images/uky.jpg";
-		strPitchTexture = "./LearnOpenGL_GLFW/Images/lau2.jpg";
+		strRollTexture = "./../WatchMe/Images/SenSqaurePortrait.jpg";
+		strYawTexture = "./../WatchMe/Images/uky.jpg";
+		strPitchTexture = "./../WatchMe/Images/lau2.jpg";
 		cubeWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);

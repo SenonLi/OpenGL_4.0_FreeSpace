@@ -3,7 +3,7 @@
 
 Sen_09_ModelViewProjection::Sen_09_ModelViewProjection()
 {
-	strWindowName = "Sen GLFW Transformation";
+	strWindowName = "Sen Auto CameraView";
 
 	widgetWidth = int(widgetWidth*1.5);
 }
@@ -19,10 +19,15 @@ void Sen_09_ModelViewProjection::initialGlfwGlewGL()
 	SenAbstractGLFW::initialGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
-		{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.frag" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_09_ModelViewProjection.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_09_ModelViewProjection.frag" },
 		{ GL_NONE, NULL }
 	};
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.frag" },
+	//	{ GL_NONE, NULL }
+	//};
 	programA = LoadShaders(shaders);
 
 
@@ -124,7 +129,8 @@ void Sen_09_ModelViewProjection::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	textureImage = SOIL_load_image("./../WatchMe/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImage);
@@ -139,7 +145,9 @@ void Sen_09_ModelViewProjection::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	textureImage = SOIL_load_image("./../WatchMe/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+
+	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImage);
@@ -149,7 +157,8 @@ void Sen_09_ModelViewProjection::initialNewLayerTexture()
 void Sen_09_ModelViewProjection::initialBackgroundTexture()
 {
 	int width, height;
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	textureImage = SOIL_load_image("./../WatchMe/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
 	// Load and create a defaultTextureID 
 	glGenTextures(1, &defaultTextureID);

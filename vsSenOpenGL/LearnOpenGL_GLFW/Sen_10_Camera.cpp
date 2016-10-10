@@ -3,7 +3,7 @@
 
 Sen_10_Camera::Sen_10_Camera()
 {
-	strWindowName = "Sen GLFW CameraModel";
+	strWindowName = "Sen First Cube in FreeSpace";
 }
 
 
@@ -27,7 +27,7 @@ void Sen_10_Camera::initialGlfwGlewGL()
 
 	backgroundCube.initialCubeGL();
 
-	OutputDebugString(" Sen_10_Camera Initial \n\n");
+	OutputDebugString(" Sen_10 First Cube Initial \n\n");
 }
 
 void Sen_10_Camera::paintGL(void)

@@ -25,10 +25,15 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.vert" },
-		{ GL_FRAGMENT_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.frag" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_AssimpNanoSuit.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_AssimpNanoSuit.frag" },
 		{ GL_NONE, NULL }
 	};
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./SenFreeSpacePieces/Shaders/Sen_AssimpNanoSuit.frag" },
+	//	{ GL_NONE, NULL }
+	//};
 	programA = LoadShaders(shaders);
 
 	nanoSuitModel->initialMeshLinkModelGL();

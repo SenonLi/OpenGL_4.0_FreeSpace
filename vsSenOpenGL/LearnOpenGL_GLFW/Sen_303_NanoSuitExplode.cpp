@@ -8,8 +8,8 @@ Sen_303_NanoSuitExplode::Sen_303_NanoSuitExplode()
 
 	camera.Position = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	//nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
-	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
+	nanoSuitModel = new SenMeshLinkModel("./../WatchMe/MeshLinkModels/NanoSuit/nanosuit.obj");
+	//nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 }
 
 Sen_303_NanoSuitExplode::~Sen_303_NanoSuitExplode()
@@ -25,11 +25,18 @@ void Sen_303_NanoSuitExplode::initialGlfwGlewGL()
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.vert" },
-		{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.frag" },
-		{ GL_GEOMETRY_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.geom" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_303_NanoSuitExplode.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_303_NanoSuitExplode.frag" },
+		{ GL_GEOMETRY_SHADER, "./../WatchMe/Shaders/Sen_303_NanoSuitExplode.geom" },
 		{ GL_NONE, NULL }
 	};
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.frag" },
+	//	{ GL_GEOMETRY_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_303_NanoSuitExplode.geom" },
+	//	{ GL_NONE, NULL }
+	//};
+
 	programA = LoadShaders(shaders);
 
 	nanoSuitModel->initialMeshLinkModelGL();
