@@ -41,7 +41,7 @@ protected:
 
 	// shader info variables
 	GLuint programA, programB;
-	GLuint defaultTexture;
+	GLuint defaultTextureID;
 	GLint textureLocation;
 
 	GLuint verArrObjArray[2];

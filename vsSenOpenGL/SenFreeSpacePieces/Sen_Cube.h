@@ -37,16 +37,16 @@ public:
 
 	virtual void initialCubeGL()	{
 		initialCubeShaders();
-		initialVertices();
-		initialTexture();
+		initialCubeVertices();
+		initialCubeTexture();
 		initialCubeModel();
 	}
 
 	virtual void finalizeCube()	{
 		// Properly de-allocate all resources once they've outlived their purpose
-		if (glIsTexture(rollTexture))			glDeleteTextures(1, &rollTexture);
-		if (glIsTexture(yawTexture))			glDeleteTextures(1, &yawTexture);
-		if (glIsTexture(pitchTexture))			glDeleteTextures(1, &pitchTexture);
+		if (glIsTexture(rollTextureID))			glDeleteTextures(1, &rollTextureID);
+		if (glIsTexture(yawTextureID))			glDeleteTextures(1, &yawTextureID);
+		if (glIsTexture(pitchTextureID))			glDeleteTextures(1, &pitchTextureID);
 
 		if (glIsVertexArray(cubeVertexArrayObject))	glDeleteVertexArrays(1, &cubeVertexArrayObject);
 		if (glIsBuffer(cubeVertexBufferObject))		glDeleteBuffers(1, &cubeVertexBufferObject);
@@ -76,11 +76,11 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(logoCubeProjection));
 		glActiveTexture(GL_TEXTURE0);
 
-		glBindTexture(GL_TEXTURE_2D, rollTexture);
+		glBindTexture(GL_TEXTURE_2D, rollTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-		glBindTexture(GL_TEXTURE_2D, yawTexture);
+		glBindTexture(GL_TEXTURE_2D, yawTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-		glBindTexture(GL_TEXTURE_2D, pitchTexture);
+		glBindTexture(GL_TEXTURE_2D, pitchTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
 		glBindVertexArray(0);
@@ -100,11 +100,11 @@ public:
 
 		glActiveTexture(GL_TEXTURE0);
 
-		glBindTexture(GL_TEXTURE_2D, rollTexture);
+		glBindTexture(GL_TEXTURE_2D, rollTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-		glBindTexture(GL_TEXTURE_2D, yawTexture);
+		glBindTexture(GL_TEXTURE_2D, yawTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-		glBindTexture(GL_TEXTURE_2D, pitchTexture);
+		glBindTexture(GL_TEXTURE_2D, pitchTextureID);
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
 		glBindVertexArray(0);
@@ -121,7 +121,7 @@ protected:
 
 	unsigned char* textureImagePtr;
 	const char *strRollTexture, *strYawTexture, *strPitchTexture;
-	GLuint rollTexture, yawTexture, pitchTexture;
+	GLuint rollTextureID, yawTextureID, pitchTextureID;
 	GLuint cubeVertexArrayObject, cubeVertexBufferObject, cubeVertexIndicesObject;
 
 	void initialCubeModel()	{
@@ -148,13 +148,13 @@ protected:
 		//}
 	}
 
-	void initialTexture()	{
-		uploadTexture(strRollTexture, rollTexture);
-		uploadTexture(strYawTexture, yawTexture);
-		uploadTexture(strPitchTexture, pitchTexture);
+	void initialCubeTexture()	{
+		uploadTexture(strRollTexture, rollTextureID);
+		uploadTexture(strYawTexture, yawTextureID);
+		uploadTexture(strPitchTexture, pitchTextureID);
 	}
 
-	void initialVertices()	{
+	void initialCubeVertices()	{
 		// Set up vertex data (and buffer(s)) and attribute pointers
 		GLfloat vertices[] = {
 			// Positions           // Texture Coords
@@ -272,24 +272,24 @@ protected:
 	}
 
 private:
-	void uploadTexture(const char* &textureAddressPointer, GLuint &texture)	{
+	void uploadTexture(const char* &textureAddressPointer, GLuint &textureID)	{
 		int width, height;
 		textureImagePtr = SOIL_load_image(textureAddressPointer, &width, &height, 0, SOIL_LOAD_RGBA);
 
-		// Load and create a defaultTexture 
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTexture object
-		//// Set the defaultTexture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTexture wrapping to GL_REPEAT (usually basic wrapping method)
+		// Load and create a defaultTextureID 
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
+		//// Set the defaultTextureID wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		// Load textureImage, create defaultTexture and generate mipmaps
+		// Load textureImage, create defaultTextureID and generate mipmaps
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		SOIL_free_image_data(textureImagePtr);
-		glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTexture when done, so we won't accidentily mess up our defaultTexture.
+		glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 	}
 
 	void vglAttachShaderSource(GLuint prog, GLenum type, const char * source)

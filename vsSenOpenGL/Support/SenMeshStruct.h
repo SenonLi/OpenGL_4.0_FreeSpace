@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef __SenMeshStruct__
+#define __SenMeshStruct__
+
 // Std. Includes
 #include <string>
 #include <fstream>
@@ -31,15 +35,13 @@ public:
 	SenMeshStruct(vector<VertexStruct> vertexStructVector, vector<GLuint> indexVector, vector<TextureStruct> textureVector)
 		: meshVerticesVector(vertexStructVector), meshIndicesVector(indexVector), meshTexturesVector(textureVector)
 	{
-		// Now that we have all the required data, set the vertex buffers and its attribute pointers.
-		this->initialMeshGL();
+		// program and materialTextures are initialized in the MeshLinkModel for efficiency
+		// MeshLinkModel is loaded during initialGL, so that it is ok to initial mesh in the constructor of MeshStruct
+		this->initialMeshVertices(); 
 	}
 
-	// Initializes all the buffer objects/arrays
-	void initialMeshGL()
-	{
-		initialMeshVertices();
-	}
+	// for funture development
+	void initialMeshGL()	{ ;	}
 
 	// Render the mesh
 	virtual void paintMesh(GLuint &program)
@@ -79,27 +81,18 @@ public:
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
-
-		//glUseProgram(0);
 	}
 
 	virtual void finalizeMesh()	{
-		for (GLuint i = 0; i < this->meshTexturesVector.size(); i++)
-		{
-			if (glIsTexture(this->meshTexturesVector[i].texID))			
-				glDeleteTextures(1, &this->meshTexturesVector[i].texID);
-		}
-
+		// program is finalized in the control widget
+		// materialTextures are finalized in the MeshLinkModel for efficiency
+		// only vertices' attributes ought to be finilized in MeshStruct (here)
 		if (glIsVertexArray(meshVertexArrayObject))	glDeleteVertexArrays(1, &meshVertexArrayObject);
 		if (glIsBuffer(meshVertexBufferObject))		glDeleteBuffers(1, &meshVertexBufferObject);
 		if (glIsBuffer(meshIndicesBufferObject))		glDeleteBuffers(1, &meshIndicesBufferObject);
-
-		//if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
 	}
 
 protected:
-	GLuint meshProgram;
-	glm::mat4 meshCameraView, meshModel, meshProjection;
 	GLuint meshVertexArrayObject, meshVertexBufferObject, meshIndicesBufferObject;
 	/*  SenMeshStruct Data  */
 	vector<VertexStruct> meshVerticesVector;
@@ -140,3 +133,4 @@ protected:
 };
 
 
+#endif // __SenMeshStruct__

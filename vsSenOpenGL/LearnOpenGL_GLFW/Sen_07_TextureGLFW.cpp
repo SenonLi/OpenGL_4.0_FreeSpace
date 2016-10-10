@@ -124,22 +124,22 @@ void Sen_07_TextureGLFW::initialNewLayerTexture()
 
 void Sen_07_TextureGLFW::initialBackgroundTexture()
 {
-	// Load and create a defaultTexture 
-	glGenTextures(1, &defaultTexture);
-	glBindTexture(GL_TEXTURE_2D, defaultTexture); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTexture object
-	//// Set the defaultTexture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTexture wrapping to GL_REPEAT (usually basic wrapping method)
+	// Load and create a defaultTextureID 
+	glGenTextures(1, &defaultTextureID);
+	glBindTexture(GL_TEXTURE_2D, defaultTextureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
+	//// Set the defaultTextureID wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set defaultTexture filtering parameters
+	// Set defaultTextureID filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	// Load textureImage, create defaultTexture and generate mipmaps
+	// Load textureImage, create defaultTextureID and generate mipmaps
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widgetWidth, widgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImage);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widgetWidth, widgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImage);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTexture when done, so we won't accidentily mess up our defaultTexture.
+	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 }
 
 void Sen_07_TextureGLFW::bindNewLayerTexture()
@@ -157,13 +157,13 @@ void Sen_07_TextureGLFW::bindBackgroundTexture()
 	// Bind Texture
 	textureLocation = glGetUniformLocation(programA, "backgroundTexture");
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, defaultTexture);
+	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 	glUniform1f(textureLocation, 0);
 }
 
 void Sen_07_TextureGLFW::finalize(void)
 {
-	if (glIsTexture(defaultTexture))			glDeleteTextures(1, &defaultTexture);
+	if (glIsTexture(defaultTextureID))			glDeleteTextures(1, &defaultTextureID);
 	if (glIsTexture(newLayerTexture))			glDeleteTextures(1, &newLayerTexture);
 
 	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);

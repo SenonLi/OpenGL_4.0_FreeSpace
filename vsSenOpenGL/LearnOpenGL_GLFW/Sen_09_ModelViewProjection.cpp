@@ -151,21 +151,21 @@ void Sen_09_ModelViewProjection::initialBackgroundTexture()
 	int width, height;
 	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
-	// Load and create a defaultTexture 
-	glGenTextures(1, &defaultTexture);
-	glBindTexture(GL_TEXTURE_2D, defaultTexture); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTexture object
-	//// Set the defaultTexture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTexture wrapping to GL_REPEAT (usually basic wrapping method)
+	// Load and create a defaultTextureID 
+	glGenTextures(1, &defaultTextureID);
+	glBindTexture(GL_TEXTURE_2D, defaultTextureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
+	//// Set the defaultTextureID wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set defaultTexture filtering parameters
+	// Set defaultTextureID filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	// Load textureImage, create defaultTexture and generate mipmaps
+	// Load textureImage, create defaultTextureID and generate mipmaps
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImage);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTexture when done, so we won't accidentily mess up our defaultTexture.
+	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 }
 
 void Sen_09_ModelViewProjection::initModelViewProjection()
@@ -260,13 +260,13 @@ void Sen_09_ModelViewProjection::bindBackgroundTexture()
 	// Bind Texture
 	textureLocation = glGetUniformLocation(programA, "backgroundTexture");
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, defaultTexture);
+	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 	glUniform1f(textureLocation, 0);
 }
 
 void Sen_09_ModelViewProjection::finalize(void)
 {
-	if (glIsTexture(defaultTexture))			glDeleteTextures(1, &defaultTexture);
+	if (glIsTexture(defaultTextureID))			glDeleteTextures(1, &defaultTextureID);
 	if (glIsTexture(newLayerTexture))			glDeleteTextures(1, &newLayerTexture);
 	if (glIsTexture(thirdLayerTexture))			glDeleteTextures(1, &thirdLayerTexture);
 

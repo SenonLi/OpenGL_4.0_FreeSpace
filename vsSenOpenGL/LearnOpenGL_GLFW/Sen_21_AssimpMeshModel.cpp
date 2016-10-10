@@ -5,6 +5,9 @@ Sen_21_AssimpMeshModel::Sen_21_AssimpMeshModel()
 	:nanoSuitModel(NULL)
 {
 	camera.Position = glm::vec3(0.0f, 0.0f, 1.0f);
+
+	//nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
+	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 }
 
 
@@ -26,10 +29,7 @@ void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
 	};
 	programA = LoadShaders(shaders);
 
-
-	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
-
-	//nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
+	nanoSuitModel->initialMeshLinkModelGL();
 
 
 	OutputDebugString(" Sen_10_Camera Initial \n\n");
@@ -49,7 +49,10 @@ void Sen_21_AssimpMeshModel::paintFreeSpaceGL(void)
 
 void Sen_21_AssimpMeshModel::cleanFreeSpace(void)
 {
-	if (nanoSuitModel)	delete nanoSuitModel;
+	if (nanoSuitModel)	{
+		nanoSuitModel->finilizeMeshLinkModel();
+		delete nanoSuitModel;
+	}
 
 	if (glIsProgram(programA))		glDeleteProgram(programA);
 }

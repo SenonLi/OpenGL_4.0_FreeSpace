@@ -31,8 +31,13 @@ public:
 
 	// Constructor, expects a filepath to a 3D model.
 	SenMeshLinkModel(GLchar* modelAddress)
-	{
-		this->loadModel(modelAddress);
+		:meshLinkModelAddress(modelAddress), modelDirectory(string(""))
+	{	;	}
+
+	void initialMeshLinkModelGL()	{
+		// program is initialized in the control widget
+		// Here is to initial vertices and overlooking textures for Meshes
+		this->loadModel(meshLinkModelAddress);
 	}
 
 	// Draws the model, and thus all its meshesVector
@@ -47,12 +52,26 @@ public:
 			this->meshesVector[i].paintMesh(program);
 	}
 
+	void finilizeMeshLinkModel()	{
+		// program is finalized in the control widget
+		// Here is to finalize overlooking texutureIDs and Meshes' vertices' attributes.
+		for (GLuint i=0; i < meshLinkTotalLoadedTexStructVector.size(); i++)
+		{
+			if (glIsTexture(meshLinkTotalLoadedTexStructVector[i].texID))			
+				glDeleteTextures(1, &meshLinkTotalLoadedTexStructVector[i].texID);
+		}
+
+		for (GLuint i = 0; i < this->meshesVector.size(); i++)
+			this->meshesVector[i].finalizeMesh();
+	}
+
 protected:
 	/*  SenMeshLinkModel Data  */
+	GLchar* meshLinkModelAddress;
 	string modelDirectory;
 	vector<SenMeshStruct> meshesVector;
 	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-	vector<TextureStruct> meshLinkTotalLoadedTexStructVector;	
+	vector<TextureStruct> meshLinkTotalLoadedTexStructVector;
 
 private:
 	/*  Functions   */
@@ -137,6 +156,7 @@ private:
 			for (GLuint j = 0; j < face.mNumIndices; j++)
 				meshIndexVector.push_back(face.mIndices[j]);
 		}
+
 		// Process materials
 		if (mesh->mMaterialIndex >= 0)
 		{
@@ -149,10 +169,10 @@ private:
 			// Normal: meshNormalTextureN
 
 			// 1. Diffuse maps
-			vector<TextureStruct> diffuseTexStructVector = this->retrieveMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_DIFFUSE, "meshDiffuseTexture");
+			vector<TextureStruct> diffuseTexStructVector = this->retrieveUploadedMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_DIFFUSE, "meshDiffuseTexture");
 			meshTextureStructVector.insert(meshTextureStructVector.end(), diffuseTexStructVector.begin(), diffuseTexStructVector.end());
 			// 2. Specular maps
-			vector<TextureStruct> specularTexStructVector = this->retrieveMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_SPECULAR, "meshSpecularTexture");
+			vector<TextureStruct> specularTexStructVector = this->retrieveUploadedMaterialTexStructVector(prtMeshMaterialStruct, aiTextureType_SPECULAR, "meshSpecularTexture");
 			meshTextureStructVector.insert(meshTextureStructVector.end(), specularTexStructVector.begin(), specularTexStructVector.end());
 		}
 
@@ -162,7 +182,7 @@ private:
 
 	// Checks all prtMeshMaterialStruct materialTexStructVector of a given texMaterialType and loads the materialTexStructVector if they're not loaded yet.
 	// The required info is returned as a TextureStruct struct.
-	vector<TextureStruct> retrieveMaterialTexStructVector(aiMaterial* prtMeshMaterialStruct, aiTextureType texMaterialType, string texNameInShader)
+	vector<TextureStruct> retrieveUploadedMaterialTexStructVector(aiMaterial* prtMeshMaterialStruct, aiTextureType texMaterialType, string texNameInShader)
 	{
 		vector<TextureStruct> materialTexStructVector;
 		for (GLuint i = 0; i < prtMeshMaterialStruct->GetTextureCount(texMaterialType); i++)
@@ -183,20 +203,20 @@ private:
 			if (!skip)
 			{   // If textureStruct hasn't been loaded already, load it
 				TextureStruct textureStruct;
-				textureStruct.texID = TextureFromFile(imageNameStruct.C_Str(), this->modelDirectory);
+				textureStruct.texID = uploadTextureGetID(imageNameStruct.C_Str(), this->modelDirectory);
 				textureStruct.inShaderTexTypeName = texNameInShader;
 				textureStruct.srcImageName = imageNameStruct;
 
 				materialTexStructVector.push_back(textureStruct);
 				// Store it as textureStruct loaded for entire model, to ensure we won't unneceserily load duplicated materialTexStructVector.
-				this->meshLinkTotalLoadedTexStructVector.push_back(textureStruct);  
+				this->meshLinkTotalLoadedTexStructVector.push_back(textureStruct);
 			}
 		}
 		return materialTexStructVector;
 	}
 
-
-	GLint TextureFromFile(const char* imageName, string modelDirectory)
+	// meshes may share same texture, due to which the process of textureUpload must stay in the MeshLinkModel, instead of Mesh
+	GLint uploadTextureGetID(const char* imageName, string modelDirectory)
 	{
 		//Generate texture ID and load texture data 
 		string imageFileName = string(imageName);
@@ -221,7 +241,6 @@ private:
 	}
 
 };
-
 
 
 #endif // __SenMeshLinkModel__
