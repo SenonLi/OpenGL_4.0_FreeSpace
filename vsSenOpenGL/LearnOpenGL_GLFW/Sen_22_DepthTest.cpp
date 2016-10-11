@@ -3,8 +3,7 @@
 
 Sen_22_DepthTest::Sen_22_DepthTest()
 {
-	firstCube = new Sen_Cube();
-	secondCube = new Sen_Cube();
+	similarCube = new Sen_Cube();
 }
 
 
@@ -62,17 +61,7 @@ void Sen_22_DepthTest::initialGlfwGlewGL()
 	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
 	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
 
-	firstCube->initialCubeGL();
-	secondCube->initialCubeGL();
-
-	firstCube->setCubeWorldAddress(glm::vec3(-1.0f, 0.0f, -1.0f));
-	secondCube->setCubeWorldAddress(glm::vec3(2.0f, 0.0f, 0.0f));
-
-	firstCube->changeNewLinkedCubeProgram(programA);
-	secondCube->changeNewLinkedCubeProgram(programA);
-
-	firstCube->changeNewUploadedCubeTexture(cubeTexture, cubeTexture, cubeTexture);
-	secondCube->changeNewUploadedCubeTexture(cubeTexture, cubeTexture, cubeTexture);
+	similarCube->initialCubeGL(programA, cubeTexture, cubeTexture, cubeTexture);
 
 	camera.setCameraViewPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
@@ -82,8 +71,11 @@ void Sen_22_DepthTest::initialGlfwGlewGL()
 
 void Sen_22_DepthTest::paintFreeSpaceGL(void)
 {
-	firstCube->paintCube(projection, view);
-	secondCube->paintCube(projection, view);
+	similarCube->setCubeWorldAddress(glm::vec3(-1.0f, 0.0f, -1.0f));
+	similarCube->paintCube(projection, view);
+
+	similarCube->setCubeWorldAddress(glm::vec3(2.0f, 0.0f, 0.0f));
+	similarCube->paintCube(projection, view);
 
 	// Floor
 	glUseProgram(programA);
@@ -101,13 +93,9 @@ void Sen_22_DepthTest::paintFreeSpaceGL(void)
 
 void Sen_22_DepthTest::cleanFreeSpace(void)	{
 	// Clean Cubes
-	if (firstCube)	{
-		firstCube->finalizeCube();
-		delete firstCube;
-	}
-	if (firstCube)	{
-		secondCube->finalizeCube();
-		delete secondCube;
+	if (similarCube)	{
+		similarCube->finalizeCube();
+		delete similarCube;
 	}
 
 	if (glIsTexture(defaultTextureID))			glDeleteTextures(1, &defaultTextureID);

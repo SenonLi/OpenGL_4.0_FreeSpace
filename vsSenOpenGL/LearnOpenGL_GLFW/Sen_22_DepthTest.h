@@ -16,7 +16,7 @@ protected:
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 
-	Sen_Cube *firstCube, *secondCube;
+	Sen_Cube *similarCube;
 	GLuint cubeTexture, floorTexture;
 };
 

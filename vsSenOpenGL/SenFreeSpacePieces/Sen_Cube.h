@@ -38,11 +38,17 @@ public:
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
 	inline void setCubeScaleRatio(glm::vec3 scale) { scaleRatio = scale; }
 
-	virtual void initialCubeGL()	{
+	void initialCubeGL()	{
 		initialCubeShaders();
 		initialCubeVertices();
 		initialCubeTexture();
 		initialCubeModel();
+	}
+
+	void initialCubeGL(GLuint newProgram, GLuint rollTexture, GLuint yawTexture, GLuint pitchTexture)	{
+		changeNewLinkedCubeProgram(newProgram);
+		changeNewUploadedCubeTexture(rollTexture, yawTexture, pitchTexture);
+		initialCubeVertices();
 	}
 
 	virtual void finalizeCube()	{
