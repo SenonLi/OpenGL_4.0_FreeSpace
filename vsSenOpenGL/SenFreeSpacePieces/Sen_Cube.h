@@ -20,15 +20,18 @@ public:
 		strPitchTexture = "./../WatchMe/Images/lau2.jpg";
 		cubeWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 0.0f);
 
-		selfSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f);
+		selfSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 		scaleRatio = glm::vec3(1.0f, 1.0f, 1.0f);
+		selfSpinAngle = 0.0f;
 	}
 	Sen_Cube(const char* strRoll, const char* strYaw, const char*strPitch, glm::vec3 cubeWorldAddr = glm::vec3(0.0f, 0.0f, -3.0f))
 		: strRollTexture(strRoll), strYawTexture(strYaw), strPitchTexture(strPitch), cubeWorldSpaceAddr(cubeWorldAddr), textureImagePtr(NULL)
-	{ ; }
-	
-	virtual ~Sen_Cube()	{ 
-		finalizeCube(); 
+	{
+		;
+	}
+
+	virtual ~Sen_Cube()	{
+		finalizeCube();
 	}
 
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
@@ -53,6 +56,21 @@ public:
 		if (glIsBuffer(cubeVertexIndicesObject))		glDeleteBuffers(1, &cubeVertexIndicesObject);
 
 		if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
+	}
+
+	void changeNewLinkedCubeProgram(GLuint newProgram)	{
+		if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
+		cubeProgram = newProgram;
+	}
+
+	void changeNewUploadedCubeTexture(GLuint rollTexture, GLuint yawTexture, GLuint pitchTexture)	{
+		if (glIsTexture(rollTextureID))			glDeleteTextures(1, &rollTextureID);
+		if (glIsTexture(yawTextureID))			glDeleteTextures(1, &yawTextureID);
+		if (glIsTexture(pitchTextureID))			glDeleteTextures(1, &pitchTextureID);
+
+		rollTextureID = rollTexture;
+		yawTextureID = yawTexture;
+		pitchTextureID = pitchTexture;
 	}
 
 	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{
@@ -87,7 +105,7 @@ public:
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glUseProgram(0);
 	}
-	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 1.5, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
+	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
 
 		glUseProgram(cubeProgram);
 		glBindVertexArray(cubeVertexArrayObject);
@@ -134,18 +152,18 @@ protected:
 		cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 	}
 
-	void updateCubeModel(glm::vec3 &worldSpaceAddress, float spinSpeedRate = 0.0, glm::vec3 vecSpinAxis = glm::vec3(-1.0f, 1.0f, 1.0f))	{
-		//if (spinSpeedRate != 0.0)	{
-			glm::mat4 identityMatrix;
-			cubeModel = glm::translate(identityMatrix, worldSpaceAddress);
+	void updateCubeModel(glm::vec3 &worldSpaceAddress, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
+		glm::mat4 identityMatrix;
+		cubeModel = glm::translate(identityMatrix, worldSpaceAddress);
+		cubeModel = glm::scale(cubeModel, scaleRatio);
 
-			cubeModel = glm::scale(cubeModel, scaleRatio);
+		if (spinSpeedRate != 0.0)	{
 
-			if (spinSpeedRate != 0.0)	selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
+			selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
 			selfSpinAxis = vecSpinAxis;
 
 			cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
-		//}
+		}
 	}
 
 	void initialCubeTexture()	{

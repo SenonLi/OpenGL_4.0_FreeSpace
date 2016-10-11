@@ -53,6 +53,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -171,6 +177,12 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">
@@ -243,6 +255,12 @@
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.vert">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.frag">
+      <Filter>Shaders\LearnOpenGL_GLFW</Filter>
+    </None>
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
   </ItemGroup>

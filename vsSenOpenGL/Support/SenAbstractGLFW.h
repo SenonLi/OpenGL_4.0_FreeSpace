@@ -15,7 +15,7 @@
 
 #define SenGL_CheckError() SenGL_CheckError_(__FILE__, __LINE__)
 #define SenGL_MajorVersion 4
-#define SenGL_MinorVersion 0
+#define SenGL_MinorVersion 3
 
 class SenAbstractGLFW
 {

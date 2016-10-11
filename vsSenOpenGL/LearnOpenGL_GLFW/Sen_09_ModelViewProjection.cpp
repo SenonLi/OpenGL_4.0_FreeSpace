@@ -129,11 +129,11 @@ void Sen_09_ModelViewProjection::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
-	textureImage = SOIL_load_image("./../WatchMe/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("./../WatchMe/Images/UKY.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 
 	glGenTextures(1, &thirdLayerTexture);
@@ -145,20 +145,20 @@ void Sen_09_ModelViewProjection::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	textureImage = SOIL_load_image("./../WatchMe/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("./../WatchMe/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
 
-	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/Lau2.jpg", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newLayerWidth, newLayerHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
 void Sen_09_ModelViewProjection::initialBackgroundTexture()
 {
 	int width, height;
-	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
-	textureImage = SOIL_load_image("./../WatchMe/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("./../WatchMe/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
 	// Load and create a defaultTextureID 
 	glGenTextures(1, &defaultTextureID);
@@ -171,9 +171,9 @@ void Sen_09_ModelViewProjection::initialBackgroundTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	// Load textureImage, create defaultTextureID and generate mipmaps
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 }
 

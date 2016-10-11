@@ -25,6 +25,7 @@ void Sen_10_Camera::initialGlfwGlewGL()
 	//programA = LoadShaders(shaders);
 
 
+	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
 	backgroundCube.initialCubeGL();
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
@@ -34,7 +35,6 @@ void Sen_10_Camera::paintGL(void)
 {
 	SenFreeSpaceAbstract::paintGL();
 
-	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
 	backgroundCube.paintCube(projection, view);
 }
 

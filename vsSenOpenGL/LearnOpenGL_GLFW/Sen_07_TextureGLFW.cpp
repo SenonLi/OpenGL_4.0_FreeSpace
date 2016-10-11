@@ -39,9 +39,9 @@ void Sen_07_TextureGLFW::paintGL(void)
 
 void Sen_07_TextureGLFW::initialGlfwGlewGL()
 {
-	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-	//textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
+	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
 
 	SenAbstractGLFW::initialGlfwGlewGL();
 
@@ -115,10 +115,10 @@ void Sen_07_TextureGLFW::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImage);
+	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
@@ -135,10 +135,10 @@ void Sen_07_TextureGLFW::initialBackgroundTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	// Load textureImage, create defaultTextureID and generate mipmaps
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widgetWidth, widgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImage);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widgetWidth, widgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widgetWidth, widgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widgetWidth, widgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 }
 

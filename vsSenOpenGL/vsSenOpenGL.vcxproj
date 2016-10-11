@@ -20,6 +20,8 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_10_Camera.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp" />
@@ -41,6 +43,8 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />
@@ -70,6 +74,8 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_09_ModelViewProjection.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.geom" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.vert" />

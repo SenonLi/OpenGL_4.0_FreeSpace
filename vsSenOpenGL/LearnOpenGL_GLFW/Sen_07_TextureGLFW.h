@@ -29,7 +29,7 @@ protected:
 	void bindBackgroundTexture();
 	void bindNewLayerTexture();
 
-	unsigned char* textureImage;
+	unsigned char* textureImagePtr;
 
 	GLuint newLayerTexture;
 };

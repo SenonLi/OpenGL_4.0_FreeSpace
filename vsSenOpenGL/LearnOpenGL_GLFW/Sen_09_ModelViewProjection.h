@@ -33,7 +33,7 @@ protected:
 	void updateModelViewProjection();
 	void updateSecondModelViewProjection();
 
-	unsigned char* textureImage;
+	unsigned char* textureImagePtr;
 
 	GLuint newLayerTexture, thirdLayerTexture;
 

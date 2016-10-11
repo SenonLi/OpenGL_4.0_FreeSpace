@@ -1,6 +1,7 @@
 #include "SenFreeSpaceAbstract.h"
 
 SenFreeSpaceAbstract::SenFreeSpaceAbstract()
+	:textureImagePtr(NULL)
 {
 	strWindowName = "Sen GLFW Free Space";
 	widgetWidth = SenFREESPACE_widgetWidth;

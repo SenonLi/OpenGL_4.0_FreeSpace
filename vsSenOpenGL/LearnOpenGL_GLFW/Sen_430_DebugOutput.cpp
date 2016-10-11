@@ -95,7 +95,7 @@ void Sen_430_DebugOutput::initialGlfwGlewGL()
 
 	// load cube texture
 	int width, height;
-	textureImage = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenSqaurePortrait.jpg", &width, &height, 0, SOIL_LOAD_RGBA);
 
 
 
@@ -111,11 +111,11 @@ void Sen_430_DebugOutput::initialGlfwGlewGL()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// Load textureImage, create defaultTextureID and generate mipmaps
-	glTexImage2D(GL_FRAMEBUFFER, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImage);
+	glTexImage2D(GL_FRAMEBUFFER, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
-	SOIL_free_image_data(textureImage);
+	SOIL_free_image_data(textureImagePtr);
 
 	SenGL_CheckError();
 

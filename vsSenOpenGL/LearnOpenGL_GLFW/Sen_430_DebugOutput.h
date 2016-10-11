@@ -16,7 +16,6 @@ protected:
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 
-	unsigned char* textureImage;
 
 	float viewCenter = -3.0f;
 };
