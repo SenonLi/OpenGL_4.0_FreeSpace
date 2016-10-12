@@ -102,7 +102,6 @@ void Sen_22_DepthTest::cleanFreeSpace(void)	{
 
 	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
-	if (glIsBuffer(verIndicesObjArray[0]))		glDeleteBuffers(1, verIndicesObjArray);
 
 	if (glIsProgram(programA))				glDeleteProgram(programA);
 }
