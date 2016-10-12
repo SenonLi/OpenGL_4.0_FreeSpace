@@ -4,6 +4,7 @@
 Sen_22_DepthTest::Sen_22_DepthTest()
 {
 	similarCube = new Sen_Cube();
+	strWindowName = "Sen_22 Depth Test in FreeSpace";
 }
 
 
@@ -23,10 +24,15 @@ void Sen_22_DepthTest::initialGlfwGlewGL()
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
-		{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_22_DepthTest.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_22_DepthTest.frag" },
 		{ GL_NONE, NULL }
 	};
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
+	//	{ GL_NONE, NULL }
+	//};
 	programA = LoadShaders(shaders);
 
 	GLfloat planeVertices[] = {
@@ -58,8 +64,10 @@ void Sen_22_DepthTest::initialGlfwGlewGL()
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 
-	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
-	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
+	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
+	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
+	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
+	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
 
 	similarCube->initialCubeGL(programA, cubeTexture, cubeTexture, cubeTexture);
 
