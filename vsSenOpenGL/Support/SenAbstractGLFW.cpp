@@ -93,7 +93,7 @@ void SenAbstractGLFW::showWidget()
 		glfwSwapBuffers(widgetGLFW);
 	}
 
-	finalize();
+	finalize();// all the clean up works
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 }
