@@ -19,7 +19,7 @@ void Sen_22_DepthTest::initialGlfwGlewGL()
 	SenFreeSpaceAbstract::initialGlfwGlewGL();
 
 	// Setup some OpenGL options
-	glDepthFunc(GL_LESS);
+	glDepthFunc(GL_LESS);// By Default
 
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 

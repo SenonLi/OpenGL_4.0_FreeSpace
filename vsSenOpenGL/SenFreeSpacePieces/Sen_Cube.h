@@ -65,7 +65,6 @@ public:
 	}
 
 	void changeNewLinkedCubeProgram(GLuint newProgram)	{
-		if (glIsProgram(cubeProgram))			glDeleteProgram(cubeProgram);
 		cubeProgram = newProgram;
 	}
 
