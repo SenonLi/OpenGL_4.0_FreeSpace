@@ -80,15 +80,15 @@ public:
 
 	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{
 
-		GLfloat widthMax = widthRatio;
-		GLfloat heightMax = heightRatio;
+		GLfloat widthMax = 100*widthRatio;
+		GLfloat heightMax = 100*heightRatio;
 
 		logoCubeCameraView = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 100.0f);
+		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 1000.0f);
 
 		glm::mat4 identityMatrix;
-		logoCubeModel = glm::translate(identityMatrix, glm::vec3(0.8f * widthMax, 0.8f * heightMax, -18.0f));
-		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(0.16f, 0.16f, 0.16f));
+		logoCubeModel = glm::translate(identityMatrix, glm::vec3(0.8f * widthMax, 0.8f * heightMax, -32.1f));
+		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(16.0f, 16.0f, 16.0f));
 		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
 		glUseProgram(cubeProgram);
