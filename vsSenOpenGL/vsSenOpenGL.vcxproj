@@ -22,7 +22,7 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.cpp" />
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp" />
@@ -46,7 +46,7 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.h" />
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />

@@ -53,13 +53,13 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.cpp">
-      <Filter>Sources\LearnOpenGL_GLFW</Filter>
-    </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,13 +180,13 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_FrameBufferTest.h">
-      <Filter>Headers\LearnOpenGL_GLFW</Filter>
-    </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
   </ItemGroup>

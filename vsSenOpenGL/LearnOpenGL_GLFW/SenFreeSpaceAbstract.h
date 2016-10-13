@@ -43,6 +43,9 @@ protected:
 	glm::mat4 model, view, projection;
 	unsigned char* textureImagePtr;
 
+	bool showDebugFrameBuffer;
+	GLuint debugSpaceFramebufferObject;
+
 
 	// CameraViewModel
 	SenCameraViewModel camera;

@@ -10,8 +10,8 @@
 //#include "LearnOpenGL_GLFW/Sen_10_Camera.h"
 //#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
 //#include "LearnOpenGL_GLFW/Sen_22_DepthTest.h"
-#include "LearnOpenGL_GLFW/Sen_23_StencilObjectOutline.h"
-//#include "LearnOpenGL_GLFW/Sen_26_FrameBufferTest.h"
+//#include "LearnOpenGL_GLFW/Sen_23_StencilObjectOutline.h"
+#include "LearnOpenGL_GLFW/Sen_26_PostProcessing.h"
 //#include "LearnOpenGL_GLFW/Sen_30_GeometryShow.h"
 //#include "LearnOpenGL_GLFW/Sen_303_NanoSuitExplode.h"
 //#include "LearnOpenGL_GLFW/Sen_430_DebugOutput.h"
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	//Sen_09_ModelViewProjection glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	Sen_23_StencilObjectOutline cameraWidget;
+	Sen_26_PostProcessing cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;
