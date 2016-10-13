@@ -69,7 +69,7 @@ protected:
 	}
 
 	const GLfloat DEFAULT_zoomRatio = 6.0;
-	const GLfloat SenFREESPACE_ZfightingOffset = 0.03f;
+	const GLfloat SenFREESPACE_ZfightingOffset = 0.04f;
 	const GLfloat SenGOLDEN_SectionScale = 0.618f;
 	const GLint SenFREESPACE_widgetWidth = 960;
 	const GLint SenFREESPACE_widgetHeight = GLint(SenFREESPACE_widgetWidth * SenGOLDEN_SectionScale);

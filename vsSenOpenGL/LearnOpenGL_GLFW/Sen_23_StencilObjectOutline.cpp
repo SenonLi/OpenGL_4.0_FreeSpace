@@ -94,7 +94,7 @@ void Sen_23_StencilObjectOutline::initialGlfwGlewGL()
 
 void Sen_23_StencilObjectOutline::paintFreeSpaceGL(void)
 {
-	// Floor
+	// Paint Floor
 	glUseProgram(programA);
 	glBindVertexArray(verArrObjArray[0]);
 	glBindTexture(GL_TEXTURE_2D, floorTexture);
@@ -130,6 +130,7 @@ void Sen_23_StencilObjectOutline::paintFreeSpaceGL(void)
 	// =====  Paint Outline based on stencil of "one"s   ====
 	glStencilFunc(GL_NOTEQUAL, 0x01, 0xFF); // All fragments should update the
 	glStencilMask(0x00); // Disable writing to the stencil buffer
+	//glDisable(GL_DEPTH_TEST);
 
 	// set outline program, and enlarged scaleRatio for outline painting
 	glUseProgram(programB);
@@ -145,9 +146,12 @@ void Sen_23_StencilObjectOutline::paintFreeSpaceGL(void)
 	glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glStencilMask(0x00); // Disable writing to the stencil buffer
+	//glEnable(GL_DEPTH_TEST);
 
 	//============   end of   Object Outline        ==============================================================
-
+	
+	
+	
 }
 
 
@@ -164,4 +168,5 @@ void Sen_23_StencilObjectOutline::cleanFreeSpace(void)	{
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
 
 	if (glIsProgram(programA))				glDeleteProgram(programA);
+	if (glIsProgram(programB))				glDeleteProgram(programB);
 }
