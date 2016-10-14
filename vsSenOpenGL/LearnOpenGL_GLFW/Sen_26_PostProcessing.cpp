@@ -93,7 +93,8 @@ void Sen_26_PostProcessing::initialGlfwGlewGL()
 
 
 	// === FrameBuffer ===
-
+	//glGenFramebuffers(1, &frameBufferObject);
+	//glBindFramebuffer(
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
 }

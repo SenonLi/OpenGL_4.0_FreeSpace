@@ -29,7 +29,12 @@ void SenFreeSpaceAbstract::initialGlfwGlewGL()
 	}
 
 	SenFreeSpaceLogoCube.initialCubeGL();
-
+	
+	
+	
+	
+	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
+	
 	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
 }
 

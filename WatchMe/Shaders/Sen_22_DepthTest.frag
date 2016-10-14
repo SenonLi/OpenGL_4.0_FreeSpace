@@ -19,6 +19,7 @@ void main()
     
 	
 	// divide by far to get depth in range [0,1] for visualization purposes.
-	float depth = LinearizeDepth(gl_FragCoord.z) / far;
-    fragmentColor = vec4(vec3(depth), 1.0f);//*/
+	float depth = LinearizeDepth(gl_FragCoord.z) / far;//  + 1.0f;
+	depth = sqrt(depth);
+	fragmentColor = vec4(vec3(depth), 1.0f);//*/
 }
