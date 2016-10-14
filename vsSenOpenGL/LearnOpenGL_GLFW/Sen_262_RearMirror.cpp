@@ -48,7 +48,7 @@ void Sen_262_RearMirror::initialGlfwGlewGL()
 
 	ShaderInfo shadersRearMirror[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.frag" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_23_StencilObjectOutline.frag" },
 		{ GL_NONE, NULL }
 	};
 

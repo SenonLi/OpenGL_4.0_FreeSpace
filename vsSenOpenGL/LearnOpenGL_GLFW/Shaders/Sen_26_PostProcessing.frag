@@ -9,7 +9,7 @@ const float offset = 1.0 / 300;
 
 void main()
 {
-    /*   // ==================  Inverse All Pixels' Color ========================================
+       // ==================  Inverse All Pixels' Color ========================================
 	vec2 offsets[9] = vec2[](
         vec2(-offset, offset),  // top-left
         vec2(0.0f,    offset),  // top-center
@@ -53,5 +53,5 @@ void main()
 	
 
 
-	fragmentColor = texture(screenTexture, TexCoords);
+	//fragmentColor = texture(screenTexture, TexCoords);
 } 
