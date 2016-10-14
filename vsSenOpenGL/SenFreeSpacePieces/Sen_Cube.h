@@ -37,12 +37,16 @@ public:
 	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
 	inline void setCubeScaleRatio(glm::vec3 scale) { scaleRatio = scale; }
+	inline void setCubeRotation(glm::vec3 spinAxis, GLfloat spinAngle) {
+		selfSpinAxis = spinAxis;
+		selfSpinAngle = glm::radians(spinAngle);// spinAngle;
+	}
 
 	void initialCubeGL()	{
 		initialCubeShaders();
 		initialCubeVertices();
 		initialCubeTexture();
-		initialCubeModel();
+		//initialCubeModel();
 	}
 
 	void initialCubeGL(GLuint newProgram, GLuint rollTexture, GLuint yawTexture, GLuint pitchTexture)	{
@@ -166,9 +170,9 @@ protected:
 
 			selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
 			selfSpinAxis = vecSpinAxis;
-
-			cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 		}
+
+		cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 	}
 
 	void initialCubeTexture()	{
