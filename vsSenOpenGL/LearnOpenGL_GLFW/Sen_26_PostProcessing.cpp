@@ -5,6 +5,12 @@ Sen_26_PostProcessing::Sen_26_PostProcessing()
 {
 	similarCube = new Sen_Cube();
 	strWindowName = "Sen_26 FrameBuffer Post Processing in FreeSpace";
+
+	camera.Position = glm::vec3(-5.1788f, 5.7847f, 6.5843f);
+	camera.Front = glm::vec3(0.336f, -0.7513f, -0.568);
+	camera.Up = glm::vec3(0.3824f, 0.6600f, -0.6466f);
+	camera.Yaw = -59.40f;
+	camera.Pitch = -48.700;
 }
 
 
@@ -102,8 +108,6 @@ void Sen_26_PostProcessing::initialGlfwGlewGL()
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/SenGrassGround3,jpg").c_str(), floorTexture, std::string("RGB"));
 
 	similarCube->initialCubeGL(programA, cubeTexture, cubeTexture, cubeTexture);
-
-	camera.setCameraViewPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	// ==== Initial FrameBuffer ==============================================================
 	glGenFramebuffers(1, &testFrameBufferObject);

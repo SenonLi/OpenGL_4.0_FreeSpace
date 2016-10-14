@@ -278,10 +278,10 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_ColorRed.frag">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.frag">
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.vert">
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.frag">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
   </ItemGroup>
