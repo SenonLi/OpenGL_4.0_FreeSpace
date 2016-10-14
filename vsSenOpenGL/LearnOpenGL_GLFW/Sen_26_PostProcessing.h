@@ -24,8 +24,8 @@ protected:
 
 
 	// ==== FrameBuffer ====
-	GLuint frameBufferObject;
-
+	GLuint testFrameBufferObject;
+	GLuint textureColorBuffer, depthStencilRenderBufferObject;
 
 
 

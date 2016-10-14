@@ -78,6 +78,8 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.vert" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.frag" />
+    <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_ColorRed.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_23_StencilObjectOutline.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_23_StencilObjectOutline.vert" />

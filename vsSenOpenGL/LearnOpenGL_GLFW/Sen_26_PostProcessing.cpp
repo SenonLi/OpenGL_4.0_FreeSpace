@@ -35,14 +35,14 @@ void Sen_26_PostProcessing::initialGlfwGlewGL()
 		{ GL_NONE, NULL }
 	};
 
-	//ShaderInfo shadersOutline[] = {
-	//	{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_23_StencilObjectOutline.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_ColorRed.frag" },
-	//	{ GL_NONE, NULL }
-	//};
+	ShaderInfo shadersPostProcessing[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.frag" },
+		{ GL_NONE, NULL }
+	};
 
 	programA = LoadShaders(shaders);
-	//programB = LoadShaders(shadersOutline);
+	programB = LoadShaders(shadersPostProcessing);
 
 
 	GLfloat planeVertices[] = {
@@ -55,24 +55,46 @@ void Sen_26_PostProcessing::initialGlfwGlewGL()
 		-5.0f, -0.5f, -5.0f, 0.0f, 2.0f,
 		5.0f, -0.5f, -5.0f, 2.0f, 2.0f
 	};
+	GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		// Positions   // TexCoords
+		-1.0f, 1.0f, 0.0f, 1.0f,
+		-1.0f, -1.0f, 0.0f, 0.0f,
+		1.0f, -1.0f, 1.0f, 0.0f,
 
-	glGenVertexArrays(1, verArrObjArray);
-	glGenBuffers(1, verBufferObjArray);
-	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
+		-1.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, -1.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f, 1.0f
+	};
+
+	glGenVertexArrays(2, verArrObjArray);
+	glGenBuffers(2, verBufferObjArray);
+
+	// =====   Setup floor verArrObj[0] ================
 	glBindVertexArray(verArrObjArray[0]);
-
 	glBindBuffer(GL_ARRAY_BUFFER, verBufferObjArray[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
 
-	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	// TexCoord attribute
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	glBindVertexArray(0); 
+
+	// ===== Setup Widget quad verArrObj[1] =================
+	glBindVertexArray(verArrObjArray[1]);
+	glBindBuffer(GL_ARRAY_BUFFER, verBufferObjArray[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+
 
 	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/container.jpg").c_str(), cubeTexture, std::string("RGB"));
 	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/SenGrassGround3.jpg").c_str(), floorTexture, std::string("RGB"));
@@ -83,24 +105,43 @@ void Sen_26_PostProcessing::initialGlfwGlewGL()
 
 	camera.setCameraViewPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
-	//glEnable(GL_STENCIL_TEST);
-	//// Check GL_STENCIL_TEST only when needed
-	//glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
-	//// Disable writing to the stencil buffer
-	//glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	//glStencilMask(0x00);
+	// ==== Initial FrameBuffer ==============================================================
+	glGenFramebuffers(1, &testFrameBufferObject);
+	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
+	// Generate and Attach color texture to currently bound framebuffer object
+	textureColorBuffer = generateAttachmentTexture(false, false);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
 
+	glGenRenderbuffers(1, &depthStencilRenderBufferObject);
+	glBindRenderbuffer(GL_RENDERBUFFER, depthStencilRenderBufferObject);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, widgetWidth, widgetHeight);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilRenderBufferObject);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	
+	// make sure frameBuffer is complete
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Error::Framebuffer:: Framebuffer is not complete!" << std::endl;
+		
+	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
 
+	// Make sure operations are for the default framebuffer (main screen)
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	// === FrameBuffer ===
-	//glGenFramebuffers(1, &frameBufferObject);
-	//glBindFramebuffer(
+	// Draw as wireframe
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	// ==== End of  Initial FrameBuffer ==============================================================
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
 }
 
 void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 {
+	// ======== Render Customer FrameBuffer =================================================================
+	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
+	//glEnable(GL_DEPTH_TEST);
+
 	// Paint Floor
 	glUseProgram(programA);
 	glBindVertexArray(verArrObjArray[0]);
@@ -113,17 +154,6 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
 
-	//============      Object Outline        ==============================================================
-	// ===== Clear Stencil Buffer as a beginning =========
-	//glStencilMask(0xFF); // Enable Stencil Writing for clearing
-	//glClearStencil(0x00);
-	//glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
-
-	// =====   Paint stencil of "one"s        =============
-	//glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
-	//glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	//glStencilMask(0xFF); // Enable writing to the stencil buffer
-
 	// Recover program, normal scaleratio Needed
 	glUseProgram(programA);
 	similarCube->changeNewLinkedCubeProgram(programA);
@@ -134,29 +164,26 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 	similarCube->setCubeWorldAddress(secondCubePosition);
 	similarCube->paintCube(projection, view);
 
-	// =====  Paint Outline based on stencil of "one"s   ====
-	//glStencilFunc(GL_NOTEQUAL, 0x01, 0xFF); // All fragments should update the
-	//glStencilMask(0x00); // Disable writing to the stencil buffer
+	// ======== End of Render Customer FrameBuffer =================================================================
 
-	//// set outline program, and enlarged scaleRatio for outline painting
-	//glUseProgram(programB);
-	//similarCube->changeNewLinkedCubeProgram(programB);
-	//similarCube->setCubeScaleRatio(glm::vec3(1.06f, 1.06f, 1.06f));
+	/////////////////////////////////////////////////////
+	// Bind to default framebuffer again and draw the 
+	// quad plane with attched screen texture.
+	// //////////////////////////////////////////////////
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	// Clear all relevant buffers
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
+	glClear(GL_COLOR_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
-	//similarCube->setCubeWorldAddress(firstCubePosition);
-	//similarCube->paintCube(projection, view);
-	//similarCube->setCubeWorldAddress(secondCubePosition);
-	//similarCube->paintCube(projection, view);
+	// Draw Screen
+	glUseProgram(programB);
+	glBindVertexArray(verArrObjArray[1]);
+	glBindTexture(GL_TEXTURE_2D, textureColorBuffer);	// Use the color attachment texture as the texture of the quad plane
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
 
-	// =====  "Close stencil test" for other objects   ====
-	//glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
-	//glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	//glStencilMask(0x00); // Disable writing to the stencil buffer
-
-	//============   end of   Object Outline        ==============================================================
-
-
-
+	glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -168,10 +195,22 @@ void Sen_26_PostProcessing::cleanFreeSpace(void)	{
 	}
 
 	if (glIsTexture(defaultTextureID))			glDeleteTextures(1, &defaultTextureID);
+	
+	// finalize FrameBuffer 
+	if (glIsTexture(textureColorBuffer))		
+		glDeleteTextures(1, &textureColorBuffer);
+	if (glIsFramebuffer(testFrameBufferObject)) 
+		glDeleteFramebuffers(1, &testFrameBufferObject);
+	if (glIsRenderbuffer(depthStencilRenderBufferObject))
+		glDeleteRenderbuffers(1, &depthStencilRenderBufferObject);
 
 	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
+	if (glIsVertexArray(verArrObjArray[1]))		
+		glDeleteVertexArrays(1, &(verArrObjArray[1]));
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
+	if (glIsBuffer(verBufferObjArray[1]))		
+		glDeleteBuffers(1, &(verBufferObjArray[1]));
 
 	if (glIsProgram(programA))				glDeleteProgram(programA);
-	//if (glIsProgram(programB))				glDeleteProgram(programB);
+	if (glIsProgram(programB))				glDeleteProgram(programB);
 }

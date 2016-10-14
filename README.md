@@ -16,4 +16,4 @@ SenFreeSpace: enjoy 3D OpenGL
 * SOIL: Simple OpenGL Image Load
 * GLM: OpenGL Mathematics
 * Assimp: Open Asset Import Library
-* Project Title
+
