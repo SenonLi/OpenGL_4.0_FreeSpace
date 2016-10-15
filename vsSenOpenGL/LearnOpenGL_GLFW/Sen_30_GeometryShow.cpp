@@ -28,9 +28,9 @@ void Sen_30_GeometryShow::paintGL(void)
 	glBindVertexArray(0);
 }
 
-void Sen_30_GeometryShow::initialGlfwGlewGL()
+void Sen_30_GeometryShow::initGlfwGlewGL()
 {
-	SenAbstractGLFW::initialGlfwGlewGL();
+	SenAbstractGLFW::initGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER,   "./LearnOpenGL_GLFW/Shaders/Sen_30_GeometryShow.vert" },

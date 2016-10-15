@@ -17,7 +17,7 @@ public:
 
 protected:
 	void paintGL(void);
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void finalize();
 
 	glm::mat4 model, view, projection;

@@ -12,9 +12,9 @@ Sen_23_StencilObjectOutline::~Sen_23_StencilObjectOutline()
 }
 
 
-void Sen_23_StencilObjectOutline::initialGlfwGlewGL()
+void Sen_23_StencilObjectOutline::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	// Setup some OpenGL options
 	glEnable(GL_DEPTH_TEST);

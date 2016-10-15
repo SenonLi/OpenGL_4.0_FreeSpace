@@ -1,7 +1,7 @@
 #include "SenFreeSpaceAbstract.h"
 
 SenFreeSpaceAbstract::SenFreeSpaceAbstract()
-	:textureImagePtr(NULL), showDebugFrameBuffer(false)
+	:textureImagePtr(NULL)
 {
 	strWindowName = "Sen GLFW Free Space";
 	widgetWidth = SenFREESPACE_widgetWidth;
@@ -13,26 +13,19 @@ SenFreeSpaceAbstract::~SenFreeSpaceAbstract()
 
 }
 
-void SenFreeSpaceAbstract::initialGlfwGlewGL()
+void SenFreeSpaceAbstract::initGlfwGlewGL()
 {
-	SenAbstractGLFW::initialGlfwGlewGL();
+	SenAbstractGLFW::initGlfwGlewGL();
+
 	cursorPositionHandlerRegister();
 	mouseScrollHandlerRegister();
+
 	// Options
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	//projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 0.1f, 100.0f);
+
 	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
-
-	if (showDebugFrameBuffer)	{
-		glGenFramebuffers(1, &debugSpaceFramebufferObject);
-	}
-
 	SenFreeSpaceLogoCube.initialCubeGL();
-	
-	
-	
-	
 	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
 	
 	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
@@ -62,10 +55,6 @@ void SenFreeSpaceAbstract::paintGL(void)
 void SenFreeSpaceAbstract::finalize(void)
 {
 	cleanFreeSpace();
-
-
-	if (glIsFramebuffer(debugSpaceFramebufferObject))
-		glDeleteFramebuffers(1, &debugSpaceFramebufferObject);
 
 	// Clean SenFreeSpaceLogo
 	SenFreeSpaceLogoCube.finalizeCube();

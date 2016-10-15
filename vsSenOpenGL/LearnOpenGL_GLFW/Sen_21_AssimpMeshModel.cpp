@@ -18,9 +18,9 @@ Sen_21_AssimpMeshModel::~Sen_21_AssimpMeshModel()
 }
 
 
-void Sen_21_AssimpMeshModel::initialGlfwGlewGL()
+void Sen_21_AssimpMeshModel::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 	
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 

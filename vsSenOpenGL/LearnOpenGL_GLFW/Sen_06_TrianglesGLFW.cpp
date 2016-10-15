@@ -10,10 +10,10 @@ Sen_06_TrianglesGLFW::~Sen_06_TrianglesGLFW()
 {
 }
 
-void Sen_06_TrianglesGLFW::initialGlfwGlewGL()
+void Sen_06_TrianglesGLFW::initGlfwGlewGL()
 {
 
-	SenAbstractGLFW::initialGlfwGlewGL();
+	SenAbstractGLFW::initGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_06_Triangle.vert" },

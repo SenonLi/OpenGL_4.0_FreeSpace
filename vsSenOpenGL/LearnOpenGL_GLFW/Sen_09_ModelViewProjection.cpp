@@ -14,9 +14,9 @@ Sen_09_ModelViewProjection::~Sen_09_ModelViewProjection()
 }
 
 
-void Sen_09_ModelViewProjection::initialGlfwGlewGL()
+void Sen_09_ModelViewProjection::initGlfwGlewGL()
 {
-	SenAbstractGLFW::initialGlfwGlewGL();
+	SenAbstractGLFW::initGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_09_ModelViewProjection.vert" },

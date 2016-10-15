@@ -12,7 +12,7 @@ public:
 	virtual ~Sen_262_RearMirror();
 
 protected:
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 
@@ -20,7 +20,7 @@ protected:
 
 	Sen_Cube *similarCube, *rearCube;
 	GLuint cubeTexture, floorTexture;
-	GLuint frameProgram, frameVertexArrayID, frameVertexBufferObject;
+	GLuint mirrorFrameProgram, mirrorFrameVertexArrayID, mirrorFrameVertexBufferObject;
 
 	glm::vec3 firstCubePosition = glm::vec3(-3.5f, 0.0f + SenFREESPACE_ZfightingOffset, -4.0f);
 	glm::vec3 secondCubePosition = glm::vec3(2.0f, 0.0f + SenFREESPACE_ZfightingOffset, -3.0f);

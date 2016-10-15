@@ -50,8 +50,10 @@ public:
 	}
 
 	void initialCubeGL(GLuint newProgram, GLuint rollTexture, GLuint yawTexture, GLuint pitchTexture)	{
-		changeNewLinkedCubeProgram(newProgram);
-		changeNewUploadedCubeTexture(rollTexture, yawTexture, pitchTexture);
+		cubeProgram = newProgram;
+		rollTextureID = rollTexture;
+		yawTextureID = yawTexture;
+		pitchTextureID = pitchTexture;
 		initialCubeVertices();
 	}
 

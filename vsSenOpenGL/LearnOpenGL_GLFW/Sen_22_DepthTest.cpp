@@ -14,9 +14,9 @@ Sen_22_DepthTest::~Sen_22_DepthTest()
 
 
 
-void Sen_22_DepthTest::initialGlfwGlewGL()
+void Sen_22_DepthTest::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	// Setup some OpenGL options
 	glDepthFunc(GL_LESS);// By Default

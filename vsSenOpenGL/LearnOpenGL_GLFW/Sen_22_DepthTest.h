@@ -12,7 +12,7 @@ public:
 	virtual ~Sen_22_DepthTest();
 
 protected:
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 

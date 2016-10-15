@@ -22,7 +22,7 @@ void SenAbstractGLFW::paintGL(void)
 	glViewport(0, 0, widgetWidth, widgetHeight);
 }
 
-void SenAbstractGLFW::initialGlfwGlewGL()
+void SenAbstractGLFW::initGlfwGlewGL()
 {
 	// Init GLFW
 	glfwInit();
@@ -76,7 +76,7 @@ void SenAbstractGLFW::initialGlfwGlewGL()
 
 void SenAbstractGLFW::showWidget()
 {
-	initialGlfwGlewGL();
+	initGlfwGlewGL();
 
 	// Game loop
 	while (!glfwWindowShouldClose(widgetGLFW))

@@ -14,6 +14,7 @@
     <ClCompile Include="Guide8th\Sen_01_Triangles.cpp" />
     <ClCompile Include="Guide8th\Sen_03_DrawCommands.cpp" />
     <ClCompile Include="Guide8th\Sen_06_CubeMap.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\SenFreeSpaceAbstract.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp" />
@@ -22,6 +23,7 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.cpp" />
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_262_RearMirror.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
@@ -39,6 +41,7 @@
     <ClInclude Include="Guide8th\Sen_01_Triangles.h" />
     <ClInclude Include="Guide8th\Sen_03_DrawCommands.h" />
     <ClInclude Include="Guide8th\Sen_06_CubeMap.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.h" />
     <ClInclude Include="LearnOpenGL_GLFW\SenFreeSpaceAbstract.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.h" />
@@ -47,6 +50,7 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.h" />
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_262_RearMirror.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
@@ -126,12 +130,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\SenVisualStudio\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)\..\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\..\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\VSteapot\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\SenVisualStudio\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\..\$(Configuration)</IntDir>

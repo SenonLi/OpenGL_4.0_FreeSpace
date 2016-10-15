@@ -11,9 +11,9 @@ Sen_10_Camera::~Sen_10_Camera()
 {
 }
 
-void Sen_10_Camera::initialGlfwGlewGL()
+void Sen_10_Camera::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 

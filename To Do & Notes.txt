@@ -1,5 +1,4 @@
-* Learn Post Processing using customer framebuffer
-* Add subWidget (framebuffer) for second window debugging
+* Learn Blend + Face_Cull
 * Look Through Explode
 
 

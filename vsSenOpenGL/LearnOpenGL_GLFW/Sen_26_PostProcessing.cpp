@@ -19,9 +19,9 @@ Sen_26_PostProcessing::~Sen_26_PostProcessing()
 }
 
 
-void Sen_26_PostProcessing::initialGlfwGlewGL()
+void Sen_26_PostProcessing::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	// Setup some OpenGL options
 	glEnable(GL_DEPTH_TEST);

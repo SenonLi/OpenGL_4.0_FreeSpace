@@ -65,6 +65,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_262_RearMirror.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -193,6 +199,12 @@
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_262_RearMirror.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
   </ItemGroup>

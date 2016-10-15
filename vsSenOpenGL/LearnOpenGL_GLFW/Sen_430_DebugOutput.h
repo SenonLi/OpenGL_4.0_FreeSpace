@@ -12,7 +12,7 @@ public:
 	virtual ~Sen_430_DebugOutput();
 
 protected:
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 

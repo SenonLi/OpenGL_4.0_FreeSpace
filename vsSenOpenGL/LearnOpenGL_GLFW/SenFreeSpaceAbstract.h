@@ -34,7 +34,7 @@ protected:
 	virtual void cleanFreeSpace(void)	{ ; }
 
 	void paintGL(void);
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void finalize();
 
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
@@ -43,8 +43,6 @@ protected:
 	glm::mat4 model, view, projection;
 	unsigned char* textureImagePtr;
 
-	bool showDebugFrameBuffer;
-	GLuint debugSpaceFramebufferObject;
 
 
 	// CameraViewModel

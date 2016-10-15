@@ -12,7 +12,7 @@ public:
 
 protected:
 	void paintGL(void);
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void finalize();
 
 	void initialVertices();

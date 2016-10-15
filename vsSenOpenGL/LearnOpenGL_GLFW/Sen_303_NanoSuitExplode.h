@@ -14,7 +14,7 @@ public:
 	virtual ~Sen_303_NanoSuitExplode();
 
 protected:
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 

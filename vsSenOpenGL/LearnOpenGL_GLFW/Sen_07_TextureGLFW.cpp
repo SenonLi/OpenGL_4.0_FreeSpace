@@ -37,13 +37,13 @@ void Sen_07_TextureGLFW::paintGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Sen_07_TextureGLFW::initialGlfwGlewGL()
+void Sen_07_TextureGLFW::initGlfwGlewGL()
 {
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
 	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
 
-	SenAbstractGLFW::initialGlfwGlewGL();
+	SenAbstractGLFW::initGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.vert" },

@@ -18,9 +18,9 @@ Sen_262_RearMirror::~Sen_262_RearMirror()
 
 
 
-void Sen_262_RearMirror::initialGlfwGlewGL()
+void Sen_262_RearMirror::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	// Setup some OpenGL options
 	glEnable(GL_DEPTH_TEST);
@@ -54,7 +54,7 @@ void Sen_262_RearMirror::initialGlfwGlewGL()
 
 	programA = LoadShaders(shaders);
 	programB = LoadShaders(shadersRearMirror);
-	frameProgram = LoadShaders(shadersFrame);
+	mirrorFrameProgram = LoadShaders(shadersFrame);
 
 	GLfloat planeVertices[] = {
 		// Positions            // Texture Coords (note we set these higher than 1 that together with GL_REPEAT as texture wrapping mode will cause the floor texture to repeat)
@@ -108,7 +108,7 @@ void Sen_262_RearMirror::initialGlfwGlewGL()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-	// ===== Setup Widget quad verArrObj[1] =================
+	// ===== Setup Rear Mirror quad verArrObj[1] =================
 	glBindVertexArray(verArrObjArray[1]);
 	glBindBuffer(GL_ARRAY_BUFFER, verBufferObjArray[1]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rearMirrorQuadVertices), rearMirrorQuadVertices, GL_STATIC_DRAW);
@@ -121,12 +121,12 @@ void Sen_262_RearMirror::initialGlfwGlewGL()
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 
-	// ===== Setup Widget quad verArrObj[1] =================
-	glGenVertexArrays(1, &frameVertexArrayID);
-	glGenBuffers(1, &frameVertexBufferObject);
+	// ===== Setup Mirror Frame quad mirrorFrameVertexArrayID =================
+	glGenVertexArrays(1, &mirrorFrameVertexArrayID);
+	glGenBuffers(1, &mirrorFrameVertexBufferObject);
 	
-	glBindVertexArray(frameVertexArrayID);
-	glBindBuffer(GL_ARRAY_BUFFER, frameVertexBufferObject);
+	glBindVertexArray(mirrorFrameVertexArrayID);
+	glBindBuffer(GL_ARRAY_BUFFER, mirrorFrameVertexBufferObject);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(frameQuadVertices), frameQuadVertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
@@ -200,8 +200,8 @@ void Sen_262_RearMirror::paintFreeSpaceGL(void)
 	
 	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 	// Paint Frame
-	glUseProgram(frameProgram);
-	glBindVertexArray(frameVertexArrayID);
+	glUseProgram(mirrorFrameProgram);
+	glBindVertexArray(mirrorFrameVertexArrayID);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 	
@@ -271,14 +271,17 @@ void Sen_262_RearMirror::cleanFreeSpace(void)	{
 	if (glIsRenderbuffer(depthStencilRenderBufferObject))
 		glDeleteRenderbuffers(1, &depthStencilRenderBufferObject);
 
+	// finalize Vertex Attributes
 	if (glIsVertexArray(verArrObjArray[0]))		glDeleteVertexArrays(1, verArrObjArray);
-	if (glIsVertexArray(verArrObjArray[1]))
-		glDeleteVertexArrays(1, &(verArrObjArray[1]));
+	if (glIsVertexArray(verArrObjArray[1]))		glDeleteVertexArrays(1, &(verArrObjArray[1]));
+	if (glIsVertexArray(mirrorFrameVertexArrayID))		glDeleteVertexArrays(1, &mirrorFrameVertexArrayID);
+
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
-	if (glIsBuffer(verBufferObjArray[1]))
-		glDeleteBuffers(1, &(verBufferObjArray[1]));
+	if (glIsBuffer(verBufferObjArray[1]))		glDeleteBuffers(1, &(verBufferObjArray[1]));
+	if (glIsBuffer(mirrorFrameVertexBufferObject))		glDeleteBuffers(1, &mirrorFrameVertexBufferObject);
+
 
 	if (glIsProgram(programA))				glDeleteProgram(programA);
 	if (glIsProgram(programB))				glDeleteProgram(programB);
-	if (glIsProgram(frameProgram))				glDeleteProgram(frameProgram);
+	if (glIsProgram(mirrorFrameProgram))				glDeleteProgram(mirrorFrameProgram);
 }

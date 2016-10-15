@@ -36,7 +36,7 @@ protected:
 	float xRot, yRot;
 	float aspect;
 
-	virtual void initialGlfwGlewGL();
+	virtual void initGlfwGlewGL();
 	virtual void paintGL();
 	virtual void finalize() { ; }
 

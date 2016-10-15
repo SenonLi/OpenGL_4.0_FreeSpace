@@ -18,9 +18,9 @@ Sen_303_NanoSuitExplode::~Sen_303_NanoSuitExplode()
 
 
 
-void Sen_303_NanoSuitExplode::initialGlfwGlewGL()
+void Sen_303_NanoSuitExplode::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 

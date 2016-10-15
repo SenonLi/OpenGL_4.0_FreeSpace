@@ -13,9 +13,9 @@ Sen_430_DebugOutput::~Sen_430_DebugOutput()
 
 
 
-void Sen_430_DebugOutput::initialGlfwGlewGL()
+void Sen_430_DebugOutput::initGlfwGlewGL()
 {
-	SenFreeSpaceAbstract::initialGlfwGlewGL();
+	SenFreeSpaceAbstract::initGlfwGlewGL();
 
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 

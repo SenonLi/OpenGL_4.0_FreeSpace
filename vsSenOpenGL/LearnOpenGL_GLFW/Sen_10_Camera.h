@@ -16,7 +16,7 @@ public:
 
 protected:
 	void paintGL(void);
-	void initialGlfwGlewGL();
+	void initGlfwGlewGL();
 	void cleanFreeSpace();
 
 	Sen_Cube backgroundCube;
