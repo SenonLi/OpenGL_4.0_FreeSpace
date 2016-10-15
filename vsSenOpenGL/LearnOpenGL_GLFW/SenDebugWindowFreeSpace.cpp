@@ -6,18 +6,16 @@ SenDebugWindowFreeSpace::SenDebugWindowFreeSpace()
 	strWindowName = "Sen DebugWindow FreeSpace";
 }
 
-SenDebugWindowFreeSpace::~SenDebugWindowFreeSpace() {}
+SenDebugWindowFreeSpace::~SenDebugWindowFreeSpace() { ; }
 
 
 void SenDebugWindowFreeSpace::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
-
-	//*****   Initial Debug Window   *****************************************************************************************************
+	
 	initDebugWindowProgram();
 	initDebugWindowVertexAttributes();
 	initDebugWindowFrameBuffer();
-
 
 	OutputDebugString(" Sen FrameBuffer FreeSpace Initial \n\n");
 }
@@ -144,30 +142,6 @@ void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()
 	glBindVertexArray(0);
 }
 
-void SenDebugWindowFreeSpace::initDebugWindowProgram()
-{
-	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
-	//	{ GL_NONE, NULL }
-	//};
-
-	ShaderInfo shadersScreenTexture[] = {
-		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_23_StencilObjectOutline.frag" },
-		{ GL_NONE, NULL }
-	};
-
-	ShaderInfo shadersScreenSingular[] = {
-		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_26_PostProcessing.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_ColorRed.frag" },
-		{ GL_NONE, NULL }
-	};
-
-	debugWindowProgram = LoadShaders(shadersScreenTexture);
-	debugWindowOutlineProgram = LoadShaders(shadersScreenSingular);
-}
-
 void SenDebugWindowFreeSpace::cleanFreeSpace(void)	{
 
 	cleanDebugWindowFreeSpace();
@@ -184,4 +158,29 @@ void SenDebugWindowFreeSpace::cleanFreeSpace(void)	{
 	if (glIsTexture(debugWindowRGB_TextureAttach))		glDeleteTextures(1, &debugWindowRGB_TextureAttach);
 	if (glIsFramebuffer(debugWindowFrameBufferObject))	glDeleteFramebuffers(1, &debugWindowFrameBufferObject);
 	if (glIsRenderbuffer(debugWindowDepthStencil_RBO))	glDeleteRenderbuffers(1, &debugWindowDepthStencil_RBO);
+}
+
+
+void SenDebugWindowFreeSpace::initDebugWindowProgram()
+{
+	//ShaderInfo shaders[] = {
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
+	//	{ GL_NONE, NULL }
+	//};
+
+	ShaderInfo shadersScreenTexture[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_ScreenTextureCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
+		{ GL_NONE, NULL }
+	};
+
+	ShaderInfo shadersScreenSingular[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_ScreenCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_ColorRed.frag" },
+		{ GL_NONE, NULL }
+	};
+
+	debugWindowProgram = LoadShaders(shadersScreenTexture);
+	debugWindowOutlineProgram = LoadShaders(shadersScreenSingular);
 }

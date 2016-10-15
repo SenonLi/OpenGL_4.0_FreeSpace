@@ -12,9 +12,12 @@ public:
 	virtual ~Sen_263_DebugRearMirror();
 
 protected:
+	void initDebugWindowProgram();
+
 	void initGlfwGlewGL();
 	void paintScene();
 	void cleanDebugWindowFreeSpace();
+
 
 	Sen_Cube *similarCube, *rearCube;
 	GLuint cubeTexture, floorTexture;

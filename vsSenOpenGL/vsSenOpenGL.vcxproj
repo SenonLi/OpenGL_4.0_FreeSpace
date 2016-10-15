@@ -86,7 +86,6 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_22_DepthTest.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_26_PostProcessing.vert" />
-    <None Include="LearnOpenGL_GLFW\Shaders\Sen_ColorRed.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_23_StencilObjectOutline.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_23_StencilObjectOutline.vert" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_303_NanoSuitExplode.frag" />
@@ -97,6 +96,10 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_ColorRed.frag" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenCoords.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoords.frag" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenTextureCoords.vert" />
     <None Include="Sinks\Shaders\teapotExplosion.frag" />
     <None Include="Sinks\Shaders\teapotExplosion.vert" />
   </ItemGroup>

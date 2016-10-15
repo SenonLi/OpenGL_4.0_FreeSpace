@@ -68,7 +68,7 @@ void Sen_263_DebugRearMirror::paintScene(void)	{
 }
 
 void Sen_263_DebugRearMirror::cleanDebugWindowFreeSpace(void)	{
-	
+
 	// Clean Cubes
 	if (similarCube)	{
 		similarCube->finalizeCube();
@@ -87,21 +87,17 @@ void Sen_263_DebugRearMirror::cleanDebugWindowFreeSpace(void)	{
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
 }
 
-
-
-
-
 void Sen_263_DebugRearMirror::init_3D_TextureMapProgram(){
 
 	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
+	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_3D_TextureCoords.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_TextureCoords.frag" },
 	//	{ GL_NONE, NULL }
 	//};
 
 	ShaderInfo shaders_3D_TextureMap[] = {
-		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_23_StencilObjectOutline.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_23_StencilObjectOutline.frag" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_3D_TextureCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
 		{ GL_NONE, NULL }
 	};
 
@@ -144,4 +140,24 @@ void Sen_263_DebugRearMirror::initTextures(){
 	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/SenGrassGround3.jpg").c_str(), floorTexture, std::string("RGB"));
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/container.jpg").c_str(), cubeTexture, std::string("RGB"));
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/SenGrassGround3,jpg").c_str(), floorTexture, std::string("RGB"));
+}
+
+
+
+void Sen_263_DebugRearMirror::initDebugWindowProgram()
+{
+	ShaderInfo shadersScreenTexture[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_ScreenTextureCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_EdgeDetectTextureCoords.frag" },
+		{ GL_NONE, NULL }
+	};
+
+	ShaderInfo shadersScreenSingular[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_ScreenCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_ColorRed.frag" },
+		{ GL_NONE, NULL }
+	};
+
+	debugWindowProgram = LoadShaders(shadersScreenTexture);
+	debugWindowOutlineProgram = LoadShaders(shadersScreenSingular);
 }
