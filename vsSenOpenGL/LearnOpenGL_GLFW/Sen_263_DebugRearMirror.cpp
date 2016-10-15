@@ -148,7 +148,7 @@ void Sen_263_DebugRearMirror::initDebugWindowProgram()
 {
 	ShaderInfo shadersScreenTexture[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_ScreenTextureCoords.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_EdgeDetectTextureCoords.frag" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
 		{ GL_NONE, NULL }
 	};
 

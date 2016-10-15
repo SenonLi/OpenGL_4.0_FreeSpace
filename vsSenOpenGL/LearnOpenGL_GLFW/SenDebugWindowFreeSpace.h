@@ -18,6 +18,8 @@ protected:
 	void paintFreeSpaceGL(void);
 	void cleanFreeSpace(void);
 	
+	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
+	GLboolean debugWindowSwitchPressing, debugWindowSwitch;
 
 	// ==== Debug Window Vertex Attributes + FrameBuffer ====
 	virtual void initDebugWindowProgram();

@@ -4,3 +4,4 @@
 * WASD: control your position
 * Scroll: Zoom
 * Mouse Move: Change you view direction
+* Press Q button: Trigger/Close sub-window (e.g. Rear Mirror)

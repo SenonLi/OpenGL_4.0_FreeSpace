@@ -7,6 +7,7 @@ SenFreeSpace: enjoy 3D OpenGL
 * WASD: walk in FreeSpace; W-front, S-back, A-left, D-right
 * Scroll: Zoom
 * Mouse Move: turn around your view (head)
+* Press Q button: Trigger/Close sub-window (e.g. Rear Mirror)
 
 
 ### Libraries:

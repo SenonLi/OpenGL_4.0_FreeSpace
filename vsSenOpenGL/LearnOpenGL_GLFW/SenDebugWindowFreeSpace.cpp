@@ -2,6 +2,7 @@
 
 
 SenDebugWindowFreeSpace::SenDebugWindowFreeSpace()
+	: debugWindowSwitchPressing(false), debugWindowSwitch(true)
 {
 	strWindowName = "Sen DebugWindow FreeSpace";
 }
@@ -9,8 +10,8 @@ SenDebugWindowFreeSpace::SenDebugWindowFreeSpace()
 SenDebugWindowFreeSpace::~SenDebugWindowFreeSpace() { ; }
 
 
-void SenDebugWindowFreeSpace::initGlfwGlewGL()
-{
+void SenDebugWindowFreeSpace::initGlfwGlewGL()	{
+
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 	
 	initDebugWindowProgram();
@@ -20,47 +21,66 @@ void SenDebugWindowFreeSpace::initGlfwGlewGL()
 	OutputDebugString(" Sen FrameBuffer FreeSpace Initial \n\n");
 }
 
-void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)
-{
-	// ======== Render Customer FrameBuffer =================================================================
-	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
+void SenDebugWindowFreeSpace::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)	{
 
-	// Get Rear CameraView
-	camera.Front = -camera.Front;
-	paintScene();
+	SenFreeSpaceAbstract::keyDetection(widget, key, scancode, action, mode);
+	
+	//cout << key << endl;
+	if (key == GLFW_KEY_Q)	{
+		if (action == GLFW_PRESS)	debugWindowSwitchPressing = true;
+		if (action == GLFW_RELEASE && debugWindowSwitchPressing)	{
+			debugWindowSwitchPressing = false;
+			debugWindowSwitch = !debugWindowSwitch;
+		}
+	}
+}
+
+void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
+
+	if (debugWindowSwitch)	{
+		// ======== Render Customer FrameBuffer =================================================================
+		glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
+
+		// Get Rear CameraView
+		camera.Front = -camera.Front;
+		paintScene();
+		camera.Front = -camera.Front; // Recover front CameraView
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
 	// ======== Render Normal Screen =============================================================
-	camera.Front = -camera.Front; // Recover front CameraView
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	paintScene();
 
-	// ======== End of Normal Rendering =============================================================
-	// Bind to default framebuffer again and draw the quad plane with attched screen texture.
 
-	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
+	if (debugWindowSwitch)	{
 
-	// Paint DebugWindow Outline
-	glUseProgram(debugWindowOutlineProgram);
-	glBindVertexArray(debugWindowOutlineVAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glBindVertexArray(0);
+		// ======== End of Normal Rendering =============================================================
+		// Bind to default framebuffer again and draw the quad plane with attched screen texture.
+		glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
-	// Draw DebugWindow
-	glUseProgram(debugWindowProgram);
-	glBindVertexArray(debugWindowVAO);
-	glBindTexture(GL_TEXTURE_2D, debugWindowRGB_TextureAttach);	// Use the color attachment texture as the texture of the quad plane
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glBindVertexArray(0);
+		// Paint DebugWindow Outline
+		glUseProgram(debugWindowOutlineProgram);
+		glBindVertexArray(debugWindowOutlineVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
 
-	glEnable(GL_DEPTH_TEST);
+		// Draw DebugWindow
+		glUseProgram(debugWindowProgram);
+		glBindVertexArray(debugWindowVAO);
+		glBindTexture(GL_TEXTURE_2D, debugWindowRGB_TextureAttach);	// Use the color attachment texture as the texture of the quad plane
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
+
+		glEnable(GL_DEPTH_TEST);
+	}
 }
 
 
-void SenDebugWindowFreeSpace::initDebugWindowFrameBuffer()
-{
+
+void SenDebugWindowFreeSpace::initDebugWindowFrameBuffer()	{
+
 	glGenFramebuffers(1, &debugWindowFrameBufferObject);
 	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
 	
@@ -82,8 +102,8 @@ void SenDebugWindowFreeSpace::initDebugWindowFrameBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);   // Recover Default Framebuffer (Main Screen)
 }
 
-void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()
-{
+void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()	{
+
 	/******** DebugWindow Outline Quad *********/
 	GLfloat debugWindowOutlineVertices[] = {
 		// Positions																	// TexCoords
@@ -161,8 +181,8 @@ void SenDebugWindowFreeSpace::cleanFreeSpace(void)	{
 }
 
 
-void SenDebugWindowFreeSpace::initDebugWindowProgram()
-{
+void SenDebugWindowFreeSpace::initDebugWindowProgram()	{
+
 	//ShaderInfo shaders[] = {
 	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
 	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
