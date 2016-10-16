@@ -22,7 +22,7 @@ void Sen_303_NanoSuitExplode::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 
-	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_303_NanoSuitExplode.vert" },

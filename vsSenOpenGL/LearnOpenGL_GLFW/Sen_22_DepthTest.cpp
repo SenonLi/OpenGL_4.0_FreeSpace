@@ -5,6 +5,12 @@ Sen_22_DepthTest::Sen_22_DepthTest()
 {
 	similarCube = new Sen_Cube();
 	strWindowName = "Sen_22 Depth Test in FreeSpace";
+
+	camera.Position = glm::vec3(2.3746f, 2.5661f, 2.6288f);
+	camera.Front = glm::vec3(-0.1743f, -0.7083f, -0.6840f);
+	camera.Up = glm::vec3(-0.1750f, 0.7059f, -0.6864f);
+	camera.Yaw = -104.30f;
+	camera.Pitch = -45.10f;
 }
 
 
@@ -70,9 +76,6 @@ void Sen_22_DepthTest::initGlfwGlewGL()
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
 
 	similarCube->initialCubeGL(programA, cubeTexture, cubeTexture, cubeTexture);
-
-	camera.setCameraViewPosition(glm::vec3(0.0f, 0.0f, 3.0f));
-
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
 }

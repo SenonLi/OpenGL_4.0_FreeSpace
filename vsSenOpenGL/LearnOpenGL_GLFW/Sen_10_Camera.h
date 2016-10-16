@@ -15,7 +15,7 @@ public:
 	virtual ~Sen_10_Camera();
 
 protected:
-	void paintGL(void);
+	void paintFreeSpaceGL();
 	void initGlfwGlewGL();
 	void cleanFreeSpace();
 

@@ -19,7 +19,7 @@ void SenDebugWindowFreeSpace::initGlfwGlewGL()	{
 	initDebugWindowFrameBuffer();
 
 	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_ALWAYS, 0x01, 0xFF);    // Check GL_STENCIL_TEST only when needed;  All fragments should update the
+	glStencilFunc(GL_ALWAYS, 0x5A, 0xFF);    // Check GL_STENCIL_TEST only when needed;  All fragments should update the
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);  
 	glStencilMask(0x00); // Disable writing to the stencil buffer
 
@@ -41,7 +41,6 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 		
 		camera.Front = -camera.Front; // Recover front CameraView
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	// ======== Render Normal Screen =============================================================
@@ -60,11 +59,13 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 
 		// Clear Stencil Buffer as a beginning 
 		glStencilMask(0xFF); // Enable Stencil Writing (for clearing)
-		glClearStencil(0x00);
-		glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
+		
+		// Comment Seleted because already cleared to 0x00 in FreeSpace
+		//glClearStencil(0x00);
+		//glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
 
-		glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
-		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+		glStencilFunc(GL_NOTEQUAL, 0x5A, 0xFF); // All fragments should update the
+		glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 
 		// Paint DebugWindow
 		glUseProgram(debugWindowProgram);
@@ -77,7 +78,7 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 
 
 		/********** Start of Paint DebugWindow Outline based on Stencil Test ****************/
-		glStencilFunc(GL_NOTEQUAL, 0x01, 0xFF); // Paint where Stencil Not Equal To "One"s
+		glStencilFunc(GL_EQUAL, 0x00, 0xFF); // Paint where Stencil Not Equal To "One"s
 		glStencilMask(0x00); // Disable writing to the stencil buffer
 		
 		glUseProgram(debugWindowOutlineProgram);

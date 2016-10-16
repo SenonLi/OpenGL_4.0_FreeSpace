@@ -16,10 +16,6 @@ void Sen_23_StencilObjectOutline::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 
-	// Setup some OpenGL options
-	glEnable(GL_DEPTH_TEST);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-
 	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	//ShaderInfo shaders[] = {
@@ -109,12 +105,17 @@ void Sen_23_StencilObjectOutline::paintFreeSpaceGL(void)
 	//============      Object Outline        ==============================================================
 	// ===== Clear Stencil Buffer as a beginning =========
 	glStencilMask(0xFF); // Enable Stencil Writing for clearing
-	glClearStencil(0x00);
-	glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
-	
+
+	// Comment Selected because Here below is already cleared in FreeSpace
+	//glClearStencil(0x00); 
+	//glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
+
 	// =====   Paint stencil of "one"s        =============
-	glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	// 0x5A is the number already written for Cube Logo
+	// Cannot use repeat in case self-influenced, which means pixels lost if a front plane needs to be drawn
+	glStencilFunc(GL_NOTEQUAL, 0x5A, 0xFF);
+
+	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	glStencilMask(0xFF); // Enable writing to the stencil buffer
 
 	// Recover program, normal scaleratio Needed
@@ -128,7 +129,7 @@ void Sen_23_StencilObjectOutline::paintFreeSpaceGL(void)
 	similarCube->paintCube(projection, view);
 
 	// =====  Paint Outline based on stencil of "one"s   ====
-	glStencilFunc(GL_NOTEQUAL, 0x01, 0xFF); // All fragments should update the
+	glStencilFunc(GL_EQUAL, 0x00, 0xFF); // All fragments should update the
 	glStencilMask(0x00); // Disable writing to the stencil buffer
 
 	// set outline program, and enlarged scaleRatio for outline painting

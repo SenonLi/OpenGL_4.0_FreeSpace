@@ -1,10 +1,11 @@
-* Add Stencil Test to save Debug Window Outline Pixel Cost
-* Add Stencil Test for Perfect Logo
 * Learn Blend + Face_Cull
 * Look Through Explode
 
 
 ## Notes:
+## Perfect Cube Logo
+Add Stencil Test for Perfect Logo, such that first draw Logo with Stencil Buffer, second draw Scene base on Stencil Buffer
+
 ### OpenGL
 * State Machine Nature : any state that is changed by things that happen main will still be in effect when display is called for the first time, and any state that display changes will still be in effect the next time display is called.
 

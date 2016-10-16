@@ -15,7 +15,10 @@ void Sen_10_Camera::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 
-	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+
+	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	//ShaderInfo shaders[] = {
 	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_09_ModelViewProjection.vert" },
@@ -27,14 +30,13 @@ void Sen_10_Camera::initGlfwGlewGL()
 
 	backgroundCube.setCubeWorldAddress(glm::vec3(1.0f, 0.0f, viewCenter));
 	backgroundCube.initialCubeGL();
+	backgroundCube.setCubeRotation(glm::vec3(1.0f, 0.0f, 1.0f), 75.0f);
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
 }
 
-void Sen_10_Camera::paintGL(void)
+void Sen_10_Camera::paintFreeSpaceGL(void)
 {
-	SenFreeSpaceAbstract::paintGL();
-
 	backgroundCube.paintCube(projection, view);
 }
 

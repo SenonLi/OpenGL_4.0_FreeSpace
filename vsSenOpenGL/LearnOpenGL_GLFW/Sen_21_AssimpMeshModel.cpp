@@ -8,8 +8,8 @@ Sen_21_AssimpMeshModel::Sen_21_AssimpMeshModel()
 
 	camera.Position = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	//nanoSuitModel = new SenMeshLinkModel("./LearnOpenGL_GLFW/NanoSuit/nanosuit.obj");
-	nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
+	nanoSuitModel = new SenMeshLinkModel("./../WatchMe/MeshLinkModels/NanoSuit/nanosuit.obj");
+	//nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 }
 
 
@@ -22,7 +22,7 @@ void Sen_21_AssimpMeshModel::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 	
-	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_AssimpNanoSuit.vert" },

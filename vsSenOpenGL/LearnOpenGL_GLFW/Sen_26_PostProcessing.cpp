@@ -23,12 +23,6 @@ void Sen_26_PostProcessing::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
 
-	// Setup some OpenGL options
-	glEnable(GL_DEPTH_TEST);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-
-	//glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
 	//ShaderInfo shaders[] = {
 	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.vert" },
 	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_22_DepthTest.frag" },
@@ -143,8 +137,7 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 {
 	// ======== Render Customer FrameBuffer =================================================================
 	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
-	//glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Paint Floor
 	glUseProgram(programA);
@@ -175,9 +168,6 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 	// quad plane with attched screen texture.
 	// //////////////////////////////////////////////////
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	// Clear all relevant buffers
-	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
-	glClear(GL_COLOR_BUFFER_BIT);
 	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
 	// Draw Screen
