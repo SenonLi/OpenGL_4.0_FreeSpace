@@ -9,6 +9,7 @@ Sen_24_BlendingTest::Sen_24_BlendingTest()
 	rearCube = new Sen_Cube();
 
 	camera.Position = glm::vec3(0.0f, 1.0f, 0.0f);
+	grassAddressVector.clear();
 }
 
 Sen_24_BlendingTest::~Sen_24_BlendingTest()
@@ -22,7 +23,9 @@ void Sen_24_BlendingTest::initGlfwGlewGL()
 	SenDebugWindowFreeSpace::initGlfwGlewGL();
 	// Draw as wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	init_3D_TextureMapProgram();
+
+	initGrassBlendingProgram();
+
 	initVertexAttributes();
 	initTextures();
 
@@ -31,7 +34,7 @@ void Sen_24_BlendingTest::initGlfwGlewGL()
 	rearCube->setCubeRotation(glm::vec3(1.0f, 0.0f, 1.0f), 75.0f);
 
 
-	initGrassBlendingProgram();
+	initGrassAddress();
 
 
 	OutputDebugString(" Sen_10 First Cube Initial \n\n");
@@ -49,6 +52,19 @@ void Sen_24_BlendingTest::paintScene(void)	{
 	model = glm::mat4();
 	glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+	// Paint Grass Blending
+	glBindVertexArray(grassBlendingVAO);
+	glBindTexture(GL_TEXTURE_2D, grassBlendingTexture);
+	for (GLuint i = 0; i < grassAddressVector.size(); i++)
+	{
+		model = glm::mat4();
+		model = glm::translate(model, grassAddressVector[i]);
+		glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
+
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -91,24 +107,6 @@ void Sen_24_BlendingTest::cleanDebugWindowFreeSpace(void)	{
 	if (glIsBuffer(verBufferObjArray[0]))		glDeleteBuffers(1, verBufferObjArray);
 }
 
-void Sen_24_BlendingTest::init_3D_TextureMapProgram(){
-
-	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_3D_TextureCoords.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_TextureCoords.frag" },
-	//	{ GL_NONE, NULL }
-	//};
-
-	ShaderInfo shaders_3D_TextureMap[] = {
-		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_3D_TextureCoords.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
-		{ GL_NONE, NULL }
-	};
-
-	programA = LoadShaders(shaders_3D_TextureMap);
-
-}
-
 void Sen_24_BlendingTest::initGrassBlendingProgram(){
 
 	//ShaderInfo shaders[] = {
@@ -124,6 +122,16 @@ void Sen_24_BlendingTest::initGrassBlendingProgram(){
 	};
 
 	programA = LoadShaders(shaders_3D_TextureBlending);
+
+}
+
+void Sen_24_BlendingTest::initGrassAddress(){
+
+	grassAddressVector.push_back(firstCubePosition + glm::vec3(-0.5f, 0.0f, 0.5f));///
+	grassAddressVector.push_back(glm::vec3(0.0f, 0.0f, 0.7f));
+	grassAddressVector.push_back(glm::vec3(-0.3f, 0.0f, -2.3f));
+	grassAddressVector.push_back(secondCubePosition + glm::vec3(-0.5f, 0.0f, 0.5f));///
+	grassAddressVector.push_back(glm::vec3(-1.5f, 0.0f, -0.48f));
 
 }
 
@@ -155,11 +163,36 @@ void Sen_24_BlendingTest::initVertexAttributes(){
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	GLfloat transparentVertices[] = {
+		// Positions         // Texture Coords (swapped y coordinates because texture is flipped upside down)
+		0.0f, 0.5f, 0.0f, 0.0f, 0.0f,
+		0.0f, -0.5f, 0.0f, 0.0f, 1.0f,
+		1.0f, -0.5f, 0.0f, 1.0f, 1.0f,
+
+		0.0f, 0.5f, 0.0f, 0.0f, 0.0f,
+		1.0f, -0.5f, 0.0f, 1.0f, 1.0f,
+		1.0f, 0.5f, 0.0f, 1.0f, 0.0f
+	};
+
+	// Setup transparent Grass Blending plane VAO
+	glGenVertexArrays(1, &grassBlendingVAO);
+	glGenBuffers(1, &grassBlendingVBO);
+	glBindVertexArray(grassBlendingVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, grassBlendingVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glBindVertexArray(0);
 }
 
 void Sen_24_BlendingTest::initTextures(){
 	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/container.jpg").c_str(), cubeTexture, std::string("RGB"));
 	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/SenGrassGround3.jpg").c_str(), floorTexture, std::string("RGB"));
+	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/grass.png").c_str(), grassBlendingTexture, std::string("RGBA"));
+
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/container.jpg").c_str(), cubeTexture, std::string("RGB"));
 	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/SenGrassGround3,jpg").c_str(), floorTexture, std::string("RGB"));
 }

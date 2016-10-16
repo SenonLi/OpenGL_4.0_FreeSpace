@@ -26,16 +26,19 @@ protected:
 	glm::vec3 secondCubePosition = glm::vec3(2.0f, 0.0f + SenFREESPACE_ZfightingOffset, -3.0f);
 	glm::vec3 rearCubePosition = glm::vec3(-1.5f, 0.42f + SenFREESPACE_ZfightingOffset, 3.5f);
 	
-	GLuint grassBlendingProgram;
 	GLuint grassBlendingVAO;
 	GLuint grassBlendingVBO;
+	GLuint grassBlendingTexture;
+
+	std::vector<glm::vec3> grassAddressVector;
 
 private:
-	void init_3D_TextureMapProgram();
+	void initGrassBlendingProgram();
+
 	void initVertexAttributes();
 	void initTextures();
 
-	void initGrassBlendingProgram();
+	void initGrassAddress();
 };
 
 

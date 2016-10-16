@@ -1,4 +1,6 @@
 * Learn Blend + Face_Cull
+* Learn Text Rendering
+* Add Debug Window Mirror Text : Press Q to Triger/Close
 * Look Through Explode
 
 
