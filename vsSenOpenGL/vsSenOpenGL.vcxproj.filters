@@ -71,6 +71,9 @@
     <ClCompile Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -205,6 +208,9 @@
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\SenDebugWindowFreeSpace.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
   </ItemGroup>
