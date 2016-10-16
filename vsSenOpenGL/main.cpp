@@ -14,7 +14,7 @@
 #include "LearnOpenGL_GLFW/Sen_24_BlendingTest.h"
 //#include "LearnOpenGL_GLFW/Sen_26_PostProcessing.h"
 //#include "LearnOpenGL_GLFW/Sen_262_RearMirror.h"
-//#include "LearnOpenGL_GLFW/Sen_263_DebugRearMirror.h"
+#include "LearnOpenGL_GLFW/Sen_263_DebugRearMirror.h"
 //#include "LearnOpenGL_GLFW/Sen_30_GeometryShow.h"
 //#include "LearnOpenGL_GLFW/Sen_303_NanoSuitExplode.h"
 //#include "LearnOpenGL_GLFW/Sen_430_DebugOutput.h"

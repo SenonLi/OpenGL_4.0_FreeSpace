@@ -98,6 +98,7 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_BlendDiscardTextureCoords.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ColorRed.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoords.frag" />

@@ -317,5 +317,8 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoords.frag">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_BlendDiscardTextureCoords.frag">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
