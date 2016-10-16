@@ -28,6 +28,12 @@ void SenFreeSpaceAbstract::initGlfwGlewGL()
 	SenFreeSpaceLogoCube.initialCubeGL();
 	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
 	
+
+	//glEnable(GL_STENCIL_TEST);
+	//glStencilFunc(GL_ALWAYS, 0x01, 0xFF);    // Check GL_STENCIL_TEST only when needed;  All fragments should update the
+	//glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+	//glStencilMask(0x00); // Disable writing to the stencil buffer
+
 	OutputDebugString(" SenFreeSpaceAbstract Initial \n\n");
 }
 
@@ -43,6 +49,7 @@ void SenFreeSpaceAbstract::paintGL(void)
 
 	view = camera.GetViewMatrix();
 	projection = glm::perspective(camera.Zoom, (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
+
 
 	// Paint from SubClass
 	paintFreeSpaceGL();

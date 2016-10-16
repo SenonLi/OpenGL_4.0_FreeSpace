@@ -18,33 +18,27 @@ void SenDebugWindowFreeSpace::initGlfwGlewGL()	{
 	initDebugWindowVertexAttributes();
 	initDebugWindowFrameBuffer();
 
+	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_ALWAYS, 0x01, 0xFF);    // Check GL_STENCIL_TEST only when needed;  All fragments should update the
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);  
+	glStencilMask(0x00); // Disable writing to the stencil buffer
+
 	OutputDebugString(" Sen FrameBuffer FreeSpace Initial \n\n");
-}
-
-void SenDebugWindowFreeSpace::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)	{
-
-	SenFreeSpaceAbstract::keyDetection(widget, key, scancode, action, mode);
-	
-	//cout << key << endl;
-	if (key == GLFW_KEY_Q)	{
-		if (action == GLFW_PRESS)	debugWindowSwitchPressing = true;
-		if (action == GLFW_RELEASE && debugWindowSwitchPressing)	{
-			debugWindowSwitchPressing = false;
-			debugWindowSwitch = !debugWindowSwitch;
-		}
-	}
 }
 
 void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 
+	// ======== If DebugWindow Open, render DebugWindow ColorTexture into Customer FrameBuffer =================================================================
+
 	if (debugWindowSwitch)	{
-		// ======== Render Customer FrameBuffer =================================================================
 		glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
 
 		// Get Rear CameraView
 		camera.Front = -camera.Front;
+
 		paintScene();
+		
 		camera.Front = -camera.Front; // Recover front CameraView
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -52,27 +46,52 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 
 	// ======== Render Normal Screen =============================================================
 	paintScene();
+	// ======== End of Normal Rendering =============================================================
 
 
+	// ======== If DebugWindow Open, render DebugWindow ColorTexture into Screen =================================================================
 	if (debugWindowSwitch)	{
 
-		// ======== End of Normal Rendering =============================================================
 		// Bind to default framebuffer again and draw the quad plane with attched screen texture.
 		glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
-		// Paint DebugWindow Outline
-		glUseProgram(debugWindowOutlineProgram);
-		glBindVertexArray(debugWindowOutlineVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindVertexArray(0);
 
-		// Draw DebugWindow
+		//*********** Start of Paint stencil of "one"s ****************************************/ 
+
+		// Clear Stencil Buffer as a beginning 
+		glStencilMask(0xFF); // Enable Stencil Writing (for clearing)
+		glClearStencil(0x00);
+		glClear(GL_STENCIL_BUFFER_BIT); // Clear Stencil Buffer
+
+		glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+		// Paint DebugWindow
 		glUseProgram(debugWindowProgram);
 		glBindVertexArray(debugWindowVAO);
 		glBindTexture(GL_TEXTURE_2D, debugWindowRGB_TextureAttach);	// Use the color attachment texture as the texture of the quad plane
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
+		//*********** End of Paint stencil of "one"s ****************************************/ 
+
+
+		/********** Start of Paint DebugWindow Outline based on Stencil Test ****************/
+		glStencilFunc(GL_NOTEQUAL, 0x01, 0xFF); // Paint where Stencil Not Equal To "One"s
+		glStencilMask(0x00); // Disable writing to the stencil buffer
+		
+		glUseProgram(debugWindowOutlineProgram);
+		glBindVertexArray(debugWindowOutlineVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glBindVertexArray(0);
+
+		// =====  "Disable stencil test" for other objects   ====
+		glStencilFunc(GL_ALWAYS, 0x01, 0xFF); // All fragments should update the
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		glStencilMask(0x00); // Disable writing to the stencil buffer
+
+		/********** End of Paint DebugWindow Outline ****************/
+		
 		glEnable(GL_DEPTH_TEST);
 	}
 }
@@ -203,4 +222,20 @@ void SenDebugWindowFreeSpace::initDebugWindowProgram()	{
 
 	debugWindowProgram = LoadShaders(shadersScreenTexture);
 	debugWindowOutlineProgram = LoadShaders(shadersScreenSingular);
+}
+
+
+
+void SenDebugWindowFreeSpace::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)	{
+
+	SenFreeSpaceAbstract::keyDetection(widget, key, scancode, action, mode);
+
+	//cout << key << endl;
+	if (key == GLFW_KEY_Q)	{
+		if (action == GLFW_PRESS)	debugWindowSwitchPressing = true;
+		if (action == GLFW_RELEASE && debugWindowSwitchPressing)	{
+			debugWindowSwitchPressing = false;
+			debugWindowSwitch = !debugWindowSwitch;
+		}
+	}
 }

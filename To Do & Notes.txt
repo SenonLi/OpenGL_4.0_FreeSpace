@@ -1,3 +1,5 @@
+* Add Stencil Test to save Debug Window Outline Pixel Cost
+* Add Stencil Test for Perfect Logo
 * Learn Blend + Face_Cull
 * Look Through Explode
 
