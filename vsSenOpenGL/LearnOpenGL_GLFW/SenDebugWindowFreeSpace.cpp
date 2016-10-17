@@ -29,6 +29,7 @@ void SenDebugWindowFreeSpace::initGlfwGlewGL()	{
 void SenDebugWindowFreeSpace::paintDebugWindowFrameBufferGL()	{
 
 	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
+	glViewport(0, 0, debugWindowFrameBufferWidth, debugWindowFrameBufferHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
 
 	// Get Rear CameraView
@@ -38,6 +39,7 @@ void SenDebugWindowFreeSpace::paintDebugWindowFrameBufferGL()	{
 
 	camera.Front = -camera.Front; // Recover front CameraView
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, widgetWidth, widgetHeight);
 }
 
 void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
@@ -110,13 +112,16 @@ void SenDebugWindowFreeSpace::initDebugWindowFrameBuffer()	{
 	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
 	
 	// Color Texture
-	debugWindowRGB_TextureAttach = generateAttachmentTexture(false, false);
+	debugWindowFrameBufferWidth = widgetWidth;
+	debugWindowFrameBufferHeight = widgetHeight;
+
+	debugWindowRGB_TextureAttach = generateAttachmentTexture(false, false, debugWindowFrameBufferWidth, debugWindowFrameBufferHeight);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, debugWindowRGB_TextureAttach, 0);
 	
 	// Depth + Stencil RenderBuffer
 	glGenRenderbuffers(1, &debugWindowDepthStencil_RBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, debugWindowDepthStencil_RBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, widgetWidth, widgetHeight);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, debugWindowFrameBufferWidth, debugWindowFrameBufferHeight);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, debugWindowDepthStencil_RBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	
@@ -141,7 +146,7 @@ void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()	{
 	};
 
 	/******** DebugWindow  Quad *********/
-	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.001;
+	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.002;// *GLfloat(widgetWidth) / GLfloat(debugWindowFrameBufferWidth);
 	GLfloat debugWindowVertices[] = {
 		// Positions												// TexCoords
 		-1.0f, 1.0f, 0.0f, 1.0f,

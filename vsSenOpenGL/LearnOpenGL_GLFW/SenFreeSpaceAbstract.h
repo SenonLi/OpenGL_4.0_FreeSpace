@@ -100,7 +100,9 @@ protected:
 	}
 
 	// Generates a texture that is suited for attachments to a framebuffer
-	GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil)
+	// Assume the widgetWidth, widgetHeight won't change
+	// Considering their change, there should be a resize register function to re-initial this customer FrameBuffer
+	GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil, GLint frameBufferWidth, GLint frameBufferHeight)
 	{
 		// What enum to use?
 		GLenum attachment_type;
@@ -116,9 +118,9 @@ protected:
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		if (!depth && !stencil)
-			glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, widgetWidth, widgetHeight, 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, attachment_type, frameBufferWidth, frameBufferHeight, 0, attachment_type, GL_UNSIGNED_BYTE, NULL);
 		else // Using both a stencil and depth test, needs special format arguments
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, widgetWidth, widgetHeight, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, frameBufferWidth, frameBufferHeight, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glBindTexture(GL_TEXTURE_2D, 0);

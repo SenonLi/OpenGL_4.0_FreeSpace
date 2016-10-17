@@ -107,12 +107,15 @@ void Sen_26_PostProcessing::initGlfwGlewGL()
 	glGenFramebuffers(1, &testFrameBufferObject);
 	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
 	// Generate and Attach color texture to currently bound framebuffer object
-	textureColorBuffer = generateAttachmentTexture(false, false);
+	testFrameBufferWidth = widgetWidth;
+	testFrameBufferHeight = widgetHeight;
+
+	textureColorBuffer = generateAttachmentTexture(false, false, testFrameBufferWidth, testFrameBufferHeight);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
 
 	glGenRenderbuffers(1, &depthStencilRenderBufferObject);
 	glBindRenderbuffer(GL_RENDERBUFFER, depthStencilRenderBufferObject);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, widgetWidth, widgetHeight);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, testFrameBufferWidth, testFrameBufferHeight);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilRenderBufferObject);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	
@@ -137,6 +140,7 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 {
 	// ======== Render Customer FrameBuffer =================================================================
 	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
+	glViewport(0, 0, testFrameBufferWidth, testFrameBufferHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Paint Floor
@@ -168,6 +172,7 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 	// quad plane with attched screen texture.
 	// //////////////////////////////////////////////////
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, widgetWidth, widgetHeight);
 	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
 	// Draw Screen

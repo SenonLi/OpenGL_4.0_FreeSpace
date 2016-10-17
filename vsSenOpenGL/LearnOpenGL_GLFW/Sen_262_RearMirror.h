@@ -30,6 +30,8 @@ protected:
 	// ==== FrameBuffer ====
 	GLuint testFrameBufferObject;
 	GLuint textureColorBuffer, depthStencilRenderBufferObject;
+
+	GLint testFrameBufferWidth, testFrameBufferHeight;
 };
 
 #endif // __Sen_262_RearMirror__

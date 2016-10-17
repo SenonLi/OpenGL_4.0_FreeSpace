@@ -323,6 +323,7 @@ void Sen_24_BlendingTest::initDebugWindowProgram()
 void Sen_24_BlendingTest::paintDebugWindowFrameBufferGL()	{
 
 	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
+	glViewport(0, 0, debugWindowFrameBufferWidth, debugWindowFrameBufferHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
 
 	// Get Rear CameraView
@@ -332,4 +333,5 @@ void Sen_24_BlendingTest::paintDebugWindowFrameBufferGL()	{
 
 	camera.Front = -camera.Front; // Recover front CameraView
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, widgetWidth, widgetHeight);
 }

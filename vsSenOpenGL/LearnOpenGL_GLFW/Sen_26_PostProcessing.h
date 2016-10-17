@@ -27,8 +27,7 @@ protected:
 	GLuint testFrameBufferObject;
 	GLuint textureColorBuffer, depthStencilRenderBufferObject;
 
-
-
+	GLint testFrameBufferWidth, testFrameBufferHeight;
 };
 
 

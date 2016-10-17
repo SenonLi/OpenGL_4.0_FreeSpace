@@ -1,17 +1,19 @@
-* Learn Blend + Face_Cull
 * Learn Text Rendering
 * Add Debug Window Mirror Text : Press Q to Triger/Close
 * Look Through Particle Engine
 
 
-## Notes:
-
 ## Perfect Cube Logo
 Add Stencil Test for Perfect Logo, such that first draw Logo with Stencil Buffer, second draw Scene base on Stencil Buffer
 
-## texture disappear (Z-fighting)
+## texture disappear Problems:
+* One of the shader initialization problems happens: program (important), projection, view, model
+* (Z-fighting) :
 Sometime, the later texture(plane) always lose in the Z-fighting if two textures are on the same plane.
 Pay attention the order of painting.
+
+
+## Notes:
 
 ### OpenGL
 * State Machine Nature : any state that is changed by things that happen main will still be in effect when display is called for the first time, and any state that display changes will still be in effect the next time display is called.
@@ -42,3 +44,9 @@ Pay attention the order of painting.
 combination of colors from the object itself and any other object behind it with varying intensity.
 * The amount of transparency of an object is defined by its color’s alpha value.
 * Occluding Problem: manually sort, draw the windows in the background first
+
+### Text Blend using FreeType (load TrueType fonts)
+* FT_Set_Pixel_Sizes: Setting the width to 0 lets the face dynamically calculate the width based on the given height.
+* For each character, we retrieve glyph, generate a texture, set its options and store its metrics.
+* use GL_RED as the glyph texture’s internalFormat and format arguments
+* TrueType texture 8-bit grayscale: (restriction of OpenGL) glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

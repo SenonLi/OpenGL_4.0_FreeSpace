@@ -36,7 +36,7 @@ protected:
 	GLuint debugWindowFrameBufferObject;
 	GLuint debugWindowRGB_TextureAttach, debugWindowDepthStencil_RBO;
 
-
+	GLint debugWindowFrameBufferWidth, debugWindowFrameBufferHeight;
 
 };
 

@@ -17,4 +17,4 @@ SenFreeSpace: enjoy 3D OpenGL
 * SOIL: Simple OpenGL Image Load
 * GLM: OpenGL Mathematics
 * Assimp: Open Asset Import Library
-
+* FreeType: load TrueType fonts, render to bitmaps.
