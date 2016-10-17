@@ -1,12 +1,17 @@
 * Learn Blend + Face_Cull
 * Learn Text Rendering
 * Add Debug Window Mirror Text : Press Q to Triger/Close
-* Look Through Explode
+* Look Through Particle Engine
 
 
 ## Notes:
+
 ## Perfect Cube Logo
 Add Stencil Test for Perfect Logo, such that first draw Logo with Stencil Buffer, second draw Scene base on Stencil Buffer
+
+## texture disappear (Z-fighting)
+Sometime, the later texture(plane) always lose in the Z-fighting if two textures are on the same plane.
+Pay attention the order of painting.
 
 ### OpenGL
 * State Machine Nature : any state that is changed by things that happen main will still be in effect when display is called for the first time, and any state that display changes will still be in effect the next time display is called.
@@ -36,3 +41,4 @@ Add Stencil Test for Perfect Logo, such that first draw Logo with Stencil Buffer
 * Transparency : objects (or parts of them) not having a solid color, but having a
 combination of colors from the object itself and any other object behind it with varying intensity.
 * The amount of transparency of an object is defined by its color’s alpha value.
+* Occluding Problem: manually sort, draw the windows in the background first
