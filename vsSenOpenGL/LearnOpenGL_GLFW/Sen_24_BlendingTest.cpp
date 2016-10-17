@@ -216,3 +216,18 @@ void Sen_24_BlendingTest::initDebugWindowProgram()
 	debugWindowProgram = LoadShaders(shadersScreenTexture);
 	debugWindowOutlineProgram = LoadShaders(shadersScreenSingular);
 }
+
+
+void Sen_24_BlendingTest::paintDebugWindowFrameBufferGL()	{
+
+	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
+
+	// Get Rear CameraView
+	camera.Front = -camera.Front;
+
+	paintScene();
+
+	camera.Front = -camera.Front; // Recover front CameraView
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}

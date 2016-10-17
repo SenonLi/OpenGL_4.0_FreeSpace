@@ -26,21 +26,26 @@ void SenDebugWindowFreeSpace::initGlfwGlewGL()	{
 	OutputDebugString(" Sen FrameBuffer FreeSpace Initial \n\n");
 }
 
+void SenDebugWindowFreeSpace::paintDebugWindowFrameBufferGL()	{
+
+	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
+
+	// Get Rear CameraView
+	camera.Front = -camera.Front;
+
+	paintScene();
+
+	camera.Front = -camera.Front; // Recover front CameraView
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 
 	// ======== If DebugWindow Open, render DebugWindow ColorTexture into Customer FrameBuffer =================================================================
 
 	if (debugWindowSwitch)	{
-		glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // We're not using stencil buffer so why bother with clearing?
-
-		// Get Rear CameraView
-		camera.Front = -camera.Front;
-
-		paintScene();
-		
-		camera.Front = -camera.Front; // Recover front CameraView
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		paintDebugWindowFrameBufferGL();
 	}
 
 	// ======== Render Normal Screen =============================================================

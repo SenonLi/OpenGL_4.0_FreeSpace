@@ -23,7 +23,8 @@ protected:
 
 	// ==== Debug Window Vertex Attributes + FrameBuffer ====
 	virtual void initDebugWindowProgram();
-	
+	virtual void paintDebugWindowFrameBufferGL();
+
 	void initDebugWindowVertexAttributes();
 	void initDebugWindowFrameBuffer();
 

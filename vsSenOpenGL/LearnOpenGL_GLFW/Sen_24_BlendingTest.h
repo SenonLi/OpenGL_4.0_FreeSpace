@@ -34,6 +34,7 @@ protected:
 
 private:
 	void initGrassBlendingProgram();
+	void paintDebugWindowFrameBufferGL();
 
 	void initVertexAttributes();
 	void initTextures();
