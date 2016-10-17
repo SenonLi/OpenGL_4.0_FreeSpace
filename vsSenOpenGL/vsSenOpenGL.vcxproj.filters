@@ -74,6 +74,9 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp">
+      <Filter>Sources\LearnOpenGL_GLFW</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -213,6 +216,9 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
+    <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h">
+      <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">
@@ -318,6 +324,9 @@
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
     <None Include="SenFreeSpacePieces\Shaders\Sen_AlphaDiscardTextureCoords.frag">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_TrueTypeFontsRender.frag">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
   </ItemGroup>
