@@ -20,14 +20,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_10_Camera.cpp" />
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_22_DepthTest.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_262_RearMirror.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.cpp" />
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp" />
@@ -49,14 +47,12 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_09_ModelViewProjection.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_10_Camera.h" />
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_22_DepthTest.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_23_StencilObjectOutline.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_24_BlendingTest.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_263_DebugRearMirror.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_262_RearMirror.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_26_PostProcessing.h" />
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_30_GeometryShow.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h" />
@@ -69,8 +65,6 @@
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
     <ClInclude Include="Support\SenCameraViewModel.h" />
     <ClInclude Include="Support\SenFreeTypeFontsRendering.h" />
-    <ClInclude Include="Support\SenMeshLinkModel.h" />
-    <ClInclude Include="Support\SenMeshStruct.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Guide8th\Shaders\Sen_01_Triangles.frag" />

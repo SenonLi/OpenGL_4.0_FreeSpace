@@ -44,12 +44,6 @@
     <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp">
       <Filter>Sources\Sinks</Filter>
     </ClCompile>
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.cpp">
-      <Filter>Sources\LearnOpenGL_GLFW</Filter>
-    </ClCompile>
-    <ClCompile Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.cpp">
-      <Filter>Sources\LearnOpenGL_GLFW</Filter>
-    </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
@@ -179,18 +173,6 @@
     </ClInclude>
     <ClInclude Include="Sinks\teapot.h">
       <Filter>Headers\Sinks</Filter>
-    </ClInclude>
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_21_AssimpMeshModel.h">
-      <Filter>Headers\LearnOpenGL_GLFW</Filter>
-    </ClInclude>
-    <ClInclude Include="Support\SenMeshStruct.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="Support\SenMeshLinkModel.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="LearnOpenGL_GLFW\Sen_303_NanoSuitExplode.h">
-      <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
