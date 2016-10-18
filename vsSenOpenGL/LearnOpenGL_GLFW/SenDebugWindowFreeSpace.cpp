@@ -130,6 +130,10 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 	nextStringScreenCoord_X = paintLineTextString(triggerDebugWindowString, nextStringScreenCoord_X, switchHintScreenCoord_Y, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, highlightLineTextColor);
 	paintLineTextString(debugWindowFuntionString, nextStringScreenCoord_X, switchHintScreenCoord_Y, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
 
+	paintLineTextString("Press WASD: Move", -0.95f, -0.75f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+	paintLineTextString("Mouse Move: Turn Around", -0.95f, -0.85f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+	paintLineTextString("Mouse Scroll: Zoom In/Out", -0.95f, -0.95f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
