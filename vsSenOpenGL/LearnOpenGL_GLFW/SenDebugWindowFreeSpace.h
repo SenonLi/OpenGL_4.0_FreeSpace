@@ -3,6 +3,7 @@
 #define __SenFrameBufferFreeSpace__
 
 #include "LearnOpenGL_GLFW/SenFreeSpaceAbstract.h"
+#include "Support/SenFreeTypeFontsRendering.h"
 
 class SenDebugWindowFreeSpace :	public SenFreeSpaceAbstract
 {
@@ -21,8 +22,8 @@ protected:
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 	GLboolean debugWindowSwitchPressing, debugWindowSwitch;
 
-	// ==== Debug Window Vertex Attributes + FrameBuffer ====
-	virtual void initDebugWindowProgram();
+	// ******************* Debug Window Vertex Attributes + FrameBuffer ***************************
+	virtual void initDebugWindowLineTextProgram();
 	virtual void paintDebugWindowFrameBufferGL();
 
 	void initDebugWindowVertexAttributes();
@@ -38,6 +39,23 @@ protected:
 
 	GLint debugWindowFrameBufferWidth, debugWindowFrameBufferHeight;
 
+	std::string pressButtonString, triggerDebugWindowString, debugWindowFuntionString;
+	glm::vec3 normalLineTextColor, highlightLineTextColor, lineTextOutlineColor;
+
+	// ******************* TrueType Line Text Fonts Rendering (FreeType) ***************************
+	void initFreeTypeLibrary();
+	void initTrueTypeFontsTextures();
+	void initTextStringVertexAttributes();
+
+	GLfloat paintLineTextString(std::string lineTextString, GLfloat textScreenCoord_X, GLfloat textScreenCoord_Y, GLfloat scale, GLuint screenWidth, GLuint screenHeight, glm::vec3 lineTextStringColor);
+	
+	GLfloat nextStringScreenCoord_X, switchHintScreenCoord_X, switchHintScreenCoord_Y;
+	GLfloat delta = 0.005f;
+	FT_Library freeTypeLibrary;
+	FT_Face faceTimesNewRoman;
+	std::map<GLchar, FreeTypeCharacterStruct> characterStructs_128_Map;
+
+	GLuint lineTextProgram, lineTextVAO, lineTextVBO;
 };
 
 

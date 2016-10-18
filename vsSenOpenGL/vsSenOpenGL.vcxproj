@@ -68,6 +68,7 @@
     <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
     <ClInclude Include="Support\SenCameraViewModel.h" />
+    <ClInclude Include="Support\SenFreeTypeFontsRendering.h" />
     <ClInclude Include="Support\SenMeshLinkModel.h" />
     <ClInclude Include="Support\SenMeshStruct.h" />
   </ItemGroup>

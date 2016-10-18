@@ -5,6 +5,8 @@ Sen_24_BlendingTest::Sen_24_BlendingTest()
 {
 	strWindowName = "Sen_24 Blending Test in FreeSpace";
 
+	debugWindowFuntionString = "rear mirror";
+
 	similarCube = new Sen_Cube();
 	rearCube = new Sen_Cube();
 

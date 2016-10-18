@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	//Sen_09_ModelViewProjection glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	Sen_431_LineTextRendering cameraWidget;
+	Sen_24_BlendingTest cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;
