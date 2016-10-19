@@ -64,7 +64,6 @@
     <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
     <ClInclude Include="Support\SenCameraViewModel.h" />
-    <ClInclude Include="Support\SenFreeTypeFontsRendering.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Guide8th\Shaders\Sen_01_Triangles.frag" />

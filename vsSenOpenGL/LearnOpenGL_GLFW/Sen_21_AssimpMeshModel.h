@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef __Sen_21_AssimpMeshModel__
 #define __Sen_21_AssimpMeshModel__
 
@@ -9,7 +10,7 @@ class Sen_21_AssimpMeshModel :	public SenFreeSpaceAbstract
 {
 public:
 	Sen_21_AssimpMeshModel();
-	virtual ~Sen_21_AssimpMeshModel();
+	virtual ~Sen_21_AssimpMeshModel(){ ; }
 
 protected:
 	void initGlfwGlewGL();

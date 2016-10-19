@@ -1,4 +1,5 @@
 ## SenFreeSpace: enjoy 3D OpenGL
+*  Please make sure your system can at least handle OpenGL 3.3.
 
 !! Download the whole "WatchMe" folder, and open *.exe to enjoy 3D FreeSpace
 

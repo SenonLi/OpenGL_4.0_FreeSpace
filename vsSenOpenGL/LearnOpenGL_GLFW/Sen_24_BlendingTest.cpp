@@ -22,6 +22,8 @@ Sen_24_BlendingTest::~Sen_24_BlendingTest()
 
 void Sen_24_BlendingTest::initGlfwGlewGL()
 {
+	glEnable(GL_CULL_FACE);
+
 	SenDebugWindowFreeSpace::initGlfwGlewGL();
 	// Draw as wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

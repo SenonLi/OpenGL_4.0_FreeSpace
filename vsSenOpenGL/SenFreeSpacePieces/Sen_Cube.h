@@ -262,7 +262,7 @@ protected:
 		cubeProgram = glCreateProgram();
 
 		const char cubeVertexShader[] =
-			"#version 400 core\n"
+			"#version 330 core\n"
 			"\n"
 			"layout (location = 0) in vec3 vertexCoord;\n"
 			"layout (location = 1) in vec2 textureCoord;\n"
@@ -281,7 +281,7 @@ protected:
 			;
 
 		const char cubeFragmentShader[] =
-			"#version 400 core\n"
+			"#version 330 core\n"
 			"\n"
 			"in vec2 fragInterpTextureCoord;\n"
 			"out vec4 fragColor;\n"

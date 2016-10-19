@@ -201,9 +201,6 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="Support\SenFreeTypeFontsRendering.h">
-      <Filter>Support</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_06_Triangle.vert">

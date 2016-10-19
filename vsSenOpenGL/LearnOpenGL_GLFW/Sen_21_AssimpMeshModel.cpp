@@ -12,12 +12,6 @@ Sen_21_AssimpMeshModel::Sen_21_AssimpMeshModel()
 	//nanoSuitModel = new SenMeshLinkModel("C:/OpenGL/SenOpenGLusr/FreeSpaceModelCollection/NanoSuit/nanosuit.obj");
 }
 
-
-Sen_21_AssimpMeshModel::~Sen_21_AssimpMeshModel()
-{
-}
-
-
 void Sen_21_AssimpMeshModel::initGlfwGlewGL()
 {
 	SenFreeSpaceAbstract::initGlfwGlewGL();
