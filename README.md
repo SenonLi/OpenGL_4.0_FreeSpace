@@ -1,5 +1,6 @@
-# Sen OpenGL 3D FreeSpace in Visual Studio
-## Watch Me
+# Sen OpenGL C++ OOP one solution Tutorial
+
+## Watch Me: 3D FreeSpace in Visual Studio
 
 SenFreeSpace: enjoy 3D OpenGL
 * Download the whole "WatchMe" folder, and open *.exe to enjoy 3D FreeSpace
