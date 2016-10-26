@@ -71,6 +71,12 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
+    <ClCompile Include="Sinks\BreakOut\Sen_2D_GrameFrame.cpp">
+      <Filter>Sources\Sinks\BreakOut</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp">
+      <Filter>Sources\Sinks\BreakOut</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -117,6 +123,15 @@
     </Filter>
     <Filter Include="FreeSpacePieces\Shaders">
       <UniqueIdentifier>{98d4ffa2-b77f-4dca-aaf7-78ca68276aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sinks\BreakOut">
+      <UniqueIdentifier>{719be9fc-646d-4e53-b9ca-d7b9b454e900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\BreakOut">
+      <UniqueIdentifier>{4292d8ce-f94b-4233-bbdc-b5c81c5392f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Sinks\BreakOut">
+      <UniqueIdentifier>{2b5d1c4a-3303-418c-baab-386d6728c0ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +215,12 @@
     </ClInclude>
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameFrame.h">
+      <Filter>Headers\Sinks\BreakOut</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h">
+      <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +330,12 @@
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
     <None Include="SenFreeSpacePieces\Shaders\Sen_TrueTypeFontsRender.frag">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoordsRender.frag">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_3D_TextureCoords.vert">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
   </ItemGroup>

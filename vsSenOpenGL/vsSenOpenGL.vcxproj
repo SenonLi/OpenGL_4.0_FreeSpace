@@ -30,6 +30,8 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.cpp" />
     <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sinks\BreakOut\Sen_2D_GrameFrame.cpp" />
+    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp" />
     <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp" />
     <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp" />
     <ClCompile Include="Support\LoadShaders.cpp" />
@@ -57,6 +59,8 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h" />
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
+    <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameFrame.h" />
+    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h" />
     <ClInclude Include="Sinks\SenShaderTeapotExplosion.h" />
     <ClInclude Include="Sinks\SenTeapotObservationWidget.h" />
     <ClInclude Include="Sinks\shaderTeapot.h" />
@@ -92,6 +96,7 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_3D_TextureCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AlphaDiscardTextureCoords.frag" />
@@ -99,6 +104,7 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoords.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenTextureCoords.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoordsRender.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TrueTypeFontsRender.frag" />
     <None Include="Sinks\Shaders\teapotExplosion.frag" />
     <None Include="Sinks\Shaders\teapotExplosion.vert" />

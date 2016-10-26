@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef __Sen_06_TrianglesGLFW__
 #define __Sen_06_TrianglesGLFW__
 
@@ -18,4 +19,4 @@ protected:
 
 };
 
-#endif
+#endif // __Sen_06_TrianglesGLFW__
