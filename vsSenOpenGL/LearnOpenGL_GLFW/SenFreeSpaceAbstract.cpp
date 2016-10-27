@@ -24,7 +24,7 @@ void SenFreeSpaceAbstract::initGlfwGlewGL()
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
-	SenFreeSpaceLogoCube.initialCubeGL();
+	SenFreeSpaceLogoCube.initialCubeGL(GL_TRUE);
 	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
 	
 	// Add Stencil Test for Perfect Cube Logo

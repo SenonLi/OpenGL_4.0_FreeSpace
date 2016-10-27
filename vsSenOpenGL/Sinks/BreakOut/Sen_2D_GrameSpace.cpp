@@ -19,7 +19,7 @@ void Sen_2D_GrameSpace::initGlfwGlewGL()
 {
 	SenAbstractGLFW::initGlfwGlewGL();
 
-	Sen2DGameLogoCube.initialCubeGL();
+	Sen2DGameLogoCube.initialCubeGL(GL_TRUE);
 
 	// Add Stencil Test for Perfect Cube Logo
 	glEnable(GL_STENCIL_TEST);

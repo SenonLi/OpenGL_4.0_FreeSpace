@@ -42,10 +42,10 @@ public:
 		selfSpinAngle = glm::radians(spinAngle);// spinAngle;
 	}
 
-	void initialCubeGL()	{
+	void initialCubeGL(GLboolean highDefinition = GL_FALSE)	{
 		initialCubeShaders();
 		initialCubeVertices();
-		initialCubeTexture();
+		initialCubeTexture(highDefinition);
 		//initialCubeModel();
 	}
 
@@ -177,10 +177,10 @@ protected:
 		cubeModel = glm::rotate(cubeModel, selfSpinAngle, selfSpinAxis);
 	}
 
-	void initialCubeTexture()	{
-		uploadTexture(strRollTexture, rollTextureID);
-		uploadTexture(strYawTexture, yawTextureID);
-		uploadTexture(strPitchTexture, pitchTextureID);
+	void initialCubeTexture(GLboolean highDefinition = GL_FALSE)	{
+		uploadTexture(strRollTexture, rollTextureID, highDefinition);
+		uploadTexture(strYawTexture, yawTextureID, highDefinition);
+		uploadTexture(strPitchTexture, pitchTextureID, highDefinition);
 	}
 
 	void initialCubeVertices()	{
@@ -301,7 +301,7 @@ protected:
 	}
 
 private:
-	void uploadTexture(const char* &textureAddressPointer, GLuint &textureID)	{
+	void uploadTexture(const char* &textureAddressPointer, GLuint &textureID, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
 		textureImagePtr = SOIL_load_image(textureAddressPointer, &width, &height, 0, SOIL_LOAD_RGBA);
 
@@ -311,12 +311,12 @@ private:
 		//// Set the defaultTextureID wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, highDefinition ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// Load textureImage, create defaultTextureID and generate mipmaps
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		if (!highDefinition) glGenerateMipmap(GL_TEXTURE_2D);
 		SOIL_free_image_data(textureImagePtr);
 		glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 	}

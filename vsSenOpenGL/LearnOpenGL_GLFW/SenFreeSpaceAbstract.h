@@ -75,7 +75,7 @@ protected:
 	const GLint SenFREESPACE_widgetWidth = 960;
 	const GLint SenFREESPACE_widgetHeight = GLint(SenFREESPACE_widgetWidth * SenGOLDEN_SectionScale);
 
-	void uploadFreeSpaceTexture(const char* textureAddressPointer, GLuint &textureID, std::string channelType)	{
+	void uploadFreeSpaceTexture(const char* textureAddressPointer, GLuint &textureID, std::string channelType, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
 		bool alpha;
 
@@ -90,11 +90,11 @@ protected:
 		//// Set the defaultTextureID wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, alpha ? GL_CLAMP_TO_EDGE : GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, alpha ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, highDefinition ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, alpha ? GL_RGBA : GL_RGB, width, height, 0, alpha ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		if (!highDefinition) glGenerateMipmap(GL_TEXTURE_2D);
 		SOIL_free_image_data(textureImagePtr);
 		glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 	}
