@@ -1,7 +1,7 @@
-#include "Sen_2D_GrameFrame.h"
+#include "Sen_2D_GrameSpace.h"
 
 
-Sen_2D_GrameFrame::Sen_2D_GrameFrame()
+Sen_2D_GrameSpace::Sen_2D_GrameSpace()
 	:textureLoadImagePtr(NULL)
 {
 	strWindowName = "Sen GLFW 2D Game Space";
@@ -10,12 +10,12 @@ Sen_2D_GrameFrame::Sen_2D_GrameFrame()
 }
 
 
-Sen_2D_GrameFrame::~Sen_2D_GrameFrame()
+Sen_2D_GrameSpace::~Sen_2D_GrameSpace()
 {
 }
 
 
-void Sen_2D_GrameFrame::initGlfwGlewGL()
+void Sen_2D_GrameSpace::initGlfwGlewGL()
 {
 	SenAbstractGLFW::initGlfwGlewGL();
 
@@ -27,12 +27,12 @@ void Sen_2D_GrameFrame::initGlfwGlewGL()
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glStencilMask(0x00); // Disable writing to the stencil buffer
 
-	OutputDebugString(" Sen_2D_GrameFrame Initial \n\n");
+	OutputDebugString(" Sen_2D_GrameSpace Initial \n\n");
 
 	init2DGamePaceGL();
 }
 
-void Sen_2D_GrameFrame::paintGL(void)
+void Sen_2D_GrameSpace::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
 
@@ -75,7 +75,7 @@ void Sen_2D_GrameFrame::paintGL(void)
 }
 
 
-void Sen_2D_GrameFrame::finalize(void)
+void Sen_2D_GrameSpace::finalize(void)
 {
 	clean_2D_GrameFrame();
 
@@ -83,7 +83,7 @@ void Sen_2D_GrameFrame::finalize(void)
 	Sen2DGameLogoCube.finalizeCube();
 }
 
-void Sen_2D_GrameFrame::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
+void Sen_2D_GrameSpace::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(widget, GL_TRUE);

@@ -1,5 +1,4 @@
-* Learn Text Rendering
-* Add Debug Window Mirror Text : Press Q to Triger/Close
+* Write player control and class Bricks in one BrickOut.cpp  class files.
 * Look Through Particle Engine
 
 

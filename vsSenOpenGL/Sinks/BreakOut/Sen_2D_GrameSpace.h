@@ -1,16 +1,16 @@
 #pragma once
 
-#ifndef __Sen_2D_GrameFrame__
-#define __Sen_2D_GrameFrame__
+#ifndef __Sen_2D_GrameSpace__
+#define __Sen_2D_GrameSpace__
 
 #include "Support/SenAbstractGLFW.h"
 #include "SenFreeSpacePieces/Sen_Cube.h"
 
-class Sen_2D_GrameFrame :	public SenAbstractGLFW
+class Sen_2D_GrameSpace :	public SenAbstractGLFW
 {
 public:
-	Sen_2D_GrameFrame();
-	virtual ~Sen_2D_GrameFrame();
+	Sen_2D_GrameSpace();
+	virtual ~Sen_2D_GrameSpace();
 
 protected:
 	virtual void clean_2D_GrameFrame(){ ; }
@@ -98,4 +98,4 @@ private:
 };
 
 
-#endif  // __Sen_2D_GrameFrame__
+#endif  // __Sen_2D_GrameSpace__

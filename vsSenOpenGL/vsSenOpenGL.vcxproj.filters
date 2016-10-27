@@ -71,10 +71,13 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
-    <ClCompile Include="Sinks\BreakOut\Sen_2D_GrameFrame.cpp">
+    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp">
       <Filter>Sources\Sinks\BreakOut</Filter>
     </ClCompile>
-    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp">
+    <ClCompile Include="Sinks\BreakOut\Sen_2D_GrameSpace.cpp">
+      <Filter>Sources\Sinks\BreakOut</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\BreakOut\Sen_BreakOut.cpp">
       <Filter>Sources\Sinks\BreakOut</Filter>
     </ClCompile>
   </ItemGroup>
@@ -216,10 +219,13 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameFrame.h">
+    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h">
       <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
-    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h">
+    <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameSpace.h">
+      <Filter>Headers\Sinks\BreakOut</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\BreakOut\Sen_BreakOut.h">
       <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
   </ItemGroup>

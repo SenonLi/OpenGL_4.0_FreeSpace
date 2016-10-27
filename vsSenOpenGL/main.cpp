@@ -19,14 +19,15 @@
 //#include "LearnOpenGL_GLFW/Sen_303_NanoSuitExplode.h"
 //#include "LearnOpenGL_GLFW/Sen_430_DebugOutput.h"
 //#include "LearnOpenGL_GLFW/Sen_431_LineTextRendering.h"
-#include "Sinks/BreakOut/Sen_47_BlendSprite.h"
+//#include "Sinks/BreakOut/Sen_47_BlendSprite.h"
+#include "Sinks/BreakOut/Sen_BreakOut.h"
 
 int main(int argc, char *argv[])
 {
 	//Sen_09_ModelViewProjection glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	Sen_47_BlendSprite cameraWidget;
+	Sen_BreakOut cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;

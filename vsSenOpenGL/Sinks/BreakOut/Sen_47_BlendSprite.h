@@ -3,9 +3,9 @@
 #ifndef __Sen_47_BlendSprite__
 #define __Sen_47_BlendSprite__
 
-#include "Sinks/BreakOut/Sen_2D_GrameFrame.h"
+#include "Sinks/BreakOut/Sen_2D_GrameSpace.h"
 
-class Sen_47_BlendSprite :	public Sen_2D_GrameFrame
+class Sen_47_BlendSprite :	public Sen_2D_GrameSpace
 {
 public:
 	Sen_47_BlendSprite();

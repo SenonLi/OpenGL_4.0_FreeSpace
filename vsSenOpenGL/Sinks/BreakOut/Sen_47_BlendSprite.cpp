@@ -3,6 +3,7 @@
 
 Sen_47_BlendSprite::Sen_47_BlendSprite()
 {
+	strWindowName = "Sen GLFW 2D GameSpace Blend Sprite";
 }
 
 
