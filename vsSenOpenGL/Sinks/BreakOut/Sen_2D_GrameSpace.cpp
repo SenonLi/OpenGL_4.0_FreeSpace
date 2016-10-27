@@ -20,6 +20,7 @@ void Sen_2D_GrameSpace::initGlfwGlewGL()
 	SenAbstractGLFW::initGlfwGlewGL();
 
 	Sen2DGameLogoCube.initialCubeGL(GL_TRUE);
+	side2DGameLogoCube = Sen2DGameLogoCube.getCubeLogoSide();
 
 	// Add Stencil Test for Perfect Cube Logo
 	glEnable(GL_STENCIL_TEST);
@@ -55,7 +56,7 @@ void Sen_2D_GrameSpace::paintGL(void)
 
 	glEnable(GL_DEPTH_TEST);
 	// Paint Perfect Sen FreeSpace Logo
-	Sen2DGameLogoCube.paintSenLogoCube(GLfloat(widgetWidth) / GLfloat(Sen2DGameSpace_widgetWidth), GLfloat(widgetHeight) / GLfloat(Sen2DGameSpace_widgetHeight));
+	Sen2DGameLogoCube.paintSenLogoCube();
 
 	//*********** End of Paint stencil of "one"s ****************************************/ 
 

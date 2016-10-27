@@ -40,6 +40,9 @@ void Sen_BreakOut::initShaderPrograms(){
 void Sen_BreakOut::initTextures(){
 	uploadTextureImage(std::string("./../WatchMe/Images/SunRaise.jpg").c_str(), backgroundTexture, "RGBA", GL_TRUE);
 	uploadTextureImage(std::string("./../WatchMe/Images/paddle.png").c_str(), playerBoardTexture, "RGBA", GL_TRUE);
+	
+	uploadTextureImage(std::string("./../WatchMe/Images/block.png").c_str(), blockTexture, "RGB", GL_TRUE);
+	uploadTextureImage(std::string("./../WatchMe/Images/paddle.png").c_str(), solidBlockTexture, "RGB", GL_TRUE);
 }
 
 void Sen_BreakOut::initBackgroundVertices(){
@@ -194,6 +197,9 @@ void Sen_BreakOut::clean_2D_GrameFrame()	{
 	if (glIsVertexArray(playerBoardVAO))		glDeleteVertexArrays(1, &playerBoardVAO);
 	if (glIsBuffer(playerBoardVBO))			glDeleteBuffers(1, &playerBoardVBO);
 	if (glIsTexture(playerBoardTexture))		glDeleteTextures(1, &playerBoardTexture);
+
+	if (glIsTexture(blockTexture))		glDeleteTextures(1, &blockTexture);
+	if (glIsTexture(solidBlockTexture))		glDeleteTextures(1, &solidBlockTexture);
 
 	if (glIsProgram(programA))	glDeleteProgram(programA);
 	if (glIsProgram(programB))	glDeleteProgram(programB);

@@ -5,6 +5,25 @@
 
 #include "Sinks/BreakOut/Sen_2D_GrameSpace.h"
 
+class Sen_2D_BlockBrick	
+{
+public:
+	Sen_2D_BlockBrick() : brickPosition(glm::vec2(0.0f)), brickSize(glm::vec2(0.0f))
+		, brickColor(glm::vec3(1.0f)), isSolid(GL_FALSE), isDestroyed(GL_FALSE)
+	{}
+	Sen_2D_BlockBrick(glm::vec2 pos, glm::vec2 size, glm::vec3 color, GLboolean solid = GL_FALSE) 
+		: brickPosition(pos), brickSize(size)
+		, brickColor(color), isSolid(solid), isDestroyed(GL_FALSE)
+	{}
+
+private:
+	glm::vec2 brickPosition;
+	glm::vec2 brickSize;
+	glm::vec3 brickColor;
+	GLboolean isSolid;
+	GLboolean isDestroyed;
+};
+
 class Sen_BreakOut : public Sen_2D_GrameSpace
 {
 public:
@@ -37,6 +56,9 @@ private:
 	
 	void initPlayerVertices();
 	void paintPlayer();
+
+	// Bricks Variables
+	GLuint blockTexture, solidBlockTexture;
 };
 
 

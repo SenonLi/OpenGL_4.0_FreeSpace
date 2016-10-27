@@ -11,7 +11,7 @@
 //#include "LearnOpenGL_GLFW/Sen_21_AssimpMeshModel.h"
 //#include "LearnOpenGL_GLFW/Sen_22_DepthTest.h"
 //#include "LearnOpenGL_GLFW/Sen_23_StencilObjectOutline.h"
-//#include "LearnOpenGL_GLFW/Sen_24_BlendingTest.h"
+#include "LearnOpenGL_GLFW/Sen_24_BlendingTest.h"
 //#include "LearnOpenGL_GLFW/Sen_26_PostProcessing.h"
 //#include "LearnOpenGL_GLFW/Sen_262_RearMirror.h"
 //#include "LearnOpenGL_GLFW/Sen_263_DebugRearMirror.h"
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	//Sen_09_ModelViewProjection glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	Sen_BreakOut cameraWidget;
+	Sen_24_BlendingTest cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;

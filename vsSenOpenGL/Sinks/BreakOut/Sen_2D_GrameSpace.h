@@ -89,6 +89,7 @@ protected:
 
 private:
 	Sen_Cube Sen2DGameLogoCube;
+	GLfloat side2DGameLogoCube;
 
 	const GLfloat DEFAULT_zoomRatio = 6.0;
 	const GLfloat SenGOLDEN_SectionScale = 0.618f;

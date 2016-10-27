@@ -34,7 +34,9 @@ public:
 		finalizeCube();
 	}
 
-	inline glm::mat4 getCubeModelMatrix() { return cubeModel; }
+	inline glm::mat4 getCubeModelMatrix() const { return cubeModel; }
+	inline GLfloat getCubeLogoSide() const { return sideCubeLogo; }
+	inline GLfloat getCubeLogoCenterToBorder() const { return centerToBorderCubeLogo; }
 	inline void setCubeWorldAddress(glm::vec3 cubeWorldAddr) { cubeWorldSpaceAddr = cubeWorldAddr; }
 	inline void setCubeScaleRatio(glm::vec3 scale) { scaleRatio = scale; }
 	inline void setCubeRotation(glm::vec3 spinAxis, GLfloat spinAngle) {
@@ -84,7 +86,7 @@ public:
 		pitchTextureID = pitchTexture;
 	}
 
-	void paintSenLogoCube(GLfloat widthRatio, GLfloat heightRatio)	{
+	void paintSenLogoCube(GLfloat widthRatio = 1.0f, GLfloat heightRatio = 1.0f)	{
 
 		GLfloat widthMax = widthRatio;
 		GLfloat heightMax = heightRatio;
@@ -93,8 +95,8 @@ public:
 		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 100.0f);
 
 		glm::mat4 identityMatrix;
-		logoCubeModel = glm::translate(identityMatrix, glm::vec3(0.8f * widthMax, 0.8f * heightMax, -1.1f));
-		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(0.16f, 0.16f, 0.16f));
+		logoCubeModel = glm::translate(identityMatrix, glm::vec3(widthMax - centerToBorderCubeLogo, heightMax - centerToBorderCubeLogo, -1.1f));
+		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(sideCubeLogo));
 		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
 		glUseProgram(cubeProgram);
@@ -103,19 +105,22 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(logoCubeModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(logoCubeProjection));
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);
 
-		glBindTexture(GL_TEXTURE_2D, rollTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-		glBindTexture(GL_TEXTURE_2D, yawTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-		glBindTexture(GL_TEXTURE_2D, pitchTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
+		//glBindTexture(GL_TEXTURE_2D, rollTextureID);
+		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+		//glBindTexture(GL_TEXTURE_2D, yawTextureID);
+		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
+		//glBindTexture(GL_TEXTURE_2D, pitchTextureID);
+		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
 
-		glBindVertexArray(0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glUseProgram(0);
+		//glBindVertexArray(0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
+		//glUseProgram(0);
+
+		paintCubeFaces();
 	}
+
 	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
 
 		glUseProgram(cubeProgram);
@@ -127,21 +132,13 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		glActiveTexture(GL_TEXTURE0);
-
-		glBindTexture(GL_TEXTURE_2D, rollTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-		glBindTexture(GL_TEXTURE_2D, yawTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-		glBindTexture(GL_TEXTURE_2D, pitchTextureID);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
-
-		glBindVertexArray(0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glUseProgram(0);
+		paintCubeFaces();
 	}
 
 protected:
+	GLfloat sideCubeLogo = 0.16f;
+	GLfloat centerToBorderCubeLogo = sideCubeLogo * 2.0 / 2.0;
+	
 	glm::vec3 cubeWorldSpaceAddr, scaleRatio;
 	glm::mat4 cubeModel, logoCubeCameraView, logoCubeModel, logoCubeProjection;
 	GLuint cubeProgram;
@@ -301,6 +298,21 @@ protected:
 	}
 
 private:
+	void paintCubeFaces()	{
+		glActiveTexture(GL_TEXTURE0);
+
+		glBindTexture(GL_TEXTURE_2D, rollTextureID);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+		glBindTexture(GL_TEXTURE_2D, yawTextureID);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
+		glBindTexture(GL_TEXTURE_2D, pitchTextureID);
+		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
+
+		glBindVertexArray(0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glUseProgram(0);
+	}
+
 	void uploadTexture(const char* &textureAddressPointer, GLuint &textureID, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
 		textureImagePtr = SOIL_load_image(textureAddressPointer, &width, &height, 0, SOIL_LOAD_RGBA);
