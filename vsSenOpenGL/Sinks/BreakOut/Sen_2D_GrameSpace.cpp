@@ -53,6 +53,7 @@ void Sen_2D_GrameSpace::paintGL(void)
 	glStencilFunc(GL_ALWAYS, 0x5A, 0xFF); // All fragments should update the
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
+	glEnable(GL_DEPTH_TEST);
 	// Paint Perfect Sen FreeSpace Logo
 	Sen2DGameLogoCube.paintSenLogoCube(GLfloat(widgetWidth) / GLfloat(Sen2DGameSpace_widgetWidth), GLfloat(widgetHeight) / GLfloat(Sen2DGameSpace_widgetHeight));
 

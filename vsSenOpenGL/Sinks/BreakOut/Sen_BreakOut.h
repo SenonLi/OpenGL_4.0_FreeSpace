@@ -15,16 +15,28 @@ protected:
 	void clean_2D_GrameFrame();
 	void init2DGamePaceGL();
 	void paint2DGameSpaceGL();
+	void daltaTimeUpdate(GLfloat deltaTime);
 
-private:
-	GLuint backgroundVAO, backgroundVBO, backgroundTexture;
-	GLuint playerVAO, playerVBO, playerTexture;
 
 	void initShaderPrograms();
 	void initVertexAttributes();
 	void initTextures();
 
+private:
+	// Background Variables
+	GLuint backgroundVAO, backgroundVBO, backgroundTexture;
+	void initBackgroundVertices();
 	void paintBackground();
+
+
+	// PlayerBoard Variables
+	GLuint playerBoardVAO, playerBoardVBO, playerBoardTexture;
+	GLfloat playerBoardWidth;
+	glm::vec2 playerBoardPosition;
+	const GLfloat PLAYER_VELOCITY = (1.0f);
+	
+	void initPlayerVertices();
+	void paintPlayer();
 };
 
 
