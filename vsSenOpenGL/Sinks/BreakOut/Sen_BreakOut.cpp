@@ -26,12 +26,19 @@ void Sen_BreakOut::initShaderPrograms(){
 		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
 		{ GL_NONE, NULL }
 	};
-
 	programA = LoadShaders(shadersScreenTextureCoords);
+
+	ShaderInfo shaders2DTextureCoords[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_2D_TextureCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
+		{ GL_NONE, NULL }
+	};
+	programB = LoadShaders(shaders2DTextureCoords);
 }
 
 void Sen_BreakOut::initTextures(){
-	uploadTextureImage(std::string("./../WatchMe/Images/SunRaise.jpg").c_str(), backgroundTexture, "RGBA");
+	uploadTextureImage(std::string("./../WatchMe/Images/SunRaise.jpg").c_str(), backgroundTexture, "RGBA", GL_TRUE);
+	uploadTextureImage(std::string("./../WatchMe/Images/paddle.png").c_str(), playerTexture, "RGBA");
 }
 
 void Sen_BreakOut::initVertexAttributes(){
@@ -93,18 +100,18 @@ void Sen_BreakOut::initVertexAttributes(){
 }
 
 void Sen_BreakOut::paint2DGameSpaceGL()	{
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	paintBackground();
 
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 	//model = glm::mat4();
 	//model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
 	//glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	//glUniform3f(glGetUniformLocation(programA, "renderColor"), spriteRenderColor.x, spriteRenderColor.y, spriteRenderColor.z);
 
-	//glDisable(GL_BLEND);
+	glDisable(GL_BLEND);
 }
 
 void Sen_BreakOut::paintBackground()	{
@@ -126,5 +133,10 @@ void Sen_BreakOut::clean_2D_GrameFrame()	{
 	if (glIsBuffer(backgroundVBO))			glDeleteBuffers(1, &backgroundVBO);
 	if (glIsTexture(backgroundTexture))		glDeleteTextures(1, &backgroundTexture);
 
+	if (glIsVertexArray(playerVAO))		glDeleteVertexArrays(1, &playerVAO);
+	if (glIsBuffer(playerVBO))			glDeleteBuffers(1, &playerVBO);
+	if (glIsTexture(playerTexture))		glDeleteTextures(1, &playerTexture);
+
 	if (glIsProgram(programA))	glDeleteProgram(programA);
+	if (glIsProgram(programB))	glDeleteProgram(programB);
 }

@@ -18,6 +18,7 @@ protected:
 
 private:
 	GLuint backgroundVAO, backgroundVBO, backgroundTexture;
+	GLuint playerVAO, playerVBO, playerTexture;
 
 	void initShaderPrograms();
 	void initVertexAttributes();

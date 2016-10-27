@@ -34,26 +34,25 @@ protected:
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 
 	unsigned char* textureLoadImagePtr;
-	void uploadTextureImage(const char* textureAddressPointer, GLuint &textureID, std::string channelType)	{
+	void uploadTextureImage(const char* textureAddressPointer, GLuint &textureID, std::string channelType, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
-		bool alpha;
-
-		if (channelType == std::string("RGBA"))			alpha = true;
-		else if (channelType == std::string("RGB"))		alpha = false;
+		GLboolean alpha;
+		if (channelType == std::string("RGBA"))			alpha = GL_TRUE;
+		else if (channelType == std::string("RGB"))		alpha = GL_FALSE;
 
 		textureLoadImagePtr = SOIL_load_image(textureAddressPointer, &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
-
 		// Load and create a defaultTextureID 
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
+		
 		// Set the defaultTextureID wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, alpha ? GL_CLAMP_TO_EDGE : GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, alpha ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, highDefinition ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, alpha ? GL_RGBA : GL_RGB, width, height, 0, alpha ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, textureLoadImagePtr);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		if (!highDefinition)	glGenerateMipmap(GL_TEXTURE_2D);
 		SOIL_free_image_data(textureLoadImagePtr);
 		glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 	}
