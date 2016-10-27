@@ -96,6 +96,7 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.frag" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.geom" />
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_30_GeometryShow.vert" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_2D_TextureCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_3D_TextureCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />

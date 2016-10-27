@@ -338,5 +338,8 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_3D_TextureCoords.vert">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
+    <None Include="SenFreeSpacePieces\Shaders\Sen_2D_TextureCoords.vert">
+      <Filter>FreeSpacePieces\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

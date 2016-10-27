@@ -13,7 +13,6 @@ public:
 
 protected:
 	void clean_2D_GrameFrame();
-	//void daltaTimeUpdate(GLfloat deltaTime);
 	void init2DGamePaceGL();
 	void paint2DGameSpaceGL();
 

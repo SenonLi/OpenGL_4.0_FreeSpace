@@ -19,14 +19,14 @@ void Sen_47_BlendSprite::init2DGamePaceGL()	{
 	//	{ GL_NONE, NULL }
 	//};
 	ShaderInfo shadersScreenTextureCoordsRender[] = {
-		{ GL_VERTEX_SHADER, "./SenFreeSpacePieces/Shaders/Sen_ScreenTextureCoords.vert" },
+		{ GL_VERTEX_SHADER, "./SenFreeSpacePieces/Shaders/Sen_2D_TextureCoords.vert" },
 		{ GL_FRAGMENT_SHADER, "./SenFreeSpacePieces/Shaders/Sen_TextureCoordsRender.frag" },
 		{ GL_NONE, NULL }
 	};
 	programA = LoadShaders(shadersScreenTextureCoordsRender);
 
 	initVertexAttributes();
-	uploadTextureImage(std::string("./LearnOpenGL_GLFW/Images/awesomeface.png").c_str(), spriteTexture, "RGB");
+	uploadTextureImage(std::string("./LearnOpenGL_GLFW/Images/awesomeface.png").c_str(), spriteTexture, "RGBA");
 	spriteRenderColor = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
@@ -61,16 +61,19 @@ void Sen_47_BlendSprite::initVertexAttributes(){
 }
 
 void Sen_47_BlendSprite::paint2DGameSpaceGL()	{
-	
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// Paint Floor
 	glUseProgram(programA);
 	glBindVertexArray(spriteVAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, spriteTexture);
 
-	//model = glm::mat4();
-
-	//glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	model = glm::mat4();
+	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
+	glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
 	glUniform3f(glGetUniformLocation(programA, "renderColor"), spriteRenderColor.x, spriteRenderColor.y, spriteRenderColor.z);
 
@@ -79,14 +82,13 @@ void Sen_47_BlendSprite::paint2DGameSpaceGL()	{
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
+	glDisable(GL_BLEND);
 }
 
 void Sen_47_BlendSprite::clean_2D_GrameFrame()	{
 	if (glIsVertexArray(spriteVAO))		glDeleteVertexArrays(1, &spriteVAO);
 	if (glIsBuffer(spriteVBO))			glDeleteBuffers(1, &spriteVBO);
+	if (glIsTexture(spriteTexture))		glDeleteTextures(1, &spriteTexture);
 
-	//// finalize FrameBuffer 
-	//if (glIsTexture(debugWindowRGB_TextureAttach))		glDeleteTextures(1, &debugWindowRGB_TextureAttach);
-	//if (glIsFramebuffer(debugWindowFrameBufferObject))	glDeleteFramebuffers(1, &debugWindowFrameBufferObject);
-	//if (glIsRenderbuffer(debugWindowDepthStencil_RBO))	glDeleteRenderbuffers(1, &debugWindowDepthStencil_RBO);
+	if (glIsProgram(programA))	glDeleteProgram(programA);
 }
