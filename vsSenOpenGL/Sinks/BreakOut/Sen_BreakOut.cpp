@@ -258,8 +258,8 @@ void Sen_BreakOut::paintBricksMap()	{
 
 	GLuint totalBricksNum = brickMapsVector.at(breakOutLevel).bricksVector.size();
 	for (GLuint i = 0; i < totalBricksNum; i++)	{
-		if (brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickDestroyStatus())	{
-			if (brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickSolidStatus())
+		if (brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickNotDestroyedStatus())	{
+			if (brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickIsSolidStatus())
 				glBindTexture(GL_TEXTURE_2D, solidBlockTexture);
 			else  glBindTexture(GL_TEXTURE_2D, blockTexture);
 
@@ -436,6 +436,8 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 			ballSpinSpeed = -ballSpinSpeed;
 		}
 	}
+
+	bricksCollisionKill();
 	//}
 }
 
@@ -512,4 +514,45 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 			map2DBrickTypesinfo.push_back(lineBrickTypesInfo);
 		}
 	}	else std::cout << "breakOutLevel Wrong !!";
+}
+
+
+GLboolean Sen_BreakOut::checkBrickCollision(const Sen_2D_BlockBrick &brick)
+{
+	// AABB - AABB collision
+	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+
+	bool isCollidedX = brick.getBrickPosition().x + brick.getBrickSize().x / 2.0f >= ballPosition.x - ballRadiusWidth
+		&& brick.getBrickPosition().x - brick.getBrickSize().x / 2.0f <= ballPosition.x + ballRadiusWidth;
+
+	bool isCollidedY = brick.getBrickPosition().y + brick.getBrickSize().y / 2.0f >= ballPosition.y - ballRADIUS
+		&& brick.getBrickPosition().y - brick.getBrickSize().y / 2.0f <= ballPosition.y + ballRADIUS;
+
+	return isCollidedX && isCollidedY;
+}
+
+void Sen_BreakOut::bricksCollisionKill()
+{
+	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+
+	// Check Bricks + LogoCube Collision
+	if (ballPosition.y >= 0.0f - ballRadiusWidth)	{
+
+		for (Sen_2D_BlockBrick &brick : brickMapsVector.at(breakOutLevel).bricksVector)
+		{
+			if (brick.getBrickNotDestroyedStatus())
+			{
+				if (checkBrickCollision(brick))
+				{
+					if (!brick.getBrickIsSolidStatus())
+						brick.setBrickNotDestroyStatus(GL_FALSE);
+				}
+			}
+		}
+
+	} 
+	// Check playerBoard Collision
+	else if (ballPosition.y <= -1.0f + originalPlayerBOARDHEIGHT + ballRadiusWidth)		{
+
+	}
 }

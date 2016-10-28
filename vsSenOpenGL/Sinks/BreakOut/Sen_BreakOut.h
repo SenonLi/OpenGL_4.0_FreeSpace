@@ -20,9 +20,9 @@ public:
 	inline glm::vec2 getBrickPosition() const { return brickPosition; }
 	inline glm::vec2 getBrickSize() const { return brickSize; }
 	inline glm::vec3 getBrickColor() const { return brickColor; }
-	inline GLboolean getBrickSolidStatus() const { return isSolid; }
-	inline GLboolean getBrickDestroyStatus() const { return isBrickNotDestroyed; }
-	inline void setBrickDestroyStatus(const GLboolean isNotDestroyed) { isBrickNotDestroyed = isNotDestroyed; }
+	inline GLboolean getBrickIsSolidStatus() const { return isSolid; }
+	inline GLboolean getBrickNotDestroyedStatus() const { return isBrickNotDestroyed; }
+	inline void setBrickNotDestroyStatus(const GLboolean isNotDestroyed) { isBrickNotDestroyed = isNotDestroyed; }
 	
 private:
 	glm::vec2 brickPosition;
@@ -112,13 +112,18 @@ private:
 	const GLfloat ballSquareSIDE = 0.16f;
 	const GLfloat ballRADIUS = 0.93f * 0.5f * ballSquareSIDE;
 
-	GLfloat speedRatio = 7.0f;
+	GLfloat speedRatio = 1.0f;//7.0f;
 	const GLfloat originalBallSpinSpeed = speedRatio * 60.0f;
 	const glm::vec2 originalBallVELOCITY = speedRatio * glm::vec2(0.1f, 0.1f);
 	const glm::vec2	originalBallPOSITION = originalPlayerBoardPOSITION + glm::vec2(0.0f, ballRADIUS + originalPlayerBOARDHEIGHT / 2.0);
 
 	void initBallVariables();
 	void paintBall();
+
+	// ************* Collision Detection *******************************************
+	// AABB - AABB collision
+	GLboolean checkBrickCollision(const Sen_2D_BlockBrick &brick);
+	void bricksCollisionKill();
 };
 
 
