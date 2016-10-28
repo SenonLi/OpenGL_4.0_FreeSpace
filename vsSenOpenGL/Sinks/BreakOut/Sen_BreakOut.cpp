@@ -82,13 +82,26 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 					brickPosition.x = -1.0 + (static_cast<GLfloat>(j)+0.5) * brickWidth;
 					brickPosition.y = 1.0 - (static_cast<GLfloat>(i)+0.5) * brickHeight;
 
+					GLuint life = 0;
 					if (map2DBrickTypesinfo.at(i).at(j) == 1)			brickColor = glm::vec3(1.0f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 2)		brickColor = glm::vec3(0.8f, 0.8f, 0.4f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 3)		brickColor = glm::vec3(1.0f, 0.5f, 0.0f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 4)		brickColor = glm::vec3(0.0f, 0.7f, 0.0f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 5)		brickColor = glm::vec3(0.9f, 0.6f, 0.9f);
+					else if (map2DBrickTypesinfo.at(i).at(j) == 2)		{
+						brickColor = glm::vec3(0.8f, 0.8f, 0.4f); 
+						life = 1;
+					}
+					else if (map2DBrickTypesinfo.at(i).at(j) == 3)		{
+						brickColor = glm::vec3(1.0f, 0.5f, 0.0f); 
+						life = 2;
+					}
+					else if (map2DBrickTypesinfo.at(i).at(j) == 4)		{
+						brickColor = glm::vec3(0.0f, 0.7f, 0.0f); 
+						life = 3;
+					}
+					else if (map2DBrickTypesinfo.at(i).at(j) == 5)		{
+						brickColor = glm::vec3(0.9f, 0.6f, 0.9f);
+						life = 4;
+					}
 
-					bricksVector.push_back(Sen_2D_BlockBrick(brickPosition, brickSize, brickColor, isBrickSolid));
+					bricksVector.push_back(Sen_2D_BlockBrick(brickPosition, brickSize, brickColor, life, isBrickSolid));
 				}
 			}
 
@@ -449,7 +462,7 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 		{ 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 },
 		{ 1, 3, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 1, 1 },
 		{ 1, 2, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 1 },
-		{ 1, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 1 },
+		{ 1, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 5, 0, 1 },
 		{ 1, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 1 },
 		{ 1, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 1 },
 		{ 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1 }
@@ -517,7 +530,7 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 }
 
 
-GLboolean Sen_BreakOut::checkBrickCollision(const Sen_2D_BlockBrick &brick)
+GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick)
 {
 	// AABB - AABB collision
 	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
@@ -531,6 +544,55 @@ GLboolean Sen_BreakOut::checkBrickCollision(const Sen_2D_BlockBrick &brick)
 	return isCollidedX && isCollidedY;
 }
 
+GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick)
+{
+	//// Get difference vector between both centers
+	//glm::vec2 difference = center - aabb_center;
+	//glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+	//// Add clamped value to AABB_center and we get the value of box closest to circle
+	//glm::vec2 closest = aabb_center + clamped;
+	//// Retrieve vector between center circle and closest point AABB and check if length <= radius
+	//difference = closest - center;
+	//return glm::length(difference) < one.Radius;
+
+
+	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, ballPosition.y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, brick.getBrickPosition().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, brick.getBrickSize().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickBallPixelDistance = ballPixelPosition - brickPixelPosition;
+
+	// if Ball's Center is inside a Block, return TRUE directly
+	if (std::abs(brickBallPixelDistance.x) < brickPixelSize.x / 2.0f
+		&& std::abs(brickBallPixelDistance.y) < brickPixelSize.y / 2.0f)
+		return GL_TRUE;
+	// otherwise Find the closest point on block to the Ball's Center
+	else {
+
+		glm::vec2 clampedBrickBallPixelDistance =
+			glm::clamp(brickBallPixelDistance, -brickPixelSize / 2.0f, brickPixelSize / 2.0f);
+
+
+
+		glm::vec2 closestPixelPosition = brickPixelPosition + clampedBrickBallPixelDistance;
+
+		glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
+		
+
+		GLfloat distanceInPixel = glm::length(closetPixelToBallCenter);
+
+		GLfloat ballRadiusInPixel = 0.65 * ballRADIUS * static_cast<GLfloat>(widgetWidth) / 2.0f;
+		GLboolean isClosetPointInCircle = distanceInPixel < ballRadiusInPixel;
+
+		return isClosetPointInCircle;
+	}
+}
+
 void Sen_BreakOut::bricksCollisionKill()
 {
 	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
@@ -538,14 +600,30 @@ void Sen_BreakOut::bricksCollisionKill()
 	// Check Bricks + LogoCube Collision
 	if (ballPosition.y >= 0.0f - ballRadiusWidth)	{
 
-		for (Sen_2D_BlockBrick &brick : brickMapsVector.at(breakOutLevel).bricksVector)
+		//for (Sen_2D_BlockBrick &brick : brickMapsVector.at(breakOutLevel).bricksVector)
+		for (GLuint i = 0; i < brickMapsVector.at(breakOutLevel).bricksVector.size(); i++)
 		{
+			Sen_2D_BlockBrick &brick = brickMapsVector.at(breakOutLevel).bricksVector.at(i);
+			if (i == 41)
+				std::cout << "I am here";
+
 			if (brick.getBrickNotDestroyedStatus())
 			{
-				if (checkBrickCollision(brick))
+				if (checkBrickBallCircleCollision(brick))
 				{
 					if (!brick.getBrickIsSolidStatus())
 						brick.setBrickNotDestroyStatus(GL_FALSE);
+				
+				
+				
+				
+
+
+
+
+
+				
+				
 				}
 			}
 		}

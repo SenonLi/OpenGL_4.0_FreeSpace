@@ -10,10 +10,10 @@ class Sen_2D_BlockBrick
 {
 public:
 	Sen_2D_BlockBrick() : brickPosition(glm::vec2(0.0f)), brickSize(glm::vec2(0.0f))
-		, brickColor(glm::vec3(1.0f)), isSolid(GL_FALSE), isBrickNotDestroyed(GL_TRUE)
+		, brickColor(glm::vec3(1.0f)), isSolid(GL_FALSE), isBrickNotDestroyed(GL_TRUE), brickLife(0)
 	{}
-	Sen_2D_BlockBrick(glm::vec2 pos, glm::vec2 size, glm::vec3 color, GLboolean solid = GL_FALSE) 
-		: brickPosition(pos), brickSize(size)
+	Sen_2D_BlockBrick(glm::vec2 pos, glm::vec2 size, glm::vec3 color, GLuint life = 0, GLboolean solid = GL_FALSE) 
+		: brickPosition(pos), brickSize(size), brickLife(life)
 		, brickColor(color), isSolid(solid), isBrickNotDestroyed(GL_TRUE)
 	{}
 
@@ -28,6 +28,7 @@ private:
 	glm::vec2 brickPosition;
 	glm::vec2 brickSize;
 	glm::vec3 brickColor;
+	GLuint brickLife;
 	GLboolean isSolid;
 	GLboolean isBrickNotDestroyed;
 };
@@ -122,7 +123,8 @@ private:
 
 	// ************* Collision Detection *******************************************
 	// AABB - AABB collision
-	GLboolean checkBrickCollision(const Sen_2D_BlockBrick &brick);
+	GLboolean checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick);
+	GLboolean checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick);
 	void bricksCollisionKill();
 };
 

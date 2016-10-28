@@ -1,6 +1,11 @@
 # Sen OpenGL C++ OOP one solution Tutorial
 
-## Watch Me: 3D FreeSpace in Visual Studio
+## Watch Me: 2D Game BreakOut + 3D FreeSpace in Visual Studio
+
+2D Game BreakOut:
+* Three Levels
+* Press "Space" to Start
+
 
 SenFreeSpace: enjoy 3D OpenGL
 * Download the whole "WatchMe" folder, and open *.exe to enjoy 3D FreeSpace
