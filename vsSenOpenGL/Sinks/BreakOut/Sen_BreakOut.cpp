@@ -2,7 +2,8 @@
 
 
 Sen_BreakOut::Sen_BreakOut()
-	:playerBoardWidth(0.0f), breakOutLevel(0)
+	: breakOutLevel(0)
+	, ballVelocity(glm::vec2(0.0f, 0.0f)), isBallStuckOnPlayerBoard(GL_TRUE)
 {
 	strWindowName = "Sen BreakOut in 2D GameSpace";
 }
@@ -17,11 +18,19 @@ void Sen_BreakOut::init2DGamePaceGL()	{
 	initShaderPrograms();
 	initVertexAttributes();
 	initTextures();
-
-	OutputDebugString(" Before BrickMapsVector Initial \n\n");
-
 	initBrickMapsVector();
-	OutputDebugString(" After BrickMapsVector Initial \n\n");
+	initBallVariables();
+
+	//OutputDebugString(" After BrickMapsVector Initial \n\n");
+}
+
+void Sen_BreakOut::initBallVariables()	{
+
+	isBallStuckOnPlayerBoard = GL_TRUE;
+	ballVelocity = originalBallVELOCITY;
+	ballSpinAngleDegree = 0.0f;
+	ballSpinSpeed = originalBallSpinSpeed;
+	ballPosition = originalBallPOSITION;
 }
 
 void Sen_BreakOut::initBrickMapsVector()	{
@@ -74,10 +83,10 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 					brickPosition.y = 1.0 - (static_cast<GLfloat>(i)+0.5) * brickHeight;
 
 					if (map2DBrickTypesinfo.at(i).at(j) == 1)			brickColor = glm::vec3(1.0f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 2)		brickColor = glm::vec3(0.9f, 0.6f, 0.9f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 3)		brickColor = glm::vec3(0.0f, 0.7f, 0.0f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 4)		brickColor = glm::vec3(0.8f, 0.8f, 0.4f);
-					else if (map2DBrickTypesinfo.at(i).at(j) == 5)		brickColor = glm::vec3(1.0f, 0.5f, 0.0f);
+					else if (map2DBrickTypesinfo.at(i).at(j) == 2)		brickColor = glm::vec3(0.8f, 0.8f, 0.4f);
+					else if (map2DBrickTypesinfo.at(i).at(j) == 3)		brickColor = glm::vec3(1.0f, 0.5f, 0.0f);
+					else if (map2DBrickTypesinfo.at(i).at(j) == 4)		brickColor = glm::vec3(0.0f, 0.7f, 0.0f);
+					else if (map2DBrickTypesinfo.at(i).at(j) == 5)		brickColor = glm::vec3(0.9f, 0.6f, 0.9f);
 
 					bricksVector.push_back(Sen_2D_BlockBrick(brickPosition, brickSize, brickColor, isBrickSolid));
 				}
@@ -98,7 +107,7 @@ void Sen_BreakOut::initShaderPrograms(){
 
 	ShaderInfo shaders2DTextureCoords[] = {
 		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_2D_TextureCoords.vert" },
-		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_TextureCoords.frag" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_PlayerColorRendering.frag" },
 		{ GL_NONE, NULL }
 	};
 	programB = LoadShaders(shaders2DTextureCoords);
@@ -109,6 +118,13 @@ void Sen_BreakOut::initShaderPrograms(){
 		{ GL_NONE, NULL }
 	};
 	blendUnitOneSquareProgram = LoadShaders(shaders2DTextureCoordsRender);
+
+	ShaderInfo shaders2DTextureCoordsDiscardWhite[] = {
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/Sen_2D_TextureCoords.vert" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/Sen_DiscardPureWhitePixels.frag" },
+		{ GL_NONE, NULL }
+	};
+	ballProgram = LoadShaders(shaders2DTextureCoordsDiscardWhite);
 }
 
 void Sen_BreakOut::initTextures(){
@@ -117,6 +133,8 @@ void Sen_BreakOut::initTextures(){
 
 	uploadTextureImage(std::string("./../WatchMe/Images/block.png").c_str(), blockTexture, "RGB", GL_TRUE);
 	uploadTextureImage(std::string("./../WatchMe/Images/block_solid.png").c_str(), solidBlockTexture, "RGB", GL_TRUE);
+
+	uploadTextureImage(std::string("./../WatchMe/Images/ball.jpg").c_str(), ballTexture, "RGBA", GL_TRUE);
 }
 
 void Sen_BreakOut::initBackgroundVertices(){
@@ -150,8 +168,7 @@ void Sen_BreakOut::initBackgroundVertices(){
 
 void Sen_BreakOut::initPlayerVertices(){
 
-	playerBoardWidth = 1 / 4.0;
-	GLfloat width = playerBoardWidth / 2.0, height = 1 / 30.0;
+	GLfloat width = originalPlayerBOARDWIDTH / 2.0, height = originalPlayerBOARDHEIGHT / 2.0;
 	GLfloat playerBoardVertexAttributes[] = {
 		// Positions            // Texture Coords 
 		width, height, 1.0f, 0.0f,
@@ -178,7 +195,8 @@ void Sen_BreakOut::initPlayerVertices(){
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-	playerBoardPosition = glm::vec2(0.0f, -29.0 / 30.0);
+	playerBoardWidth = originalPlayerBOARDWIDTH;
+	playerBoardPosition = originalPlayerBoardPOSITION;
 }
 
 void Sen_BreakOut::initVertexAttributes(){
@@ -227,9 +245,11 @@ void Sen_BreakOut::paint2DGameSpaceGL()	{
 
 	paintBricksMap();
 	paintPlayer();
+	paintBall();
 
 	glDisable(GL_BLEND);
 }
+
 void Sen_BreakOut::paintBricksMap()	{
 
 	glUseProgram(blendUnitOneSquareProgram);
@@ -270,6 +290,32 @@ void Sen_BreakOut::paintBricksMap()	{
 	glUseProgram(0);
 }
 
+void Sen_BreakOut::paintBall()	{
+
+	glUseProgram(ballProgram);
+	glBindVertexArray(unitOneSquareVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, ballTexture);
+
+	model = glm::mat4();
+	model = glm::translate(model, glm::vec3(ballPosition, 0.0f));
+	model = glm::scale(model,
+		glm::vec3(ballSquareSIDE * widgetHeight / widgetWidth, ballSquareSIDE, 1.0f)
+		); // Last scale
+	model = glm::rotate(model, static_cast<GLfloat>(glm::radians(ballSpinAngleDegree)), glm::vec3(0.0f, 0.0f, 1.0f));
+
+
+	glUniformMatrix4fv(glGetUniformLocation(ballProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniform3f(glGetUniformLocation(ballProgram, "renderColor"),
+		1.0f, 0.0f, 0.0f);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glUseProgram(0);
+}
+
 void Sen_BreakOut::paintPlayer()	{
 
 	glUseProgram(programB);
@@ -280,12 +326,18 @@ void Sen_BreakOut::paintPlayer()	{
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(playerBoardPosition, 0.0f));
 	glUniformMatrix4fv(glGetUniformLocation(programB, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	
+	glUniform3f(glGetUniformLocation(programB, "renderColor"),
+		0.5f, 0.5f, 0.5f);
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 }
 
 void Sen_BreakOut::paintBackground()	{
@@ -315,35 +367,75 @@ void Sen_BreakOut::clean_2D_GrameFrame()	{
 	if (glIsBuffer(unitOneSquareVBO))			glDeleteBuffers(1, &unitOneSquareVBO);
 	if (glIsTexture(blockTexture))			glDeleteTextures(1, &blockTexture);
 	if (glIsTexture(solidBlockTexture))		glDeleteTextures(1, &solidBlockTexture);
+	if (glIsTexture(ballTexture))		glDeleteTextures(1, &ballTexture);
 
 	if (glIsProgram(programA))					glDeleteProgram(programA);
 	if (glIsProgram(programB))					glDeleteProgram(programB);
 	if (glIsProgram(blendUnitOneSquareProgram))	glDeleteProgram(blendUnitOneSquareProgram);
+	if (glIsProgram(ballProgram))				glDeleteProgram(ballProgram);
 }
 
 
 void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 	//if (this->State == GAME_ACTIVE)
 	//{
+	GLfloat palyerShift = PLAYER_VELOCITY * deltaTime;
 
-	GLfloat shift = PLAYER_VELOCITY * deltaTime;
-	// Move playerBoard
-	if (keys[GLFW_KEY_A])
+	// ******************* Key Input Process*************************************
+	if (keys[GLFW_KEY_LEFT])
 	{
-		playerBoardPosition.x -= shift;
+		playerBoardPosition.x -= palyerShift;
 		GLfloat xLeftBorder = -1.0f + playerBoardWidth / 2.0;
 		if (playerBoardPosition.x < xLeftBorder)
 			playerBoardPosition.x = xLeftBorder;
+
+		if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
 	}
-	if (keys[GLFW_KEY_D])
+	if (keys[GLFW_KEY_RIGHT])
 	{
-		playerBoardPosition.x += shift;
+		playerBoardPosition.x += palyerShift;
 		GLfloat xRightBorder = 1.0f - playerBoardWidth / 2.0;
 		if (playerBoardPosition.x > xRightBorder)
 			playerBoardPosition.x = xRightBorder;
+		
+		if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
 	}
+	if (keys[GLFW_KEY_SPACE])		isBallStuckOnPlayerBoard = GL_FALSE;
 
 
+	// ************ Ball Movement ***********************************************
+	if (!isBallStuckOnPlayerBoard)
+	{
+		// Move the ball
+		ballSpinAngleDegree += ballSpinSpeed * deltaTime;
+		normalizeAngleDegree(ballSpinAngleDegree);
+
+		ballPosition += ballVelocity * deltaTime;
+		GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+
+		if (ballPosition.x <= -1.0f + ballRadiusWidth)
+		{
+			ballVelocity.x = -ballVelocity.x;
+			ballPosition.x = -1.0f + ballRadiusWidth;
+
+			ballSpinSpeed = -ballSpinSpeed;
+		}
+		else if (ballPosition.x >= 1.0f - ballRadiusWidth)
+		{
+			ballVelocity.x = -ballVelocity.x;
+			ballPosition.x = 1.0f - ballRadiusWidth;
+
+			ballSpinSpeed = -ballSpinSpeed;
+		}
+
+		if (ballPosition.y >= 1.0f - ballRADIUS)
+		{
+			ballVelocity.y = -ballVelocity.y;
+			ballPosition.y = 1.0f - ballRADIUS;
+
+			ballSpinSpeed = -ballSpinSpeed;
+		}
+	}
 	//}
 }
 
@@ -353,12 +445,12 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 
 	GLuint levelOneBrickTypesMap[][15] = {
 		{ 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 },
-		{ 1, 3, 3, 1, 3, 2, 3, 4, 5, 5, 4, 3, 3, 1, 1 },
-		{ 1, 0, 5, 5, 0, 5, 5, 0, 5, 5, 0, 5, 5, 0, 1 },
+		{ 1, 3, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 1, 1 },
+		{ 1, 2, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 1 },
 		{ 1, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 1 },
-		{ 1, 3, 1, 3, 2, 3, 4, 5, 5, 4, 3, 3, 1, 3, 1 },
+		{ 1, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 1 },
 		{ 1, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 1 },
-		{ 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1 }
+		{ 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1 }
 	};
 
 	GLuint levelTwoBrickTypesMap[][17] = {

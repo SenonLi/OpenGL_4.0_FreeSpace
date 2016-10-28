@@ -35,7 +35,6 @@ private:
 //***********************************************************
 //***********************************************************
 //***********************************************************
-//***********************************************************
 class Sen_BreakOutMap
 {
 public:
@@ -44,9 +43,6 @@ public:
 
 	std::vector<Sen_2D_BlockBrick> bricksVector;
 };
-
-
-//***********************************************************
 //***********************************************************
 //***********************************************************
 //***********************************************************
@@ -78,22 +74,51 @@ private:
 
 	// *********  PlayerBoard Variables ********************************************
 	GLuint playerBoardVAO, playerBoardVBO, playerBoardTexture;
-	GLfloat playerBoardWidth;
 	glm::vec2 playerBoardPosition;
+	GLfloat playerBoardWidth;
 	const GLfloat PLAYER_VELOCITY = (1.0f);
-	
+	const GLfloat originalPlayerBOARDWIDTH = 1.8 / 4.0;
+	const GLfloat originalPlayerBOARDHEIGHT = 1.2 / 30.0;
+	const glm::vec2	originalPlayerBoardPOSITION = glm::vec2(0.0f, originalPlayerBOARDHEIGHT / 2.0 - 1.0);
+
 	void initPlayerVertices();
 	void paintPlayer();
 
+	//*************************************************************************************
+	//*************************************************************************************
+	GLuint blendUnitOneSquareProgram, unitOneSquareVAO, unitOneSquareVBO;
+	void initUnitOneSquareVertices();
+	
 	// *********  Bricks Variables + Level Distribution *****************************
 	GLuint breakOutLevel;
 	std::vector<Sen_BreakOutMap> brickMapsVector;
 
 	GLfloat cubeLogoSquareAreaSide;
 	GLuint blockTexture, solidBlockTexture;
-	GLuint blendUnitOneSquareProgram, unitOneSquareVAO, unitOneSquareVBO;
-	void initUnitOneSquareVertices();
+
 	void paintBricksMap();
+
+	// ************ Ball Variables **************************************************
+	glm::vec2 ballVelocity, ballPosition;
+	GLboolean isBallStuckOnPlayerBoard;
+	GLuint ballProgram, ballTexture;
+	GLfloat ballSpinAngleDegree, ballSpinSpeed;
+
+	void normalizeAngleDegree(GLfloat &angle)	{
+		while (angle < 0)	angle += 360.0f;
+		while (angle > 360)	angle -= 360.0f;
+	}
+
+	const GLfloat ballSquareSIDE = 0.16f;
+	const GLfloat ballRADIUS = 0.93f * 0.5f * ballSquareSIDE;
+
+	GLfloat speedRatio = 7.0f;
+	const GLfloat originalBallSpinSpeed = speedRatio * 60.0f;
+	const glm::vec2 originalBallVELOCITY = speedRatio * glm::vec2(0.1f, 0.1f);
+	const glm::vec2	originalBallPOSITION = originalPlayerBoardPOSITION + glm::vec2(0.0f, ballRADIUS + originalPlayerBOARDHEIGHT / 2.0);
+
+	void initBallVariables();
+	void paintBall();
 };
 
 

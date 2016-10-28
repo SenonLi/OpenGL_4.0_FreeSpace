@@ -72,6 +72,7 @@
     <ClInclude Include="Support\SenCameraViewModel.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\WatchMe\Shaders\Sen_PlayerColorRendering.frag" />
     <None Include="Guide8th\Shaders\Sen_01_Triangles.frag" />
     <None Include="Guide8th\Shaders\Sen_01_Triangles.vert" />
     <None Include="Guide8th\Shaders\Sen_03_DrawCommands.frag" />
@@ -104,6 +105,7 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_AlphaDiscardTextureCoords.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ColorRed.frag" />
+    <None Include="SenFreeSpacePieces\Shaders\Sen_DiscardPureWhitePixels.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoords.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenTextureCoords.vert" />
