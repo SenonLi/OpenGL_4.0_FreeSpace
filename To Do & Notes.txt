@@ -1,4 +1,5 @@
-* Write player control and class Bricks in one BrickOut.cpp  class files.
+* Add BallObject
+* Add Collision Detection
 * Look Through Particle Engine
 
 
