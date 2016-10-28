@@ -20,7 +20,7 @@ void Sen_2D_GrameSpace::initGlfwGlewGL()
 	SenAbstractGLFW::initGlfwGlewGL();
 
 	Sen2DGameLogoCube.initialCubeGL(GL_TRUE);
-	side2DGameLogoCube = Sen2DGameLogoCube.getCubeLogoSide();
+	cubeLogoOccupancySquareSide = 2.0 * Sen2DGameLogoCube.getCubeLogoCenterToBorder();
 
 	// Add Stencil Test for Perfect Cube Logo
 	glEnable(GL_STENCIL_TEST);

@@ -24,13 +24,13 @@ protected:
 
 	//GLfloat lastX = 400, lastY = 300;
 	//bool firstMouse = true;
-
 	glm::mat4 model;
 
 	bool keys[1024];
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
 	
+	inline GLfloat getCubeLogoOccupancySquareSide() const { return cubeLogoOccupancySquareSide; }
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 
 	unsigned char* textureLoadImagePtr;
@@ -89,7 +89,7 @@ protected:
 
 private:
 	Sen_Cube Sen2DGameLogoCube;
-	GLfloat side2DGameLogoCube;
+	GLfloat cubeLogoOccupancySquareSide;
 
 	const GLfloat DEFAULT_zoomRatio = 6.0;
 	const GLfloat SenGOLDEN_SectionScale = 0.618f;

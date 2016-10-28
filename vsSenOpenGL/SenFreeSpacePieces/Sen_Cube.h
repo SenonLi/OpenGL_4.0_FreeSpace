@@ -105,18 +105,6 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "model"), 1, GL_FALSE, glm::value_ptr(logoCubeModel));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(logoCubeProjection));
-		//glActiveTexture(GL_TEXTURE0);
-
-		//glBindTexture(GL_TEXTURE_2D, rollTextureID);
-		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-		//glBindTexture(GL_TEXTURE_2D, yawTextureID);
-		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(12 * sizeof(GLuint)));
-		//glBindTexture(GL_TEXTURE_2D, pitchTextureID);
-		//glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, (const GLint *)(24 * sizeof(GLuint)));
-
-		//glBindVertexArray(0);
-		//glBindTexture(GL_TEXTURE_2D, 0);
-		//glUseProgram(0);
 
 		paintCubeFaces();
 	}
