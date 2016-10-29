@@ -85,7 +85,10 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 					brickPosition.y = 1.0 - (static_cast<GLfloat>(i)+0.5) * brickHeight;
 
 					GLuint life = 0;
-					if (map2DBrickTypesinfo.at(i).at(j) == 1)			brickColor = glm::vec3(1.0f);
+					if (map2DBrickTypesinfo.at(i).at(j) == 1)			{
+						brickColor = glm::vec3(1.0f);
+						life = 99;
+					}
 					else if (map2DBrickTypesinfo.at(i).at(j) == 2)		{
 						brickColor = glm::vec3(0.8f, 0.8f, 0.4f); 
 						life = 1;
@@ -271,6 +274,7 @@ void Sen_BreakOut::paintBricksMap()	{
 	glBindVertexArray(unitOneSquareVAO);
 	glActiveTexture(GL_TEXTURE0);
 
+	glm::vec3 brickColor = glm::vec3(1.0f);
 	GLuint totalBricksNum = brickMapsVector.at(breakOutLevel).bricksVector.size();
 	for (GLuint i = 0; i < totalBricksNum; i++)	{
 		if (brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickNotDestroyedStatus())	{
@@ -290,11 +294,24 @@ void Sen_BreakOut::paintBricksMap()	{
 
 			glUniformMatrix4fv(glGetUniformLocation(blendUnitOneSquareProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
+
+			Sen_2D_BlockBrick &brick = brickMapsVector.at(breakOutLevel).bricksVector.at(i);
+			GLuint brickLife = brick.getBrickLife();
+
+			if (brickLife == 1) 			brickColor = glm::vec3(0.8f, 0.8f, 0.4f);
+			else if (brickLife == 2)		brickColor = glm::vec3(1.0f, 0.5f, 0.0f);
+			else if (brickLife == 3)		brickColor = glm::vec3(0.0f, 0.7f, 0.0f);
+			else if (brickLife == 4)		brickColor = glm::vec3(0.9f, 0.6f, 0.9f);
+			else if (brickLife == 99)		brickColor = glm::vec3(1.0f);
+			else std::cout << "Wrong Brick Life !!";
+
+			//glUniform3f(glGetUniformLocation(blendUnitOneSquareProgram, "renderColor"),
+			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().x,
+			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().y,
+			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().z
+			//	);
 			glUniform3f(glGetUniformLocation(blendUnitOneSquareProgram, "renderColor"),
-				brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().x,
-				brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().y,
-				brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().z
-				);
+				brickColor.x, brickColor.y, brickColor.z);
 
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
@@ -716,7 +733,9 @@ void Sen_BreakOut::bricksCollisionKill_resolution()
 				{
 					// Destroy block if not solid
 					if (!brick.getBrickIsSolidStatus())
-						brick.setBrickNotDestroyStatus(GL_FALSE);
+						brick.onHitBrick();
+						//brick.setBrickNotDestroyStatus(GL_FALSE);
+
 					// Collision resolution
 					Direction dir = std::get<1>(collision);
 					glm::vec2 diff_vector = std::get<2>(collision);

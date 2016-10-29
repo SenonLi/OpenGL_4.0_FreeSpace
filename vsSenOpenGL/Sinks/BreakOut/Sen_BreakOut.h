@@ -17,6 +17,7 @@ public:
 		, brickColor(color), isSolid(solid), isBrickNotDestroyed(GL_TRUE)
 	{}
 
+	inline GLuint getBrickLife() const { return brickLife; }
 	inline glm::vec2 getBrickPosition() const { return brickPosition; }
 	inline glm::vec2 getBrickSize() const { return brickSize; }
 	inline glm::vec3 getBrickColor() const { return brickColor; }
@@ -26,6 +27,11 @@ public:
 	
 	inline void setBrickPosition(const glm::vec2 position) { brickPosition = position; }
 	inline void setBrickSize(const glm::vec2 size) { brickSize = size; }
+
+	void onHitBrick()	{
+		if (brickLife > 0) brickLife -= 1;
+		if (!brickLife) setBrickNotDestroyStatus(GL_FALSE);
+	}
 
 private:
 	glm::vec2 brickPosition;
