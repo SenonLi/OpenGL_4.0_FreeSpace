@@ -47,6 +47,22 @@ public:
 //***********************************************************
 //***********************************************************
 //***********************************************************
+
+
+// ********** Change when Better Collision Detection ***********************
+#include <tuple>
+// Represents the four possible (collision) directions
+enum Direction {
+	UP,
+	RIGHT__,
+	DOWN,
+	LEFT__
+};
+// Defines a Collision typedef that represents collision data
+typedef std::tuple<GLboolean, Direction, glm::vec2> Collision; // <collision?, what direction?, difference vector center - closest point>
+
+// ********** Change when Better Collision Detection ***********************
+
 class Sen_BreakOut : public Sen_2D_GrameSpace
 {
 public:
@@ -126,6 +142,17 @@ private:
 	GLboolean checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick);
 	GLboolean checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick);
 	void bricksCollisionKill();
+
+
+
+
+	// ************** Change when Better Collision Detection **************************
+	Collision returnBrickBallCircleCollision(const Sen_2D_BlockBrick &brick);
+	Direction VectorDirection(glm::vec2 target);
+	void bricksCollisionKill_resolution();
+
+
+	// ************** Change when Better Collision Detection **************************
 };
 
 

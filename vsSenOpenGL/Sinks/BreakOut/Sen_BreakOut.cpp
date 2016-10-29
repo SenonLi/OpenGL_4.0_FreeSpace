@@ -546,16 +546,6 @@ GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &b
 
 GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick)
 {
-	//// Get difference vector between both centers
-	//glm::vec2 difference = center - aabb_center;
-	//glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
-	//// Add clamped value to AABB_center and we get the value of box closest to circle
-	//glm::vec2 closest = aabb_center + clamped;
-	//// Retrieve vector between center circle and closest point AABB and check if length <= radius
-	//difference = closest - center;
-	//return glm::length(difference) < one.Radius;
-
-
 	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(widgetWidth) / 2.0f
 		, ballPosition.y * static_cast<GLfloat>(widgetHeight) / 2.0f);
 
@@ -577,8 +567,6 @@ GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &b
 		glm::vec2 clampedBrickBallPixelDistance =
 			glm::clamp(brickBallPixelDistance, -brickPixelSize / 2.0f, brickPixelSize / 2.0f);
 
-
-
 		glm::vec2 closestPixelPosition = brickPixelPosition + clampedBrickBallPixelDistance;
 
 		glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
@@ -595,10 +583,8 @@ GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &b
 
 void Sen_BreakOut::bricksCollisionKill()
 {
-	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
-
 	// Check Bricks + LogoCube Collision
-	if (ballPosition.y >= 0.0f - ballRadiusWidth)	{
+	if (ballPosition.y >= 0.0f - ballRADIUS)	{
 
 		//for (Sen_2D_BlockBrick &brick : brickMapsVector.at(breakOutLevel).bricksVector)
 		for (GLuint i = 0; i < brickMapsVector.at(breakOutLevel).bricksVector.size(); i++)
@@ -613,24 +599,13 @@ void Sen_BreakOut::bricksCollisionKill()
 				{
 					if (!brick.getBrickIsSolidStatus())
 						brick.setBrickNotDestroyStatus(GL_FALSE);
-				
-				
-				
-				
-
-
-
-
-
-				
-				
 				}
 			}
 		}
 
 	} 
 	// Check playerBoard Collision
-	else if (ballPosition.y <= -1.0f + originalPlayerBOARDHEIGHT + ballRadiusWidth)		{
+	else if (ballPosition.y <= -1.0f + originalPlayerBOARDHEIGHT + ballRADIUS)		{
 
 	}
 }
