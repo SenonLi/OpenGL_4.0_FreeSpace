@@ -24,6 +24,9 @@ public:
 	inline GLboolean getBrickNotDestroyedStatus() const { return isBrickNotDestroyed; }
 	inline void setBrickNotDestroyStatus(const GLboolean isNotDestroyed) { isBrickNotDestroyed = isNotDestroyed; }
 	
+	inline void setBrickPosition(const glm::vec2 position) { brickPosition = position; }
+	inline void setBrickSize(const glm::vec2 size) { brickSize = size; }
+
 private:
 	glm::vec2 brickPosition;
 	glm::vec2 brickSize;
@@ -81,6 +84,8 @@ protected:
 	void initTextures();
 	void initBrickMapsVector();
 
+	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
+
 private:
 	// *********  Background Variables ********************************************
 	GLuint backgroundVAO, backgroundVBO, backgroundTexture;
@@ -107,6 +112,7 @@ private:
 	void initUnitOneSquareVertices();
 	
 	// *********  Bricks Variables + Level Distribution *****************************
+	GLboolean gameActive;
 	GLuint breakOutLevel;
 	std::vector<Sen_BreakOutMap> brickMapsVector;
 
@@ -126,12 +132,12 @@ private:
 		while (angle > 360)	angle -= 360.0f;
 	}
 
-	const GLfloat ballSquareSIDE = 0.16f;
+	const GLfloat ballSquareSIDE = 0.15f;
 	const GLfloat ballRADIUS = 0.93f * 0.5f * ballSquareSIDE;
 
-	GLfloat speedRatio = 1.0f;//7.0f;
-	const GLfloat originalBallSpinSpeed = speedRatio * 60.0f;
-	const glm::vec2 originalBallVELOCITY = speedRatio * glm::vec2(0.1f, 0.1f);
+	GLfloat speedRatio = 12.0f;//7.0f;
+	const GLfloat originalBallSpinSpeed = speedRatio * 80.0f;
+	const glm::vec2 originalBallVELOCITY = speedRatio * glm::vec2(0.23f, 0.2f);
 	const glm::vec2	originalBallPOSITION = originalPlayerBoardPOSITION + glm::vec2(0.0f, ballRADIUS + originalPlayerBOARDHEIGHT / 2.0);
 
 	void initBallVariables();

@@ -2,7 +2,7 @@
 
 
 Sen_BreakOut::Sen_BreakOut()
-	: breakOutLevel(0)
+	: breakOutLevel(1), gameActive(GL_TRUE)
 	, ballVelocity(glm::vec2(0.0f, 0.0f)), isBallStuckOnPlayerBoard(GL_TRUE)
 {
 	strWindowName = "Sen BreakOut in 2D GameSpace";
@@ -30,6 +30,8 @@ void Sen_BreakOut::initBallVariables()	{
 	ballVelocity = originalBallVELOCITY;
 	ballSpinAngleDegree = 0.0f;
 	ballSpinSpeed = originalBallSpinSpeed;
+
+	playerBoardPosition = originalPlayerBoardPOSITION;
 	ballPosition = originalBallPOSITION;
 }
 
@@ -367,95 +369,6 @@ void Sen_BreakOut::paintBackground()	{
 	glUseProgram(0);
 }
 
-void Sen_BreakOut::clean_2D_GrameFrame()	{
-	if (glIsVertexArray(backgroundVAO))		glDeleteVertexArrays(1, &backgroundVAO);
-	if (glIsBuffer(backgroundVBO))			glDeleteBuffers(1, &backgroundVBO);
-	if (glIsTexture(backgroundTexture))		glDeleteTextures(1, &backgroundTexture);
-
-	if (glIsVertexArray(playerBoardVAO))		glDeleteVertexArrays(1, &playerBoardVAO);
-	if (glIsBuffer(playerBoardVBO))			glDeleteBuffers(1, &playerBoardVBO);
-	if (glIsTexture(playerBoardTexture))		glDeleteTextures(1, &playerBoardTexture);
-
-	if (glIsVertexArray(unitOneSquareVAO))		glDeleteVertexArrays(1, &unitOneSquareVAO);
-	if (glIsBuffer(unitOneSquareVBO))			glDeleteBuffers(1, &unitOneSquareVBO);
-	if (glIsTexture(blockTexture))			glDeleteTextures(1, &blockTexture);
-	if (glIsTexture(solidBlockTexture))		glDeleteTextures(1, &solidBlockTexture);
-	if (glIsTexture(ballTexture))		glDeleteTextures(1, &ballTexture);
-
-	if (glIsProgram(programA))					glDeleteProgram(programA);
-	if (glIsProgram(programB))					glDeleteProgram(programB);
-	if (glIsProgram(blendUnitOneSquareProgram))	glDeleteProgram(blendUnitOneSquareProgram);
-	if (glIsProgram(ballProgram))				glDeleteProgram(ballProgram);
-}
-
-
-void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
-	//if (this->State == GAME_ACTIVE)
-	//{
-	GLfloat palyerShift = PLAYER_VELOCITY * deltaTime;
-
-	// ******************* Key Input Process*************************************
-	if (keys[GLFW_KEY_LEFT])
-	{
-		playerBoardPosition.x -= palyerShift;
-		GLfloat xLeftBorder = -1.0f + playerBoardWidth / 2.0;
-		if (playerBoardPosition.x < xLeftBorder)
-			playerBoardPosition.x = xLeftBorder;
-
-		if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
-	}
-	if (keys[GLFW_KEY_RIGHT])
-	{
-		playerBoardPosition.x += palyerShift;
-		GLfloat xRightBorder = 1.0f - playerBoardWidth / 2.0;
-		if (playerBoardPosition.x > xRightBorder)
-			playerBoardPosition.x = xRightBorder;
-		
-		if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
-	}
-	if (keys[GLFW_KEY_SPACE])		isBallStuckOnPlayerBoard = GL_FALSE;
-
-
-	// ************ Ball Movement ***********************************************
-	if (!isBallStuckOnPlayerBoard)
-	{
-		// Move the ball
-		ballSpinAngleDegree += ballSpinSpeed * deltaTime;
-		normalizeAngleDegree(ballSpinAngleDegree);
-
-		ballPosition += ballVelocity * deltaTime;
-		GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
-
-		if (ballPosition.x <= -1.0f + ballRadiusWidth)
-		{
-			ballVelocity.x = -ballVelocity.x;
-			ballPosition.x = -1.0f + ballRadiusWidth;
-
-			ballSpinSpeed = -ballSpinSpeed;
-		}
-		else if (ballPosition.x >= 1.0f - ballRadiusWidth)
-		{
-			ballVelocity.x = -ballVelocity.x;
-			ballPosition.x = 1.0f - ballRadiusWidth;
-
-			ballSpinSpeed = -ballSpinSpeed;
-		}
-
-		if (ballPosition.y >= 1.0f - ballRADIUS)
-		{
-			ballVelocity.y = -ballVelocity.y;
-			ballPosition.y = 1.0f - ballRADIUS;
-
-			ballSpinSpeed = -ballSpinSpeed;
-		}
-	}
-
-	bricksCollisionKill();
-	//}
-}
-
-
-
 void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTypesinfo, GLuint breakOutLevel)	{
 
 	GLuint levelOneBrickTypesMap[][15] = {
@@ -465,18 +378,19 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 		{ 1, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 5, 0, 1 },
 		{ 1, 3, 2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 2, 3, 1 },
 		{ 1, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 1 },
-		{ 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1 }
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }
 	};
 
 	GLuint levelTwoBrickTypesMap[][17] = {
 		{ 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4 },
-		{ 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-		{ 3, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 2 },
-		{ 2, 4, 1, 4, 1, 4, 0, 0, 1, 0, 0, 4, 1, 4, 1, 4, 3 },
-		{ 1, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 4 },
-		{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3 },
-		{ 4, 1, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 1, 5 },
-		{ 2, 3, 3, 1, 3, 2, 3, 4, 5, 5, 4, 3, 3, 1, 3, 3, 5 },
+		{ 3, 2, 4, 2, 3, 4, 5, 4, 3, 2, 3, 4, 3, 2, 3, 2, 4 },
+		{ 3, 2, 4, 2, 3, 4, 5, 4, 3, 2, 3, 4, 3, 2, 3, 2, 4 },
+		{ 3, 4, 0, 4, 4, 2, 0, 0, 2, 3, 0, 4, 1, 4, 3, 4, 2 },
+		{ 2, 4, 2, 4, 2, 4, 0, 0, 2, 2, 0, 4, 2, 4, 2, 4, 3 },
+		{ 2, 3, 3, 3, 2, 3, 0, 0, 0, 0, 0, 3, 3, 0, 2, 3, 4 },
+		{ 4, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0 },
+		{ 4, 2, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 0, 0 },
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
 	};
 
 	GLuint levelThirdBrickTypesMap[][19] = {
@@ -526,9 +440,9 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 			}
 			map2DBrickTypesinfo.push_back(lineBrickTypesInfo);
 		}
-	}	else std::cout << "breakOutLevel Wrong !!";
+	}
+	else std::cout << "breakOutLevel Wrong !!";
 }
-
 
 GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick)
 {
@@ -542,6 +456,100 @@ GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &b
 		&& brick.getBrickPosition().y - brick.getBrickSize().y / 2.0f <= ballPosition.y + ballRADIUS;
 
 	return isCollidedX && isCollidedY;
+}
+
+void Sen_BreakOut::clean_2D_GrameFrame()	{
+	if (glIsVertexArray(backgroundVAO))		glDeleteVertexArrays(1, &backgroundVAO);
+	if (glIsBuffer(backgroundVBO))			glDeleteBuffers(1, &backgroundVBO);
+	if (glIsTexture(backgroundTexture))		glDeleteTextures(1, &backgroundTexture);
+
+	if (glIsVertexArray(playerBoardVAO))		glDeleteVertexArrays(1, &playerBoardVAO);
+	if (glIsBuffer(playerBoardVBO))			glDeleteBuffers(1, &playerBoardVBO);
+	if (glIsTexture(playerBoardTexture))		glDeleteTextures(1, &playerBoardTexture);
+
+	if (glIsVertexArray(unitOneSquareVAO))		glDeleteVertexArrays(1, &unitOneSquareVAO);
+	if (glIsBuffer(unitOneSquareVBO))			glDeleteBuffers(1, &unitOneSquareVBO);
+	if (glIsTexture(blockTexture))			glDeleteTextures(1, &blockTexture);
+	if (glIsTexture(solidBlockTexture))		glDeleteTextures(1, &solidBlockTexture);
+	if (glIsTexture(ballTexture))		glDeleteTextures(1, &ballTexture);
+
+	if (glIsProgram(programA))					glDeleteProgram(programA);
+	if (glIsProgram(programB))					glDeleteProgram(programB);
+	if (glIsProgram(blendUnitOneSquareProgram))	glDeleteProgram(blendUnitOneSquareProgram);
+	if (glIsProgram(ballProgram))				glDeleteProgram(ballProgram);
+}
+
+
+void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
+		
+	if (gameActive)
+	{
+		GLfloat palyerShift = PLAYER_VELOCITY * deltaTime;
+
+		// ******************* Key Input Process*************************************
+		if (keys[GLFW_KEY_LEFT])
+		{
+			playerBoardPosition.x -= palyerShift;
+			GLfloat xLeftBorder = -1.0f + playerBoardWidth / 2.0;
+			if (playerBoardPosition.x < xLeftBorder)
+				playerBoardPosition.x = xLeftBorder;
+
+			if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
+		}
+		if (keys[GLFW_KEY_RIGHT])
+		{
+			playerBoardPosition.x += palyerShift;
+			GLfloat xRightBorder = 1.0f - playerBoardWidth / 2.0;
+			if (playerBoardPosition.x > xRightBorder)
+				playerBoardPosition.x = xRightBorder;
+
+			if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
+		}
+		if (keys[GLFW_KEY_SPACE])		isBallStuckOnPlayerBoard = GL_FALSE;
+
+
+		// ************ Ball Movement ***********************************************
+		if (!isBallStuckOnPlayerBoard)
+		{
+			// Move the ball
+			ballSpinAngleDegree += ballSpinSpeed * deltaTime;
+			normalizeAngleDegree(ballSpinAngleDegree);
+
+			ballPosition += ballVelocity * deltaTime;
+			GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+
+			if (ballPosition.x <= -1.0f + ballRadiusWidth)
+			{
+				ballVelocity.x = -ballVelocity.x;
+				ballPosition.x = -1.0f + ballRadiusWidth;
+
+				ballSpinSpeed = -ballSpinSpeed;
+			}
+			else if (ballPosition.x >= 1.0f - ballRadiusWidth)
+			{
+				ballVelocity.x = -ballVelocity.x;
+				ballPosition.x = 1.0f - ballRadiusWidth;
+
+				ballSpinSpeed = -ballSpinSpeed;
+			}
+
+			if (ballPosition.y >= 1.0f - ballRADIUS)
+			{
+				ballVelocity.y = -ballVelocity.y;
+				ballPosition.y = 1.0f - ballRADIUS;
+
+				ballSpinSpeed = -ballSpinSpeed;
+			}
+			else if (ballPosition.y <= -1.0f - ballRADIUS)
+			{
+				initBallVariables();
+			}
+		}
+
+		//bricksCollisionKill();
+		bricksCollisionKill_resolution();
+
+	}
 }
 
 GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick)
@@ -568,13 +576,11 @@ GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &b
 			glm::clamp(brickBallPixelDistance, -brickPixelSize / 2.0f, brickPixelSize / 2.0f);
 
 		glm::vec2 closestPixelPosition = brickPixelPosition + clampedBrickBallPixelDistance;
-
 		glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
 		
-
 		GLfloat distanceInPixel = glm::length(closetPixelToBallCenter);
-
-		GLfloat ballRadiusInPixel = 0.65 * ballRADIUS * static_cast<GLfloat>(widgetWidth) / 2.0f;
+		GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(widgetHeight) / 2.0f;
+		
 		GLboolean isClosetPointInCircle = distanceInPixel < ballRadiusInPixel;
 
 		return isClosetPointInCircle;
@@ -606,6 +612,166 @@ void Sen_BreakOut::bricksCollisionKill()
 	} 
 	// Check playerBoard Collision
 	else if (ballPosition.y <= -1.0f + originalPlayerBOARDHEIGHT + ballRADIUS)		{
+
+	}
+}
+
+void Sen_BreakOut::keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(widget, GL_TRUE);
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			keys[key] = true;
+		else if (action == GLFW_RELEASE)
+			keys[key] = false;
+
+		if (key == GLFW_KEY_P && action == GLFW_RELEASE) gameActive = !gameActive;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+Direction Sen_BreakOut::VectorDirection(glm::vec2 target)
+{
+	glm::vec2 compass[] = {
+		glm::vec2(0.0f, 1.0f),	// up
+		glm::vec2(1.0f, 0.0f),	// right
+		glm::vec2(0.0f, -1.0f),	// down
+		glm::vec2(-1.0f, 0.0f)	// left
+	};
+	GLfloat max = 0.0f;
+	GLuint best_match = -1;
+	for (GLuint i = 0; i < 4; i++)
+	{
+		GLfloat dot_product = glm::dot(glm::normalize(target), compass[i]);
+		if (dot_product > max)
+		{
+			max = dot_product;
+			best_match = i;
+		}
+	}
+	return (Direction)best_match;
+}
+
+Collision Sen_BreakOut::returnBrickBallCircleCollision(const Sen_2D_BlockBrick &brick) // AABB - Circle collision
+{
+	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, ballPosition.y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, brick.getBrickPosition().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(widgetWidth) / 2.0f
+		, brick.getBrickSize().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+
+	glm::vec2 brickBallPixelDistance = ballPixelPosition - brickPixelPosition;
+
+
+	glm::vec2 clampedBrickBallPixelDistance =
+		glm::clamp(brickBallPixelDistance, -brickPixelSize / 2.0f, brickPixelSize / 2.0f);
+
+	glm::vec2 closestPixelPosition = brickPixelPosition + clampedBrickBallPixelDistance;
+	glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
+
+	GLfloat distanceInPixel = glm::length(closetPixelToBallCenter);
+	GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(widgetHeight) / 2.0f;
+
+	//GLboolean isClosetPointInCircle = distanceInPixel < ballRadiusInPixel;
+
+	if (distanceInPixel < ballRadiusInPixel) // not <= since in that case a collision also occurs when object one exactly touches object two, which they are at the end of each collision resolution stage.
+		return std::make_tuple(GL_TRUE, VectorDirection(closetPixelToBallCenter)
+		, glm::vec2(closetPixelToBallCenter.x * 2.0f / static_cast<GLfloat>(widgetWidth),
+		closetPixelToBallCenter.y * 2.0f / static_cast<GLfloat>(widgetHeight)));
+	else
+		return std::make_tuple(GL_FALSE, UP, glm::vec2(0, 0));
+
+}
+
+
+
+void Sen_BreakOut::bricksCollisionKill_resolution()
+{
+	// Check Bricks + LogoCube Collision
+	if (ballPosition.y >= 0.0f - ballRADIUS)	{
+
+		//for (Sen_2D_BlockBrick &brick : brickMapsVector.at(breakOutLevel).bricksVector)
+		for (GLuint i = 0; i < brickMapsVector.at(breakOutLevel).bricksVector.size(); i++)
+		{
+			Sen_2D_BlockBrick &brick = brickMapsVector.at(breakOutLevel).bricksVector.at(i);
+
+			if (brick.getBrickNotDestroyedStatus())
+			{
+				Collision collision = returnBrickBallCircleCollision(brick);
+				if (std::get<0>(collision)) // If collision is true
+				{
+					// Destroy block if not solid
+					if (!brick.getBrickIsSolidStatus())
+						brick.setBrickNotDestroyStatus(GL_FALSE);
+					// Collision resolution
+					Direction dir = std::get<1>(collision);
+					glm::vec2 diff_vector = std::get<2>(collision);
+					if (dir == LEFT__ || dir == RIGHT__) // Horizontal collision
+					{
+						ballVelocity.x = -ballVelocity.x; // Reverse horizontal velocity
+						// Relocate
+						GLfloat penetration = ballRADIUS - std::abs(diff_vector.x);
+						if (dir == LEFT__)
+							ballPosition.x += penetration; // Move ball to right
+						else
+							ballPosition.x -= penetration; // Move ball to left;
+					}
+					else // Vertical collision
+					{
+						ballVelocity.y = -ballVelocity.y; // Reverse vertical velocity
+						// Relocate
+						GLfloat penetration = ballRADIUS - std::abs(diff_vector.y);
+						if (dir == UP)
+							ballPosition.y -= penetration; // Move ball bback up
+						else
+							ballPosition.y += penetration; // Move ball back down
+					}
+				}
+
+			}
+		}
+
+	}
+	// Check playerBoard Collision
+	else if (ballPosition.y <= -1.0f + originalPlayerBOARDHEIGHT + ballRADIUS)		{
+		// ************** Change when Better Collision Detection **************************
+		Sen_2D_BlockBrick brick;
+		brick.setBrickPosition(playerBoardPosition);
+		brick.setBrickSize(glm::vec2(originalPlayerBOARDWIDTH, originalPlayerBOARDHEIGHT));
+
+		Collision result = returnBrickBallCircleCollision(brick);
+		if (!isBallStuckOnPlayerBoard && std::get<0>(result))
+		{
+			// Check where it hit the board, and change velocity based on where it hit the board
+			GLfloat centerBoard = playerBoardPosition.x;
+			GLfloat distance = ballPosition.x - centerBoard;
+			GLfloat percentage = distance / (playerBoardWidth / 2.0f);
+			// Then move accordingly
+			GLfloat strength = 2.0f;
+			glm::vec2 oldVelocity = ballVelocity;
+			ballVelocity.x = originalBallVELOCITY.x * percentage * strength;
+			//Ball->Velocity.y = -Ball->Velocity.y;
+			ballVelocity = glm::normalize(ballVelocity) * glm::length(oldVelocity); // Keep speed consistent over both axes (multiply by length of old velocity, so total strength is not changed)
+			// Fix sticky paddle
+			ballVelocity.y = abs(ballVelocity.y);
+			ballVelocity.x = ballVelocity.x * oldVelocity.x / abs(oldVelocity.x);
+		}
+
+		// ************** Change when Better Collision Detection **************************
 
 	}
 }
