@@ -2,7 +2,7 @@
 
 
 Sen_BreakOut::Sen_BreakOut()
-	: breakOutLevel(1), gameActive(GL_TRUE)
+	: breakOutLevel(1), gameActive(GL_TRUE), currLevelFinished(GL_FALSE)
 	, ballVelocity(glm::vec2(0.0f, 0.0f)), isBallStuckOnPlayerBoard(GL_TRUE)
 {
 	strWindowName = "Sen BreakOut in 2D GameSpace";
@@ -27,6 +27,8 @@ void Sen_BreakOut::init2DGamePaceGL()	{
 void Sen_BreakOut::initBallVariables()	{
 
 	isBallStuckOnPlayerBoard = GL_TRUE;
+	currLevelFinished = GL_FALSE;
+
 	ballVelocity = originalBallVELOCITY;
 	ballSpinAngleDegree = 0.0f;
 	ballSpinSpeed = originalBallSpinSpeed;
@@ -37,25 +39,34 @@ void Sen_BreakOut::initBallVariables()	{
 
 void Sen_BreakOut::initBrickMapsVector()	{
 
+	mapUnsolidBrickNumVector.clear();
+
 	GLfloat spareSide = getCubeLogoOccupancySquareSide();
 	std::vector<std::vector<GLuint>> map2DBrickTypesinfo;
-
+	
 	init2DMapInfo(map2DBrickTypesinfo, 1);
 	Sen_BreakOutMap levelOneMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelOneMap);
+	mapUnsolidBrickNumVector.push_back(levelOneMap.bricksVector.size());
 
 	init2DMapInfo(map2DBrickTypesinfo, 2);
 	Sen_BreakOutMap levelTwoMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelTwoMap);
+	mapUnsolidBrickNumVector.push_back(levelTwoMap.bricksVector.size());
 
 	init2DMapInfo(map2DBrickTypesinfo, 3);
 	Sen_BreakOutMap levelThirdMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelThirdMap);
+	mapUnsolidBrickNumVector.push_back(levelThirdMap.bricksVector.size());
+
+
+	currLevelUnsolidBrickNum = mapUnsolidBrickNumVector.at(breakOutLevel);
 
 	//OutputDebugString(" After brickMapsVector.push_back Initial \n\n");
 }
 
-Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLuint>> &map2DBrickTypesinfo) {
+Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLuint>> &map2DBrickTypesinfo) 
+{
 	bricksVector.clear();
 
 	GLuint totalLinesNum = map2DBrickTypesinfo.size();
@@ -458,7 +469,9 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 			map2DBrickTypesinfo.push_back(lineBrickTypesInfo);
 		}
 	}
-	else std::cout << "breakOutLevel Wrong !!";
+	else	{
+		std::cout << "breakOutLevel Wrong !!";
+	}
 }
 
 GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick)
@@ -499,7 +512,7 @@ void Sen_BreakOut::clean_2D_GrameFrame()	{
 
 void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 		
-	if (gameActive)
+	if (gameActive && !currLevelFinished)
 	{
 		GLfloat palyerShift = PLAYER_VELOCITY * deltaTime;
 
@@ -733,7 +746,7 @@ void Sen_BreakOut::bricksCollisionKill_resolution()
 				{
 					// Destroy block if not solid
 					if (!brick.getBrickIsSolidStatus())
-						brick.onHitBrick();
+						brick.destroyedAfterHitBrick();
 						//brick.setBrickNotDestroyStatus(GL_FALSE);
 
 					// Collision resolution

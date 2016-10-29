@@ -28,7 +28,7 @@ public:
 	inline void setBrickPosition(const glm::vec2 position) { brickPosition = position; }
 	inline void setBrickSize(const glm::vec2 size) { brickSize = size; }
 
-	void onHitBrick()	{
+	void destroyedAfterHitBrick()	{
 		if (brickLife > 0) brickLife -= 1;
 		if (!brickLife) setBrickNotDestroyStatus(GL_FALSE);
 	}
@@ -118,9 +118,10 @@ private:
 	void initUnitOneSquareVertices();
 	
 	// *********  Bricks Variables + Level Distribution *****************************
-	GLboolean gameActive;
-	GLuint breakOutLevel;
+	GLboolean gameActive, currLevelFinished;
+	GLuint breakOutLevel, currLevelUnsolidBrickNum;
 	std::vector<Sen_BreakOutMap> brickMapsVector;
+	std::vector<GLuint> mapUnsolidBrickNumVector;
 
 	GLfloat cubeLogoSquareAreaSide;
 	GLuint blockTexture, solidBlockTexture;
