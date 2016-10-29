@@ -47,17 +47,17 @@ void Sen_BreakOut::initBrickMapsVector()	{
 	init2DMapInfo(map2DBrickTypesinfo, 1);
 	Sen_BreakOutMap levelOneMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelOneMap);
-	mapUnsolidBrickNumVector.push_back(levelOneMap.bricksVector.size());
+	mapUnsolidBrickNumVector.push_back(levelOneMap.getUnsolidBricksNum());
 
 	init2DMapInfo(map2DBrickTypesinfo, 2);
 	Sen_BreakOutMap levelTwoMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelTwoMap);
-	mapUnsolidBrickNumVector.push_back(levelTwoMap.bricksVector.size());
+	mapUnsolidBrickNumVector.push_back(levelTwoMap.getUnsolidBricksNum());
 
 	init2DMapInfo(map2DBrickTypesinfo, 3);
 	Sen_BreakOutMap levelThirdMap(spareSide, map2DBrickTypesinfo);
 	brickMapsVector.push_back(levelThirdMap);
-	mapUnsolidBrickNumVector.push_back(levelThirdMap.bricksVector.size());
+	mapUnsolidBrickNumVector.push_back(levelThirdMap.getUnsolidBricksNum());
 
 
 	currLevelUnsolidBrickNum = mapUnsolidBrickNumVector.at(breakOutLevel);
@@ -66,6 +66,7 @@ void Sen_BreakOut::initBrickMapsVector()	{
 }
 
 Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLuint>> &map2DBrickTypesinfo) 
+	:unsolidBricksNum(0)
 {
 	bricksVector.clear();
 
@@ -91,6 +92,7 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 
 				if (map2DBrickTypesinfo.at(i).at(j) > 0)	{
 					GLboolean isBrickSolid = map2DBrickTypesinfo.at(i).at(j) == 1 ? GL_TRUE : GL_FALSE;
+					if (!isBrickSolid) unsolidBricksNum++;
 
 					brickPosition.x = -1.0 + (static_cast<GLfloat>(j)+0.5) * brickWidth;
 					brickPosition.y = 1.0 - (static_cast<GLfloat>(i)+0.5) * brickHeight;
@@ -410,14 +412,14 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 	};
 
 	GLuint levelTwoBrickTypesMap[][17] = {
-		{ 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4 },
-		{ 3, 2, 4, 2, 3, 4, 5, 4, 3, 2, 3, 4, 3, 2, 3, 2, 4 },
-		{ 3, 2, 4, 2, 3, 4, 5, 4, 3, 2, 3, 4, 3, 2, 3, 2, 4 },
-		{ 3, 4, 0, 4, 4, 2, 0, 0, 2, 3, 0, 4, 1, 4, 3, 4, 2 },
-		{ 2, 4, 2, 4, 2, 4, 0, 0, 2, 2, 0, 4, 2, 4, 2, 4, 3 },
-		{ 2, 3, 3, 3, 2, 3, 0, 0, 0, 0, 0, 3, 3, 0, 2, 3, 4 },
-		{ 4, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0 },
-		{ 4, 2, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 3, 3, 0, 0, 0 },
+		{ 2, 3, 2, 3, 2, 4, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+		{ 2, 5, 3, 2, 2, 3, 4, 3, 2, 2, 2, 3, 2, 2, 2, 2, 3 },
+		{ 2, 2, 3, 2, 2, 3, 5, 3, 2, 2, 2, 3, 2, 2, 2, 2, 3 },
+		{ 2, 3, 0, 3, 3, 2, 0, 0, 2, 2, 0, 3, 1, 3, 2, 3, 2 },
+		{ 2, 3, 2, 3, 2, 3, 0, 0, 2, 2, 0, 3, 2, 3, 2, 3, 2 },
+		{ 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 3 },
+		{ 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0 },
+		{ 3, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 0, 0 },
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
 	};
 
@@ -746,8 +748,10 @@ void Sen_BreakOut::bricksCollisionKill_resolution()
 				{
 					// Destroy block if not solid
 					if (!brick.getBrickIsSolidStatus())
-						brick.destroyedAfterHitBrick();
-						//brick.setBrickNotDestroyStatus(GL_FALSE);
+						if (brick.destroyedAfterHitBrick())	
+							if (currLevelUnsolidBrickNum)
+								if (!--currLevelUnsolidBrickNum)
+									currLevelFinished = GL_TRUE;
 
 					// Collision resolution
 					Direction dir = std::get<1>(collision);

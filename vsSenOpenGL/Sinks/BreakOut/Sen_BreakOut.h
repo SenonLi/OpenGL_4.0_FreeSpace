@@ -28,9 +28,12 @@ public:
 	inline void setBrickPosition(const glm::vec2 position) { brickPosition = position; }
 	inline void setBrickSize(const glm::vec2 size) { brickSize = size; }
 
-	void destroyedAfterHitBrick()	{
+	GLboolean destroyedAfterHitBrick()	{
 		if (brickLife > 0) brickLife -= 1;
-		if (!brickLife) setBrickNotDestroyStatus(GL_FALSE);
+		if (!brickLife) {
+			setBrickNotDestroyStatus(GL_FALSE); return GL_TRUE;
+		}
+		return GL_FALSE;
 	}
 
 private:
@@ -52,6 +55,11 @@ public:
 	explicit Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLuint>> &map2DBrickTypesinfo);
 
 	std::vector<Sen_2D_BlockBrick> bricksVector;
+
+	inline GLuint getUnsolidBricksNum() const { return unsolidBricksNum; }
+
+private:
+	GLuint unsolidBricksNum;
 };
 //***********************************************************
 //***********************************************************
