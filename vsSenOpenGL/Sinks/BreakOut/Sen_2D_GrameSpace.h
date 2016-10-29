@@ -5,6 +5,7 @@
 
 #include "Support/SenAbstractGLFW.h"
 #include "SenFreeSpacePieces/Sen_Cube.h"
+#include "Support/SenFreeTypeFontsRendering.h"
 
 class Sen_2D_GrameSpace :	public SenAbstractGLFW
 {
@@ -87,14 +88,34 @@ protected:
 	}
 
 
-private:
-	Sen_Cube Sen2DGameLogoCube;
-	GLfloat cubeLogoOccupancySquareSide;
+	// *********************************************************************************************
+	// ******************* TrueType Line Text Fonts Rendering (FreeType) ***************************
+	void initLineTextFontsFunctions();
+	void initFreeTypeLibrary();
+	void initTrueTypeFontsTextures();
+	void initTextStringVertexAttributes();
+
+	GLfloat paintLineTextString(std::string lineTextString, GLfloat textScreenCoord_X, GLfloat textScreenCoord_Y, GLfloat scale, GLuint screenWidth, GLuint screenHeight, glm::vec3 lineTextStringColor);
+
+	FT_Library freeTypeLibrary;
+	FT_Face faceTimesNewRoman;
+	std::map<GLchar, FreeTypeCharacterStruct> characterStructs_128_Map;
+
+	GLuint lineTextProgram, lineTextVAO, lineTextVBO;
+	glm::vec3 normalLineTextColor, highlightLineTextColor, lineTextOutlineColor;
+
+	//GLfloat nextStringScreenCoord_X;
+
 
 	const GLfloat DEFAULT_zoomRatio = 6.0;
 	const GLfloat SenGOLDEN_SectionScale = 0.618f;
 	const GLint Sen2DGameSpace_widgetWidth = 960;
 	const GLint Sen2DGameSpace_widgetHeight = GLint(Sen2DGameSpace_widgetWidth * SenGOLDEN_SectionScale);
+
+private:
+	Sen_Cube Sen2DGameLogoCube;
+	GLfloat cubeLogoOccupancySquareSide;
+
 };
 
 

@@ -108,6 +108,8 @@ private:
 	void paintBackground();
 	void init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTypesinfo, GLuint breakOutLevel);
 
+	void paintFontsHints();
+
 	// *********  PlayerBoard Variables ********************************************
 	GLuint playerBoardVAO, playerBoardVBO, playerBoardTexture;
 	glm::vec2 playerBoardPosition;
@@ -135,7 +137,7 @@ private:
 	GLuint blockTexture, solidBlockTexture;
 
 	void paintBricksMap();
-
+	void trigerNextLevel();
 	// ************ Ball Variables **************************************************
 	glm::vec2 ballVelocity, ballPosition;
 	GLboolean isBallStuckOnPlayerBoard;
@@ -147,10 +149,10 @@ private:
 		while (angle > 360)	angle -= 360.0f;
 	}
 
-	const GLfloat ballSquareSIDE = 0.15f;
+	const GLfloat ballSquareSIDE = 0.139f;
 	const GLfloat ballRADIUS = 0.93f * 0.5f * ballSquareSIDE;
 
-	GLfloat speedRatio = 12.0f;//7.0f;
+	GLfloat speedRatio = 4.0f;//7.0f;
 	const GLfloat originalBallSpinSpeed = speedRatio * 80.0f;
 	const glm::vec2 originalBallVELOCITY = speedRatio * glm::vec2(0.23f, 0.2f);
 	const glm::vec2	originalBallPOSITION = originalPlayerBoardPOSITION + glm::vec2(0.0f, ballRADIUS + originalPlayerBOARDHEIGHT / 2.0);

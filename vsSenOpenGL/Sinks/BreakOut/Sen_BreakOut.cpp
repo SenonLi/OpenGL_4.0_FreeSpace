@@ -277,7 +277,56 @@ void Sen_BreakOut::paint2DGameSpaceGL()	{
 	paintBricksMap();
 	paintPlayer();
 	paintBall();
+	paintFontsHints();
 
+	glDisable(GL_BLEND);
+}
+
+void Sen_BreakOut::paintFontsHints()	{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_DEPTH_TEST);
+
+	glUseProgram(lineTextProgram);
+
+	paintLineTextString("Break   Sen    Out", -0.35f, 0.01f
+		, 1.7 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, normalLineTextColor);
+
+	paintLineTextString("ReachMe: Sen.Li@uky.edu ", -0.95f, - 0.35f
+		, 1.4 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, highlightLineTextColor);
+
+	GLfloat startingPoint = -0.6f;
+
+	paintLineTextString("'Left/Right'  : Move ", -0.95f, startingPoint - 0.0f
+		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, lineTextOutlineColor);
+
+	paintLineTextString("Press 'P'      : Pause", -0.95f, startingPoint - 0.1f
+		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, lineTextOutlineColor);
+
+	paintLineTextString("Press 'Enter': Reset", -0.95f, startingPoint - 0.2f
+		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, lineTextOutlineColor);
+
+	paintLineTextString("Press 'Space': Start Collision", -0.95f, startingPoint - 0.3f
+		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, lineTextOutlineColor);
+
+	//if (currLevelFinished)	{
+		paintLineTextString("Sen OpenGL", -0.25f,  0.65f
+			, 2.0 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, widgetWidth, widgetHeight, normalLineTextColor);
+
+		paintLineTextString("Tutorial : https://github.com/SenonLi/OpenGL_4.0_FreeSpace ", -0.8f, 0.45f
+			, 1.1 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, widgetWidth, widgetHeight, normalLineTextColor);
+	//}
+
+
+	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 }
 
@@ -318,11 +367,6 @@ void Sen_BreakOut::paintBricksMap()	{
 			else if (brickLife == 99)		brickColor = glm::vec3(1.0f);
 			else std::cout << "Wrong Brick Life !!";
 
-			//glUniform3f(glGetUniformLocation(blendUnitOneSquareProgram, "renderColor"),
-			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().x,
-			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().y,
-			//	brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickColor().z
-			//	);
 			glUniform3f(glGetUniformLocation(blendUnitOneSquareProgram, "renderColor"),
 				brickColor.x, brickColor.y, brickColor.z);
 
@@ -411,16 +455,16 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }
 	};
 
-	GLuint levelTwoBrickTypesMap[][17] = {
-		{ 2, 3, 2, 3, 2, 4, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-		{ 2, 5, 3, 2, 2, 3, 4, 3, 2, 2, 2, 3, 2, 2, 2, 2, 3 },
-		{ 2, 2, 3, 2, 2, 3, 5, 3, 2, 2, 2, 3, 2, 2, 2, 2, 3 },
-		{ 2, 3, 0, 3, 3, 2, 0, 0, 2, 2, 0, 3, 1, 3, 2, 3, 2 },
-		{ 2, 3, 2, 3, 2, 3, 0, 0, 2, 2, 0, 3, 2, 3, 2, 3, 2 },
-		{ 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 3 },
-		{ 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0 },
-		{ 3, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 2, 2, 0, 0, 0 },
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
+	GLuint levelTwoBrickTypesMap[][18] = {
+		{ 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 },
+		{ 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 },
+		{ 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 4, 4, 0, 0, 0, 4, 4, 0, 0, 0, 4, 4, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 4, 0, 4, 0, 0, 4, 0, 4, 0, 0, 4, 0, 0, 0 },
+		{ 0, 0, 0, 0, 4, 0, 4, 4, 4, 4, 0, 4, 0, 0, 4, 0, 0, 0 },
+		{ 0, 4, 0, 0, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0 },
+		{ 0, 0, 4, 4, 0, 0, 0, 4, 4, 0, 0, 4, 0, 0, 4, 0, 0, 0 },
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 }
 	};
 
 	GLuint levelThirdBrickTypesMap[][19] = {
@@ -537,7 +581,6 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 
 			if (isBallStuckOnPlayerBoard)	ballPosition.x = playerBoardPosition.x;
 		}
-		if (keys[GLFW_KEY_SPACE])		isBallStuckOnPlayerBoard = GL_FALSE;
 
 
 		// ************ Ball Movement ***********************************************
@@ -628,8 +671,8 @@ void Sen_BreakOut::bricksCollisionKill()
 		for (GLuint i = 0; i < brickMapsVector.at(breakOutLevel).bricksVector.size(); i++)
 		{
 			Sen_2D_BlockBrick &brick = brickMapsVector.at(breakOutLevel).bricksVector.at(i);
-			if (i == 41)
-				std::cout << "I am here";
+			//if (i == 41)
+			//	std::cout << "I am here";
 
 			if (brick.getBrickNotDestroyedStatus())
 			{
@@ -660,7 +703,29 @@ void Sen_BreakOut::keyDetection(GLFWwindow* widget, int key, int scancode, int a
 			keys[key] = false;
 
 		if (key == GLFW_KEY_P && action == GLFW_RELEASE) gameActive = !gameActive;
+		if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE) trigerNextLevel();
+		if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)		{
+			isBallStuckOnPlayerBoard = GL_FALSE;
+			if (currLevelFinished)
+				trigerNextLevel();
+		}
 	}
+}
+
+
+void Sen_BreakOut::trigerNextLevel()
+{
+	// recover this level info
+	GLfloat spareSide = getCubeLogoOccupancySquareSide();
+	std::vector<std::vector<GLuint>> map2DBrickTypesinfo;
+
+	init2DMapInfo(map2DBrickTypesinfo, breakOutLevel + 1);
+	Sen_BreakOutMap thisLevelMap(spareSide, map2DBrickTypesinfo);
+	brickMapsVector.at(breakOutLevel) = thisLevelMap;
+
+	currLevelUnsolidBrickNum = mapUnsolidBrickNumVector.at(breakOutLevel);
+
+	initBallVariables();
 }
 
 
