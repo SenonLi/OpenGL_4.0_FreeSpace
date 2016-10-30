@@ -293,8 +293,12 @@ void Sen_BreakOut::paintFontsHints()	{
 		, 1.7 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, widgetWidth, widgetHeight, normalLineTextColor);
 
-	paintLineTextString("ReachMe: Sen.Li@uky.edu ", -0.95f, - 0.35f
+	paintLineTextString("ReachMe: Sen.Li@uky.edu ", -0.95f, - 0.2f
 		, 1.4 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, widgetWidth, widgetHeight, highlightLineTextColor);
+
+	paintLineTextString("https://www.Linkedin.com/in/SenSprouting", -0.95f, - 0.35f
+		, 1.15 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, widgetWidth, widgetHeight, highlightLineTextColor);
 
 	GLfloat startingPoint = -0.6f;
@@ -303,7 +307,7 @@ void Sen_BreakOut::paintFontsHints()	{
 		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, widgetWidth, widgetHeight, lineTextOutlineColor);
 
-	paintLineTextString("Press 'P'      : Pause", -0.95f, startingPoint - 0.1f
+	paintLineTextString("Press 'P'       : Pause", -0.95f, startingPoint - 0.1f
 		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, widgetWidth, widgetHeight, lineTextOutlineColor);
 
@@ -315,7 +319,7 @@ void Sen_BreakOut::paintFontsHints()	{
 		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, widgetWidth, widgetHeight, lineTextOutlineColor);
 
-	//if (currLevelFinished)	{
+	if (currLevelFinished)	{
 		paintLineTextString("Sen OpenGL", -0.25f,  0.65f
 			, 2.0 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 			, widgetWidth, widgetHeight, normalLineTextColor);
@@ -323,7 +327,7 @@ void Sen_BreakOut::paintFontsHints()	{
 		paintLineTextString("Tutorial : https://github.com/SenonLi/OpenGL_4.0_FreeSpace ", -0.8f, 0.45f
 			, 1.1 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 			, widgetWidth, widgetHeight, normalLineTextColor);
-	//}
+	}
 
 
 	glEnable(GL_DEPTH_TEST);
