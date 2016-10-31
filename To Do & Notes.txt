@@ -1,7 +1,8 @@
-* Add BallObject
-* Add Collision Detection
 * Look Through Particle Engine
 
+## Collision Detection
+* Axis-Aligned Bounding Box
+* Circle to AABB, Clamp --> Closest Point
 
 ## Perfect Cube Logo
 Add Stencil Test for Perfect Logo, such that first draw Logo with Stencil Buffer, second draw Scene base on Stencil Buffer
