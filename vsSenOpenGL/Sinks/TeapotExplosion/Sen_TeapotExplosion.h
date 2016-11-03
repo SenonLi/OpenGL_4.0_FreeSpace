@@ -4,6 +4,8 @@
 #define __Sen_TeapotExplosion__
 
 #include "LearnOpenGL_GLFW/Sen_24_BlendingTest.h"
+#include "SenFreeSpacePieces/Sen_Teapot.h"
+
 
 class Sen_TeapotExplosion : public Sen_24_BlendingTest
 {
@@ -16,6 +18,9 @@ protected:
 	void paintScene();
 	void cleanDebugWindowFreeSpace();
 
+private:
+	Sen_Teapot firstTeapot;
+	GLuint teapotProgram;
 };
 
 

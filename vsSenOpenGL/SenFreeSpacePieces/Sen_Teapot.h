@@ -16,7 +16,7 @@ class Sen_Teapot
 public:
 	Sen_Teapot() : selfSpinAngle(0.0f)
 	{
-		teapotWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 0.0f);
+		teapotWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 2.0f);
 
 		selfSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 		teapotScaleRatio = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -48,12 +48,11 @@ public:
 	}
 
 	void paintSelfProgramTeapot(const glm::mat4 &projection, const glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
-
-		glUseProgram(teapotProgram);
-		paintLinkedProgramTeapot(projection, view, spinSpeedRate, vecSpinAxis, );
+		paintLinkedProgramTeapot(teapotProgram, projection, view, spinSpeedRate, vecSpinAxis);
 	}
 	
-	void paintLinkedProgramTeapot(const glm::mat4 &projection, const glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
+	void paintLinkedProgramTeapot(GLuint program, const glm::mat4 &projection, const glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
+		glUseProgram(program);
 		glBindVertexArray(teapotVAO);
 
 		glm::mat4 identityMatrix;
@@ -66,9 +65,9 @@ public:
 		}
 
 		teapotModel = glm::rotate(teapotModel, selfSpinAngle, selfSpinAxis);
-		glUniformMatrix4fv(glGetUniformLocation(teapotProgram, "model"), 1, GL_FALSE, glm::value_ptr(teapotModel));
-		glUniformMatrix4fv(glGetUniformLocation(teapotProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(glGetUniformLocation(teapotProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(teapotModel));
+		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
 		drawTeapotElements();
 	}

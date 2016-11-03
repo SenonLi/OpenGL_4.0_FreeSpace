@@ -1,4 +1,4 @@
-* Look Through Particle Engine
+* Find out what is wrong with Teapot shaders.
 
 ## Collision Detection
 * Axis-Aligned Bounding Box
