@@ -5,6 +5,8 @@ using namespace SenShaderTeapot;
 
 SenShaderTeapotExplosion::SenShaderTeapotExplosion()
 {
+	//widgetWidth = DEFAULT_widgetWidth;
+	//widgetHeight = DEFAULT_widgetHeight;
 }
 
 
@@ -12,12 +14,10 @@ SenShaderTeapotExplosion::~SenShaderTeapotExplosion()
 {
 }
 
-void SenShaderTeapotExplosion::initialGlutGlewGL()
+void SenShaderTeapotExplosion::initGlfwGlewGL()
 {
-	SenAbstractGLWidget::initialGlutGlewGL();
+	SenDebugWindowFreeSpace::initGlfwGlewGL();
 
-	glGenVertexArrays(1, verArrObjArray);
-	glBindVertexArray(verArrObjArray[0]);
 
 	ShaderInfo shader_info[] =
 	{
@@ -26,12 +26,15 @@ void SenShaderTeapotExplosion::initialGlutGlewGL()
 		{ GL_NONE, NULL }
 	};
 
-	program = LoadShaders(shader_info);
-	glUseProgram(program);
+	programA = LoadShaders(shader_info);
+	glUseProgram(programA);
 
-	// "model_matrix" is actually an array of 4 matrices
-	modelMatrixLocation = glGetUniformLocation(program, "model_matrix");
-	projectionMatrixLocation = glGetUniformLocation(program, "projection_matrix");
+	glGenVertexArrays(1, verArrObjArray);
+	glBindVertexArray(verArrObjArray[0]);
+
+	// "model" is actually an array of 4 matrices
+	modelMatrixLocation = glGetUniformLocation(programA, "model");
+	projectionMatrixLocation = glGetUniformLocation(programA, "projection");
 
 	// Set up the element array buffer
 	glGenBuffers(1, verIndicesObjArray);
@@ -54,41 +57,37 @@ void SenShaderTeapotExplosion::initialGlutGlewGL()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), NULL);
 	glEnableVertexAttribArray(1);
 	
-	vmath::mat4 projection_matrix(vmath::perspective(60, aspect, 1.0f, 500.0f));
-	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, projection_matrix);
+	vmath::mat4 projection(vmath::perspective(60, aspect, 1.0f, 500.0f));
+	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, projection);
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 	OutputDebugString("\n Initial teapotExplosion\n");
 }
 
-void SenShaderTeapotExplosion::paintGL(void)
+void SenShaderTeapotExplosion::paintScene()
 {
-	SenAbstractGLWidget::paintGL();
+	glUseProgram(programA);
+	glBindVertexArray(verArrObjArray[0]);
 
-	static const vmath::vec4 black = vmath::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-	glClearBufferfv(GL_COLOR, 0, black);
+	vmath::mat4 projection(vmath::perspective(60, aspect, 1.0f, 500.0f));
+	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, projection);
 
-	vmath::mat4 projection_matrix(vmath::perspective(60, aspect, 1.0f, 500.0f));
-	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, projection_matrix);
-
-	vmath::mat4 model_matrix = vmath::translate(0.0f, 0.0f, -10.0f) * vmath::rotate(xRot, y_axis) * vmath::rotate(yRot, x_axis);
-	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, model_matrix);
+	vmath::mat4 model = vmath::translate(0.0f, 0.0f, -10.0f) * vmath::rotate(xRot, y_axis) * vmath::rotate(yRot, x_axis);
+	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, model);
 	
 	drawShaderTeapot();
-	
-	/* swap front and back buffers */
-	glFlush();
+
+	glUseProgram(0);
+	glBindVertexArray(0);
 }
 
-void SenShaderTeapotExplosion::reshape(int width, int height)
-{
-	SenAbstractGLWidget::reshape(width, height);
+void SenShaderTeapotExplosion::cleanDebugWindowFreeSpace()	{
+	if (glIsVertexArray(verArrObjArray[0]))	glDeleteVertexArrays(1, verArrObjArray);
+	if (glIsBuffer(verBufferObjArray[0]))	glDeleteBuffers(1, verBufferObjArray);
+	if (glIsBuffer(verIndicesObjArray[0]))	glDeleteBuffers(1, verIndicesObjArray);
 
-	//glViewport(0, 0, width, height);
-	//aspect = float(height) / float(width);
 
-	glFlush();
-	glutPostRedisplay();
+	if (glIsProgram(programA))				glDeleteProgram(programA);
 }
