@@ -114,8 +114,8 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_ScreenTextureCoords.vert" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoordsRender.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TrueTypeFontsRender.frag" />
-    <None Include="Sinks\Shaders\teapotExplosion.frag" />
-    <None Include="Sinks\Shaders\teapotExplosion.vert" />
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.frag" />
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BA8BF5E-5636-415D-945A-08534317CC12}</ProjectGuid>

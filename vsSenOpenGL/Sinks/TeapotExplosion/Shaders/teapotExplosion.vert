@@ -12,7 +12,7 @@ uniform mat4 view;
 
 void main(void)
 {
-    gl_Position = projection * model * vertexPosition;
+    gl_Position = view * projection * model * vertexPosition;
 
 	verWorldPosition = gl_Position.xyz;
 	verNormal = mat3(model) * vertexNormal;

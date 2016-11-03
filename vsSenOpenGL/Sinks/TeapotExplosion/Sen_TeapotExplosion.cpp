@@ -21,10 +21,17 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 
 	ShaderInfo teapotShader[] =
 	{
-		{ GL_VERTEX_SHADER, "./Sinks/Shaders/teapotExplosion.vert" },
-		{ GL_FRAGMENT_SHADER, "./Sinks/Shaders/teapotExplosion.frag" },
+		{ GL_VERTEX_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.vert" },
+		{ GL_FRAGMENT_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.frag" },
 		{ GL_NONE, NULL }
 	};
+
+	//ShaderInfo teapotShader[] =
+	//{
+	//	{ GL_VERTEX_SHADER, "./Sinks/Shaders/teapotExplosion.vert" },
+	//	{ GL_FRAGMENT_SHADER, "./Sinks/Shaders/teapotExplosion.frag" },
+	//	{ GL_NONE, NULL }
+	//};
 
 	teapotProgram = LoadShaders(teapotShader);
 	glUseProgram(teapotProgram);
@@ -37,9 +44,12 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 
 void Sen_TeapotExplosion::paintScene(void)	{
 
-	//Sen_24_BlendingTest::paintScene();
+	Sen_24_BlendingTest::paintScene();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	firstTeapot.paintLinkedProgramTeapot(teapotProgram, projection, view);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
 	glBindVertexArray(0);

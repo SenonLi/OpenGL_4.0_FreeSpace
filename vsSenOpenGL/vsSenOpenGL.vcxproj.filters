@@ -136,14 +136,14 @@
     <Filter Include="Sources\Sinks\BreakOut">
       <UniqueIdentifier>{4292d8ce-f94b-4233-bbdc-b5c81c5392f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders\Sinks\BreakOut">
-      <UniqueIdentifier>{2b5d1c4a-3303-418c-baab-386d6728c0ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Sinks\TeapotExplosion">
       <UniqueIdentifier>{99c1ddda-67e1-4e0c-a027-02b356280f6a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headers\Sinks\TeapotExplosion">
       <UniqueIdentifier>{22d80d94-8108-4e7e-9214-79e5499d5476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Sinks\TeapotExplosion">
+      <UniqueIdentifier>{d5f0922d-fef7-487b-8339-be982c80e707}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -296,12 +296,6 @@
     <None Include="LearnOpenGL_GLFW\Shaders\Sen_10_Camera.vert">
       <Filter>Shaders\LearnOpenGL_GLFW</Filter>
     </None>
-    <None Include="Sinks\Shaders\teapotExplosion.frag">
-      <Filter>Shaders\Sinks</Filter>
-    </None>
-    <None Include="Sinks\Shaders\teapotExplosion.vert">
-      <Filter>Shaders\Sinks</Filter>
-    </None>
     <None Include="SenFreeSpacePieces\Shaders\Sen_AssimpNanoSuit.frag">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
@@ -367,6 +361,12 @@
     </None>
     <None Include="..\WatchMe\Shaders\Sen_PlayerColorRendering.frag">
       <Filter>Sources\Sinks\BreakOut</Filter>
+    </None>
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.frag">
+      <Filter>Shaders\Sinks\TeapotExplosion</Filter>
+    </None>
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.vert">
+      <Filter>Shaders\Sinks\TeapotExplosion</Filter>
     </None>
   </ItemGroup>
 </Project>

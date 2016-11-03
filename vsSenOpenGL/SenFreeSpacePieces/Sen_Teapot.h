@@ -16,10 +16,10 @@ class Sen_Teapot
 public:
 	Sen_Teapot() : selfSpinAngle(0.0f)
 	{
-		teapotWorldSpaceAddr = glm::vec3(0.0f, 0.0f, 2.0f);
+		teapotWorldSpaceAddr = glm::vec3(0.0f, 0.0f, -5.0f);
 
 		selfSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-		teapotScaleRatio = glm::vec3(1.0f, 1.0f, 1.0f);
+		teapotScaleRatio = glm::vec3(0.4f);
 	}
 
 	virtual ~Sen_Teapot()	{
@@ -63,8 +63,8 @@ public:
 			selfSpinAngle = GLfloat(glfwGetTime() * spinSpeedRate * glm::radians(90.0));
 			selfSpinAxis = vecSpinAxis;
 		}
-
 		teapotModel = glm::rotate(teapotModel, selfSpinAngle, selfSpinAxis);
+
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(teapotModel));
 		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
