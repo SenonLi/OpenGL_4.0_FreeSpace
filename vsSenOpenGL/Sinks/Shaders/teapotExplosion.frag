@@ -1,4 +1,4 @@
-#version 400
+#version 330
 
 out vec4 fragmentColor;
 
@@ -23,5 +23,4 @@ void main(void)
 	float diffuse = max(0.0, dot(normal, lightDirection));
 	float specular = pow(max(0.0, dot(verNormal, halfVector)), shininess);
 	fragmentColor = colorAmbient + diffuse * colorDiffuse + specular * colorSpecular;
-
 }

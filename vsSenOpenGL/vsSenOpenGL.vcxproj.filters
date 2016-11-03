@@ -80,6 +80,9 @@
     <ClCompile Include="Sinks\BreakOut\Sen_BreakOut.cpp">
       <Filter>Sources\Sinks\BreakOut</Filter>
     </ClCompile>
+    <ClCompile Include="Sinks\TeapotExplosion\Sen_TeapotExplosion.cpp">
+      <Filter>Sources\Sinks\TeapotExplosion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Support">
@@ -135,6 +138,12 @@
     </Filter>
     <Filter Include="Shaders\Sinks\BreakOut">
       <UniqueIdentifier>{2b5d1c4a-3303-418c-baab-386d6728c0ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\TeapotExplosion">
+      <UniqueIdentifier>{99c1ddda-67e1-4e0c-a027-02b356280f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sinks\TeapotExplosion">
+      <UniqueIdentifier>{22d80d94-8108-4e7e-9214-79e5499d5476}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +236,12 @@
     </ClInclude>
     <ClInclude Include="Sinks\BreakOut\Sen_BreakOut.h">
       <Filter>Headers\Sinks\BreakOut</Filter>
+    </ClInclude>
+    <ClInclude Include="SenFreeSpacePieces\Sen_Teapot.h">
+      <Filter>FreeSpacePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="Sinks\TeapotExplosion\Sen_TeapotExplosion.h">
+      <Filter>Headers\Sinks\TeapotExplosion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

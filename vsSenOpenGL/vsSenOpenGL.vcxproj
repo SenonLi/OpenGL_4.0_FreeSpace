@@ -35,6 +35,7 @@
     <ClCompile Include="Sinks\BreakOut\Sen_BreakOut.cpp" />
     <ClCompile Include="Sinks\SenShaderTeapotExplosion.cpp" />
     <ClCompile Include="Sinks\SenTeapotObservationWidget.cpp" />
+    <ClCompile Include="Sinks\TeapotExplosion\Sen_TeapotExplosion.cpp" />
     <ClCompile Include="Support\LoadShaders.cpp" />
     <ClCompile Include="Support\SenAbstractGLFW.cpp" />
     <ClCompile Include="Support\SenAbstractGLWidget.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_430_DebugOutput.h" />
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h" />
     <ClInclude Include="SenFreeSpacePieces\Sen_Cube.h" />
+    <ClInclude Include="SenFreeSpacePieces\Sen_Teapot.h" />
     <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameSpace.h" />
     <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h" />
     <ClInclude Include="Sinks\BreakOut\Sen_BreakOut.h" />
@@ -67,6 +69,7 @@
     <ClInclude Include="Sinks\SenTeapotObservationWidget.h" />
     <ClInclude Include="Sinks\shaderTeapot.h" />
     <ClInclude Include="Sinks\teapot.h" />
+    <ClInclude Include="Sinks\TeapotExplosion\Sen_TeapotExplosion.h" />
     <ClInclude Include="Support\SenAbstractGLFW.h" />
     <ClInclude Include="Support\SenAbstractGLWidget.h" />
     <ClInclude Include="Support\SenCameraViewModel.h" />

@@ -3,7 +3,7 @@
 //#include "Guide8th/Sen_03_DrawCommands.h"
 //#include "Guide8th/Sen_06_CubeMap.h"
 //
-#include "Sinks/SenShaderTeapotExplosion.h"
+//#include "Sinks/SenShaderTeapotExplosion.h"
 //#include "LearnOpenGL_GLFW/Sen_06_TrianglesGLFW.h"
 //#include "LearnOpenGL_GLFW/Sen_07_TextureGLFW.h"
 //#include "LearnOpenGL_GLFW/Sen_09_ModelViewProjection.h"
@@ -21,13 +21,15 @@
 //#include "LearnOpenGL_GLFW/Sen_431_LineTextRendering.h"
 //#include "Sinks/BreakOut/Sen_47_BlendSprite.h"
 #include "Sinks/BreakOut/Sen_BreakOut.h"
+#include "Sinks/TeapotExplosion/Sen_TeapotExplosion.h"
+
 
 int main(int argc, char *argv[])
 {
 	//Sen_09_ModelViewProjection glfwSenCubeWidget;
 	//glfwSenCubeWidget.showWidget();
 
-	SenShaderTeapotExplosion cameraWidget;
+	Sen_TeapotExplosion cameraWidget;
 	cameraWidget.showWidget();
 
 	//Sen_06_TrianglesGLFW glfwTextureWidget;
