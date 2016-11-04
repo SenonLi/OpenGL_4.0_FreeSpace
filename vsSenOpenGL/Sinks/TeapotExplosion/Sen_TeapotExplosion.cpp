@@ -39,7 +39,7 @@ void Sen_TeapotExplosion::paintScene(void)	{
 
 	Sen_24_BlendingTest::paintScene();
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	firstTeapot.paintLinkedProgramTeapot(teapotProgram, projection, view);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
