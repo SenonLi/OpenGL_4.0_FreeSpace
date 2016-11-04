@@ -4,6 +4,8 @@
 Sen_TeapotExplosion::Sen_TeapotExplosion()
 {
 	strWindowName = "Sen Teapot Explosion in FreeSpace";
+
+	camera.Position = glm::vec3(1.0f, 1.0f, 2.0f);
 }
 
 
@@ -16,8 +18,6 @@ Sen_TeapotExplosion::~Sen_TeapotExplosion()
 void Sen_TeapotExplosion::initGlfwGlewGL()
 {
 	Sen_24_BlendingTest::initGlfwGlewGL();
-	// Draw as wireframe
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	ShaderInfo teapotShader[] =
 	{
@@ -25,13 +25,6 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 		{ GL_FRAGMENT_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.frag" },
 		{ GL_NONE, NULL }
 	};
-
-	//ShaderInfo teapotShader[] =
-	//{
-	//	{ GL_VERTEX_SHADER, "./Sinks/Shaders/teapotExplosion.vert" },
-	//	{ GL_FRAGMENT_SHADER, "./Sinks/Shaders/teapotExplosion.frag" },
-	//	{ GL_NONE, NULL }
-	//};
 
 	teapotProgram = LoadShaders(teapotShader);
 	glUseProgram(teapotProgram);
