@@ -22,6 +22,7 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 	ShaderInfo teapotShader[] =
 	{
 		{ GL_VERTEX_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.vert" },
+		{ GL_GEOMETRY_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.geom" },
 		{ GL_FRAGMENT_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.frag" },
 		{ GL_NONE, NULL }
 	};

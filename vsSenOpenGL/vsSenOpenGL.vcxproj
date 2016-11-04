@@ -115,6 +115,7 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_TextureCoordsRender.frag" />
     <None Include="SenFreeSpacePieces\Shaders\Sen_TrueTypeFontsRender.frag" />
     <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.frag" />
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.geom" />
     <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -147,12 +148,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\SenVisualStudio\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include;D:\Developer\OpenGL\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)\..\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\..\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\OpenGL\SenOpenGLusr\include;C:\Users\liziy\Downloads\Sen_PSoC_BLE_Optical-Flow\SenVisualStudio\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\OpenGL\SenOpenGLusr\include;D:\Developer\OpenGL\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>C:\OpenGL\SenOpenGLusr\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\..\$(Configuration)</IntDir>

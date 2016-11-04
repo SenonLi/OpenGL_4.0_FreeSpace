@@ -2,8 +2,13 @@
 
 out vec4 fragmentColor;
 
-in vec3 verWorldPosition;
-in vec3 verNormal;
+//in vec3 verWorldPosition;
+//in vec3 verNormal;
+
+in GeomSh_OUT {
+	vec3 verWorldPosition;
+	vec3 verNormal;
+} fragSh_in;
 
 uniform vec4 colorAmbient = vec4(0.0, 0.0, 0.0, 1.0);
 uniform vec4 colorDiffuse = vec4(0.0, 1.0, 0.0, 1.0);
@@ -17,11 +22,11 @@ uniform vec3 lightPosition = vec3(-25.0, 25.0, 100.0);
 void main(void)
 {
     //fragmentColor = vec4(0.0, 1.0, 0.0, 1.0);
-	vec3 lightDirection = normalize(lightPosition - verWorldPosition);
-	vec3 normal = normalize(verNormal);
-	vec3 halfVector = normalize(lightDirection + normalize(verWorldPosition));
+	vec3 lightDirection = normalize(lightPosition - fragSh_in.verWorldPosition);
+	vec3 normal = normalize(fragSh_in.verNormal);
+	vec3 halfVector = normalize(lightDirection + normalize(fragSh_in.verWorldPosition));
 	float diffuse = max(0.0, dot(normal, lightDirection));
-	float specular = pow(max(0.0, dot(verNormal, halfVector)), shininess);
+	float specular = pow(max(0.0, dot(fragSh_in.verNormal, halfVector)), shininess);
 	fragmentColor = colorAmbient + diffuse * colorDiffuse + specular * colorSpecular; // */
 
 }

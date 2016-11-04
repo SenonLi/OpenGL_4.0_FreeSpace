@@ -65,6 +65,8 @@ public:
 		}
 		teapotModel = glm::rotate(teapotModel, selfSpinAngle, selfSpinAxis);
 
+		glUniform1f(glGetUniformLocation(program, "time"), glfwGetTime());
+
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(teapotModel));
 		glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -161,10 +163,10 @@ private:
 	void drawTeapotElements()
 	{
 		//glDrawElements(GL_TRIANGLE_STRIP, 12, GL_UNSIGNED_SHORT, (const GLushort *)(0));
-		//glDrawElements(GL_TRIANGLE_STRIP, 78, GL_UNSIGNED_SHORT, (const GLushort *)(12 * sizeof(GLushort)));
+		glDrawElements(GL_TRIANGLE_STRIP, 78, GL_UNSIGNED_SHORT, (const GLushort *)(12 * sizeof(GLushort)));
 
 
-		drawFullTeapot();
+		//drawFullTeapot();
 	}
 	void drawFullTeapot(){
 		glDrawElements(GL_TRIANGLE_STRIP, 12, GL_UNSIGNED_SHORT, (const GLushort *)(0 * sizeof(GLushort)));

@@ -368,5 +368,8 @@
     <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.vert">
       <Filter>Shaders\Sinks\TeapotExplosion</Filter>
     </None>
+    <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.geom">
+      <Filter>Shaders\Sinks\TeapotExplosion</Filter>
+    </None>
   </ItemGroup>
 </Project>

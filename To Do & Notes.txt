@@ -19,6 +19,9 @@ Pay attention the order of painting.
 ### OpenGL
 * State Machine Nature : any state that is changed by things that happen main will still be in effect when display is called for the first time, and any state that display changes will still be in effect the next time display is called.
 
+### Geometry Shader
+* A geometry shader does not receive strips, fans, or loops. The geometry shader receives the assembled primitives. So if the draw command specifies triangle strips, the geometry shader actually receives triangles.
+
 ### Camera View
 * Problem: screen "shakes" a lot whenever the CameraView (mouse move) changes direction
   Solution: decrease the sensitivity of mouse move (pitch, yaw, scroll).
