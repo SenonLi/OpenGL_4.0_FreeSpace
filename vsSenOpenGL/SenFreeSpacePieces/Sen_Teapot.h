@@ -163,10 +163,10 @@ private:
 	void drawTeapotElements()
 	{
 		//glDrawElements(GL_TRIANGLE_STRIP, 12, GL_UNSIGNED_SHORT, (const GLushort *)(0));
-		glDrawElements(GL_TRIANGLE_STRIP, 78, GL_UNSIGNED_SHORT, (const GLushort *)(12 * sizeof(GLushort)));
+		//glDrawElements(GL_TRIANGLE_STRIP, 78, GL_UNSIGNED_SHORT, (const GLushort *)(12 * sizeof(GLushort)));
 
 
-		//drawFullTeapot();
+		drawFullTeapot();
 	}
 	void drawFullTeapot(){
 		glDrawElements(GL_TRIANGLE_STRIP, 12, GL_UNSIGNED_SHORT, (const GLushort *)(0 * sizeof(GLushort)));

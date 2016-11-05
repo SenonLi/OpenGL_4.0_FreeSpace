@@ -30,10 +30,25 @@ vec3 GetNormal()
 }
 
 void main() {    
-    //vec3 normal = GetNormal();
-    //gl_Position = explode(gl_in[0].gl_Position, normal);
+    vec3 normal = GetNormal();
+    
+	gl_Position = explode(gl_in[0].gl_Position, normal);
+   	geomSh_out.verWorldPosition = fragSh_in[0].verWorldPosition;
+	geomSh_out.verNormal = normal;
+    EmitVertex();
 
-    gl_Position = explode(gl_in[0].gl_Position, fragSh_in[0].verNormal);
+	gl_Position = explode(gl_in[1].gl_Position, normal);
+	geomSh_out.verWorldPosition = fragSh_in[1].verWorldPosition;
+	geomSh_out.verNormal = normal;
+	EmitVertex();
+
+	gl_Position = explode(gl_in[2].gl_Position, normal);
+	geomSh_out.verWorldPosition = fragSh_in[2].verWorldPosition;
+	geomSh_out.verNormal = normal;
+	EmitVertex();
+
+	/*
+	gl_Position = explode(gl_in[0].gl_Position, fragSh_in[0].verNormal);
 	geomSh_out.verWorldPosition = fragSh_in[0].verWorldPosition;
 	geomSh_out.verNormal = fragSh_in[0].verNormal;
     EmitVertex();
@@ -46,6 +61,9 @@ void main() {
     gl_Position = explode(gl_in[2].gl_Position, fragSh_in[2].verNormal);
 	geomSh_out.verWorldPosition = fragSh_in[2].verWorldPosition;
 	geomSh_out.verNormal = fragSh_in[2].verNormal;
-	EmitVertex();
+	EmitVertex(); // */
+
+
+
     EndPrimitive();
 }
