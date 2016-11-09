@@ -88,16 +88,18 @@ public:
 
 	void paintSenLogoCube(GLfloat widthRatio = 1.0f, GLfloat heightRatio = 1.0f)	{
 
-		GLfloat widthMax = widthRatio;
-		GLfloat heightMax = heightRatio;
-
 		logoCubeCameraView = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		logoCubeProjection = glm::ortho(-widthMax, widthMax, -heightMax, heightMax, 0.1f, 100.0f);
+		logoCubeProjection = glm::ortho(-widthRatio, widthRatio, -heightRatio, heightRatio, 0.1f, 100.0f);
 
-		glm::mat4 identityMatrix;
-		logoCubeModel = glm::translate(identityMatrix, glm::vec3(widthMax - centerToBorderCubeLogo, heightMax - centerToBorderCubeLogo, -1.1f));
+		logoCubeModel = glm::translate(identityMatrix, glm::vec3(widthRatio - centerToBorderCubeLogo, heightRatio - centerToBorderCubeLogo, -1.1f));
 		logoCubeModel = glm::scale(logoCubeModel, glm::vec3(sideCubeLogo));
-		logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
+		angleTmp = GLfloat(glfwGetTime() * 1.5 * glm::radians(45.0));
+		xRotation = glm::rotate(identityMatrix, angleTmp * 1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+		yRotation = glm::rotate(identityMatrix, angleTmp / 2.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+		logoCubeModel = logoCubeModel * xRotation * yRotation;
+
+		//logoCubeModel = glm::rotate(logoCubeModel, GLfloat(glfwGetTime() * 1.5 * glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
 		glUseProgram(cubeProgram);
 		glBindVertexArray(cubeVertexArrayObject);
@@ -106,7 +108,11 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "view"), 1, GL_FALSE, glm::value_ptr(logoCubeCameraView));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "projection"), 1, GL_FALSE, glm::value_ptr(logoCubeProjection));
 
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CW);
+		glCullFace(GL_BACK);
 		paintCubeFaces();
+		glDisable(GL_CULL_FACE);
 	}
 
 	void paintCube(glm::mat4 &projection, glm::mat4 &view, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
@@ -286,6 +292,9 @@ protected:
 	}
 
 private:
+	GLfloat angleTmp;
+	glm::mat4 identityMatrix, xRotation, yRotation;
+
 	void paintCubeFaces()	{
 		glActiveTexture(GL_TEXTURE0);
 
