@@ -19,13 +19,22 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 {
 	Sen_24_BlendingTest::initGlfwGlewGL();
 
+	//ShaderInfo teapotShader[] =
+	//{
+	//	{ GL_VERTEX_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.vert" },
+	//	{ GL_GEOMETRY_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.geom" },
+	//	{ GL_FRAGMENT_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.frag" },
+	//	{ GL_NONE, NULL }
+	//};
+	
 	ShaderInfo teapotShader[] =
 	{
-		{ GL_VERTEX_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.vert" },
-		{ GL_GEOMETRY_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.geom" },
-		{ GL_FRAGMENT_SHADER, "./Sinks/TeapotExplosion/Shaders/teapotExplosion.frag" },
+		{ GL_VERTEX_SHADER, "./../WatchMe/Shaders/teapotExplosion.vert" },
+		{ GL_GEOMETRY_SHADER, "./../WatchMe/Shaders/teapotExplosion.geom" },
+		{ GL_FRAGMENT_SHADER, "./../WatchMe/Shaders/teapotExplosion.frag" },
 		{ GL_NONE, NULL }
 	};
+
 
 	teapotProgram = LoadShaders(teapotShader);
 	glUseProgram(teapotProgram);

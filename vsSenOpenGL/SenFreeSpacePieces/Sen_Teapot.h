@@ -19,7 +19,7 @@ public:
 		teapotWorldSpaceAddr = glm::vec3(0.0f, 0.5f, 0.0f);
 
 		selfSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-		teapotScaleRatio = glm::vec3(0.3);// 0.16f);
+		teapotScaleRatio = glm::vec3(0.2f);// 0.16f);
 	}
 
 	virtual ~Sen_Teapot()	{
