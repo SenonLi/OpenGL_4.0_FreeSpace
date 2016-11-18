@@ -35,7 +35,7 @@ protected:
 	void keyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode);
 
 	unsigned char* textureLoadImagePtr;
-	void uploadTextureImage(const char* textureAddressPointer, GLuint &textureID, std::string channelType, GLboolean highDefinition = GL_FALSE)	{
+	void uploadTextureImage(const char* textureAddressPointer, GLuint &textureID, const std::string &channelType, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
 		GLboolean alpha;
 		if (channelType == std::string("RGBA"))			alpha = GL_TRUE;

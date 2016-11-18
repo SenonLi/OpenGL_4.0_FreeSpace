@@ -75,7 +75,7 @@ protected:
 	const GLint SenFREESPACE_widgetWidth = 960;
 	const GLint SenFREESPACE_widgetHeight = GLint(SenFREESPACE_widgetWidth * SenGOLDEN_SectionScale);
 
-	void uploadFreeSpaceTexture(const char* textureAddressPointer, GLuint &textureID, std::string channelType, GLboolean highDefinition = GL_FALSE)	{
+	void uploadFreeSpaceTexture(const char* textureAddressPointer, GLuint &textureID, const std::string &channelType, GLboolean highDefinition = GL_FALSE)	{
 		int width, height;
 		bool alpha;
 
