@@ -70,10 +70,10 @@ void Sen_22_DepthTest::initGlfwGlewGL()
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered vertexBufferObject as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 
-	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
-	uploadFreeSpaceTexture(std::string("./../WatchMe/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
-	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
-	//uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
+	//uploadFreeSpaceTexture(std::string("./../WatchMe/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
+	//uploadFreeSpaceTexture(std::string("./../WatchMe/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
+	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/marble.jpg").c_str(), cubeTexture, std::string("RGB"));
+	uploadFreeSpaceTexture(std::string("./LearnOpenGL_GLFW/Images/metal.png").c_str(), floorTexture, std::string("RGB"));
 
 	similarCube->initialCubeGL(programA, cubeTexture, cubeTexture, cubeTexture);
 
