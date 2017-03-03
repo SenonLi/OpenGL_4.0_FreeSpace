@@ -9,7 +9,10 @@
 #include <Windows.h>
 #include <string>
 
-#include "vgl.h"
+#define GLEW_STATIC
+
+#include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
 #include "LoadShaders.h"
 
@@ -68,7 +71,7 @@ private:
 GLenum SenGL_CheckError_(const char *file, int line);
 
 void APIENTRY SenGL_DebugOutput(GLenum source,	GLenum type,	GLuint id,
-		GLenum severity,	GLsizei length,	const GLchar *message,	void *userParam);
+		GLenum severity,	GLsizei length,	const GLchar *message,	const void *userParam);
 
 
 #endif //__SenAbstractGLFW__

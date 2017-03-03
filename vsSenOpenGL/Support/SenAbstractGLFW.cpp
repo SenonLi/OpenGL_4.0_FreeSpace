@@ -149,7 +149,7 @@ void APIENTRY SenGL_DebugOutput(GLenum source,
 	GLenum severity,
 	GLsizei length,
 	const GLchar *message,
-	void *userParam)
+	const void *userParam)
 {
 	if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return; // ignore these non-significant error codes
 
