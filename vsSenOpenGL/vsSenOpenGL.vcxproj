@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -108,31 +108,32 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8BA8BF5E-5636-415D-945A-08534317CC12}</ProjectGuid>
     <RootNamespace>SenOpenGLTutorial</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -153,28 +154,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenOpenGLusr\VS2013\Lib32;C:\SenGraphicsUsr\VS2013\Lib32;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2013\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</IntDir>
+    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2015\Lib32;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2015\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2013\Lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2013\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</IntDir>
+    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2015\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2015\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2013\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenOpenGLusr\VS2013\Lib32;C:\SenGraphicsUsr\VS2013\Lib32;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</IntDir>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2015\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2015\Lib32;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2013\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2013\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\$(ProjectName)$(Platform)$(Configuration)\</IntDir>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2015\Include;D:\Downloads\Vulkan\vsSenOpenGL\vsSenOpenGL;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2015\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2015$(ProjectName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -185,7 +186,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp-vc120-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <BuildLog>
@@ -201,7 +202,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp-vc120-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <BuildLog>
@@ -221,7 +222,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp-vc120-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <BuildLog>
@@ -241,7 +242,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp-vc120-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
     </Link>
     <BuildLog>
