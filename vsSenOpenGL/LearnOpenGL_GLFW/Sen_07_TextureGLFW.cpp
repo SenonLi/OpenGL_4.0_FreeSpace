@@ -158,7 +158,6 @@ void Sen_07_TextureGLFW::bindBackgroundTexture()
 	textureLocation = glGetUniformLocation(programA, "backgroundTexture");
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
-	glUniform1f(textureLocation, 0);
 }
 
 void Sen_07_TextureGLFW::finalize(void)

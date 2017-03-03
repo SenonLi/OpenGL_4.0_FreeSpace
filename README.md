@@ -17,10 +17,9 @@ SenFreeSpace: enjoy 3D OpenGL
 
 
 ### Libraries:
-* (GLUT: The OpenGL Utility Toolkit)
-* GLFW: OpenGL FrameWork, a lightweight utility library
-* GLEW: OpenGL Extension Wrangler Library 
-* SOIL: Simple OpenGL Image Load
-* GLM: OpenGL Mathematics
+* GLFW_3.2.1: OpenGL FrameWork, a lightweight utility library
+* GLEW_2.0.0: OpenGL Extension Wrangler Library 
+* GLM_0.9.8.4: OpenGL Mathematics
+* SOIL_2008.7: Simple OpenGL Image Load
 * Assimp: Open Asset Import Library
 * FreeType: load TrueType fonts, render to bitmaps.
