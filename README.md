@@ -21,5 +21,5 @@ SenFreeSpace: enjoy 3D OpenGL
 * GLEW_2.0.0: OpenGL Extension Wrangler Library 
 * GLM_0.9.8.4: OpenGL Mathematics
 * SOIL_2008.7: Simple OpenGL Image Load
-* Assimp: Open Asset Import Library
-* FreeType: load TrueType fonts, render to bitmaps.
+* FreeType_2.7.1: load TrueType fonts, render to bitmaps.
+* Assimp_3.3.1: Open Asset Import Library
