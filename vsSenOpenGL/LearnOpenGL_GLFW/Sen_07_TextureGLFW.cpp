@@ -1,4 +1,5 @@
 #include "Sen_07_TextureGLFW.h"
+#include <gli/gli.hpp>
 
 
 Sen_07_TextureGLFW::Sen_07_TextureGLFW()
@@ -104,7 +105,23 @@ void Sen_07_TextureGLFW::initialVertices()
 
 void Sen_07_TextureGLFW::initialNewLayerTexture()
 {
-	int newLayerWidth, newLayerHeight;
+	//int newLayerWidth, newLayerHeight;
+
+	//glGenTextures(1, &newLayerTexture);
+	//glBindTexture(GL_TEXTURE_2D, newLayerTexture);
+	//// Set our texture parameters
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//// Set texture filtering
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//// Load, create texture and generate mipmaps
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
+	//glGenerateMipmap(GL_TEXTURE_2D);
+	//SOIL_free_image_data(textureImagePtr);
+	//glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
+
 
 	glGenTextures(1, &newLayerTexture);
 	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
@@ -115,10 +132,32 @@ void Sen_07_TextureGLFW::initialNewLayerTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Load, create texture and generate mipmaps
-	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
+
+
+	//gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/pattern_02_bc2.ktx");
+	gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/yuv/test0.uv0_RG11.ktx");
+
+	assert(!Texture.empty());
+
+	gli::gl GL(gli::gl::PROFILE_GL33);
+	gli::gl::format const Format = GL.translate(Texture.format(), Texture.swizzles());
+	GLenum Target = GL.translate(Texture.target());
+	bool a = gli::is_compressed(Texture.format());
+	bool b = Target == gli::TARGET_2D;
+	glTexParameteri(Target, GL_TEXTURE_BASE_LEVEL, 0);
+	glTexParameteri(Target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(Texture.levels() - 1));
+	glTexParameteriv(Target, GL_TEXTURE_SWIZZLE_RGBA, &Format.Swizzles[0]);
+	glTexStorage2D(Target, static_cast<GLint>(Texture.levels()), Format.Internal, Texture.extent().x, Texture.extent().y);
+	for (std::size_t Level = 0; Level < Texture.levels(); ++Level)
+	{
+		glm::tvec3<GLsizei> Extent(Texture.extent(Level));
+		glCompressedTexSubImage2D(
+			Target, static_cast<GLint>(Level), 0, 0, Extent.x, Extent.y,
+			Format.Internal, static_cast<GLsizei>(Texture.size(Level)), Texture.data(0, 0, Level));
+	}
+	
 	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImagePtr);
+
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
@@ -155,8 +194,9 @@ void Sen_07_TextureGLFW::bindNewLayerTexture()
 void Sen_07_TextureGLFW::bindBackgroundTexture()
 {
 	// Bind Texture
-	textureLocation = glGetUniformLocation(programA, "backgroundTexture");
+	//textureLocation = glGetUniformLocation(programA, "backgroundTexture");
 	glActiveTexture(GL_TEXTURE0);
+	glUniform1i(glGetUniformLocation(programA, "backgroundTexture"), 0);
 	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 }
 
