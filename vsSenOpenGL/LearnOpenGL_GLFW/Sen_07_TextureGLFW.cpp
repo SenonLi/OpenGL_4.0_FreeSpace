@@ -134,8 +134,7 @@ void Sen_07_TextureGLFW::initialNewLayerTexture()
 	// Load, create texture and generate mipmaps
 
 
-	//gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/pattern_02_bc2.ktx");
-	gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/yuv/test0.uv0_RG11.ktx");
+	gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/pattern_02_bc2.ktx");
 
 	assert(!Texture.empty());
 
