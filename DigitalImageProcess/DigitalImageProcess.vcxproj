@@ -75,25 +75,25 @@
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>
     <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2017\Lib32;C:\SenGraphicsUsr\VS2017\Lib32\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;../vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)DigitalImageProcess;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;../vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)DigitalImageProcess;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2017\Lib;C:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;../vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)DigitalImageProcess;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2017\Lib32;C:\SenGraphicsUsr\VS2017\Lib32\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;../vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)DigitalImageProcess;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2017\Lib;C:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>

@@ -41,14 +41,14 @@ void Sen_07_TextureGLFW::paintGL(void)
 void Sen_07_TextureGLFW::initGlfwGlewGL()
 {
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
-	textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
 
 	SenAbstractGLFW::initGlfwGlewGL();
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.vert" },
-		{ GL_FRAGMENT_SHADER, "./LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.frag" },
+		{ GL_VERTEX_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.vert" },
+		{ GL_FRAGMENT_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.frag" },
 		{ GL_NONE, NULL }
 	};
 	programA = LoadShaders(shaders);
@@ -134,7 +134,7 @@ void Sen_07_TextureGLFW::initialNewLayerTexture()
 	// Load, create texture and generate mipmaps
 
 
-	gli::texture Texture = gli::load("./LearnOpenGL_GLFW/Images/pattern_02_bc2.ktx");
+	gli::texture Texture = gli::load("../vsSenOpenGL/LearnOpenGL_GLFW/Images/pattern_02_bc2.ktx");
 
 	assert(!Texture.empty());
 
