@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
-#include "ui_Qt3DPlayer.h"
+#include <QWidget>
+//#include <QLayout>
+//#include <QVBoxLayout>
 
-class Qt3DPlayer : public QMainWindow
+class Qt3DPlayer : public QWidget
 {
 	Q_OBJECT
 
 public:
 	Qt3DPlayer(QWidget *parent = Q_NULLPTR);
 
-private:
-	Ui::Qt3DPlayerClass ui;
+
 };

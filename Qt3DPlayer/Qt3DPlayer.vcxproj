@@ -122,9 +122,6 @@
     <QtMoc Include="Qt3DPlayer.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Qt3DPlayer.ui" />
-  </ItemGroup>
-  <ItemGroup>
     <QtRcc Include="Qt3DPlayer.qrc" />
   </ItemGroup>
   <ItemGroup>

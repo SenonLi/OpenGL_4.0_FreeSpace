@@ -1,4 +1,7 @@
-* Find out what is wrong with Teapot shaders.
+0. Try to update both MFC and Qt GUI with basic libraries.
+1. load and show image using CImage; the main point is to learn how to manipulate image memory.
+
+
 
 ## Collision Detection
 * Axis-Aligned Bounding Box

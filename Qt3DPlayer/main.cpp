@@ -3,8 +3,14 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	Qt3DPlayer w;
-	w.show();
-	return a.exec();
+	QApplication player(argc, argv);
+	player.setOrganizationName(QString("Senon 3D Metrology"));
+	player.setOrganizationDomain(QString("https://www.linkedin.com/in/SenSprouting/"));
+	player.setApplicationName(QString("Welcome to Senon 3D World!"));
+
+	Qt3DPlayer widget;
+	widget.resize(QSize(800, 500));
+	widget.show();
+
+	return player.exec();
 }
