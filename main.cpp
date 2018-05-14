@@ -17,33 +17,13 @@
 #include "Sinks/BreakOut/Sen_BreakOut.h"
 #include "Sinks/TeapotExplosion/Sen_TeapotExplosion.h"
 
-
-int main(int argc, char *argv[])
-{
-	Sen_TeapotExplosion cameraWidget;
-	cameraWidget.showWidget();
-
-	//Sen_06_TrianglesGLFW glfwTextureWidget;
-	//glfwTextureWidget.showWidget();
-
-	//SenTeapotObservationWidget teapotWidget;
-	//teapotWidget.showWidget();
-
-	//SenShaderTeapotExplosion shaderTeapotWidget;
-	//shaderTeapotWidget.showWidget();
-
-
-	//Sen_30_GeometryShow triangleWidget;
-	//triangleWidget.showWidget();
-
-	//Sen_03_DrawCommands drawCommandWidget;
-	//drawCommandWidget.showWidget();
-
-	//Sen_06_CubeMap cubeMapWidget;
-	//cubeMapWidget.showWidget();
-
-	return 1;
-}
+//int main(int argc, char *argv[])
+//{
+//	//Sen_TeapotExplosion cameraWidget;
+//	//cameraWidget.showWidget();
+//
+//	return 1;
+//}
 
 
 

@@ -1,15 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Support\SenAbstractGLFW.cpp">
       <Filter>Support</Filter>
     </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_07_TextureGLFW.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
-    </ClCompile>
-    <ClCompile Include="Support\LoadShaders.cpp">
-      <Filter>Support</Filter>
     </ClCompile>
     <ClCompile Include="LearnOpenGL_GLFW\Sen_06_TrianglesGLFW.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
@@ -53,10 +49,14 @@
     <ClCompile Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.cpp">
       <Filter>Sources\LearnOpenGL_GLFW</Filter>
     </ClCompile>
-    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp">
-      <Filter>Sources\Sinks\BreakOut</Filter>
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="Support\LoadShaders.cpp">
+      <Filter>Support</Filter>
     </ClCompile>
     <ClCompile Include="Sinks\BreakOut\Sen_2D_GrameSpace.cpp">
+      <Filter>Sources\Sinks\BreakOut</Filter>
+    </ClCompile>
+    <ClCompile Include="Sinks\BreakOut\Sen_47_BlendSprite.cpp">
       <Filter>Sources\Sinks\BreakOut</Filter>
     </ClCompile>
     <ClCompile Include="Sinks\BreakOut\Sen_BreakOut.cpp">
@@ -88,14 +88,8 @@
     <Filter Include="Sources\LearnOpenGL_GLFW">
       <UniqueIdentifier>{3bc7a42c-f17e-4697-a1d4-6febd7dbbda0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Sinks">
-      <UniqueIdentifier>{1870d093-680f-430d-9f23-81e69bcc150e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FreeSpacePieces">
       <UniqueIdentifier>{f9f69361-3cd9-4163-b6fd-91b2c38e8d17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Sinks">
-      <UniqueIdentifier>{67d1b6e3-013c-489f-b8a8-a747f5a9d291}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shaders\Sinks">
       <UniqueIdentifier>{c2d44f44-f0a2-4b4d-94cf-2e3f02179d7f}</UniqueIdentifier>
@@ -103,20 +97,26 @@
     <Filter Include="FreeSpacePieces\Shaders">
       <UniqueIdentifier>{98d4ffa2-b77f-4dca-aaf7-78ca68276aa9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Sinks\BreakOut">
-      <UniqueIdentifier>{719be9fc-646d-4e53-b9ca-d7b9b454e900}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Sinks\BreakOut">
-      <UniqueIdentifier>{4292d8ce-f94b-4233-bbdc-b5c81c5392f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Sinks\TeapotExplosion">
-      <UniqueIdentifier>{99c1ddda-67e1-4e0c-a027-02b356280f6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Sinks\TeapotExplosion">
-      <UniqueIdentifier>{22d80d94-8108-4e7e-9214-79e5499d5476}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders\Sinks\TeapotExplosion">
       <UniqueIdentifier>{d5f0922d-fef7-487b-8339-be982c80e707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks">
+      <UniqueIdentifier>{155a37be-2304-4dbf-966e-a62915129099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\BreakOut">
+      <UniqueIdentifier>{70a6e16c-7805-43f2-8e34-6b3edd326c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Sinks\TeapotExplosion">
+      <UniqueIdentifier>{4bdabe8f-e767-4e17-b5bd-8cb48c400986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sinks">
+      <UniqueIdentifier>{86f8dc55-b3ba-4e78-9fbd-bb4e375d9e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sinks\BreakOut">
+      <UniqueIdentifier>{66fb0e49-a388-4c11-b616-28be858bbb4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sinks\TeapotExplosion">
+      <UniqueIdentifier>{761a774c-5b07-4546-8e55-ca916c999fc5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,17 +174,17 @@
     <ClInclude Include="LearnOpenGL_GLFW\Sen_431_LineTextRendering.h">
       <Filter>Headers\LearnOpenGL_GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h">
-      <Filter>Headers\Sinks\BreakOut</Filter>
+    <ClInclude Include="SenFreeSpacePieces\Sen_Teapot.h">
+      <Filter>FreeSpacePieces</Filter>
     </ClInclude>
     <ClInclude Include="Sinks\BreakOut\Sen_2D_GrameSpace.h">
       <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
-    <ClInclude Include="Sinks\BreakOut\Sen_BreakOut.h">
+    <ClInclude Include="Sinks\BreakOut\Sen_47_BlendSprite.h">
       <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
-    <ClInclude Include="SenFreeSpacePieces\Sen_Teapot.h">
-      <Filter>FreeSpacePieces</Filter>
+    <ClInclude Include="Sinks\BreakOut\Sen_BreakOut.h">
+      <Filter>Headers\Sinks\BreakOut</Filter>
     </ClInclude>
     <ClInclude Include="Sinks\TeapotExplosion\Sen_TeapotExplosion.h">
       <Filter>Headers\Sinks\TeapotExplosion</Filter>
@@ -287,9 +287,6 @@
     <None Include="SenFreeSpacePieces\Shaders\Sen_DiscardPureWhitePixels.frag">
       <Filter>FreeSpacePieces\Shaders</Filter>
     </None>
-    <None Include="..\WatchMe\Shaders\Sen_PlayerColorRendering.frag">
-      <Filter>Sources\Sinks\BreakOut</Filter>
-    </None>
     <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.frag">
       <Filter>Shaders\Sinks\TeapotExplosion</Filter>
     </None>
@@ -298,6 +295,9 @@
     </None>
     <None Include="Sinks\TeapotExplosion\Shaders\teapotExplosion.geom">
       <Filter>Shaders\Sinks\TeapotExplosion</Filter>
+    </None>
+    <None Include="..\WatchMe\Shaders\Sen_PlayerColorRendering.frag">
+      <Filter>Sources\Sinks\BreakOut</Filter>
     </None>
   </ItemGroup>
 </Project>

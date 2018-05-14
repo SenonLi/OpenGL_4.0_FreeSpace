@@ -42,7 +42,7 @@ void Sen_TeapotExplosion::initGlfwGlewGL()
 	firstTeapot.initTeapot();
 
 
-	OutputDebugString(" Sen_TeapotExplosion Initial \n\n");
+	//OutputDebugString(" Sen_TeapotExplosion Initial \n\n");
 }
 
 void Sen_TeapotExplosion::paintScene(void)	{

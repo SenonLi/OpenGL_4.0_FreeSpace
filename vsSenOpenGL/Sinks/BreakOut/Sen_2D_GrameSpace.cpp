@@ -49,7 +49,7 @@ void Sen_2D_GrameSpace::initGlfwGlewGL()
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glStencilMask(0x00); // Disable writing to the stencil buffer
 
-	OutputDebugString(" Sen_2D_GrameSpace Initial \n\n");
+	//OutputDebugString(" Sen_2D_GrameSpace Initial \n\n");
 
 	init2DGamePaceGL();
 }
