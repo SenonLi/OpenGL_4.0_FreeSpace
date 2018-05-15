@@ -29,12 +29,12 @@
     <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -55,7 +55,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -69,9 +69,9 @@
       <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
-      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -80,14 +80,14 @@
     </QtUic>
     <QtRcc>
       <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
-      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\qrc_%(Filename).cpp</OutputFile>
+      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -100,9 +100,9 @@
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
-      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles;.;$(QTDIR)\include;$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -111,7 +111,7 @@
     </QtUic>
     <QtRcc>
       <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
-      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\QtGeneratedFiles\qrc_%(Filename).cpp</OutputFile>
+      <OutputFile>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\QtGeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -123,14 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Qt3DPlayer.qrc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DigitalImageProcess\DigitalImageProcess.vcxproj">
-      <Project>{801e69dd-5a95-48ce-a212-b6ea98392a88}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\vsSenOpenGL\vsSenOpenGL.vcxproj">
-      <Project>{8ba8bf5e-5636-415d-945a-08534317cc12}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
