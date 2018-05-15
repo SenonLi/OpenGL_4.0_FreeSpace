@@ -32,4 +32,9 @@
 *.db
 *.VC.db
 *.opendb
+
+# VS folder
 .vs
+
+# MFC auto file
+*.aps
