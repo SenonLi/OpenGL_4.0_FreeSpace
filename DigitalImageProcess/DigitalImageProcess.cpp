@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <soil/SOIL.h>
+// SSI2
+//#include "emmintrin.h"
 
 DigitalImageProcess::DigitalImageProcess()
 {
@@ -42,27 +44,46 @@ void DigitalImageProcess::paintGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void DigitalImageProcess::HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels)
+{
+	for (int row=0; row < imageHeight; ++row)
+	{
+		for (int column=0; column < imageWidth / 2; ++column)
+		{
+			switch (channels)
+			{
+			case 4:
+			{
+				// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
+				int pixelIndex = row * imageWidth + column;
+				for (int i = 0; i < channels; ++i)
+					image[pixelIndex * channels + i] = 0x00;
+			}
+			break;
+			default:
+				assert(false);
+			}
+		}
+	}
+}
+
 void DigitalImageProcess::initGlfwGlewGL()
 {
-	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
-	textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	// Get image size as window size
+	textureImagePtr = SOIL_load_image("../WatchMe/Images/perfect_2.bmp", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	
+	DigitalImageProcess::HistorgramEqualization(textureImagePtr, widgetWidth, widgetHeight, 4);
 
+	// Then initial window size
 	SenAbstractGLFW::initGlfwGlewGL();
 
-	//ShaderInfo shaders[] = {
-	//	{ GL_VERTEX_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.vert" },
-	//{ GL_FRAGMENT_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.frag" },
-	//{ GL_NONE, NULL }
-	//};
 	ShaderInfo shaders[] = {
 		{ GL_VERTEX_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.vert" },
 		{ GL_FRAGMENT_SHADER, "../vsSenOpenGL/LearnOpenGL_GLFW/Shaders/Sen_07_TextureGLFW.frag" },
 		{ GL_NONE, NULL }
 	};
 	programA = LoadShaders(shaders);
-
-
+	
 	initialVertices();
 	initialBackgroundTexture();
 	initialNewLayerTexture();
@@ -74,17 +95,16 @@ void DigitalImageProcess::initialVertices()
 {
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
-		// Positions        // Colors         // Texture Coords
-		1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Top Right
-		1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Bottom Right
-		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // Bottom Left
-		-1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f  // Top Left 
+		// Positions             // Colors               // Texture Coords
+		1.0f,    1.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f, 0.0f, // Top Right
+		1.0f,   -1.0f,   0.0f,   0.0f,   1.0f,   0.0f,   1.0f, 1.0f, // Bottom Right
+		-1.0f,  -1.0f,   0.0f,   0.0f,   0.0f,   1.0f,   0.0f, 1.0f, // Bottom Left
+		-1.0f,   1.0f,   0.0f,   1.0f,   1.0f,   0.0f,   0.0f, 0.0f  // Top Left 
 	};
 	GLuint indices[] = {  // Note that we start from 0!
 		0, 1, 3, // First Triangle
 		1, 2, 3  // Second Triangle
 	};
-
 
 	glGenVertexArrays(1, verArrObjArray);
 	glGenBuffers(1, verBufferObjArray);
@@ -194,7 +214,7 @@ void DigitalImageProcess::bindNewLayerTexture()
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "newLayerTexture");
 	glActiveTexture(GL_TEXTURE1);
-	glUniform1i(glGetUniformLocation(programA, "newLayerTexture"), 1);
+	glUniform1i(glGetUniformLocation(programA, "newLayerTexture"), 0);
 	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
 	//glEnable(GL_TEXTURE_2D);
 }
@@ -204,7 +224,7 @@ void DigitalImageProcess::bindBackgroundTexture()
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "backgroundTexture");
 	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(programA, "backgroundTexture"), 0);
+	glUniform1i(glGetUniformLocation(programA, "backgroundTexture"), 1);
 	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 }
 

@@ -23,8 +23,8 @@ protected:
 	void bindBackgroundTexture();
 	void bindNewLayerTexture();
 
+	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
 	unsigned char* textureImagePtr;
-
 	GLuint newLayerTexture;
 };
 
