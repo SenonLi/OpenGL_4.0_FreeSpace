@@ -1,4 +1,9 @@
 0. Try to update both MFC and Qt GUI with basic libraries.
+0.1 vsSenOpenGL is a trial and collection for learning and practicing only basically, 
+but the final aim should be an engine / graphic library with enough 3D metrology functions.
+vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI engine and Qt GUI engine.
+0.2 When implementing Qt ui libarary, try to put Qt lirbaries into GraphicUsr to get rid of Qt tools.
+
 1. load and show image using CImage; the main point is to learn how to manipulate image memory.
 
 
