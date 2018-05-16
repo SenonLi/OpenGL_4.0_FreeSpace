@@ -8,6 +8,76 @@
 // SSI2
 //#include "emmintrin.h"
 
+namespace SLDIP
+{
+	void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels)
+	{
+		assert(image);
+		int cdf[256];
+		std::memset(cdf, 0, sizeof(cdf));
+
+		// Get Cumulative Distributive Function
+		for (int row = 0; row < imageHeight; ++row)
+		{
+			for (int column = 0; column < imageWidth; ++column)
+			{
+				int pixelGrayLevel = image[(row * imageWidth + column) * channels]; // grayLevel == pixel intensity == Red
+				cdf[pixelGrayLevel] += 1;
+			}
+		}
+		// find valid min and max of grayLevel
+		int minValidGrayLevel = 0;
+		int maxValidGrayLevel = 256;
+		int sumCDF = 0;
+		float totalPixel = imageWidth * imageHeight * 1.0;
+		for (int grayLevel = 0; grayLevel < 256; ++grayLevel)
+		{
+			sumCDF += cdf[grayLevel];
+			float lambda = sumCDF / totalPixel;// (imageWidth * imageHeight);
+			if (lambda < VALID_HISTOGRAM_FLOOR_RATIO)
+				minValidGrayLevel = grayLevel;
+			else if (lambda < VALID_HISTOGRAM_CEIL_RATIO)
+				maxValidGrayLevel = grayLevel;
+		}
+		// re-scale image
+		for (int row = 0; row < imageHeight; ++row)
+			for (int column = 0; column < imageWidth; ++column)
+			{
+				switch (channels)
+				{
+				case 3:
+				{
+					// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
+					int pixelIndex = row * imageWidth + column;
+					for (int i = 0; i < channels; ++i)
+						image[pixelIndex * channels + i] = 0x00;
+				}
+				break;
+				case 4:
+				{
+					// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
+					int pixelIndex = row * imageWidth + column;
+					unsigned int oldIntensity = image[pixelIndex * channels];
+					unsigned int newIntensity = 0;
+					if (oldIntensity <= minValidGrayLevel)
+						newIntensity = 0;
+					else if (oldIntensity > maxValidGrayLevel)
+						newIntensity = 255;
+					else
+					{
+						newIntensity = 255 * (oldIntensity - minValidGrayLevel) / (maxValidGrayLevel - minValidGrayLevel);
+					}
+					for (int i = 0; i < channels; ++i)
+						image[pixelIndex * channels + i] = newIntensity;
+				}
+				break;
+				default:
+					assert(false);
+				}
+			}
+	}
+} // end of namespace SLDIP
+
 DigitalImageProcess::DigitalImageProcess()
 {
 	strWindowName = "Sen Digital Image Process";
@@ -44,35 +114,13 @@ void DigitalImageProcess::paintGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void DigitalImageProcess::HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels)
-{
-	for (int row=0; row < imageHeight; ++row)
-	{
-		for (int column=0; column < imageWidth / 2; ++column)
-		{
-			switch (channels)
-			{
-			case 4:
-			{
-				// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
-				int pixelIndex = row * imageWidth + column;
-				for (int i = 0; i < channels; ++i)
-					image[pixelIndex * channels + i] = 0x00;
-			}
-			break;
-			default:
-				assert(false);
-			}
-		}
-	}
-}
-
 void DigitalImageProcess::initGlfwGlewGL()
 {
 	// Get image size as window size
-	textureImagePtr = SOIL_load_image("../WatchMe/Images/perfect_2.bmp", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-	
-	DigitalImageProcess::HistorgramEqualization(textureImagePtr, widgetWidth, widgetHeight, 4);
+	//textureImagePtr = SOIL_load_image("../WatchMe/Images/poor_3.bmp", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	textureImagePtr = SOIL_load_image("../WatchMe/Images/Einstein.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+
+	SLDIP::HistorgramEqualization(textureImagePtr, widgetWidth, widgetHeight, 4);
 
 	// Then initial window size
 	SenAbstractGLFW::initGlfwGlewGL();
