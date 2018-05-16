@@ -34,7 +34,7 @@ public:
 
 protected:
 	GLFWwindow* widgetGLFW;
-	GLint widgetWidth, widgetHeight;
+	GLint m_WidgetWidth, m_WidgetHeight;
 	char* strWindowName;
 	float xRot, yRot;
 	float aspect;

@@ -4,8 +4,8 @@ SenFreeSpaceAbstract::SenFreeSpaceAbstract()
 	:textureImagePtr(NULL)
 {
 	strWindowName = "Sen GLFW Free Space";
-	widgetWidth = SenFREESPACE_widgetWidth;
-	widgetHeight = SenFREESPACE_widgetHeight;
+	m_WidgetWidth = SenFREESPACE_widgetWidth;
+	m_WidgetHeight = SenFREESPACE_widgetHeight;
 }
 
 SenFreeSpaceAbstract::~SenFreeSpaceAbstract()
@@ -23,7 +23,7 @@ void SenFreeSpaceAbstract::initGlfwGlewGL()
 	// Options
 	glfwSetInputMode(widgetGLFW, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
+	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)m_WidgetWidth / (GLfloat)m_WidgetHeight, 0.1f, 100.0f);
 	SenFreeSpaceLogoCube.initialCubeGL(GL_TRUE);
 	glClearColor((float)0x87 / (float)0xFF, (float)0xCE / float(0xFF), (float)0xEB / float(0xFF), 1.0f);
 	
@@ -47,7 +47,7 @@ void SenFreeSpaceAbstract::paintGL(void)
 	Do_Movement();
 
 	view = camera.GetViewMatrix();
-	projection = glm::perspective(camera.Zoom, (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
+	projection = glm::perspective(camera.Zoom, (float)m_WidgetWidth / (float)m_WidgetHeight, 0.1f, 100.0f);
 
 
 
@@ -62,7 +62,7 @@ void SenFreeSpaceAbstract::paintGL(void)
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	// Paint Perfect Sen FreeSpace Logo
-	SenFreeSpaceLogoCube.paintSenLogoCube(GLfloat(widgetWidth) / GLfloat(SenFREESPACE_widgetWidth), GLfloat(widgetHeight) / GLfloat(SenFREESPACE_widgetHeight));
+	SenFreeSpaceLogoCube.paintSenLogoCube(GLfloat(m_WidgetWidth) / GLfloat(SenFREESPACE_widgetWidth), GLfloat(m_WidgetHeight) / GLfloat(SenFREESPACE_widgetHeight));
 
 	//*********** End of Paint stencil of "one"s ****************************************/ 
 

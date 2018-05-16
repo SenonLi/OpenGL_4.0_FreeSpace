@@ -1,15 +1,32 @@
-#include "DigitalImageProcess.h"
-#include <gli/gli.hpp>
-// GLM Mathematics
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <soil/SOIL.h>
-// SSI2
-//#include "emmintrin.h"
+#include "stdafx.h"
+#include "SLDigitalImageProcess.h"
 
-namespace SLDIP
+void SLDigitalImageProcess::PreImageProcess()
 {
+	//const TCHAR* imagePath = _T("../WatchMe/Images/Einstein.jpg");
+	textureImagePtr = SOIL_load_image("../WatchMe/Images/Einstein.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
+	//m_TargetImage.Load(imagePath);
+	//m_WidgetWidth = m_TargetImage.GetWidth();
+	//m_WidgetHeight = m_TargetImage.GetHeight();
+	//textureImagePtr = (unsigned char*)m_TargetImage.GetBits();
+	sldip::HistorgramEqualization(textureImagePtr, m_WidgetWidth, m_WidgetHeight, 4);
+
+}
+
+namespace sldip
+{
+	/// <summary>Read picture file from Disk, and load it into CImage [IN/OUT]</summary>
+	/// <param name="image">CImage, which can process *.bmp, *.png or *.jpg [OUT]</param>
+	/// <param name="filePath">picture filePath + fileName</param>
+	void LoadPictureIntoCImage(CImage& image, const TCHAR* filePath)
+	{
+		image.Load(filePath);
+	}
+
+
+	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
+	/// <param name="image">Beginning address of image buffer [IN/OUT]</param>
+	/// <param name="channels">RGBA, or RGB, or R</param>
 	void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels)
 	{
 		assert(image);
@@ -76,18 +93,18 @@ namespace SLDIP
 				}
 			}
 	}
-} // end of namespace SLDIP
+} // end of namespace sldip
 
-DigitalImageProcess::DigitalImageProcess()
+SLDigitalImageProcess::SLDigitalImageProcess()
 {
 	strWindowName = "Sen Digital Image Process";
 }
 
-DigitalImageProcess::~DigitalImageProcess()
+SLDigitalImageProcess::~SLDigitalImageProcess()
 {
 }
 
-void DigitalImageProcess::paintGL(void)
+void SLDigitalImageProcess::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
 
@@ -114,14 +131,11 @@ void DigitalImageProcess::paintGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void DigitalImageProcess::initGlfwGlewGL()
+void SLDigitalImageProcess::initGlfwGlewGL()
 {
 	// Get image size as window size
-	//textureImagePtr = SOIL_load_image("../WatchMe/Images/poor_3.bmp", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-	textureImagePtr = SOIL_load_image("../WatchMe/Images/Einstein.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-
-	SLDIP::HistorgramEqualization(textureImagePtr, widgetWidth, widgetHeight, 4);
-
+	//textureImagePtr = SOIL_load_image("../WatchMe/Images/poor_3.bmp", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
+	PreImageProcess();
 	// Then initial window size
 	SenAbstractGLFW::initGlfwGlewGL();
 
@@ -136,10 +150,10 @@ void DigitalImageProcess::initGlfwGlewGL()
 	initialBackgroundTexture();
 	initialNewLayerTexture();
 
-	OutputDebugStringA(" Initial GLFW Texture\n\n");
+	OutputDebugString(_T(" Initial GLFW Texture\n\n"));
 }
 
-void DigitalImageProcess::initialVertices()
+void SLDigitalImageProcess::initialVertices()
 {
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
@@ -180,7 +194,7 @@ void DigitalImageProcess::initialVertices()
 	glBindVertexArray(0); // Unbind vertexArrayObject (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 }
 
-void DigitalImageProcess::initialNewLayerTexture()
+void SLDigitalImageProcess::initialNewLayerTexture()
 {
 	//int newLayerWidth, newLayerHeight;
 
@@ -237,7 +251,7 @@ void DigitalImageProcess::initialNewLayerTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
-void DigitalImageProcess::initialBackgroundTexture()
+void SLDigitalImageProcess::initialBackgroundTexture()
 {
 	// Load and create a defaultTextureID 
 	glGenTextures(1, &defaultTextureID);
@@ -250,14 +264,14 @@ void DigitalImageProcess::initialBackgroundTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	// Load textureImage, create defaultTextureID and generate mipmaps
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widgetWidth, widgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widgetWidth, widgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_WidgetWidth, m_WidgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_WidgetWidth, m_WidgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
 }
 
-void DigitalImageProcess::bindNewLayerTexture()
+void SLDigitalImageProcess::bindNewLayerTexture()
 {
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "newLayerTexture");
@@ -267,7 +281,7 @@ void DigitalImageProcess::bindNewLayerTexture()
 	//glEnable(GL_TEXTURE_2D);
 }
 
-void DigitalImageProcess::bindBackgroundTexture()
+void SLDigitalImageProcess::bindBackgroundTexture()
 {
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "backgroundTexture");
@@ -276,7 +290,7 @@ void DigitalImageProcess::bindBackgroundTexture()
 	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 }
 
-void DigitalImageProcess::finalize(void)
+void SLDigitalImageProcess::finalize(void)
 {
 	if (glIsTexture(defaultTextureID))			glDeleteTextures(1, &defaultTextureID);
 	if (glIsTexture(newLayerTexture))			glDeleteTextures(1, &newLayerTexture);

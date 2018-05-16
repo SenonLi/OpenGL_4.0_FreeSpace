@@ -40,9 +40,9 @@ void Sen_07_TextureGLFW::paintGL(void)
 
 void Sen_07_TextureGLFW::initGlfwGlewGL()
 {
-	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGB);
-	textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SenPortrait.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
-	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &widgetWidth, &widgetHeight, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGB);
+	textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SenPortrait.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
 
 	SenAbstractGLFW::initGlfwGlewGL();
 
@@ -173,8 +173,8 @@ void Sen_07_TextureGLFW::initialBackgroundTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	// Load textureImage, create defaultTextureID and generate mipmaps
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widgetWidth, widgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widgetWidth, widgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_WidgetWidth, m_WidgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_WidgetWidth, m_WidgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(textureImagePtr);
 	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.

@@ -290,43 +290,43 @@ void Sen_BreakOut::paintFontsHints()	{
 	glUseProgram(lineTextProgram);
 
 	paintLineTextString("Break   Sen    Out", -0.35f, 0.01f
-		, 1.7 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, normalLineTextColor);
+		, 1.7 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
 	paintLineTextString("ReachMe: Sen.Li@uky.edu ", -0.95f, - 0.2f
-		, 1.4 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, highlightLineTextColor);
+		, 1.4 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, highlightLineTextColor);
 
 	paintLineTextString("https://www.Linkedin.com/in/SenSprouting", -0.95f, - 0.35f
-		, 1.15 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, highlightLineTextColor);
+		, 1.15 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, highlightLineTextColor);
 
 	GLfloat startingPoint = -0.6f;
 
 	paintLineTextString("'Left/Right'  : Move ", -0.95f, startingPoint - 0.0f
-		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, lineTextOutlineColor);
+		, static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, lineTextOutlineColor);
 
 	paintLineTextString("Press 'P'       : Pause", -0.95f, startingPoint - 0.1f
-		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, lineTextOutlineColor);
+		, static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, lineTextOutlineColor);
 
 	paintLineTextString("Press 'Enter': Reset", -0.95f, startingPoint - 0.2f
-		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, lineTextOutlineColor);
+		, static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, lineTextOutlineColor);
 
 	paintLineTextString("Press 'Space': Start Collision", -0.95f, startingPoint - 0.3f
-		, static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-		, widgetWidth, widgetHeight, lineTextOutlineColor);
+		, static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, m_WidgetWidth, m_WidgetHeight, lineTextOutlineColor);
 
 	if (currLevelFinished)	{
 		paintLineTextString("Sen OpenGL", -0.25f,  0.65f
-			, 2.0 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-			, widgetWidth, widgetHeight, normalLineTextColor);
+			, 2.0 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
 		paintLineTextString("Tutorial : https://github.com/SenonLi/OpenGL_4.0_FreeSpace ", -0.8f, 0.45f
-			, 1.1 * static_cast<GLfloat>(widgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
-			, widgetWidth, widgetHeight, normalLineTextColor);
+			, 1.1 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 	}
 
 
@@ -393,7 +393,7 @@ void Sen_BreakOut::paintBall()	{
 	model = glm::mat4();
 	model = glm::translate(model, glm::vec3(ballPosition, 0.0f));
 	model = glm::scale(model,
-		glm::vec3(ballSquareSIDE * widgetHeight / widgetWidth, ballSquareSIDE, 1.0f)
+		glm::vec3(ballSquareSIDE * m_WidgetHeight / m_WidgetWidth, ballSquareSIDE, 1.0f)
 		); // Last scale
 	model = glm::rotate(model, static_cast<GLfloat>(glm::radians(ballSpinAngleDegree)), glm::vec3(0.0f, 0.0f, 1.0f));
 
@@ -527,7 +527,7 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 GLboolean Sen_BreakOut::checkBrickBallSquareCollision(const Sen_2D_BlockBrick &brick)
 {
 	// AABB - AABB collision
-	GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+	GLfloat ballRadiusWidth = ballRADIUS * m_WidgetHeight / m_WidgetWidth;
 
 	bool isCollidedX = brick.getBrickPosition().x + brick.getBrickSize().x / 2.0f >= ballPosition.x - ballRadiusWidth
 		&& brick.getBrickPosition().x - brick.getBrickSize().x / 2.0f <= ballPosition.x + ballRadiusWidth;
@@ -595,7 +595,7 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 			normalizeAngleDegree(ballSpinAngleDegree);
 
 			ballPosition += ballVelocity * deltaTime;
-			GLfloat ballRadiusWidth = ballRADIUS * widgetHeight / widgetWidth;
+			GLfloat ballRadiusWidth = ballRADIUS * m_WidgetHeight / m_WidgetWidth;
 
 			if (ballPosition.x <= -1.0f + ballRadiusWidth)
 			{
@@ -633,14 +633,14 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 
 GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &brick)
 {
-	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, ballPosition.y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, ballPosition.y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
-	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, brick.getBrickPosition().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, brick.getBrickPosition().y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
-	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, brick.getBrickSize().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, brick.getBrickSize().y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
 	glm::vec2 brickBallPixelDistance = ballPixelPosition - brickPixelPosition;
 
@@ -658,7 +658,7 @@ GLboolean Sen_BreakOut::checkBrickBallCircleCollision(const Sen_2D_BlockBrick &b
 		glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
 		
 		GLfloat distanceInPixel = glm::length(closetPixelToBallCenter);
-		GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(widgetHeight) / 2.0f;
+		GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(m_WidgetHeight) / 2.0f;
 		
 		GLboolean isClosetPointInCircle = distanceInPixel < ballRadiusInPixel;
 
@@ -766,14 +766,14 @@ Direction Sen_BreakOut::VectorDirection(glm::vec2 target)
 
 Collision Sen_BreakOut::returnBrickBallCircleCollision(const Sen_2D_BlockBrick &brick) // AABB - Circle collision
 {
-	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, ballPosition.y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 ballPixelPosition = glm::vec2(ballPosition.x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, ballPosition.y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
-	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, brick.getBrickPosition().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 brickPixelPosition = glm::vec2(brick.getBrickPosition().x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, brick.getBrickPosition().y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
-	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(widgetWidth) / 2.0f
-		, brick.getBrickSize().y * static_cast<GLfloat>(widgetHeight) / 2.0f);
+	glm::vec2 brickPixelSize = glm::vec2(brick.getBrickSize().x * static_cast<GLfloat>(m_WidgetWidth) / 2.0f
+		, brick.getBrickSize().y * static_cast<GLfloat>(m_WidgetHeight) / 2.0f);
 
 	glm::vec2 brickBallPixelDistance = ballPixelPosition - brickPixelPosition;
 
@@ -785,14 +785,14 @@ Collision Sen_BreakOut::returnBrickBallCircleCollision(const Sen_2D_BlockBrick &
 	glm::vec2 closetPixelToBallCenter = closestPixelPosition - ballPixelPosition;
 
 	GLfloat distanceInPixel = glm::length(closetPixelToBallCenter);
-	GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(widgetHeight) / 2.0f;
+	GLfloat ballRadiusInPixel = ballRADIUS * static_cast<GLfloat>(m_WidgetHeight) / 2.0f;
 
 	//GLboolean isClosetPointInCircle = distanceInPixel < ballRadiusInPixel;
 
 	if (distanceInPixel < ballRadiusInPixel) // not <= since in that case a collision also occurs when object one exactly touches object two, which they are at the end of each collision resolution stage.
 		return std::make_tuple(GL_TRUE, VectorDirection(closetPixelToBallCenter)
-		, glm::vec2(closetPixelToBallCenter.x * 2.0f / static_cast<GLfloat>(widgetWidth),
-		closetPixelToBallCenter.y * 2.0f / static_cast<GLfloat>(widgetHeight)));
+		, glm::vec2(closetPixelToBallCenter.x * 2.0f / static_cast<GLfloat>(m_WidgetWidth),
+		closetPixelToBallCenter.y * 2.0f / static_cast<GLfloat>(m_WidgetHeight)));
 	else
 		return std::make_tuple(GL_FALSE, UP, glm::vec2(0, 0));
 

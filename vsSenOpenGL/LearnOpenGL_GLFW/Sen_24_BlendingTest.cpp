@@ -337,5 +337,5 @@ void Sen_24_BlendingTest::paintDebugWindowFrameBufferGL()	{
 
 	camera.Front = -camera.Front; // Recover front CameraView
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 }

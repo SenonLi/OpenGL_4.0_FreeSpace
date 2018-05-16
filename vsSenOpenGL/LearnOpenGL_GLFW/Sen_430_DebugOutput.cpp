@@ -120,7 +120,7 @@ void Sen_430_DebugOutput::initGlfwGlewGL()
 	SenGL_CheckError();
 
 	// set up projection matrix
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_WidgetWidth / (float)m_WidgetHeight, 0.1f, 100.0f);
 	glUniformMatrix4fv(glGetUniformLocation(programA, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	glUniform1i(glGetUniformLocation(programA, "backgroundTexture"), 0);
 
@@ -140,7 +140,7 @@ void Sen_430_DebugOutput::paintFreeSpaceGL(void)
 	glUniformMatrix4fv(glGetUniformLocation(programA, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
 	//// set up projection matrix
-	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)widgetWidth / (float)widgetHeight, 0.1f, 100.0f);
+	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_WidgetWidth / (float)m_WidgetHeight, 0.1f, 100.0f);
 	//glUniformMatrix4fv(glGetUniformLocation(programA, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	//glUniform1i(glGetUniformLocation(programA, "tex"), 0);
 

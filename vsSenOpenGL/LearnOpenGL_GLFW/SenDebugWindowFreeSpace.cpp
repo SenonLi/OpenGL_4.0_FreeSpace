@@ -55,7 +55,7 @@ void SenDebugWindowFreeSpace::paintDebugWindowFrameBufferGL()	{
 
 	camera.Front = -camera.Front; // Recover front CameraView
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 }
 
 void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
@@ -125,14 +125,14 @@ void SenDebugWindowFreeSpace::paintFreeSpaceGL(void)	{
 	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(lineTextProgram);
-	nextStringScreenCoord_X = paintLineTextString(pressButtonString, switchHintScreenCoord_X, switchHintScreenCoord_Y, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+	nextStringScreenCoord_X = paintLineTextString(pressButtonString, switchHintScreenCoord_X, switchHintScreenCoord_Y, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 	triggerDebugWindowString = debugWindowSwitch ? "Close ": "Open ";
-	nextStringScreenCoord_X = paintLineTextString(triggerDebugWindowString, nextStringScreenCoord_X, switchHintScreenCoord_Y, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, highlightLineTextColor);
-	paintLineTextString(debugWindowFuntionString, nextStringScreenCoord_X, switchHintScreenCoord_Y, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+	nextStringScreenCoord_X = paintLineTextString(triggerDebugWindowString, nextStringScreenCoord_X, switchHintScreenCoord_Y, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, highlightLineTextColor);
+	paintLineTextString(debugWindowFuntionString, nextStringScreenCoord_X, switchHintScreenCoord_Y, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
-	paintLineTextString("Press WASD: Move", -0.95f, -0.75f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
-	paintLineTextString("Mouse Move: Turn Around", -0.95f, -0.85f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
-	paintLineTextString("Mouse Scroll: Zoom In/Out", -0.95f, -0.95f, widgetWidth / debugWindowFrameBufferWidth, widgetWidth, widgetHeight, normalLineTextColor);
+	paintLineTextString("Press WASD: Move", -0.95f, -0.75f, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
+	paintLineTextString("Mouse Move: Turn Around", -0.95f, -0.85f, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
+	paintLineTextString("Mouse Scroll: Zoom In/Out", -0.95f, -0.95f, m_WidgetWidth / debugWindowFrameBufferWidth, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
@@ -151,8 +151,8 @@ void SenDebugWindowFreeSpace::initDebugWindowFrameBuffer()	{
 	glBindFramebuffer(GL_FRAMEBUFFER, debugWindowFrameBufferObject);
 	
 	// Color Texture
-	debugWindowFrameBufferWidth = widgetWidth;
-	debugWindowFrameBufferHeight = widgetHeight;
+	debugWindowFrameBufferWidth = m_WidgetWidth;
+	debugWindowFrameBufferHeight = m_WidgetHeight;
 
 	debugWindowRGB_TextureAttach = generateAttachmentTexture(false, false, debugWindowFrameBufferWidth, debugWindowFrameBufferHeight);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, debugWindowRGB_TextureAttach, 0);
@@ -185,7 +185,7 @@ void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()	{
 	};
 
 	/******** DebugWindow  Quad *********/
-	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.003;// *GLfloat(widgetWidth) / GLfloat(debugWindowFrameBufferWidth);
+	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.003;// *GLfloat(m_WidgetWidth) / GLfloat(debugWindowFrameBufferWidth);
 	GLfloat debugWindowVertices[] = {
 		// Positions												// TexCoords
 		-1.0f, 1.0f, 0.0f, 1.0f,

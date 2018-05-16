@@ -107,8 +107,8 @@ void Sen_26_PostProcessing::initGlfwGlewGL()
 	glGenFramebuffers(1, &testFrameBufferObject);
 	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
 	// Generate and Attach color texture to currently bound framebuffer object
-	testFrameBufferWidth = widgetWidth;
-	testFrameBufferHeight = widgetHeight;
+	testFrameBufferWidth = m_WidgetWidth;
+	testFrameBufferHeight = m_WidgetHeight;
 
 	textureColorBuffer = generateAttachmentTexture(false, false, testFrameBufferWidth, testFrameBufferHeight);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
@@ -172,7 +172,7 @@ void Sen_26_PostProcessing::paintFreeSpaceGL(void)
 	// quad plane with attched screen texture.
 	// //////////////////////////////////////////////////
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 	glDisable(GL_DEPTH_TEST); // We don't care about depth information when rendering a single quad
 
 	// Draw Screen

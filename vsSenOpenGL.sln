@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vsSenOpenGL", "vsSenOpenGL\vsSenOpenGL.vcxproj", "{8BA8BF5E-5636-415D-945A-08534317CC12}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DigitalImageProcess", "DigitalImageProcess\DigitalImageProcess.vcxproj", "{801E69DD-5A95-48CE-A212-B6EA98392A88}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLDigitalImageProcess", "SLDigitalImageProcess\SLDigitalImageProcess.vcxproj", "{801E69DD-5A95-48CE-A212-B6EA98392A88}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt3DPlayer", "Qt3DPlayer\Qt3DPlayer.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mfc3DPlayer", "Mfc3DPlayer\Mfc3DPlayer.vcxproj", "{0E3357C1-EF31-44C3-BA30-D21325079675}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLInternalUtility", "SLInternalUtility\SLInternalUtility.vcxproj", "{11478A94-C9ED-45E0-B0B8-7A0774152BDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,14 @@ Global
 		{0E3357C1-EF31-44C3-BA30-D21325079675}.Release|Win32.Build.0 = Release|Win32
 		{0E3357C1-EF31-44C3-BA30-D21325079675}.Release|x64.ActiveCfg = Release|x64
 		{0E3357C1-EF31-44C3-BA30-D21325079675}.Release|x64.Build.0 = Release|x64
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|Win32.Build.0 = Debug|Win32
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|x64.ActiveCfg = Debug|x64
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|x64.Build.0 = Debug|x64
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Release|Win32.ActiveCfg = Release|Win32
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Release|Win32.Build.0 = Release|Win32
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Release|x64.ActiveCfg = Release|x64
+		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

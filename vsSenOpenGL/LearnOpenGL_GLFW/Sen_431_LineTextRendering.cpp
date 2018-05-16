@@ -28,8 +28,8 @@ void Sen_431_LineTextRendering::initGlfwGlewGL()
 	initTrueTypeFontsTextures();
 	initTextStringVertexAttributes();
 
-	primaryWidgetWidth = widgetWidth;
-	primaryWidgetHeight = widgetHeight;
+	primaryWidgetWidth = m_WidgetWidth;
+	primaryWidgetHeight = m_WidgetHeight;
 
 	OutputDebugString(" Initial LineText Rendering\n\n");
 }
@@ -128,8 +128,8 @@ void Sen_431_LineTextRendering::paintGL(void)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	paintLineTextString("This is sample text", -0.935f, -0.916f, 2.0f * widgetWidth / primaryWidgetWidth, widgetWidth, widgetHeight, glm::vec3(0.5, 0.8f, 0.2f));
-	paintLineTextString("(C) LearnOpenGL.com", 0.25f, 0.9f, 1.0f * widgetWidth / primaryWidgetWidth, widgetWidth, widgetHeight, glm::vec3(0.3, 0.7f, 0.9f));
+	paintLineTextString("This is sample text", -0.935f, -0.916f, 2.0f * m_WidgetWidth / primaryWidgetWidth, m_WidgetWidth, m_WidgetHeight, glm::vec3(0.5, 0.8f, 0.2f));
+	paintLineTextString("(C) LearnOpenGL.com", 0.25f, 0.9f, 1.0f * m_WidgetWidth / primaryWidgetWidth, m_WidgetWidth, m_WidgetHeight, glm::vec3(0.3, 0.7f, 0.9f));
 
 	glDisable(GL_BLEND);
 }

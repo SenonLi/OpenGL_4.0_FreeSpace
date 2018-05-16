@@ -5,8 +5,8 @@ Sen_2D_GrameSpace::Sen_2D_GrameSpace()
 	:textureLoadImagePtr(NULL)
 {
 	strWindowName = "Sen GLFW 2D Game Space";
-	widgetWidth = Sen2DGameSpace_widgetWidth;
-	widgetHeight = Sen2DGameSpace_widgetHeight;
+	m_WidgetWidth = Sen2DGameSpace_widgetWidth;
+	m_WidgetHeight = Sen2DGameSpace_widgetHeight;
 
 	normalLineTextColor = glm::vec3(1.0f, 0.1f, 0.1f);
 	highlightLineTextColor = glm::vec3(0.5f, 0.0f, 0.8f); 

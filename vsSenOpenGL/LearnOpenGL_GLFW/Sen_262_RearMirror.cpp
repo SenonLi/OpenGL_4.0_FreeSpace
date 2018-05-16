@@ -152,8 +152,8 @@ void Sen_262_RearMirror::initGlfwGlewGL()
 	glGenFramebuffers(1, &testFrameBufferObject);
 	glBindFramebuffer(GL_FRAMEBUFFER, testFrameBufferObject);
 	// Generate and Attach color texture to currently bound framebuffer object
-	testFrameBufferWidth = widgetWidth;
-	testFrameBufferHeight = widgetHeight;
+	testFrameBufferWidth = m_WidgetWidth;
+	testFrameBufferHeight = m_WidgetHeight;
 
 	textureColorBuffer = generateAttachmentTexture(false, false, testFrameBufferWidth, testFrameBufferHeight);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
@@ -196,7 +196,7 @@ void Sen_262_RearMirror::paintFreeSpaceGL(void)
 	camera.Front = -camera.Front; // Recover front CameraView
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 	paintScene();
 	
 	// ======== End of Normal Rendering =============================================================

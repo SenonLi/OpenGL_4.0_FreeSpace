@@ -5,7 +5,7 @@ Sen_09_ModelViewProjection::Sen_09_ModelViewProjection()
 {
 	strWindowName = "Sen Auto CameraView";
 
-	widgetWidth = int(widgetWidth*1.5);
+	m_WidgetWidth = int(m_WidgetWidth*1.5);
 }
 
 
@@ -180,7 +180,7 @@ void Sen_09_ModelViewProjection::initialBackgroundTexture()
 void Sen_09_ModelViewProjection::initModelViewProjection()
 {
 	// Note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)widgetWidth / (GLfloat)widgetHeight, 0.1f, 100.0f);
+	projection = glm::perspective(float(glm::radians(60.0)), (GLfloat)m_WidgetWidth / (GLfloat)m_WidgetHeight, 0.1f, 100.0f);
 	model = glm::rotate(model, float(glm::radians(-50.0)), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 

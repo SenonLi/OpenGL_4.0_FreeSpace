@@ -59,7 +59,7 @@ protected:
 	}
 
 	// Generates a texture that is suited for attachments to a framebuffer
-	// Assume the widgetWidth, widgetHeight won't change
+	// Assume the m_WidgetWidth, m_WidgetHeight won't change
 	// Considering their change, there should be a resize register function to re-initial this customer FrameBuffer
 	GLuint generateAttachmentTexture(GLboolean depth, GLboolean stencil, GLint frameBufferWidth, GLint frameBufferHeight)
 	{

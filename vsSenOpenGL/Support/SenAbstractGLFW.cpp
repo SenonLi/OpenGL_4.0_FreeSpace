@@ -6,8 +6,8 @@ SenAbstractGLFW::SenAbstractGLFW()
 {
 	strWindowName = "Sen GLFW Application";
 
-	widgetWidth = DEFAULT_widgetWidth;
-	widgetHeight = DEFAULT_widgetHeight;
+	m_WidgetWidth = DEFAULT_widgetWidth;
+	m_WidgetHeight = DEFAULT_widgetHeight;
 }
 
 SenAbstractGLFW::~SenAbstractGLFW()
@@ -18,8 +18,8 @@ SenAbstractGLFW::~SenAbstractGLFW()
 void SenAbstractGLFW::paintGL(void)
 {
 	// Define the viewport dimensions
-	glfwGetFramebufferSize(widgetGLFW, &widgetWidth, &widgetHeight);
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glfwGetFramebufferSize(widgetGLFW, &m_WidgetWidth, &m_WidgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 }
 
 void SenAbstractGLFW::initGlfwGlewGL()
@@ -37,7 +37,7 @@ void SenAbstractGLFW::initGlfwGlewGL()
 #endif
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	widgetGLFW = glfwCreateWindow(widgetWidth, widgetHeight, strWindowName, nullptr, nullptr);
+	widgetGLFW = glfwCreateWindow(m_WidgetWidth, m_WidgetHeight, strWindowName, nullptr, nullptr);
 	glfwSetWindowPos(widgetGLFW, 400, 240);
 	glfwMakeContextCurrent(widgetGLFW);
 
@@ -67,7 +67,7 @@ void SenAbstractGLFW::initGlfwGlewGL()
 	// Clear the colorbuffer
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-	glViewport(0, 0, widgetWidth, widgetHeight);
+	glViewport(0, 0, m_WidgetWidth, m_WidgetHeight);
 
 	glEnable(GL_DEPTH_TEST);
 
