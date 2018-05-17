@@ -24,7 +24,10 @@
     <ClCompile Include="SLDigitalImageProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SLImageObject.cpp">
+    <ClCompile Include="SLImageParam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SLCaptured.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +41,10 @@
     <ClInclude Include="SLDigitalImageProcess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SLImageObject.h">
+    <ClInclude Include="SLImageParam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SLCaptured.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

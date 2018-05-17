@@ -4,12 +4,12 @@
 
 #include "Support/SenAbstractGLFW.h"
 
-class SLImageObject;
+class SLImageParam;
 
 namespace sldip
 {
-	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& textureImage);
-
+	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageParam& textureParam);
+	static GLint UploadLinearImageToGPU(const void* linearBufferEntry, SLImageParam& textureParam);
 	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
 
 	static const int CPU_TOTAL_GRAY_LEVEL = 256;

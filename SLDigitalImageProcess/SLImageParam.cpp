@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "SLImageObject.h"
+#include "SLImageParam.h"
 
 namespace sldip
 {
-	int SLImageObject::GetChannelsNum(const SLImageColorType& colorType)
+	int SLImageParam::GetChannelsNum(const SLImageColorType& colorType)
 	{
 		int channelsNumber = 0;
 		switch (colorType)
@@ -41,7 +41,7 @@ namespace sldip
 
 	/// <summary>Will be used to determine 2D ImageColorType when loading image files from disk </summary>
 	/// <param name="image2DChannelNumber">Range could only be 1, 3, 4 </param>
-	void SLImageObject::SetImageColorType(int image2DChannelNumber)
+	void SLImageParam::SetImageColorType(int image2DChannelNumber)
 	{
 		SLImageColorType colorType = SLImageColorType::ColorUndefined;
 		switch (image2DChannelNumber)

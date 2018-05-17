@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SLDigitalImageProcess.h"
 
-#include "SLImageObject.h"
+#include "SLImageParam.h"
 
 void SLDigitalImageProcess::PreImageProcess()
 {
@@ -17,26 +17,13 @@ void SLDigitalImageProcess::PreImageProcess()
 
 namespace sldip
 {
-	/// <summary>Read picture file from Disk, and upload to GPU [IN/OUT]</summary>
-	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
-	/// <param name="filePath">picture filePath + fileName</param>
-	/// <param name="textureImage">Save image information + buffer pointer [OUT]</param>
+	/// <summary>Read picture file from Disk, and upload to GPU </summary>
+	/// <remarks>Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration</remarks>
+	/// <param name="linearBufferEntry">Beginning address of a linear image buffer entry </param>
+	/// <param name="textureParam">Offer image information; Get generated TextureID [IN/OUT]</param>
 	/// <returns>TextureID of uploaded image </returns>
-	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& textureImage)
-	{	
-		assert(filePath && _tcsclen(filePath) != 0);
-		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
-
-		CImage sourceImage;
-		sourceImage.Load(filePath);
-		assert(!sourceImage.IsNull()); // failed to load image file
-
-		textureImage.SetWidth( sourceImage.GetWidth() );
-		textureImage.SetHeight( sourceImage.GetHeight() );
-		textureImage.SetPitch( sourceImage.GetPitch() );
-		textureImage.SetImageColorType( sourceImage.GetBPP() );
-
-
+	GLint UploadLinearImageToGPU(const void* linearBufferEntry, SLImageParam& textureParam)
+	{
 		//int newBPP;
 		//if (imageBPP == 8)
 		//{
@@ -130,6 +117,27 @@ namespace sldip
 		return 0;
 	}
 
+	/// <summary>Read picture file from Disk, and upload to GPU </summary>
+	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
+	/// <param name="filePath">picture filePath + fileName</param>
+	/// <param name="textureParam">Save image information + buffer pointer [OUT]</param>
+	/// <returns>TextureID of uploaded image </returns>
+	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageParam& textureParam)
+	{
+		assert(filePath && _tcsclen(filePath) != 0);
+		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
+
+		CImage sourceImage;
+		sourceImage.Load(filePath);
+		assert(!sourceImage.IsNull()); // failed to load image file
+
+		textureParam.SetWidth(sourceImage.GetWidth());
+		textureParam.SetHeight(sourceImage.GetHeight());
+		textureParam.SetPitch(sourceImage.GetPitch());
+		textureParam.SetImageColorType(sourceImage.GetBPP() / sizeof(BYTE));
+
+		return UploadLinearImageToGPU(sourceImage.GetBits(), textureParam);
+	}
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <param name="image">Beginning address of image buffer [IN/OUT]</param>

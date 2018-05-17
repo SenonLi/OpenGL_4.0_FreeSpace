@@ -2,7 +2,6 @@
 #define __SLIMAGEOBJECT__
 #pragma once
 
-#include "Memory/SLMemoryObject.h"
 namespace sldip
 {
 	static const int CHANNEL_NUM_ColorUndefined = 0;
@@ -28,7 +27,7 @@ namespace sldip
 		ColorXYZWRGBA,      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
 	};
 
-	class SLImageObject : public slutil::SLMemoryObject
+	class SLImageParam
 	{
 	public:
 		static int GetChannelsNum(const SLImageColorType& colorType);
@@ -37,21 +36,28 @@ namespace sldip
 		inline int Height()     const { return m_Height; }
 		inline int Pitch()      const { return m_Pitch; }
 		inline int ChannelNumber() const { return GetChannelsNum( ColorType() ); }
+		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
 
 		inline void SetWidth(int width) { m_Width = width; }
 		inline void SetHeight(int height) { m_Height = height; }
 		inline void SetPitch(int pitch) { m_Pitch = pitch; }
+		inline void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
 		inline void SetImageColorType(SLImageColorType channels) { m_ImageColorType = channels; }
 
 		void SetImageColorType(int channelNumber);
 
 	private:
+		GLuint m_TextureID = 0; // 0 means Binding-Free for OpenGL driver, i.e., no texture binding for GPU 
+
 		int m_Width  = 0;
 		int m_Height = 0;
 		int m_Pitch  = 0;
 		SLImageColorType m_ImageColorType = SLImageColorType::ColorUndefined;
 	};
+
+
+
 
 } // End of namespace sldip
 
