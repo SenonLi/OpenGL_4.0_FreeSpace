@@ -2,6 +2,7 @@
 #include "SLMemoryObject.h"
 
 #include "emmintrin.h" // for SSE aligned memory allocation/deallocation
+
 namespace slutil
 {
 	//--------------------------- Static in slutil ---------------------------------------------------------------
@@ -45,12 +46,9 @@ namespace slutil
 
 	SLMemoryObject::SLMemoryObject()
 	{
+		m_uptrBuffer = std::make_unique<SLMemoryBuffer>();
 	}
 
-
-	SLMemoryObject::~SLMemoryObject()
-	{
-	}
 
 
 } // End of namespace slutil

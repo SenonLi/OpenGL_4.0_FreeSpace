@@ -2,6 +2,8 @@
 #define __SLMEMORYOBJECT__
 #pragma once
 
+#include <memory>
+
 namespace slutil
 { 
 	class SLMemoryBuffer
@@ -30,7 +32,10 @@ namespace slutil
 	{
 	public:
 		SLMemoryObject();
-		virtual ~SLMemoryObject();
+		virtual ~SLMemoryObject() {};
+
+	private:
+		std::unique_ptr<SLMemoryBuffer> m_uptrBuffer;
 	};
 
 

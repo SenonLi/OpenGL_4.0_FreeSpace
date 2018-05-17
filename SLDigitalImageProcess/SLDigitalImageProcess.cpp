@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SLDigitalImageProcess.h"
 
+#include "SLImageObject.h"
+
 void SLDigitalImageProcess::PreImageProcess()
 {
 	//const TCHAR* imagePath = _T("../WatchMe/Images/Einstein.jpg");
@@ -15,12 +17,20 @@ void SLDigitalImageProcess::PreImageProcess()
 
 namespace sldip
 {
-	/// <summary>Read picture file from Disk, and load it into CImage [IN/OUT]</summary>
-	/// <param name="image">CImage, which can process *.bmp, *.png or *.jpg [OUT]</param>
+	/// <summary>Read picture file from Disk, and upload to GPU [IN/OUT]</summary>
+	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
 	/// <param name="filePath">picture filePath + fileName</param>
-	void LoadPictureIntoCImage(CImage& image, const TCHAR* filePath)
-	{
+	/// <param name="imageObject">Save image information + buffer pointer [OUT]</param>
+	/// <returns>TextureID of uploaded image </returns>
+	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& imageObject)
+	{	
+		assert(filePath && _tcsclen(filePath) != 0);
+
+		CImage image;
 		image.Load(filePath);
+
+
+
 	}
 
 

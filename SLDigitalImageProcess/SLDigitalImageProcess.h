@@ -4,22 +4,11 @@
 
 #include "Support/SenAbstractGLFW.h"
 
+class SLImageObject;
+
 namespace sldip
 {
-	class SLImageObject
-	{
-	public:
-		inline int Width()      const { return m_Width; }
-		inline int Height()     const { return m_Height; }
-		inline int Channels()	const { return m_Channels; }
-	private:
-		int m_Width = 0;
-		int m_Height = 0;
-		int m_Channels = 0;
-	};
-
-
-	static void UploadImageToGPUFromDisk(const TCHAR* filePath);
+	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& imageObject);
 
 	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
 
