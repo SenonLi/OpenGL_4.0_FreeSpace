@@ -150,7 +150,7 @@ void SLDigitalImageProcess::initGlfwGlewGL()
 	initialBackgroundTexture();
 	initialNewLayerTexture();
 
-	OutputDebugString(_T(" Initial GLFW Texture\n\n"));
+	SLOutputDebugString(_T(" Initial GLFW Texture\n\n"));
 }
 
 void SLDigitalImageProcess::initialVertices()

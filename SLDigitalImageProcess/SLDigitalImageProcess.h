@@ -19,7 +19,7 @@ namespace sldip
 	};
 
 
-	static void UploadImageToGPU(const TCHAR* filePath);
+	static void UploadImageToGPUFromDisk(const TCHAR* filePath);
 
 	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
 

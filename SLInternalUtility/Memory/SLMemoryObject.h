@@ -9,7 +9,6 @@ namespace slutil
 	public:
 		~SLMemoryBuffer();
 
-		/// <summary>To be determined ... </summary>
 		void AllocateAlignedMemory();
 
 	private:

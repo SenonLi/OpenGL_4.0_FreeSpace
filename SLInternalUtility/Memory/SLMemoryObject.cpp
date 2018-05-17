@@ -12,32 +12,31 @@ namespace slutil
 
 	SLMemoryBuffer::~SLMemoryBuffer()
 	{
-		if (m_Buffer != nullptr) {
+		if (m_Buffer != nullptr) 
+		{
 			_mm_free(m_Buffer);
 			m_InstanceCounter--;
 
-#ifdef _DEBUG
-			//OutputDebugString(_T("SLMemoryBuffer::AllocateBuffer() %d"))
-#endif
+			assert(m_InstanceCounter >= 0);
+			std::wstringstream outputMessage;
+			outputMessage << _T("SLMemoryBuffer::~SLMemoryBuffer(), There exist now \t") << m_InstanceCounter << _T(" \t SLMemoryBuffer allocated.\n");
+			SLOutputDebugString(outputMessage.str().c_str());
 		}
 	}
 
 	/// <summary> allocate Aligned Memory </summary>
 	void SLMemoryBuffer::AllocateAlignedMemory()
 	{
-		//assert(m_TotalBytes > 0 && m_Buffer == nullptr)
+		assert(m_TotalBytes > 0 && m_Buffer == nullptr);
 
 		// Make sure m_TotalBytes > 0 when doing an actual allocation
-		if (m_TotalBytes > 0)
-		{
-			m_InstanceCounter++;
+		m_InstanceCounter++;
+		m_Buffer = _mm_malloc(m_TotalBytes + SLMemoryAllocationSafetyOffset, m_MemoryAlignment);
 
-			m_Buffer = _mm_malloc(m_TotalBytes + SLMemoryAllocationSafetyOffset, m_MemoryAlignment);
-
-#ifdef _DEBUG
-			//OutputDebugString(_T("SLMemoryBuffer::AllocateBuffer() %d"))
-#endif
-		}
+		std::wstringstream outputMessage;
+		outputMessage << _T("SLMemoryBuffer::AllocateAlignedMemory(), There exist now \t")
+			<< m_InstanceCounter << _T(" \t SLMemoryBuffer allocated.\n");
+		SLOutputDebugString(outputMessage.str().c_str());
 	}
 
 	//--------------------------- SLMemoryBuffer -----------------------------------------------------------------
