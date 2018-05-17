@@ -14,7 +14,8 @@ Sen_07_TextureGLFW::~Sen_07_TextureGLFW()
 void Sen_07_TextureGLFW::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Draw container
 	glUseProgram(programA);
 
@@ -34,6 +35,7 @@ void Sen_07_TextureGLFW::paintGL(void)
 	glBindVertexArray(verArrObjArray[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	glDisable(GL_BLEND);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

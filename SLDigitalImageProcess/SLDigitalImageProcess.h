@@ -4,19 +4,24 @@
 
 #include "Support/SenAbstractGLFW.h"
 
-class SLImageParam;
-
 namespace sldip
 {
-	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageParam& textureParam);
-	static GLint UploadLinearImageToGPU(const void* linearBufferEntry, SLImageParam& textureParam);
-	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
+	class SLImageParam;
 
 	static const int CPU_TOTAL_GRAY_LEVEL = 256;
-	static const float VALID_HISTOGRAM_FLOOR_RATIO = 0.025f;
-	static const float VALID_HISTOGRAM_CEIL_RATIO = 0.975f;
+	static const float VALID_HISTOGRAM_FLOOR_RATIO = 0.125f;
+	static const float VALID_HISTOGRAM_CEIL_RATIO = 0.875f;
+
+	static SLImageParam& LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
+	static void UploadLinearImageToGPU(SLImageParam& textureParam);
+
+	static SLImageParam& UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath);
+	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
+
 
 }; // end of namespace DIP
+
+#include "SLImageParam.h"
 
 class SLDigitalImageProcess : public SenAbstractGLFW
 {
@@ -39,7 +44,10 @@ protected:
 
 	unsigned char* textureImagePtr = nullptr;
 	GLuint newLayerTexture;
-	CImage m_TargetImage;
+	//----------------------------- Temporary --------------------
+	const TCHAR* m_ImagePath = nullptr;
+	CImage m_ImageLoader;
+	sldip::SLImageParam m_ImageParam;
 };
 
 #endif __SLDIGITALIMAGEPROCESS__

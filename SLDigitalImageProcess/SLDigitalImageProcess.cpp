@@ -5,138 +5,115 @@
 
 void SLDigitalImageProcess::PreImageProcess()
 {
-	//const TCHAR* imagePath = _T("../WatchMe/Images/Einstein.jpg");
-	textureImagePtr = SOIL_load_image("../WatchMe/Images/Einstein.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
-	//m_TargetImage.Load(imagePath);
-	//m_WidgetWidth = m_TargetImage.GetWidth();
-	//m_WidgetHeight = m_TargetImage.GetHeight();
-	//textureImagePtr = (unsigned char*)m_TargetImage.GetBits();
-	sldip::HistorgramEqualization(textureImagePtr, m_WidgetWidth, m_WidgetHeight, 4);
+	m_ImagePath = _T("../WatchMe/Images/Einstein.jpg");
+	
+	// Get basic image info
+	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
 
+	m_WidgetWidth = m_ImageParam.Width();
+	m_WidgetHeight = m_ImageParam.Height();
+
+	sldip::HistorgramEqualization(m_ImageParam.LinearBufferEntry(), m_ImageParam.Width(), m_ImageParam.Height(), m_ImageParam.ChannelNumber());
+
+}
+
+void SLDigitalImageProcess::initialBackgroundTexture()
+{
+	// Then upload to GPU and update the newly generated TextureID into textureParam
+	UploadLinearImageToGPU(m_ImageParam);
+
+	defaultTextureID = m_ImageParam.TextureID();
 }
 
 namespace sldip
 {
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
-	/// <remarks>Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration</remarks>
-	/// <param name="linearBufferEntry">Beginning address of a linear image buffer entry </param>
+	/// <remarks> Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration
+	///               Designed to upload CPU-Processed image, which has to be linear     </remarks>
 	/// <param name="textureParam">Offer image information; Get generated TextureID [IN/OUT]</param>
-	/// <returns>TextureID of uploaded image </returns>
-	GLint UploadLinearImageToGPU(const void* linearBufferEntry, SLImageParam& textureParam)
+	void UploadLinearImageToGPU(SLImageParam& textureParam)
 	{
-		//int newBPP;
-		//if (imageBPP == 8)
-		//{
-		//	// will convert the image to 24BPP.
-		//	newBPP = 24;
-		//}
-		//else
-		//{
-		//	// will keep the original BPP.
-		//	newBPP = imageBPP;
-		//}
+		assert(textureParam.LinearBufferEntry());
 
-		//// create new image with the new size and original image Bit Depth.
-		//CImage targetImage;
-		//targetImage.Create(imageWidth, imageHeight, newBPP);
+		// Generate and Bind TextureID
+		GLuint textureID;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
+		textureParam.SetTextureID(textureID);
 
-		//HDC hdc = targetImage.GetDC();
-		//if (resizeImage)
-		//{
-		//	SetStretchBltMode(hdc, COLORONCOLOR);
-		//	sourceImage.StretchBlt(hdc, 0, 0, imageWidth, imageHeight, SRCCOPY);
-		//}
-		//else
-		//{
-		//	sourceImage.BitBlt(hdc, 0, 0, SRCCOPY);
-		//}
+		// Set the defaultTextureID wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// Set defaultTextureID filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+		// Load textureImage, create defaultTextureID and generate mipmaps
+		switch (textureParam.ColorType())
+		{
+		case SLImageColorType::ColorGray:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, textureParam.Width(), textureParam.Height(), 0, GL_RED, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			break;
+		case SLImageColorType::ColorRGB:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_BGR, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			break;
+		case SLImageColorType::ColorRGBA:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			break;
+		default:
+			assert(false);// Doesn't support the others ColorType yet
+		}
 
-		//imagePitch = targetImage.GetPitch();
-		//imageWidth = targetImage.GetWidth();
-		//imageHeight = targetImage.GetHeight();
-		//imageBPP = targetImage.GetBPP();
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_WidgetWidth, m_WidgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
+		glGenerateMipmap(GL_TEXTURE_2D);
 
-		//BYTE* bits = static_cast<BYTE*>(targetImage.GetBits());
-		//// The bitmap is a bottom-up DIB, move to the start address of the image data
-		//bits += (imageHeight - 1) * imagePitch;
+		glBindTexture(GL_TEXTURE_2D, 0);  // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
+		assert(textureParam.TextureID()); // New generated TextureID should not be 0
+	}
 
-		//GLuint	texture = 0;
-		//glGenTextures(1, &texture);
-		//glBindTexture(GL_TEXTURE_2D, texture);
+	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
+	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
+	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
+	/// <param name="filePath">picture filePath + fileName</param>
+	/// <returns>Image information, except Mapped GPU TextureID  </returns>
+	SLImageParam& LoadImageParam(CImage& imageLoader, const TCHAR* filePath)
+	{
+		assert(filePath && _tcsclen(filePath) != 0);
+		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
+		if (!imageLoader.IsNull())
+			imageLoader.Destroy();
+		imageLoader.Load(filePath);
+		assert(!imageLoader.IsNull()); // failed to load image file
 
-		//if (imageBPP == 32)
-		//{
-		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
-		//}
-		//else if (imageBPP == 24)
-		//{
-		//	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, bits);
-		//	glPixelStorei(GL_UNPACK_ALIGNMENT, DEFAULT_PIXEL_STORAGE_PACKING);
-		//}
-		//else
-		//{
-		//	BUILDIT_ASSERT_MESSAGE(FALSE, _TEXT("unsupported BPP"));
-		//	if (resizeImage)
-		//	{
-		//		// clean up.
-		//		targetImage.ReleaseDC();
-		//	}
-		//	return 0;
-		//}
+		SLImageParam textureParam;
+		textureParam.SetWidth(imageLoader.GetWidth());
+		textureParam.SetHeight(imageLoader.GetHeight());
+		textureParam.SetPitch(imageLoader.GetPitch());
+		textureParam.SetImageColorType(imageLoader.GetBPP() / BIT_NUM_IN_ONE_BYTE);
 
-		//GLenum error = glGetError();
-		//BUILDIT_ASSERT_MESSAGE(error == GL_NO_ERROR, _TEXT("invalid image texture"));
+		// CImage belongs to Windows GDI library, in which all DIBs (Device-Independent Bitmap) are bottom-up.
+		// GetBits() will return pixel address of (0,0) instead of the first byte of the image-buffer.
+		// To get the BufferEntry address for uploading to GPU, here we need to move pointer up [Height() - 1] levels.
+		BYTE* firstPixelAddress = static_cast<BYTE*>(imageLoader.GetBits());
+		BYTE* bufferEntry = firstPixelAddress + (textureParam.Height() - 1) * textureParam.Pitch();
+		textureParam.SetLinearBufferEntry(bufferEntry);
 
-		//// clean up.
-		//targetImage.ReleaseDC();
-
-		//if (GLExtensions::Instance().IsFrameBufferSupported())
-		//{
-		//	glGenerateMipmap(GL_TEXTURE_2D);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		//	EnableAnisotropicTexture();
-		//}
-		//else
-		//{
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//}
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		//// check texture created
-		//if (glIsTexture(texture) == GL_TRUE && glGetError() == GL_NO_ERROR)
-		//{
-		//	return texture;
-		//}
-		//else
-		//{
-		//	return 0;
-		//}
-
-		return 0;
+		return textureParam;
 	}
 
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
 	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
+	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
-	/// <param name="textureParam">Save image information + buffer pointer [OUT]</param>
-	/// <returns>TextureID of uploaded image </returns>
-	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageParam& textureParam)
+	/// <returns>Image information with Mapped GPU TextureID  </returns>
+	SLImageParam& UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath)
 	{
-		assert(filePath && _tcsclen(filePath) != 0);
-		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
+		// Get basic image info
+		SLImageParam textureParam = LoadImageParam(imageLoader, filePath);
+		// Then upload to GPU and update the newly generated TextureID into textureParam
+		UploadLinearImageToGPU(textureParam);
 
-		CImage sourceImage;
-		sourceImage.Load(filePath);
-		assert(!sourceImage.IsNull()); // failed to load image file
-
-		textureParam.SetWidth(sourceImage.GetWidth());
-		textureParam.SetHeight(sourceImage.GetHeight());
-		textureParam.SetPitch(sourceImage.GetPitch());
-		textureParam.SetImageColorType(sourceImage.GetBPP() / sizeof(BYTE));
-
-		return UploadLinearImageToGPU(sourceImage.GetBits(), textureParam);
+		return textureParam;
 	}
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
@@ -175,18 +152,6 @@ namespace sldip
 		for (int row = 0; row < imageHeight; ++row)
 			for (int column = 0; column < imageWidth; ++column)
 			{
-				switch (channels)
-				{
-				case 3:
-				{
-					// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
-					int pixelIndex = row * imageWidth + column;
-					for (int i = 0; i < channels; ++i)
-						image[pixelIndex * channels + i] = 0x00;
-				}
-				break;
-				case 4:
-				{
 					// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
 					int pixelIndex = row * imageWidth + column;
 					unsigned int oldIntensity = image[pixelIndex * channels];
@@ -201,11 +166,6 @@ namespace sldip
 					}
 					for (int i = 0; i < channels; ++i)
 						image[pixelIndex * channels + i] = newIntensity;
-				}
-				break;
-				default:
-					assert(false);
-				}
 			}
 	}
 } // end of namespace sldip
@@ -222,7 +182,8 @@ SLDigitalImageProcess::~SLDigitalImageProcess()
 void SLDigitalImageProcess::paintGL(void)
 {
 	SenAbstractGLFW::paintGL();
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Draw container
 	glUseProgram(programA);
 
@@ -242,7 +203,7 @@ void SLDigitalImageProcess::paintGL(void)
 	glBindVertexArray(verArrObjArray[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-
+	glDisable(GL_BLEND);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -273,10 +234,10 @@ void SLDigitalImageProcess::initialVertices()
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
 		// Positions             // Colors               // Texture Coords
-		1.0f,    1.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f, 0.0f, // Top Right
-		1.0f,   -1.0f,   0.0f,   0.0f,   1.0f,   0.0f,   1.0f, 1.0f, // Bottom Right
-		-1.0f,  -1.0f,   0.0f,   0.0f,   0.0f,   1.0f,   0.0f, 1.0f, // Bottom Left
-		-1.0f,   1.0f,   0.0f,   1.0f,   1.0f,   0.0f,   0.0f, 0.0f  // Top Left 
+		1.0f,    1.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f, 1.0f, // Top Right
+		1.0f,   -1.0f,   0.0f,   0.0f,   1.0f,   0.0f,   1.0f, 0.0f, // Bottom Right
+		-1.0f,  -1.0f,   0.0f,   0.0f,   0.0f,   1.0f,   0.0f, 0.0f, // Bottom Left
+		-1.0f,   1.0f,   0.0f,   1.0f,   1.0f,   0.0f,   0.0f, 1.0f  // Top Left 
 	};
 	GLuint indices[] = {  // Note that we start from 0!
 		0, 1, 3, // First Triangle
@@ -311,24 +272,6 @@ void SLDigitalImageProcess::initialVertices()
 
 void SLDigitalImageProcess::initialNewLayerTexture()
 {
-	//int newLayerWidth, newLayerHeight;
-
-	//glGenTextures(1, &newLayerTexture);
-	//glBindTexture(GL_TEXTURE_2D, newLayerTexture);
-	//// Set our texture parameters
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//// Set texture filtering
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//// Load, create texture and generate mipmaps
-	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &newLayerWidth, &newLayerHeight, 0, SOIL_LOAD_RGB);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, newLayerWidth, newLayerHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
-	//glGenerateMipmap(GL_TEXTURE_2D);
-	//SOIL_free_image_data(textureImagePtr);
-	//glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
-
-
 	glGenTextures(1, &newLayerTexture);
 	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
 	// Set our texture parameters
@@ -366,31 +309,11 @@ void SLDigitalImageProcess::initialNewLayerTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);// unbind when done
 }
 
-void SLDigitalImageProcess::initialBackgroundTexture()
-{
-	// Load and create a defaultTextureID 
-	glGenTextures(1, &defaultTextureID);
-	glBindTexture(GL_TEXTURE_2D, defaultTextureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
-													//// Set the defaultTextureID wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// Set defaultTextureID filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	// Load textureImage, create defaultTextureID and generate mipmaps
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_WidgetWidth, m_WidgetHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, textureImagePtr);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_WidgetWidth, m_WidgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(textureImagePtr);
-	glBindTexture(GL_TEXTURE_2D, 0); // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
-}
-
 void SLDigitalImageProcess::bindNewLayerTexture()
 {
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "newLayerTexture");
-	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(programA, "newLayerTexture"), 0);
 	glBindTexture(GL_TEXTURE_2D, newLayerTexture);
 	//glEnable(GL_TEXTURE_2D);
@@ -400,7 +323,7 @@ void SLDigitalImageProcess::bindBackgroundTexture()
 {
 	// Bind Texture
 	//textureLocation = glGetUniformLocation(programA, "backgroundTexture");
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE1);
 	glUniform1i(glGetUniformLocation(programA, "backgroundTexture"), 1);
 	glBindTexture(GL_TEXTURE_2D, defaultTextureID);
 }

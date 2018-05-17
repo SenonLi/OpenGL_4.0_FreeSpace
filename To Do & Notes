@@ -18,6 +18,11 @@ Library:
 1. sldip   -> SLDigitalImageProcess
 2. slgeom  -> Geometry
 
+## Sort of CImage is GdiPlus and CBitmap is MFC. You can do something like this:
+In GDI, all DIBs are bottom-up.
+CBitmap bmp;  
+CImage img;
+bmp = CBitmap::FromHandle(img.Detach());
 
 ## Collision Detection
 * Axis-Aligned Bounding Box

@@ -10,8 +10,8 @@ uniform sampler2D backgroundTexture;
 
 void main()
 {
-	fragColor = texture(newLayerTexture, fragInterpTextureCoord);
-
+	fragColor = texture(backgroundTexture, fragInterpTextureCoord);
+	//fragColor = vec4(fragColor.b, fragColor.g, fragColor.r, fragColor.a);
 	/*fragColor = mix(texture(backgroundTexture, fragInterpTextureCoord),
 					 texture(newLayerTexture, fragInterpTextureCoord), 0.1);//*/
 }

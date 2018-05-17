@@ -22,7 +22,7 @@ namespace sldip
 		ColorRGBA,          // 2D,      32 BBP,     4 color channel
 		ColorXYZ,           // 3D,      24 BBP,     3 Coord channel
 		ColorXYZW,          // 3D,      32 BBP,     4 Coord channel, W is part of homogeneous coordinate, for Normalization
-		ColorXYZG,          // 3D,      32 BBP,     3 Coord channel and 1 color (Gray) channel
+		ColorXYZG,          // 3D,      32 BBP,     3 Coord channel and 1 color (Gray/Depth) channel
 		ColorXYZRGB,        // 3D,      48 BBP,     3 color channel and 3 Coord channel
 		ColorXYZWRGBA,      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
 	};
@@ -38,12 +38,14 @@ namespace sldip
 		inline int ChannelNumber() const { return GetChannelsNum( ColorType() ); }
 		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
+		inline BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }
 
 		inline void SetWidth(int width) { m_Width = width; }
 		inline void SetHeight(int height) { m_Height = height; }
 		inline void SetPitch(int pitch) { m_Pitch = pitch; }
 		inline void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
 		inline void SetImageColorType(SLImageColorType channels) { m_ImageColorType = channels; }
+		inline void SetLinearBufferEntry(BYTE* entry) { m_LinearBufferEntry = entry; }
 
 		void SetImageColorType(int channelNumber);
 
@@ -52,8 +54,11 @@ namespace sldip
 
 		int m_Width  = 0;
 		int m_Height = 0;
-		int m_Pitch  = 0;
+		int m_Pitch  = 0; // Or Stride, Length (in Bytes) of an image row in memory: Pitch =  NumRowPixels * BytesPerPixel + Padding
 		SLImageColorType m_ImageColorType = SLImageColorType::ColorUndefined;
+
+		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.
+		BYTE* m_LinearBufferEntry = nullptr;
 	};
 
 
