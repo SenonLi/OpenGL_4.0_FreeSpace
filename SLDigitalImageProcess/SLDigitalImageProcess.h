@@ -8,7 +8,7 @@ class SLImageObject;
 
 namespace sldip
 {
-	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& imageObject);
+	static GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& textureImage);
 
 	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
 

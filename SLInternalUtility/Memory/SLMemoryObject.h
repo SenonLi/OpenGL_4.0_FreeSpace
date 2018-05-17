@@ -34,7 +34,7 @@ namespace slutil
 		SLMemoryObject();
 		virtual ~SLMemoryObject() {};
 
-	private:
+	protected:
 		std::shared_ptr<SLMemoryBuffer> m_uptrBuffer;
 	};
 

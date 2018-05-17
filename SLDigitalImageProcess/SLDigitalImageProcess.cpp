@@ -20,17 +20,114 @@ namespace sldip
 	/// <summary>Read picture file from Disk, and upload to GPU [IN/OUT]</summary>
 	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
 	/// <param name="filePath">picture filePath + fileName</param>
-	/// <param name="imageObject">Save image information + buffer pointer [OUT]</param>
+	/// <param name="textureImage">Save image information + buffer pointer [OUT]</param>
 	/// <returns>TextureID of uploaded image </returns>
-	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& imageObject)
+	GLint UploadImageToGPUFromDisk(const TCHAR* filePath, SLImageObject& textureImage)
 	{	
 		assert(filePath && _tcsclen(filePath) != 0);
+		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
 
-		CImage image;
-		image.Load(filePath);
+		CImage sourceImage;
+		sourceImage.Load(filePath);
+		assert(!sourceImage.IsNull()); // failed to load image file
+
+		textureImage.SetWidth( sourceImage.GetWidth() );
+		textureImage.SetHeight( sourceImage.GetHeight() );
+		textureImage.SetPitch( sourceImage.GetPitch() );
+		textureImage.SetImageColorType( sourceImage.GetBPP() );
 
 
+		//int newBPP;
+		//if (imageBPP == 8)
+		//{
+		//	// will convert the image to 24BPP.
+		//	newBPP = 24;
+		//}
+		//else
+		//{
+		//	// will keep the original BPP.
+		//	newBPP = imageBPP;
+		//}
 
+		//// create new image with the new size and original image Bit Depth.
+		//CImage targetImage;
+		//targetImage.Create(imageWidth, imageHeight, newBPP);
+
+		//HDC hdc = targetImage.GetDC();
+		//if (resizeImage)
+		//{
+		//	SetStretchBltMode(hdc, COLORONCOLOR);
+		//	sourceImage.StretchBlt(hdc, 0, 0, imageWidth, imageHeight, SRCCOPY);
+		//}
+		//else
+		//{
+		//	sourceImage.BitBlt(hdc, 0, 0, SRCCOPY);
+		//}
+
+
+		//imagePitch = targetImage.GetPitch();
+		//imageWidth = targetImage.GetWidth();
+		//imageHeight = targetImage.GetHeight();
+		//imageBPP = targetImage.GetBPP();
+
+		//BYTE* bits = static_cast<BYTE*>(targetImage.GetBits());
+		//// The bitmap is a bottom-up DIB, move to the start address of the image data
+		//bits += (imageHeight - 1) * imagePitch;
+
+		//GLuint	texture = 0;
+		//glGenTextures(1, &texture);
+		//glBindTexture(GL_TEXTURE_2D, texture);
+
+		//if (imageBPP == 32)
+		//{
+		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
+		//}
+		//else if (imageBPP == 24)
+		//{
+		//	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, bits);
+		//	glPixelStorei(GL_UNPACK_ALIGNMENT, DEFAULT_PIXEL_STORAGE_PACKING);
+		//}
+		//else
+		//{
+		//	BUILDIT_ASSERT_MESSAGE(FALSE, _TEXT("unsupported BPP"));
+		//	if (resizeImage)
+		//	{
+		//		// clean up.
+		//		targetImage.ReleaseDC();
+		//	}
+		//	return 0;
+		//}
+
+		//GLenum error = glGetError();
+		//BUILDIT_ASSERT_MESSAGE(error == GL_NO_ERROR, _TEXT("invalid image texture"));
+
+		//// clean up.
+		//targetImage.ReleaseDC();
+
+		//if (GLExtensions::Instance().IsFrameBufferSupported())
+		//{
+		//	glGenerateMipmap(GL_TEXTURE_2D);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//	EnableAnisotropicTexture();
+		//}
+		//else
+		//{
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//}
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		//// check texture created
+		//if (glIsTexture(texture) == GL_TRUE && glGetError() == GL_NO_ERROR)
+		//{
+		//	return texture;
+		//}
+		//else
+		//{
+		//	return 0;
+		//}
+
+		return 0;
 	}
 
 
