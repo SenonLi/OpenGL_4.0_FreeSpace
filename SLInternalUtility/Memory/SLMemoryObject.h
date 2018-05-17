@@ -35,7 +35,7 @@ namespace slutil
 		virtual ~SLMemoryObject() {};
 
 	private:
-		std::unique_ptr<SLMemoryBuffer> m_uptrBuffer;
+		std::shared_ptr<SLMemoryBuffer> m_uptrBuffer;
 	};
 
 

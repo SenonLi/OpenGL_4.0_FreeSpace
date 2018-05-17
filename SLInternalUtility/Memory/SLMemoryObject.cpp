@@ -46,7 +46,7 @@ namespace slutil
 
 	SLMemoryObject::SLMemoryObject()
 	{
-		m_uptrBuffer = std::make_unique<SLMemoryBuffer>();
+		m_uptrBuffer = std::make_shared<SLMemoryBuffer>();
 	}
 
 
