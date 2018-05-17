@@ -12,6 +12,8 @@ namespace sldip
 	static const float VALID_HISTOGRAM_FLOOR_RATIO = 0.125f;
 	static const float VALID_HISTOGRAM_CEIL_RATIO = 0.875f;
 
+	static void SaveToImageFile(const CImage& imageLoader, const TCHAR* filePath, GUID imageType);
+	
 	static SLImageParam& LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
 	static void UploadLinearImageToGPU(SLImageParam& textureParam);
 

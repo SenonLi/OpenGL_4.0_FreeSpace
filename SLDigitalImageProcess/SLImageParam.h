@@ -13,6 +13,13 @@ namespace sldip
 	static const int CHANNEL_NUM_ColorXYZG      = 4;
 	static const int CHANNEL_NUM_ColorXYZRGB    = 6;
 	static const int CHANNEL_NUM_ColorXYZWRGBA  = 8;
+	
+	enum SLImageFileType
+	{
+		IMAGE_BMP,          // Gdiplus::ImageFormatBMP
+		IMAGE_JPG,          // Gdiplus::ImageFormatJPEG
+		IMAGE_PNG,          // Gdiplus::ImageFormatPNG
+	};
 
 	enum SLImageColorType
 	{

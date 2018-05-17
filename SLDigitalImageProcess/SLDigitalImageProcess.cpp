@@ -27,6 +27,15 @@ void SLDigitalImageProcess::initialBackgroundTexture()
 
 namespace sldip
 {
+	/// <summary>Save CImage To Disk Image File </summary>
+	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
+	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
+	/// <param name="filePath">picture filePath + fileName</param>
+	void SaveToImageFile(const CImage& imageLoader, const TCHAR* filePath, GUID imageType)
+	{
+
+	}
+
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
 	/// <remarks> Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration
 	///               Designed to upload CPU-Processed image, which has to be linear     </remarks>
@@ -72,7 +81,7 @@ namespace sldip
 	}
 
 	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
-	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
+	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
 	/// <returns>Image information, except Mapped GPU TextureID  </returns>
@@ -102,7 +111,7 @@ namespace sldip
 	}
 
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
-	/// <remakrs>CImage can process *.bmp, *.png or *.jpg </remakrs>
+	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
 	/// <returns>Image information with Mapped GPU TextureID  </returns>
