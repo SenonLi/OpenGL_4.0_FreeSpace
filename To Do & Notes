@@ -18,6 +18,10 @@ Library:
 1. sldip   -> SLDigitalImageProcess
 2. slgeom  -> Geometry
 
+## Handle TCHAR
+	pathLength = swprintf_s(finalPath, 200, L"String:    %s\n", s);
+	pathLength += swprintf_s(finalPath + pathLength, 200 - pathLength, _T("Character: %c\n"), c);
+
 ## Sort of CImage is GdiPlus and CBitmap is MFC. You can do something like this:
 In GDI, all DIBs are bottom-up.
 CBitmap bmp;  

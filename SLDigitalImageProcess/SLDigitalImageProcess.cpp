@@ -6,15 +6,17 @@
 void SLDigitalImageProcess::PreImageProcess()
 {
 	m_ImagePath = _T("../WatchMe/Images/Einstein.jpg");
-	
+	std::wstring saveFolderPath = _T("C:/Developer/Processed Images/");
+
 	// Get basic image info
 	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
 
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
 
+	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
 	sldip::HistorgramEqualization(m_ImageParam.LinearBufferEntry(), m_ImageParam.Width(), m_ImageParam.Height(), m_ImageParam.ChannelNumber());
-
+	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
 }
 
 void SLDigitalImageProcess::initialBackgroundTexture()
@@ -31,9 +33,14 @@ namespace sldip
 	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
-	void SaveToImageFile(const CImage& imageLoader, const TCHAR* filePath, GUID imageType)
+	void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType)
 	{
-
+		HRESULT result = imageLoader.Save(filePath.c_str(), imageType);
+		assert(SUCCEEDED(result));
+	}
+	void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType)
+	{
+		SaveToImageFile(imageLoader, (folderPath + fileName), imageType);
 	}
 
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
