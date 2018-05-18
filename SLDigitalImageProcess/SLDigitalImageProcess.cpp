@@ -10,12 +10,12 @@ void SLDigitalImageProcess::PreImageProcess()
 
 	// Get basic image info
 	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
-
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
 
+	// Process Images
 	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
-	sldip::HistorgramEqualization(m_ImageParam.LinearBufferEntry(), m_ImageParam.Width(), m_ImageParam.Height(), m_ImageParam.ChannelNumber());
+	sldip::HistorgramEqualization(m_ImageParam);
 	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
 }
 
@@ -135,54 +135,60 @@ namespace sldip
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <param name="image">Beginning address of image buffer [IN/OUT]</param>
 	/// <param name="channels">RGBA, or RGB, or R</param>
-	void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels)
+	void HistorgramEqualization(const SLImageParam& textureParam)
 	{
-		assert(image);
-		int cdf[256];
+		BYTE* imageBufferEntry = textureParam.LinearBufferEntry();
+		assert(imageBufferEntry);
+		int imageWidth = textureParam.Width();
+		int imageHeight = textureParam.Height();
+		int imageChannels = textureParam.ChannelNumber();
+		int imageAbsPitch = textureParam.PitchAbsolute();
+
+		int cdf[CPU_TOTAL_GRAY_LEVEL]; // Array of Cumulative Distributive Function at each gray level
 		std::memset(cdf, 0, sizeof(cdf));
 
 		// Get Cumulative Distributive Function
-		for (int row = 0; row < imageHeight; ++row)
-		{
-			for (int column = 0; column < imageWidth; ++column)
-			{
-				int pixelGrayLevel = image[(row * imageWidth + column) * channels]; // grayLevel == pixel intensity == Red
+		for (int row = 0; row < imageHeight; ++row)	{
+			for (int column = 0; column < imageWidth; ++column)	{
+				int pixelGrayLevel = imageBufferEntry[row * imageAbsPitch + column * imageChannels]; // grayLevel == pixel intensity == Red
 				cdf[pixelGrayLevel] += 1;
 			}
 		}
 		// find valid min and max of grayLevel
 		int minValidGrayLevel = 0;
-		int maxValidGrayLevel = 256;
+		int maxValidGrayLevel = CPU_TOTAL_GRAY_LEVEL;
 		int sumCDF = 0;
-		float totalPixel = imageWidth * imageHeight * 1.0;
-		for (int grayLevel = 0; grayLevel < 256; ++grayLevel)
+		float totalPixel = imageWidth * imageHeight * 1.0f;
+		for (int grayLevel = 0; grayLevel < CPU_TOTAL_GRAY_LEVEL; ++grayLevel)
 		{
 			sumCDF += cdf[grayLevel];
-			float lambda = sumCDF / totalPixel;// (imageWidth * imageHeight);
-			if (lambda < VALID_HISTOGRAM_FLOOR_RATIO)
-				minValidGrayLevel = grayLevel;
-			else if (lambda < VALID_HISTOGRAM_CEIL_RATIO)
-				maxValidGrayLevel = grayLevel;
+			float lambda = sumCDF / totalPixel;
+			if      (lambda < VALID_HISTOGRAM_FLOOR_RATIO)          minValidGrayLevel = grayLevel;
+			else if (lambda < VALID_HISTOGRAM_CEIL_RATIO)           maxValidGrayLevel = grayLevel;
 		}
-		// re-scale image
-		for (int row = 0; row < imageHeight; ++row)
-			for (int column = 0; column < imageWidth; ++column)
-			{
+		// Re-scale imageBufferEntry
+		for (int row = 0; row < imageHeight; ++row) {
+			for (int column = 0; column < imageWidth; ++column)	{
 					// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
-					int pixelIndex = row * imageWidth + column;
-					unsigned int oldIntensity = image[pixelIndex * channels];
-					unsigned int newIntensity = 0;
-					if (oldIntensity <= minValidGrayLevel)
-						newIntensity = 0;
-					else if (oldIntensity > maxValidGrayLevel)
-						newIntensity = 255;
-					else
-					{
-						newIntensity = 255 * (oldIntensity - minValidGrayLevel) / (maxValidGrayLevel - minValidGrayLevel);
+					int curPixelEntry = row * imageAbsPitch + column * imageChannels;
+					unsigned int oldIntensity = imageBufferEntry[curPixelEntry];
+					unsigned int newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK;
+
+					// Calculate New gray-scaled Color Intensity
+					if (oldIntensity <= minValidGrayLevel) {
+						newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK;
+					}else if (oldIntensity > maxValidGrayLevel) {
+						newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE;
+					}else {
+						newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE * (oldIntensity - minValidGrayLevel) / (maxValidGrayLevel - minValidGrayLevel);
 					}
-					for (int i = 0; i < channels; ++i)
-						image[pixelIndex * channels + i] = newIntensity;
+
+					// Assign New gray-scaled Color Intensity
+					for (int i = 0; i < imageChannels; ++i) {
+						imageBufferEntry[curPixelEntry + i] = newIntensity;
+					}
 			}
+		}
 	}
 } // end of namespace sldip
 

@@ -42,6 +42,7 @@ namespace sldip
 		inline int Width()      const { return m_Width; }
 		inline int Height()     const { return m_Height; }
 		inline int Pitch()      const { return m_Pitch; }
+		inline int PitchAbsolute()      const { return std::abs(m_Pitch); }
 		inline int ChannelNumber() const { return GetChannelsNum( ColorType() ); }
 		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
@@ -61,7 +62,9 @@ namespace sldip
 
 		int m_Width  = 0;
 		int m_Height = 0;
-		int m_Pitch  = 0; // Or Stride, Length (in Bytes) of an image row in memory: Pitch =  NumRowPixels * BytesPerPixel + Padding
+		/// <summary>Or Stride, Length (in Bytes) of an image row in memory: Pitch =  NumRowPixels * BytesPerPixel + Padding </summary>
+		/// <remarks>In GDI library, where all DIBs (CImage) are bottom-up, m_Pitch may always be negative <remarks>
+		int m_Pitch  = 0;
 		SLImageColorType m_ImageColorType = SLImageColorType::ColorUndefined;
 
 		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.

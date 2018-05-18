@@ -9,6 +9,8 @@ namespace sldip
 	class SLImageParam;
 
 	static const int CPU_TOTAL_GRAY_LEVEL = 256;
+	static const unsigned int CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK = 0x00;
+	static const unsigned int CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE = 0xFF;
 	static const float VALID_HISTOGRAM_FLOOR_RATIO = 0.125f;
 	static const float VALID_HISTOGRAM_CEIL_RATIO = 0.875f;
 
@@ -19,7 +21,7 @@ namespace sldip
 	static void UploadLinearImageToGPU(SLImageParam& textureParam);
 
 	static SLImageParam& UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath);
-	static void HistorgramEqualization(unsigned char* image, int imageWidth, int imageHeight, int channels);
+	static void HistorgramEqualization(const SLImageParam& textureParam);
 
 
 }; // end of namespace DIP
