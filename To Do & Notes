@@ -4,19 +4,50 @@ but the final aim should be an engine / graphic library with enough 3D metrology
 vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI engine and Qt GUI engine.
 0.2 When implementing Qt ui libarary, try to put Qt lirbaries into GraphicUsr to get rid of Qt tools.
 
-1. load and show image using CImage; the main point is to learn how to manipulate image memory.
+1. Learn how to use Git Tag.
 2. Add QImage Support with library in GraphicUsr into SLDigitalImageProcess library.
 3. vsSenOpenGL -> Project Properties -> General -> Project Defaults -> Character Set -> Use Unicode Character Set
 4. Set up the highest Warning -> Error compiler, and fix all the errors!
-
 5.0 Change project vsSenOpenGL to SLGLFW3DPlayer that can refer SLInternalUtility and SLDigitalImageProcess libraries.
-5. Add QImage support into SLQt3DPlayer;
+
+window_QT.h 
+#define QT_WINDOWS_H
+-------------------------------------------------------------------------------------------------------------------------------------------
+* Libs Requirements:
+
+* Qt5Testd.lib          // QTest
+* Qt5Cored.lib          // qt_assert, qBadAlloc, qFlagLocation, QArrayData, QByteArray, QChar, QCoreApplication, QDate, QDebug, QEvent,
+*                       // QFile, QFileDevice, QFileInfo, QFutureInterfaceBase, QGenericArgument, QGenericReturnArgument, QLineF,
+*                       // QListData, QMapDataBase, QMapNodeBase, QMessageLogger, QMetaObject, QMutex, QMutexLocker, QObject, QPoint,
+*                       // QPointF, QRect, QRectF, QReturnArgument, QRunnable, QSettings, QSize, QString, QThread, QThreadPool, QTimer,
+*                       // QUnhandledException, QVariant, QVarLengthArray, QWaitCondition, QtPrivate, QtSharedPointer.
+* -----------------------------------------------------------------------------------------------------------------------------------------
+* Qt5Guid.lib           // QCursor, QFlags, QFont, QFontMetrics, QIcon, QImage, QKeyEvent, QKeySequence, QBrush, QPainter, QPen, QPixmap,
+*                       // QPoint, QRegion, QSize, QTransform, QWheelEvent,
+* -----------------------------------------------------------------------------------------------------------------------------------------
+* Qt5OpenGLd.lib        // QGLWidget
+
+* Qt5Widgetsd.lib       // QAbstractButton, QAbstractSlider, QAbstractScrollArea, QAction, QApplication, QBoxLayout,
+*                       // QButtonGroup, QCheckBox, QFileDialog, QFrame, QGraphicsView, QHBoxLayout, QInputDialog, QLabel,
+*                       // QLayout, QLayoutItem, QList, QMenu, QPaintDevice, QPushButton, QRadioButton, QShortcut,
+*                       // QSlider, QStatusBar, QToolBar, QWidget
+
+
+5. Add QImage support into SLQt3DPlayer; And replace all CImage with template application of SLImage
 6. Add Linux support!
 
 Library:
 0. slutil  -> SLInternalUtility;     Handle memory, string, and other related base class
 1. sldip   -> SLDigitalImageProcess
 2. slgeom  -> Geometry
+
+## Unicode binary 3rd Libraries:
+OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling the OpenCV library !!!
+1. Change Modules library to static (lib);
+2. Change Modules target extension to .lib;
+3. Change C++ Code Generation -> Runtime Library -> Multi-threaded Debug DLL (/MDd);
+4. Make sure Modules output folder is where the test_examples are looking for.
+
 
 ## Handle TCHAR
 	pathLength = swprintf_s(finalPath, 200, L"String:    %s\n", s);

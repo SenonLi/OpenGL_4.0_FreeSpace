@@ -47,6 +47,7 @@ namespace sldip
 		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
 		inline BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }
+		inline bool IsImageBufferNull() const { return (m_LinearBufferEntry == nullptr); }
 
 		inline void SetWidth(int width) { m_Width = width; }
 		inline void SetHeight(int height) { m_Height = height; }
@@ -68,6 +69,7 @@ namespace sldip
 		SLImageColorType m_ImageColorType = SLImageColorType::ColorUndefined;
 
 		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.
+		// Just an EntryAddress, not responsible for allocate/deallocate
 		BYTE* m_LinearBufferEntry = nullptr;
 	};
 
