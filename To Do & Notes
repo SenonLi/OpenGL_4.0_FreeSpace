@@ -10,6 +10,10 @@ vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI 
 4. Set up the highest Warning -> Error compiler, and fix all the errors!
 5.0 Change project vsSenOpenGL to SLGLFW3DPlayer that can refer SLInternalUtility and SLDigitalImageProcess libraries.
 
+5. Add QImage support into SLQt3DPlayer; And replace all CImage with template application of SLImage
+6. Add Linux support!
+
+
 window_QT.h 
 #define QT_WINDOWS_H
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,21 +36,51 @@ window_QT.h
 *                       // QLayout, QLayoutItem, QList, QMenu, QPaintDevice, QPushButton, QRadioButton, QShortcut,
 *                       // QSlider, QStatusBar, QToolBar, QWidget
 
+## How to add Qt Libraries into a Visual Studio project:
+### Need to change from Win32Proj to Qt4VSv1.0 !!!
+1. Install QT Add In  "QT VS TOOLS",
+		TOOLS -> Extensions and Updates -> Online -> search for "Qt" -> Install "Qt Visual Studio Tools".
+2. Right click the project to which you want add Qt elements, select "Unload project";
+3. Right click the Unloaded project -> Edit *.vcxproj ;
+4. Seach for <PropertyGroup Label="Globals">, and change 
+		<keyword>Win32Proj</keyword>
+		to
+		<keyword>Qt4VSv1.0</keyword>
 
-5. Add QImage support into SLQt3DPlayer; And replace all CImage with template application of SLImage
-6. Add Linux support!
+### Set Up the new Qt Project in Visual Studio, 
+though it won't seem the same way as the Qt Projects created from the beginning in Visual Studio;
+1. Right click project -> Reload project;
+2. Right click project -> "Set as Startup Project";
+3. Select the project -> "QT VS TOOLS" -> "Convert Project to Qt VS Tools Project"
+		-> Click "Yes" when asking "Do you really want to convert the selected project", 
+		be careful selected the right one, because in this step, QT VS TOOLS will help you further change your *.vcxproj;
+4. "QT VS TOOLS" -> set your new Qt project's "Qt Project Settings":
+		e.g., (sample) contours2, go to tab "Qt Modules" -> check "Core";
+5. set up your include folder and lib folder: in step 4, after check "Core", "QT VS TOOLS" will automatically help you add
+		$(QTDIR)\include\QtCore to your Additional Include Directories, however, not enough;
+		you still need to add the Qt libraries folder:
+		e.g., Add "$(QTDIR)\lib" to Linker -> General -> Additional Library Directories;
+6. Now, time to run :).
+7. From others' tip:
+		In each of your class derived from Q_OBJECT, delete the Q_OBJECT macro, save the file,
+		return the Q_OBJECT macro (Ctrl+Z) and save again. It adds the 'moc' files to your generated files folder.
+
+
 
 Library:
 0. slutil  -> SLInternalUtility;     Handle memory, string, and other related base class
 1. sldip   -> SLDigitalImageProcess
 2. slgeom  -> Geometry
 
-## Unicode binary 3rd Libraries:
+## No way to change 3rd party souce code from Multi-Byte Character Set to Unicode Character Set:
 OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling the OpenCV library !!!
-1. Change Modules library to static (lib);
-2. Change Modules target extension to .lib;
-3. Change C++ Code Generation -> Runtime Library -> Multi-threaded Debug DLL (/MDd);
-4. Make sure Modules output folder is where the test_examples are looking for.
+0. Use OpenCV in Python script, need to copy opencv_world341.dll into the script folder.!!!
+1. Have to build dynamic dll modules, as were already set up, in order to successfully compile test/examples;
+2. Have to choose World (combined) module in order to get samples projects;
+   if it were set as dll libraries, hard to change to static while make all examples work;
+4. Make sure the settings are correct (usually is): C++ Code Generation -> Runtime Library -> Multi-threaded Debug DLL (/MDd);
+5. Make sure Modules output folder is where the test_examples are looking for.
+
 
 
 ## Handle TCHAR

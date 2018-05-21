@@ -6,7 +6,7 @@
 void SLDigitalImageProcess::PreImageProcess()
 {
 	m_ImagePath = _T("../WatchMe/Images/Einstein.jpg");
-	std::wstring saveFolderPath = _T("C:/Developer/Processed Images/");
+	std::wstring saveFolderPath = _T("../../../../Developer/Processed Images/");
 
 	// Get basic image info
 	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
