@@ -74,7 +74,7 @@ Library:
 
 ## No way to change 3rd party souce code from Multi-Byte Character Set to Unicode Character Set:
 OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling the OpenCV library !!!
-0. Use OpenCV in Python script, need to copy opencv_world341.dll into the script folder.!!!
+0. OpenCV_Python script can only be built on Release mode, and need Python, Numpy be found automatically.!!!
 1. Have to build dynamic dll modules, as were already set up, in order to successfully compile test/examples;
 2. Have to choose World (combined) module in order to get samples projects;
    if it were set as dll libraries, hard to change to static while make all examples work;
