@@ -8,19 +8,19 @@ namespace slutil
 { 
 	class SLMemoryBuffer
 	{
+
 	public:
 		~SLMemoryBuffer();
-
 		void AllocateAlignedMemory();
 
 	private:
 		/// <remarks>m_InstanceCounter will only count when </remarks>
 		static int m_InstanceCounter;
-		unsigned long long m_TotalBytes = 0;
-		size_t m_MemoryAlignment = 16;
 		void* m_Buffer = nullptr;
+		size_t m_MemoryAlignment = 16;
+		size_t m_TotalBytes = 0;
 
-		static const int SLMemoryAllocationSafetyOffset = 128;
+		static const size_t SLMemoryAllocationSafetyOffset = 128;// Same type with m_TotalBytes
 	};
 
 	//--------------------------- SLMemoryBuffer -----------------------------------------------------------------

@@ -75,27 +75,27 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
-    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2017\Lib32;C:\SenGraphicsUsr\VS2017\Lib32\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
+    <LibraryPath>S:\SenOpenGLusr\Lib32;S:\SenGraphicsUsr\VS2017\Lib32;S:\SenGraphicsUsr\VS2017\Lib32\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2017\Lib;C:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
+    <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SenOpenGLusr\Lib32;C:\SenGraphicsUsr\VS2017\Lib32;C:\SenGraphicsUsr\VS2017\Lib32\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
+    <LibraryPath>S:\SenOpenGLusr\Lib32;S:\SenGraphicsUsr\VS2017\Lib32;S:\SenGraphicsUsr\VS2017\Lib32\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\SenOpenGLusr\Include;C:\SenGraphicsUsr\Include;C:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SenOpenGLusr\Lib;C:\SenGraphicsUsr\VS2017\Lib;C:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(IncludePath)</IncludePath>
+    <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
@@ -107,12 +107,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>S:\OpenCV3\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>S:\OpenCV3\Lib32\3rd_Party\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,12 +125,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>S:\OpenCV3\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>S:\OpenCV3\Lib\3rd_Party\Debug;S:\OpenCV3\Lib\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,14 +145,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>S:\OpenCV3\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib; opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>S:\OpenCV3\Lib32\3rd_Party\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,14 +167,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>S:\OpenCV3\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>freetyped.lib;SOIL.lib;glew32s.lib; glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>S:\OpenCV3\Lib\3rd_Party\Release;S:\OpenCV3\Lib\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -178,6 +186,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SLImageParam.cpp" />
+    <ClCompile Include="SLOpenCVSamples.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -203,6 +212,7 @@
     <ClInclude Include="SLCaptured.h" />
     <ClInclude Include="SLDigitalImageProcess.h" />
     <ClInclude Include="SLImageParam.h" />
+    <ClInclude Include="SLOpenCVSamples.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
