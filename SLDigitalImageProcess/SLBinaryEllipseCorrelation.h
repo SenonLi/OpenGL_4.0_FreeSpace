@@ -11,23 +11,21 @@ namespace slopencv
 	class SLBinaryEllipseCorrelation
 	{
 	public:
-		SLBinaryEllipseCorrelation() {
-			window_name = "Smoothing Demo";
-		};
-
 		int DELAY_CAPTION = 1500;
-		int DELAY_BLUR = 100;
+		int DELAY_BLUR = 400;
 		int MAX_KERNEL_LENGTH = 31;
 
-		int showWidget();
+		void ShowWidget();
 
 	private:
+		void ShowGaussianAdaptiveThresholding();
 		int display_caption(const char* caption);
-		int display_dst(int delay);
+		int display_dst(const char* windowName, int delay);
 
-		char* window_name;
-		cv::Mat src;
-		cv::Mat dst;
+		const char* m_FileName = "../WatchMe/Images/poor_3.bmp";
+
+		cv::Mat m_Src;
+		cv::Mat m_Dst;
 	};
 
 }

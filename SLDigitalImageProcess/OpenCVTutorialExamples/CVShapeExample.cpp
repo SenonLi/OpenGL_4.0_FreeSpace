@@ -109,3 +109,11 @@ int CVShapeExample::showWidget(int argc, char *argv[])
 
 	return 0;
 }
+
+int main_(int argc, char *argv[])
+{
+	CVShapeExample cameraWidget;
+	cameraWidget.showWidget(argc, argv);
+
+	return 1;
+}
