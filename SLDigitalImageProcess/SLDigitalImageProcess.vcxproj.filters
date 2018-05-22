@@ -36,13 +36,16 @@
     <ClCompile Include="SLCaptured.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SLOpenCVSamples.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OpenCVTutorialExamples\CVSmoothing.cpp">
       <Filter>Source Files\OpenCVTutorialSamples</Filter>
     </ClCompile>
     <ClCompile Include="OpenCVTutorialExamples\CVThreshold.cpp">
+      <Filter>Source Files\OpenCVTutorialSamples</Filter>
+    </ClCompile>
+    <ClCompile Include="SLBinaryEllipseCorrelation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVTutorialExamples\CVShapeExample.cpp">
       <Filter>Source Files\OpenCVTutorialSamples</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,13 +65,16 @@
     <ClInclude Include="SLCaptured.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SLOpenCVSamples.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVSmoothing.h">
       <Filter>Header Files\OpenCVTutorialSamples</Filter>
     </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVThreshold.h">
+      <Filter>Header Files\OpenCVTutorialSamples</Filter>
+    </ClInclude>
+    <ClInclude Include="SLBinaryEllipseCorrelation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVTutorialExamples\CVShapeExample.h">
       <Filter>Header Files\OpenCVTutorialSamples</Filter>
     </ClInclude>
   </ItemGroup>

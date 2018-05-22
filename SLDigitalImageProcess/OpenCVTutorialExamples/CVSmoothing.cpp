@@ -53,14 +53,14 @@ int CVSmoothing::showWidget()
 		if (display_dst(DELAY_BLUR) != 0) { return 0; }
 	}
 
-	///// Applying Median blur
-	//if (display_caption("Median Blur") != 0) { return 0; }
-	////![medianblur]
-	//for (int i = 1; i < MAX_KERNEL_LENGTH; i = i + 2)
-	//{
-	//	medianBlur(src, dst, i);
-	//	if (display_dst(DELAY_BLUR) != 0) { return 0; }
-	//}
+	/// Applying Median blur
+	if (display_caption("Median Blur") != 0) { return 0; }
+	//![medianblur]
+	for (int i = 1; i < MAX_KERNEL_LENGTH; i = i + 2)
+	{
+		medianBlur(src, dst, i);
+		if (display_dst(DELAY_BLUR) != 0) { return 0; }
+	}
 
 	/// Applying Bilateral Filter
 	if (display_caption("Bilateral Blur") != 0) { return 0; }
