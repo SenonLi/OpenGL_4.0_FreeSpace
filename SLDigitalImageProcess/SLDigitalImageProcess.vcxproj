@@ -112,9 +112,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;/NODEFAULTLIB:libcmt.lib;freetyped.lib;SOIL.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\OpenCV3\Lib32\3rd_Party\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,9 +130,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;/NODEFAULTLIB:libcmt.lib;freetyped.lib;SOIL.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\OpenCV3\Lib\3rd_Party\Debug;S:\OpenCV3\Lib\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib\SOIL;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\SenGraphicsUsr\VS2017\Lib\FreeType;S:\OpenCV3\Lib\3rd_Party\Debug;S:\OpenCV3\Lib\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -152,9 +152,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;/NODEFAULTLIB:libcmt.lib;/NODEFAULTLIB:msvcrtd.lib;freetyped.lib;SOIL.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\OpenCV3\Lib32\3rd_Party\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,9 +174,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;freetyped.lib;SOIL.lib;glew32s.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;/NODEFAULTLIB:libcmt.lib;/NODEFAULTLIB:msvcrtd.lib;freetyped.lib;SOIL.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\OpenCV3\Lib\3rd_Party\Release;S:\OpenCV3\Lib\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib\SOIL;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\SenGraphicsUsr\VS2017\Lib\FreeType;S:\OpenCV3\Lib\3rd_Party\Release;S:\OpenCV3\Lib\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
