@@ -114,7 +114,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zlibd.lib;libjpegd.lib;libpngd.lib;libtiffd.lib;opencv_world341d.lib;/NODEFAULTLIB:libcmt.lib;freetyped.lib;SOIL.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;S:\OpenCV3\Lib32\LeastCombinedStatic\opencv_world_dir\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,7 +154,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zlib.lib;libjpeg.lib;libpng.lib;libtiff.lib;opencv_world341.lib;/NODEFAULTLIB:libcmt.lib;/NODEFAULTLIB:msvcrtd.lib;freetyped.lib;SOIL.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\SOIL;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\SenGraphicsUsr\VS2017\Lib32\FreeType;S:\OpenCV3\Lib32\3rd_Party\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\LeastCombinedStatic\opencv_world_dir\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,6 +180,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="OpenCVTutorialExamples\CVSmoothing.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="OpenCVTutorialExamples\CVThreshold.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="SLCaptured.cpp" />
     <ClCompile Include="SLDigitalImageProcess.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -209,6 +237,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OpenCVTutorialExamples\CVSmoothing.h" />
+    <ClInclude Include="OpenCVTutorialExamples\CVThreshold.h" />
     <ClInclude Include="SLCaptured.h" />
     <ClInclude Include="SLDigitalImageProcess.h" />
     <ClInclude Include="SLImageParam.h" />

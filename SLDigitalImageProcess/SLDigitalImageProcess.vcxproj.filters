@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\OpenCVTutorialSamples">
+      <UniqueIdentifier>{a7b62b73-923f-4c3b-9d0e-6c7e389c1f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OpenCVTutorialSamples">
+      <UniqueIdentifier>{d69e9f19-1e03-45b7-8fe3-49a7e9e66412}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -33,6 +39,12 @@
     <ClCompile Include="SLOpenCVSamples.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OpenCVTutorialExamples\CVSmoothing.cpp">
+      <Filter>Source Files\OpenCVTutorialSamples</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVTutorialExamples\CVThreshold.cpp">
+      <Filter>Source Files\OpenCVTutorialSamples</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -52,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="SLOpenCVSamples.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVTutorialExamples\CVSmoothing.h">
+      <Filter>Header Files\OpenCVTutorialSamples</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVTutorialExamples\CVThreshold.h">
+      <Filter>Header Files\OpenCVTutorialSamples</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
