@@ -30,11 +30,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</OutDir>
-    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)</IntDir>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
