@@ -26,7 +26,7 @@ void CVFindContours::ShowWidget()
 	cv::namedWindow(source_window, cv::WINDOW_AUTOSIZE);
 	cv::imshow(source_window, m_Src);
 
-	cv::createTrackbar(" Canny thresh:", "Source", &thresh, max_thresh, FunPtrThreshCallBack);
+	cv::createTrackbar(" Canny m_ThreshValue:", "Source", &m_ThreshValue, max_thresh, FunPtrThreshCallBack);
 	ThreshCallBack(0, nullptr);
 
 	cv::waitKey(0);
@@ -39,16 +39,16 @@ void CVFindContours::ThreshCallBack(int /*pos*/, void* /*userData*/)
 	std::vector<cv::Vec4i> hierarchy;
 
 	/// Detect edges using canny
-	cv::Canny(m_SrcGray, canny_output, thresh, thresh * 2, 3);
+	cv::Canny(m_SrcGray, canny_output, m_ThreshValue, m_ThreshValue * 2, 3);
 	/// Find contours
-	cv::findContours(canny_output, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+	cv::findContours(canny_output, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
 
 	/// Draw contours
 	cv::Mat drawing = cv::Mat::zeros(canny_output.size(), CV_8UC3);
 	for (size_t i = 0; i< contours.size(); i++)
 	{
 		cv::Scalar color = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		drawContours(drawing, contours, (int)i, color, 2, 8, hierarchy, 0, cv::Point());
+		cv::drawContours(drawing, contours, (int)i, color, 2, 8, hierarchy, 0);
 	}
 
 	/// Show in a window

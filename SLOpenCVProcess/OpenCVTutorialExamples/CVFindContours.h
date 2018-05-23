@@ -14,7 +14,7 @@ public:
 private:
 	cv::Mat m_Src; 
 	cv::Mat m_SrcGray;
-	int thresh = 100;
+	int m_ThreshValue = 100;
 	int max_thresh = 255;
 	cv::RNG rng = 12345;
 
