@@ -32,8 +32,11 @@ namespace slopencv
 		int m_ImageFlags = cv::WINDOW_NORMAL;
 		const char* m_ConstWindowName = "To Extract Ellipse";
 		const char* m_OriginalWindowName = "Original";
-		const char* m_FileName = "../WatchMe/Images/poor_3.bmp";
-		//const char* m_FileName = "../WatchMe/Images/perfect_2.bmp";
+		
+		const std::string m_ImagePath = "../WatchMe/Images/";
+		const std::string m_ImageExtension = ".bmp";
+		const std::string m_ImageName = "poor_3";
+		//const std::string m_ImageName = "perfect_2";
 
 		cv::Mat m_Src;
 		cv::Mat m_SrcRGB;

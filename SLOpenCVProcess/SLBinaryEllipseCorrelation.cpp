@@ -74,7 +74,7 @@ namespace slopencv
 		{
 			if (m_Hierarchy[i][3] == 0)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_RED, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_BLUE, 2, 8, m_Hierarchy, 0);
 				if (m_Contours[i].size() > maxEllipseContourSize)
 				{
 					maxEllipseContourSize = m_Contours[i].size();
@@ -84,12 +84,12 @@ namespace slopencv
 			}
 			else if (m_Hierarchy[i][3] == 1)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_BLUE, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_YELLOW, 2, 8, m_Hierarchy, 0);
 				levelOneCount++;
 			}
 			else if (m_Hierarchy[i][3] == 2)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_YELLOW, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_CYAN, 2, 8, m_Hierarchy, 0);
 				levelTwoCount++;
 			}
 		}
@@ -106,19 +106,24 @@ namespace slopencv
 
 			cvtColor(m_Dst, m_DstRGB, cv::COLOR_GRAY2RGB);
 
+			cv::putText(m_DstRGB, "Best-Fit",
+				cv::Point2f(ellipseRotatedRect.center.x - 35, ellipseRotatedRect.center.y - 20),
+				cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 			cv::putText(m_DstRGB, "Ellipse",
-				cv::Point(m_DstRGB.cols / 4, m_DstRGB.rows / 2),
-				cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(64, 0, 255));
+				cv::Point2f(ellipseRotatedRect.center.x - 35, ellipseRotatedRect.center.y - 00),
+				cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 
-			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_CYAN, 2, 8);
+			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_RED, 2, 8);
 			cv::imshow(m_ConstWindowName, m_DstRGB);
+
+			cv::imwrite(m_ImagePath + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
 		}
 
 	}
 
 	void SLBinaryEllipseCorrelation::ShowWidget()
 	{
-		m_Src = cv::imread(m_FileName, cv::IMREAD_GRAYSCALE);
+		m_Src = cv::imread(m_ImagePath + m_ImageName + m_ImageExtension, cv::IMREAD_GRAYSCALE);
 		assert(!m_Src.empty());
 
 		// Histogram-Equalize Image and show it
