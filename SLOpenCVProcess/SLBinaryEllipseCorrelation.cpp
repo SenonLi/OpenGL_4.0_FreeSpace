@@ -110,7 +110,7 @@ namespace slopencv
 				cv::Point(m_DstRGB.cols / 4, m_DstRGB.rows / 2),
 				cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(64, 0, 255));
 
-			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_, 2, 8);
+			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_CYAN, 2, 8);
 			cv::imshow(m_ConstWindowName, m_DstRGB);
 		}
 
