@@ -3,6 +3,26 @@
 but the final aim should be an engine / graphic library with enough 3D metrology functions.
 vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI engine and Qt GUI engine.
 0.2 When implementing Qt ui libarary, try to put Qt lirbaries into GraphicUsr to get rid of Qt tools.
+0.3 Add Draw Circle in SLGeometry library
+----------------------------------------------------------------------------------------------------------------------
+Draw Circle Curve flow:
+
+void DataView::RefreshView()
+void DataView::Prepare3dRendering(GLuint width, GLuint height)
+
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\SceneManager.cpp
+void SceneManager::Prepare3dRendering(DataView* view)
+	void SetupDisplay(DataView* view)
+	void UpdateRenderableEntries(DataView* view)
+	void InitRenderableEntries(DataView* view)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\EntityRendererManager.h
+	template <typename FUNC>	void ForEach(FUNC&& func)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\SceneManager.cpp
+		void InitRenderableEntries(DataView* view)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\CurveRenderer.cpp
+void CurveRenderer::Update(DataView* /*viewport*/)
+
+----------------------------------------------------------------------------------------------------------------------
 
 1. Learn how to use Git Tag.
 2. Add QImage Support with library in GraphicUsr into SLDigitalImageProcess library.
@@ -12,7 +32,6 @@ vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI 
 
 5. Add QImage support into SLQt3DPlayer; And replace all CImage with template application of SLImage
 6. Add Linux support!
-
 
 window_QT.h 
 #define QT_WINDOWS_H

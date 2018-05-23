@@ -37,9 +37,6 @@ namespace sldip
 		int imageHeight = textureParam.Height();
 		int imageChannels = textureParam.ChannelNumber();
 		int imageAbsPitch = textureParam.PitchAbsolute();
-
-
-
 	}// End of MeanFilterBlur
 
 	void GaussianFilterBlur(SLImageParam& textureParam)

@@ -20,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLInternalUtility", "SLInte
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLOpenCVProcess", "SLOpenCVProcess\SLOpenCVProcess.vcxproj", "{8BDA7646-D78E-4BC1-A47A-1F738AD56464}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Optional", "Optional", "{F567DADB-11D6-4B0A-A459-39C71370BB93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -77,6 +79,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B12702AD-ABFB-343A-A199-8E24837244A3} = {F567DADB-11D6-4B0A-A459-39C71370BB93}
+		{8BDA7646-D78E-4BC1-A47A-1F738AD56464} = {F567DADB-11D6-4B0A-A459-39C71370BB93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5D9E938-1FDF-4CD4-AB11-4562C0D450CF}
