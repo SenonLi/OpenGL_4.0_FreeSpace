@@ -13,7 +13,7 @@ namespace slopencv
 
 	/// <summary>Thresholding after different Blur methods, with Blur Area and Threshold Value controled by Trackbar </summary>
 	/// <remarks>Blur Methods: HomogeneousBlur (average), GaussianBlur</remarks>
-	void SLBinaryEllipseCorrelation::ShowThresholdingAfterBlur()
+	void SLBinaryEllipseCorrelation::ShowBestFitEllipse()
 	{
 		::ptrBinaryEllipseCorrelationInstance = this;
 		cv::namedWindow(m_ConstWindowName, m_ImageFlags); // Create a window to display results
@@ -33,12 +33,12 @@ namespace slopencv
 	/// <summary>Blur Methods: HomogeneousBlur (average), GaussianBlur</summary>
 	void SLBinaryEllipseCorrelation::ApplyImageBlur()
 	{
-		// Best HomogeneousBlur (average) m_LengthOfBlurSqureSide = 15, 13
-		cv::blur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), cv::Point(-1, -1));
+		// Best HomogeneousBlur (average) m_LengthOfBlurSqureSide = 15, 13, not good for findContours
+		//cv::blur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), cv::Point(-1, -1));
 
 		// Best GaussianBlur m_LengthOfBlurSqureSide = 35
-		//m_LengthOfBlurSqureSide = (m_LengthOfBlurSqureSide % 2) == 0 ? (m_LengthOfBlurSqureSide + 1) : m_LengthOfBlurSqureSide;
-		//cv::GaussianBlur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
+		m_LengthOfBlurSqureSide = (m_LengthOfBlurSqureSide % 2) == 0 ? (m_LengthOfBlurSqureSide + 1) : m_LengthOfBlurSqureSide;
+		cv::GaussianBlur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
 	}
 	void SLBinaryEllipseCorrelation::GetBinaryImage()
 	{
@@ -59,17 +59,61 @@ namespace slopencv
 		/// Detect edges using canny
 		m_dCannyThreshRatio = m_iCannyThreshRatio / 10.0;
 		cv::Canny(m_Binary, m_CannyOutput, m_CannyThreshValue, m_CannyThreshValue * m_dCannyThreshRatio, 3);
+		cv::imshow(m_ConstWindowName, m_CannyOutput);
+
 		/// Find contours
 		cv::findContours(m_CannyOutput, m_Contours, m_Hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
-
 		/// Draw contours
 		cvtColor(m_Src, m_SrcRGB, cv::COLOR_GRAY2RGB);
-		for (size_t i = 0; i< m_Contours.size(); i++)
+		int levelZeroCount = 0;
+		int levelOneCount = 0;
+		int levelTwoCount = 0;
+		size_t maxEllipseContourSize = 0;
+		int maxEllipseContourIndex = m_EllipseContoursIndex;
+		for (int i = 0; i< m_Contours.size(); i++)
 		{
-			cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_RED, 1, 8, m_Hierarchy, 0);
+			if (m_Hierarchy[i][3] == 0)
+			{
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_RED, 2, 8, m_Hierarchy, 0);
+				if (m_Contours[i].size() > maxEllipseContourSize)
+				{
+					maxEllipseContourSize = m_Contours[i].size();
+					maxEllipseContourIndex = i;
+				}
+				levelZeroCount++;
+			}
+			else if (m_Hierarchy[i][3] == 1)
+			{
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_BLUE, 2, 8, m_Hierarchy, 0);
+				levelOneCount++;
+			}
+			else if (m_Hierarchy[i][3] == 2)
+			{
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_YELLOW, 2, 8, m_Hierarchy, 0);
+				levelTwoCount++;
+			}
+		}
+		m_EllipseContoursIndex = maxEllipseContourIndex;
+		cv::imshow(m_OriginalWindowName, m_SrcRGB);
+
+		std::cout << "Total Level 0  Contours: \t " << levelZeroCount
+			<< "\t Level 1 : \t " << levelOneCount << "\t Level 2 : \t" << levelTwoCount << std::endl;
+
+		if (maxEllipseContourSize > 5)
+		{
+			cv::RotatedRect ellipseRotatedRect;
+			ellipseRotatedRect = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
+
+			cvtColor(m_Dst, m_DstRGB, cv::COLOR_GRAY2RGB);
+
+			cv::putText(m_DstRGB, "Ellipse",
+				cv::Point(m_DstRGB.cols / 4, m_DstRGB.rows / 2),
+				cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(64, 0, 255));
+
+			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_, 2, 8);
+			cv::imshow(m_ConstWindowName, m_DstRGB);
 		}
 
-		cv::imshow(m_OriginalWindowName, m_SrcRGB);
 	}
 
 	void SLBinaryEllipseCorrelation::ShowWidget()
@@ -91,12 +135,12 @@ namespace slopencv
 			slopencv::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
 
 		cv::resizeWindow("Original", 600, 600);
-		cv::moveWindow(m_OriginalWindowName, 300, 270);
 		cv::imshow(m_OriginalWindowName, m_SrcRGB);
+		cv::moveWindow(m_OriginalWindowName, 300, 270);
 
 
 		// Begin of OpenCV Process
-		ShowThresholdingAfterBlur();
+		ShowBestFitEllipse();
 		
 		cv::waitKey();
 	}

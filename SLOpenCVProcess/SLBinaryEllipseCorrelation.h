@@ -18,10 +18,10 @@ namespace slopencv
 	private:
 		void ApplyImageBlur();
 		void GetBinaryImage();
-		void ShowThresholdingAfterBlur();
 		void FindOuterEllipse();
+		void ShowBestFitEllipse();
 
-		int m_LengthOfBlurSqureSide = 15;
+		int m_LengthOfBlurSqureSide = 20;
 		int m_ThresholdValue        = 127; // For Binary Image before extracting Outer Ellipse
 		int m_CannyThreshValue      = 100; // For Canny Edge Detect before FindContours
 
@@ -30,20 +30,23 @@ namespace slopencv
 
 		//int m_ImageFlags = cv::WINDOW_AUTOSIZE;
 		int m_ImageFlags = cv::WINDOW_NORMAL;
-		const char* m_ConstWindowName = "Threshold after Blur";
+		const char* m_ConstWindowName = "To Extract Ellipse";
 		const char* m_OriginalWindowName = "Original";
 		const char* m_FileName = "../WatchMe/Images/poor_3.bmp";
-		//const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
+		//const char* m_FileName = "../WatchMe/Images/perfect_2.bmp";
 
 		cv::Mat m_Src;
 		cv::Mat m_SrcRGB;
 		cv::Mat m_Blurred;
 		cv::Mat m_Dst;
+		cv::Mat m_DstRGB;
 		cv::Mat m_Binary;
 		cv::Mat m_CannyOutput;
 
 		std::vector<std::vector<cv::Point> > m_Contours;
 		std::vector<cv::Vec4i> m_Hierarchy;
+
+		int m_EllipseContoursIndex = -1;
 	};
 
 }
