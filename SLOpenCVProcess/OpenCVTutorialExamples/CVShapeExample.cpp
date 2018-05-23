@@ -1,16 +1,9 @@
 #include "../stdafx.h"
 #include "CVShapeExample.h"
 
+#include "opencv2/shape.hpp"
+#include <opencv2/core/utility.hpp>
 #include <iostream>
-
-static void help()
-{
-	printf("\n"
-		"This program demonstrates a method for shape comparison based on Shape Context\n"
-		"You should run the program providing a number between 1 and 20 for selecting an image in the folder ../data/shape_sample.\n"
-		"Call\n"
-		"./shape_example [number between 1 and 20, 1 default]\n\n");
-}
 
 static std::vector<cv::Point> simpleContour(const cv::Mat& currentQuery, int n = 300)
 {
@@ -42,32 +35,14 @@ static std::vector<cv::Point> simpleContour(const cv::Mat& currentQuery, int n =
 	return cont;
 }
 
-void CVShapeExample::ShowWidget(int argc, char *argv[])
+void CVShapeExample::ShowWidget()
 {
 	std::string path = "../WatchMe/Images/OpenCV_ShapeSample/";
-	cv::CommandLineParser parser(argc, argv, "{help h||}{@input|1|}");
-	if (parser.has("help"))
-	{
-		help();
-		return;
-	}
-	int indexQuery = parser.get<int>("@input");
-	if (!parser.check())
-	{
-		parser.printErrors();
-		help();
-		return;
-	}
-	if (indexQuery < 1 || indexQuery > 20)
-	{
-		help();
-		return;
-	}
 	cv::Ptr <cv::ShapeContextDistanceExtractor> mysc = cv::createShapeContextDistanceExtractor();
 
 	cv::Size sz2Sh(300, 300);
 	std::stringstream queryName;
-	queryName << path << indexQuery << ".png";
+	queryName << path << 1 << ".png";
 	cv::Mat query = cv::imread(queryName.str(), cv::IMREAD_GRAYSCALE);
 	cv::Mat queryToShow;
 	resize(query, queryToShow, sz2Sh, 0, 0, cv::INTER_LINEAR_EXACT);
@@ -78,7 +53,7 @@ void CVShapeExample::ShowWidget(int argc, char *argv[])
 	float bestDis = FLT_MAX;
 	for (int ii = 1; ii <= 20; ii++)
 	{
-		if (ii == indexQuery) continue;
+		if (ii == 1) continue;
 		cv::waitKey(30);
 		std::stringstream iiname;
 		iiname << path << ii << ".png";

@@ -2,6 +2,8 @@
 #define __CVTHRESHOLD__
 #pragma once
 
+#include "opencv2/highgui.hpp" // For Instancing cv::Mat
+
 class CVThreshold
 {
 public:
