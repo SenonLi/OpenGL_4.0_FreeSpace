@@ -17,7 +17,7 @@ namespace slopencv
 
 		int threshold_value = 127;
 		int threshold_type = 0;
-		int sideBlock = 13;
+		int sideBlock = 15;
 
 		int const max_value = 255;
 		int const max_type = 4;
@@ -35,8 +35,9 @@ namespace slopencv
 		int display_caption(const char* caption);
 		int display_dst(const char* windowName, int delay);
 
-		//const char* m_FileName = "../WatchMe/Images/poor_2.bmp";
-		const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
+		int m_ImageFlags = cv::WINDOW_AUTOSIZE;
+		const char* m_FileName = "../WatchMe/Images/poor_1.bmp";
+		//const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
 		const char* m_ConstWindowName = "Threshold";
 
 		cv::Mat m_Src;

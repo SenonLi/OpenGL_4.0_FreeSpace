@@ -10,7 +10,7 @@ Sen_26_PostProcessing::Sen_26_PostProcessing()
 	camera.Front = glm::vec3(0.336f, -0.7513f, -0.568);
 	camera.Up = glm::vec3(0.3824f, 0.6600f, -0.6466f);
 	camera.Yaw = -59.40f;
-	camera.Pitch = -48.700;
+	camera.Pitch = -48.700f;
 }
 
 

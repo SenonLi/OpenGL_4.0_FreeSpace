@@ -131,7 +131,7 @@ public:
 
 protected:
 	GLfloat sideCubeLogo = 0.16f;
-	GLfloat centerToBorderCubeLogo = sideCubeLogo * 2.0 / 2.0;
+	GLfloat centerToBorderCubeLogo = sideCubeLogo * 1.0f;
 	
 	glm::vec3 cubeWorldSpaceAddr, scaleRatio;
 	glm::mat4 cubeModel, logoCubeCameraView, logoCubeModel, logoCubeProjection;

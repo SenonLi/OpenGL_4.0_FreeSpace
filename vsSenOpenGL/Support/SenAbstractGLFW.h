@@ -26,7 +26,7 @@ public:
 	SenAbstractGLFW();
 	virtual ~SenAbstractGLFW();
 
-	void showWidget();
+	void ShowWidget();
 
 	void _protectedKeyDetection(GLFWwindow* widget, int key, int scancode, int action, int mode) { 
 		keyDetection(widget, key, scancode, action, mode);

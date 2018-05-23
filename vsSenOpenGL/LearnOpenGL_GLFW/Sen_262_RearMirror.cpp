@@ -79,7 +79,7 @@ void Sen_262_RearMirror::initGlfwGlewGL()
 		1.0f - 2 * SenGOLDEN_SectionScale,	1.0f,										1.0f, 1.0f
 	};
 	
-	GLfloat mirrorScale = SenGOLDEN_SectionScale * 1.001;
+	GLfloat mirrorScale = SenGOLDEN_SectionScale * 1.001f;
 	// Rear Mirror Quad
 	GLfloat rearMirrorQuadVertices[] = {
 		// Positions												// TexCoords

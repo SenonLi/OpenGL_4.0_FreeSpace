@@ -33,7 +33,7 @@ void Sen_47_BlendSprite::init2DGamePaceGL()	{
 
 void Sen_47_BlendSprite::initVertexAttributes(){
 
-	GLfloat halfWidth = 3 / 8.0, halfHeight = 2 / 3.0;
+	GLfloat halfWidth = 3 / 8.0f, halfHeight = 2 / 3.0f;
 	GLfloat spriteVertices[] = {
 		// Pos      // Tex
 		-halfWidth, -halfHeight, 0.0f, 1.0f,

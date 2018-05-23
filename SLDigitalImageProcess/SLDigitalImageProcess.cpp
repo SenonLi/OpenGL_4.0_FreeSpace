@@ -113,8 +113,8 @@ namespace sldip
 			}
 		}
 		// find valid min and max of grayLevel
-		int minValidGrayLevel = 0;
-		int maxValidGrayLevel = CPU_TOTAL_GRAY_LEVEL;
+		unsigned int minValidGrayLevel = 0;
+		unsigned int maxValidGrayLevel = CPU_TOTAL_GRAY_LEVEL;
 		int sumCDF = 0;
 		float totalPixel = imageWidth * imageHeight * 1.0f;
 		for (int grayLevel = 0; grayLevel < CPU_TOTAL_GRAY_LEVEL; ++grayLevel)
@@ -212,7 +212,7 @@ namespace sldip
 	/// <summary>Extract basic ImageParam from Full-Loaded CImage</summary>
 	/// <param name="image">Full-Loaded CImage, whose buffer cannot be empty [IN]</param>
 	/// <returns>basic ImageParam of the input image, whose LinearBufferEntry cannot be nullptr </returns>
-	SLImageParam& GetImageParam(CImage& image)
+	SLImageParam GetImageParam(CImage& image)
 	{
 		assert(!image.IsNull());
 		SLImageParam imageParam;
@@ -236,7 +236,7 @@ namespace sldip
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
 	/// <returns>Image information, except Mapped GPU TextureID  </returns>
-	SLImageParam& LoadImageParam(CImage& imageLoader, const TCHAR* filePath)
+	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath)
 	{
 		assert(filePath && _tcsclen(filePath) != 0);
 		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
@@ -253,7 +253,7 @@ namespace sldip
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
 	/// <returns>Image information with Mapped GPU TextureID  </returns>
-	SLImageParam& UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath)
+	SLImageParam UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath)
 	{
 		// Get basic image info
 		SLImageParam textureParam = LoadImageParam(imageLoader, filePath);

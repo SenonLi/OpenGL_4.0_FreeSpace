@@ -41,7 +41,7 @@ void Sen_2D_GrameSpace::initGlfwGlewGL()
 	//********** Line Text Rendering Program *********************************************/
 
 	Sen2DGameLogoCube.initialCubeGL(GL_TRUE);
-	cubeLogoOccupancySquareSide = 2.0 * Sen2DGameLogoCube.getCubeLogoCenterToBorder();
+	cubeLogoOccupancySquareSide = 2.0f * Sen2DGameLogoCube.getCubeLogoCenterToBorder();
 
 	// Add Stencil Test for Perfect Cube Logo
 	glEnable(GL_STENCIL_TEST);

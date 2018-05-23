@@ -1,3 +1,4 @@
+#include "../stdafx.h"
 #include "CVThreshold.h"
 
 
@@ -8,17 +9,13 @@ extern "C" void FunPtrThreshold_Demo(int a, void* b)
 	ptrThreshInstance->Threshold_Demo(a, b);
 }
 
-int CVThreshold::showWidget()
+void CVThreshold::ShowWidget()
 {
 	::ptrThreshInstance = this;
 
 	cv::String imageName("../WatchMe/Images/poor_3.bmp"); 
 	m_Src = cv::imread(imageName, cv::IMREAD_COLOR); // Load an image
-
-	if (m_Src.empty())
-	{
-		return -1;
-	}
+	assert(!m_Src.empty());
 
 	cv::cvtColor(m_Src, src_gray, cv::COLOR_BGR2GRAY); // Convert the image to Gray
 	cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE); // Create a window to display results
@@ -58,12 +55,3 @@ void CVThreshold::Threshold_Demo(int, void*)
 	cv::threshold(src_gray, m_Dst, threshold_value, max_BINARY_value, threshold_type);
 	cv::imshow(window_name, m_Dst);
 }
-
-
-//int main()
-//{
-//	CVThreshold cameraWidget;
-//	cameraWidget.showWidget();
-//
-//	return 1;
-//}

@@ -185,7 +185,7 @@ void SenDebugWindowFreeSpace::initDebugWindowVertexAttributes()	{
 	};
 
 	/******** DebugWindow  Quad *********/
-	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.003;// *GLfloat(m_WidgetWidth) / GLfloat(debugWindowFrameBufferWidth);
+	GLfloat OutlineToWindowScale = SenGOLDEN_SectionScale * 1.003f;// *GLfloat(m_WidgetWidth) / GLfloat(debugWindowFrameBufferWidth);
 	GLfloat debugWindowVertices[] = {
 		// Positions												// TexCoords
 		-1.0f, 1.0f, 0.0f, 1.0f,

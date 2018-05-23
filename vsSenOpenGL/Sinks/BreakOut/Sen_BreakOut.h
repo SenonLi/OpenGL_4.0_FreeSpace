@@ -115,9 +115,9 @@ private:
 	glm::vec2 playerBoardPosition;
 	GLfloat playerBoardWidth;
 	const GLfloat PLAYER_VELOCITY = (1.0f);
-	const GLfloat originalPlayerBOARDWIDTH = 1.8 / 4.0;
-	const GLfloat originalPlayerBOARDHEIGHT = 1.2 / 30.0;
-	const glm::vec2	originalPlayerBoardPOSITION = glm::vec2(0.0f, originalPlayerBOARDHEIGHT / 2.0 - 1.0);
+	const GLfloat originalPlayerBOARDWIDTH = 1.8f / 4.0f;
+	const GLfloat originalPlayerBOARDHEIGHT = 1.2f / 30.0f;
+	const glm::vec2	originalPlayerBoardPOSITION = glm::vec2(0.0f, originalPlayerBOARDHEIGHT / 2.0f - 1.0f);
 
 	void initPlayerVertices();
 	void paintPlayer();

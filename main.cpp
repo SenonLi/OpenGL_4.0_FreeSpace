@@ -20,7 +20,7 @@
 //int main(int argc, char *argv[])
 //{
 //	//Sen_TeapotExplosion cameraWidget;
-//	//cameraWidget.showWidget();
+//	//cameraWidget.ShowWidget();
 //
 //	return 1;
 //}

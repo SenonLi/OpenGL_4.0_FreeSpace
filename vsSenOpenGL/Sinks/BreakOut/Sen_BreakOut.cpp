@@ -74,11 +74,11 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 	if (totalLinesNum)	{
 		GLuint lineBricksNum = map2DBrickTypesinfo.at(0).size();
 
-		GLfloat brickWidth = 2.0 / static_cast<GLfloat>(lineBricksNum);
-		GLfloat brickHeight = 1.0 / static_cast<GLfloat>(totalLinesNum);
+		GLfloat brickWidth = 2.0f / static_cast<GLfloat>(lineBricksNum);
+		GLfloat brickHeight = 1.0f / static_cast<GLfloat>(totalLinesNum);
 
 		GLuint incompleteLinesNum = std::ceil(spareSide / brickHeight);
-		GLuint incompleteLineBricksNum = std::floor((2.0 - spareSide) / brickWidth);
+		GLuint incompleteLineBricksNum = std::floor((2.0f - spareSide) / brickWidth);
 
 		glm::vec2 brickSize(brickWidth, brickHeight);
 		glm::vec2 brickPosition = glm::vec2(0.0f);
@@ -94,8 +94,8 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 					GLboolean isBrickSolid = map2DBrickTypesinfo.at(i).at(j) == 1 ? GL_TRUE : GL_FALSE;
 					if (!isBrickSolid) unsolidBricksNum++;
 
-					brickPosition.x = -1.0 + (static_cast<GLfloat>(j)+0.5) * brickWidth;
-					brickPosition.y = 1.0 - (static_cast<GLfloat>(i)+0.5) * brickHeight;
+					brickPosition.x = -1.0f + (static_cast<GLfloat>(j)+0.5f) * brickWidth;
+					brickPosition.y = 1.0f - (static_cast<GLfloat>(i)+0.5f) * brickHeight;
 
 					GLuint life = 0;
 					if (map2DBrickTypesinfo.at(i).at(j) == 1)			{
@@ -199,7 +199,7 @@ void Sen_BreakOut::initBackgroundVertices(){
 
 void Sen_BreakOut::initPlayerVertices(){
 
-	GLfloat width = originalPlayerBOARDWIDTH / 2.0, height = originalPlayerBOARDHEIGHT / 2.0;
+	GLfloat width = originalPlayerBOARDWIDTH / 2.0f, height = originalPlayerBOARDHEIGHT / 2.0f;
 	GLfloat playerBoardVertexAttributes[] = {
 		// Positions            // Texture Coords 
 		width, height, 1.0f, 0.0f,
@@ -290,15 +290,15 @@ void Sen_BreakOut::paintFontsHints()	{
 	glUseProgram(lineTextProgram);
 
 	paintLineTextString("Break   Sen    Out", -0.35f, 0.01f
-		, 1.7 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, 1.7f * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
 	paintLineTextString("ReachMe: Sen.Li@uky.edu ", -0.95f, - 0.2f
-		, 1.4 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, 1.4f * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, m_WidgetWidth, m_WidgetHeight, highlightLineTextColor);
 
 	paintLineTextString("https://www.Linkedin.com/in/SenSprouting", -0.95f, - 0.35f
-		, 1.15 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+		, 1.15f * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 		, m_WidgetWidth, m_WidgetHeight, highlightLineTextColor);
 
 	GLfloat startingPoint = -0.6f;
@@ -321,11 +321,11 @@ void Sen_BreakOut::paintFontsHints()	{
 
 	if (currLevelFinished)	{
 		paintLineTextString("Sen OpenGL", -0.25f,  0.65f
-			, 2.0 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, 2.0f * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 			, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 
 		paintLineTextString("Tutorial : https://github.com/SenonLi/OpenGL_4.0_FreeSpace ", -0.8f, 0.45f
-			, 1.1 * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
+			, 1.1f * static_cast<GLfloat>(m_WidgetWidth) / static_cast<GLfloat>(Sen2DGameSpace_widgetWidth)
 			, m_WidgetWidth, m_WidgetHeight, normalLineTextColor);
 	}
 
@@ -570,7 +570,7 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 		if (keys[GLFW_KEY_LEFT])
 		{
 			playerBoardPosition.x -= palyerShift;
-			GLfloat xLeftBorder = -1.0f + playerBoardWidth / 2.0;
+			GLfloat xLeftBorder = -1.0f + playerBoardWidth / 2.0f;
 			if (playerBoardPosition.x < xLeftBorder)
 				playerBoardPosition.x = xLeftBorder;
 
@@ -579,7 +579,7 @@ void Sen_BreakOut::daltaTimeUpdate(GLfloat deltaTime)	{
 		if (keys[GLFW_KEY_RIGHT])
 		{
 			playerBoardPosition.x += palyerShift;
-			GLfloat xRightBorder = 1.0f - playerBoardWidth / 2.0;
+			GLfloat xRightBorder = 1.0f - playerBoardWidth / 2.0f;
 			if (playerBoardPosition.x > xRightBorder)
 				playerBoardPosition.x = xRightBorder;
 

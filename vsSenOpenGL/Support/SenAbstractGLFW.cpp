@@ -74,7 +74,7 @@ void SenAbstractGLFW::initGlfwGlewGL()
 	OutputDebugString("\n Initial OpenGL\n");
 }
 
-void SenAbstractGLFW::showWidget()
+void SenAbstractGLFW::ShowWidget()
 {
 	initGlfwGlewGL();
 

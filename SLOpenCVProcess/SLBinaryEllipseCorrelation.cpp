@@ -15,7 +15,7 @@ namespace slopencv
 	{
 		::ptrThreshInstance = this;
 
-		cv::namedWindow(m_ConstWindowName, cv::WINDOW_NORMAL); // Create a window to display results
+		cv::namedWindow(m_ConstWindowName, m_ImageFlags); // Create a window to display results
 		cv::resizeWindow(m_ConstWindowName, 600, 680);
 
 		cv::createTrackbar(trackbar_type,
@@ -100,7 +100,7 @@ namespace slopencv
 		cv::equalizeHist(m_Src, m_Src);
 		m_Dst = m_Src.clone();
 
-		cv::namedWindow("Original", cv::WINDOW_NORMAL);
+		cv::namedWindow("Original", m_ImageFlags);
 		cv::imshow("Original", m_Src);
 		cv::resizeWindow("Original", 600, 600);
 		cv::moveWindow("Original", 300, 270);
@@ -118,18 +118,3 @@ namespace slopencv
 
 
 } // End of namespace slopencv
-
-
-//#include "OpenCVTutorialExamples/CVThreshold.h"
-#include "OpenCVTutorialExamples/CVSmoothing.h"
-#include "OpenCVTutorialExamples\CVShapeExample.h"
-
-using namespace slopencv;
-
-int main(int argc, char *argv[])
-{
-	SLBinaryEllipseCorrelation cameraWidget;
-  	cameraWidget.ShowWidget();
-  
-  	return 1;
-}

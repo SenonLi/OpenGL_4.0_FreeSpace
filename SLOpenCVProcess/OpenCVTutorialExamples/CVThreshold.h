@@ -2,10 +2,6 @@
 #define __CVTHRESHOLD__
 #pragma once
 
-#include "opencv2/imgproc.hpp"
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/highgui.hpp"
-
 class CVThreshold
 {
 public:
@@ -20,7 +16,7 @@ public:
 	const char* trackbar_type = "Type: \n 0: Binary \n 1: Binary Inverted \n 2: Truncate \n 3: To Zero \n 4: To Zero Inverted";
 	const char* trackbar_value = "Value";
 
-	int showWidget();
+	void ShowWidget();
 	void Threshold_Demo(int, void*);
 
 private:

@@ -20,18 +20,18 @@ namespace sldip
 		ADAPTIVE_THRESH_GAUSSIAN,
 	};
 
-	static SLImageParam& GetImageParam(CImage& image);
+	static SLImageParam GetImageParam(CImage& image);
 
 	static void DuplicateImage(const SLImageParam& srcImageParam, CImage& destImage);
 	static void DuplicateImage(const CImage& srcImage, CImage& destImage);
 
-	static SLImageParam& LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
+	static SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
 	static void UploadLinearImageToGPU(SLImageParam& textureParam);
 
 	static void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType);
 	static void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType);
 
-	static SLImageParam& UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath);
+	static SLImageParam UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath);
 	static void HistorgramEqualization(SLImageParam& textureParam);
 
 	static void AdaptiveThresholding(SLImageParam& textureParam, SLAdaptiveThresholdingType filterType);
