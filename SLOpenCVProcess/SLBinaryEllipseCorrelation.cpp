@@ -6,110 +6,63 @@ slopencv::SLBinaryEllipseCorrelation* ptrThreshInstance;
 
 namespace slopencv
 {
-	extern "C" void ptrThreshold_Demo(int a, void* b)
+	extern "C" void FunPtrApplyThreshold(int pos, void* userData)
 	{
-		::ptrThreshInstance->Threshold_Demo(a, b);
+		::ptrThreshInstance->ApplyImageThreshold(pos, userData);
 	}
 
-	void SLBinaryEllipseCorrelation::ShowThreshold()
+	/// <summary>Thresholding after different Blur methods, with Blur Area and Threshold Value controled by Trackbar </summary>
+	/// <remarks>Blur Methods: HomogeneousBlur (average), GaussianBlur</remarks>
+	void SLBinaryEllipseCorrelation::ShowThresholdingAfterBlur()
 	{
 		::ptrThreshInstance = this;
-
 		cv::namedWindow(m_ConstWindowName, m_ImageFlags); // Create a window to display results
-		cv::resizeWindow(m_ConstWindowName, 600, 680);
+		//cv::resizeWindow(m_ConstWindowName, 600, 680);
+		// Create Trackbar to choose m_LengthOfBlurSqureSide of Image Blure
+		cv::createTrackbar("BlurSize", m_ConstWindowName, &m_LengthOfBlurSqureSide, 
+			MAX_LENGTH_OF_BLUR_SQUARE_SIDE, FunPtrApplyThreshold);
+		// Create Trackbar to choose Threshold value
+		cv::createTrackbar("Thresh", m_ConstWindowName, &m_ThresholdValue, 
+			slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrApplyThreshold);
 
-		cv::createTrackbar(trackbar_type,
-			m_ConstWindowName, &sideBlock,
-			70, ptrThreshold_Demo); // Create Trackbar to choose type of Threshold
-
-		cv::createTrackbar(trackbar_value,
-			m_ConstWindowName, &threshold_value,
-			max_value, ptrThreshold_Demo); // Create Trackbar to choose Threshold value
-										   //! [trackbar]
-
-		Threshold_Demo(0, 0); // Call the function to initialize
-
-							  /// Wait until user finishes program
-		for (;;)
-		{
-			char c = (char)cv::waitKey(20);
-			if (c == 27)
-			{
-				break;
-			}
-		}
+		ApplyImageBlur();
+		ApplyImageThreshold();
 	}
 
-	void SLBinaryEllipseCorrelation::Threshold_Demo(int, void*)
+	/// <summary>Blur Methods: HomogeneousBlur (average), GaussianBlur</summary>
+	void SLBinaryEllipseCorrelation::ApplyImageBlur()
 	{
-		/* 0: Binary
-		1: Binary Inverted
-		2: Threshold Truncated
-		3: Threshold to Zero
-		4: Threshold to Zero Inverted
-		*/
+		// Best HomogeneousBlur (average) m_LengthOfBlurSqureSide = 15, 13
+		cv::blur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), cv::Point(-1, -1));
 
-		cv::blur(m_Src, m_Blurred, cv::Size(sideBlock, sideBlock), cv::Point(-1, -1)); // blur sideBlock = 15, 13
+		// Best GaussianBlur m_LengthOfBlurSqureSide = 35
+		//m_LengthOfBlurSqureSide = (m_LengthOfBlurSqureSide % 2) == 0 ? (m_LengthOfBlurSqureSide + 1) : m_LengthOfBlurSqureSide;
+		//cv::GaussianBlur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
+	}
 
-		//sideBlock = (sideBlock % 2) == 0 ? (sideBlock + 1) : sideBlock; // GaussianBlur sideBlock = 35
-		//cv::GaussianBlur(m_Src, m_Blurred, cv::Size(sideBlock, sideBlock), 0, 0);
-
-		cv::threshold(m_Blurred, m_Dst, threshold_value, max_BINARY_value, threshold_type);
+	void SLBinaryEllipseCorrelation::ApplyImageThreshold(int /*pos*/, void* /*userData*/)
+	{
+		cv::threshold(m_Blurred, m_Dst, m_ThresholdValue, slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, cv::THRESH_BINARY);
 		cv::imshow(m_ConstWindowName, m_Dst);
+		cv::moveWindow(m_ConstWindowName, 550, 190);
 	}
-
-	int SLBinaryEllipseCorrelation::display_caption(const char* caption)
-	{
-		m_Dst = cv::Mat::zeros(m_Src.size(), m_Src.type());
-		cv::putText(m_Dst, caption,
-			cv::Point(m_Src.cols / 4, m_Src.rows / 2),
-			cv::FONT_HERSHEY_COMPLEX, 1, cv::Scalar(255, 255, 255));
-
-		return display_dst("", DELAY_CAPTION);
-	}
-
-	int SLBinaryEllipseCorrelation::display_dst(const char* windowName, int delay)
-	{
-		cv::imshow(windowName, m_Dst);
-		int c = cv::waitKey(delay);
-		if (c >= 0) { return -1; }
-		return 0;
-	}
-
-	void SLBinaryEllipseCorrelation::ShowGaussianAdaptiveThresholding()
-	{
-		/// Applying Gaussian blur
-		for (int i = 15; i < MAX_KERNEL_LENGTH; i = i + 2)
-		{
-			cv::GaussianBlur(m_Src, m_Dst, cv::Size(i, i), 0, 0);
-			display_dst("Gaussian Blur", DELAY_BLUR);
-			cv::moveWindow("Gaussian Blur", m_Dst.cols + 350, 170);
-
-			m_Dst = m_Src - m_Dst;
-			display_dst("Adaptive Thresholding", DELAY_BLUR);
-			cv::moveWindow("Adaptive Thresholding", m_Dst.cols + 350, m_Dst.rows + 200);
-		}
-	}
-
 
 	void SLBinaryEllipseCorrelation::ShowWidget()
 	{
 		m_Src = cv::imread(m_FileName, cv::IMREAD_GRAYSCALE);
 		assert(!m_Src.empty());
 
+		// Histogram-Equalize Image and show it
 		cv::equalizeHist(m_Src, m_Src);
 		m_Dst = m_Src.clone();
-
 		cv::namedWindow("Original", m_ImageFlags);
 		cv::imshow("Original", m_Src);
-		cv::resizeWindow("Original", 600, 600);
+		//cv::resizeWindow("Original", 600, 600);
 		cv::moveWindow("Original", 300, 270);
 
-		m_Src = m_Dst.clone();
 
-
-		ShowThreshold();
-		//ShowGaussianAdaptiveThresholding();
+		// Begin of OpenCV Process
+		ShowThresholdingAfterBlur();
 		
 		cv::waitKey();
 	}

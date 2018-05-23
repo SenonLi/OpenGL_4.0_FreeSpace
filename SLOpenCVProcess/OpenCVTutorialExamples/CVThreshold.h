@@ -19,7 +19,7 @@ public:
 	const char* trackbar_value = "Value";
 
 	void ShowWidget();
-	void Threshold_Demo(int, void*);
+	void OnApplyThreshold(int, void*);
 
 private:
 

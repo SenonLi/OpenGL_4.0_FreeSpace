@@ -9,34 +9,23 @@ namespace slopencv
 	class SLBinaryEllipseCorrelation
 	{
 	public:
-		int DELAY_CAPTION = 1500; // time msec
-		int DELAY_BLUR    = 400;  // time msec
-		int MAX_KERNEL_LENGTH = 31;
-
-		int threshold_value = 127;
-		int threshold_type = 0;
-		int sideBlock = 15;
-
-		int const max_value = 255;
-		int const max_type = 4;
-		int const max_BINARY_value = 255;
-
-		const char* trackbar_type = "Type: \n 0: Binary \n 1: Binary Inverted \n 2: Truncate \n 3: To Zero \n 4: To Zero Inverted";
-		const char* trackbar_value = "Value";
-
-		void Threshold_Demo(int, void*);
+		const int DELAY_SHOW_BLURRED_IMAGE       = 400;	// time in msec
+		const int MAX_LENGTH_OF_BLUR_SQUARE_SIDE = 70;  // in pixel
+		
+		void ApplyImageThreshold(int pos = 0, void* userData = nullptr); // Signature here for Trackerbar registration
 		void ShowWidget();
 
 	private:
-		void ShowThreshold();
-		void ShowGaussianAdaptiveThresholding();
-		int display_caption(const char* caption);
-		int display_dst(const char* windowName, int delay);
+		void ApplyImageBlur();
+		void ShowThresholdingAfterBlur();
+
+		int m_ThresholdValue = 127;
+		int m_LengthOfBlurSqureSide = 15;
 
 		int m_ImageFlags = cv::WINDOW_AUTOSIZE;
-		const char* m_FileName = "../WatchMe/Images/poor_1.bmp";
-		//const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
 		const char* m_ConstWindowName = "Threshold";
+		const char* m_FileName = "../WatchMe/Images/poor_3.bmp";
+		//const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
 
 		cv::Mat m_Src;
 		cv::Mat m_Blurred;

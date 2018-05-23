@@ -6,7 +6,7 @@ CVThreshold* ptrThreshInstance;
 
 extern "C" void FunPtrThreshold_Demo(int a, void* b)
 {
-	ptrThreshInstance->Threshold_Demo(a, b);
+	ptrThreshInstance->OnApplyThreshold(a, b);
 }
 
 void CVThreshold::ShowWidget()
@@ -29,7 +29,7 @@ void CVThreshold::ShowWidget()
 		max_value, FunPtrThreshold_Demo); // Create Trackbar to choose Threshold value
 									//! [trackbar]
 
-	Threshold_Demo(0, 0); // Call the function to initialize
+	OnApplyThreshold(0, 0); // Call the function to initialize
 
 						  /// Wait until user finishes program
 	for (;;)
@@ -43,7 +43,7 @@ void CVThreshold::ShowWidget()
 
 }
 
-void CVThreshold::Threshold_Demo(int, void*)
+void CVThreshold::OnApplyThreshold(int, void*)
 {
 	/* 0: Binary
 	1: Binary Inverted
