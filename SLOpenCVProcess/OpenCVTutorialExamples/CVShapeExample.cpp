@@ -9,7 +9,7 @@ static std::vector<cv::Point> simpleContour(const cv::Mat& currentQuery, int n =
 {
 	std::vector<std::vector<cv::Point> > _contoursQuery;
 	std::vector <cv::Point> contoursQuery;
-	findContours(currentQuery, _contoursQuery, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
+	cv::findContours(currentQuery, _contoursQuery, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
 	for (size_t border = 0; border<_contoursQuery.size(); border++)
 	{
 		for (size_t p = 0; p<_contoursQuery[border].size(); p++)
@@ -37,7 +37,7 @@ static std::vector<cv::Point> simpleContour(const cv::Mat& currentQuery, int n =
 
 void CVShapeExample::ShowWidget()
 {
-	std::string path = "../WatchMe/Images/OpenCV_ShapeSample/";
+	std::string path = "../WatchMe/Images/OpenCV_Samples/ShapeSample/";
 	cv::Ptr <cv::ShapeContextDistanceExtractor> mysc = cv::createShapeContextDistanceExtractor();
 
 	cv::Size sz2Sh(300, 300);
@@ -82,11 +82,3 @@ void CVShapeExample::ShowWidget()
 	cv::moveWindow("BEST MATCH", sz2Sh.width + 50, 0);
 	cv::waitKey();
 }
-
-//int main(int argc, char *argv[])
-//{
-//	CVShapeExample cameraWidget;
-//	cameraWidget.ShowWidget(argc, argv);
-//
-//	return 1;
-//}

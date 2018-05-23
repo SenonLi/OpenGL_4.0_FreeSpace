@@ -47,6 +47,11 @@ namespace slopencv
 		cv::moveWindow(m_ConstWindowName, 550, 190);
 	}
 
+	void SLBinaryEllipseCorrelation::FindOuterEllipse()
+	{
+
+	}
+
 	void SLBinaryEllipseCorrelation::ShowWidget()
 	{
 		m_Src = cv::imread(m_FileName, cv::IMREAD_GRAYSCALE);

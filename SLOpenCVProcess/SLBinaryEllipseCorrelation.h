@@ -18,12 +18,13 @@ namespace slopencv
 	private:
 		void ApplyImageBlur();
 		void ShowThresholdingAfterBlur();
+		void FindOuterEllipse();
 
 		int m_ThresholdValue = 127;
 		int m_LengthOfBlurSqureSide = 15;
 
 		int m_ImageFlags = cv::WINDOW_AUTOSIZE;
-		const char* m_ConstWindowName = "Threshold";
+		const char* m_ConstWindowName = "Threshold after Blur";
 		const char* m_FileName = "../WatchMe/Images/poor_3.bmp";
 		//const char* m_FileName = "../WatchMe/Images/bad_2.bmp";
 
