@@ -2,8 +2,61 @@
 #include "SLBinaryEllipseCorrelation.h"
 #include <iostream>
 
+slopencv::SLBinaryEllipseCorrelation* ptrThreshInstance;
+
 namespace slopencv
 {
+	extern "C" void ptrThreshold_Demo(int a, void* b)
+	{
+		::ptrThreshInstance->Threshold_Demo(a, b);
+	}
+
+	void SLBinaryEllipseCorrelation::ShowThreshold()
+	{
+		::ptrThreshInstance = this;
+
+		cv::namedWindow(m_ConstWindowName, cv::WINDOW_NORMAL); // Create a window to display results
+		cv::resizeWindow(m_ConstWindowName, 600, 680);
+
+		cv::createTrackbar(trackbar_type,
+			m_ConstWindowName, &sideBlock,
+			70, ptrThreshold_Demo); // Create Trackbar to choose type of Threshold
+
+		cv::createTrackbar(trackbar_value,
+			m_ConstWindowName, &threshold_value,
+			max_value, ptrThreshold_Demo); // Create Trackbar to choose Threshold value
+										   //! [trackbar]
+
+		Threshold_Demo(0, 0); // Call the function to initialize
+
+							  /// Wait until user finishes program
+		for (;;)
+		{
+			char c = (char)cv::waitKey(20);
+			if (c == 27)
+			{
+				break;
+			}
+		}
+	}
+
+	void SLBinaryEllipseCorrelation::Threshold_Demo(int, void*)
+	{
+		/* 0: Binary
+		1: Binary Inverted
+		2: Threshold Truncated
+		3: Threshold to Zero
+		4: Threshold to Zero Inverted
+		*/
+
+		cv::blur(m_Src, m_Blurred, cv::Size(sideBlock, sideBlock), cv::Point(-1, -1)); // blur sideBlock = 15, 13
+
+		//sideBlock = (sideBlock % 2) == 0 ? (sideBlock + 1) : sideBlock; // GaussianBlur sideBlock = 35
+		//cv::GaussianBlur(m_Src, m_Blurred, cv::Size(sideBlock, sideBlock), 0, 0);
+
+		cv::threshold(m_Blurred, m_Dst, threshold_value, max_BINARY_value, threshold_type);
+		cv::imshow(m_ConstWindowName, m_Dst);
+	}
 
 	int SLBinaryEllipseCorrelation::display_caption(const char* caption)
 	{
@@ -44,11 +97,19 @@ namespace slopencv
 		m_Src = cv::imread(m_FileName, cv::IMREAD_GRAYSCALE);
 		assert(!m_Src.empty());
 
+		cv::equalizeHist(m_Src, m_Src);
 		m_Dst = m_Src.clone();
-		cv::imshow("Original", m_Dst);
+
+		cv::namedWindow("Original", cv::WINDOW_NORMAL);
+		cv::imshow("Original", m_Src);
+		cv::resizeWindow("Original", 600, 600);
 		cv::moveWindow("Original", 300, 270);
 
-		ShowGaussianAdaptiveThresholding();
+		m_Src = m_Dst.clone();
+
+
+		ShowThreshold();
+		//ShowGaussianAdaptiveThresholding();
 		
 		cv::waitKey();
 	}

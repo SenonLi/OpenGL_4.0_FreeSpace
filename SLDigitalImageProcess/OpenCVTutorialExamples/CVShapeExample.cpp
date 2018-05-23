@@ -85,7 +85,7 @@ int CVShapeExample::showWidget(int argc, char *argv[])
 		std::cout << "name: " << iiname.str() << std::endl;
 		cv::Mat iiIm = cv::imread(iiname.str(), 0);
 		cv::Mat iiToShow;
-		resize(iiIm, iiToShow, sz2Sh, 0, 0, cv::INTER_LINEAR_EXACT);
+		cv::resize(iiIm, iiToShow, sz2Sh, 0, 0, cv::INTER_LINEAR_EXACT);
 		cv::imshow("TEST", iiToShow);
 		cv::moveWindow("TEST", sz2Sh.width + 50, 0);
 		std::vector<cv::Point> contii = simpleContour(iiIm);
@@ -102,18 +102,18 @@ int CVShapeExample::showWidget(int argc, char *argv[])
 	bestname << path << bestMatch << ".png";
 	cv::Mat iiIm = cv::imread(bestname.str(), 0);
 	cv::Mat bestToShow;
-	resize(iiIm, bestToShow, sz2Sh, 0, 0, cv::INTER_LINEAR_EXACT);
-	imshow("BEST MATCH", bestToShow);
+	cv::resize(iiIm, bestToShow, sz2Sh, 0, 0, cv::INTER_LINEAR_EXACT);
+	cv::imshow("BEST MATCH", bestToShow);
 	cv::moveWindow("BEST MATCH", sz2Sh.width + 50, 0);
 	cv::waitKey();
 
 	return 0;
 }
 
-int main_(int argc, char *argv[])
-{
-	CVShapeExample cameraWidget;
-	cameraWidget.showWidget(argc, argv);
-
-	return 1;
-}
+//int main(int argc, char *argv[])
+//{
+//	CVShapeExample cameraWidget;
+//	cameraWidget.showWidget(argc, argv);
+//
+//	return 1;
+//}

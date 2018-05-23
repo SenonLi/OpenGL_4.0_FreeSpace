@@ -25,9 +25,9 @@ public:
 
 private:
 
-	cv::Mat src;
+	cv::Mat m_Src;
 	cv::Mat src_gray;
-	cv::Mat dst;
+	cv::Mat m_Dst;
 };
 
 
