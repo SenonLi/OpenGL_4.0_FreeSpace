@@ -104,7 +104,14 @@ OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling 
    if it were set as dll libraries, hard to change to static while make all examples work;
 5. Make sure Modules output folder is where the test_examples are looking for.
 
-
+## Complier & Linker
+* Linking involves packaging together all of the .obj files built from your source files, as well as any .lib files you reference, into your output (eg .exe or .dll).
+* Without incremental linking, this has to be done from scratch each time.
+* Incremental linking links your exe/dll in a way which makes it easier for the linker to update the existing exe/dll when you make a small change and re-compile.
+* So, incremental linking just makes it faster to compile and link your project.
+* The only runtime effect it might have is that it may make your exe/dll slightly bigger and slower, as decribed here:
+http://msdn.microsoft.com/en-us/library/4khtbfyf.aspx
+* You may want to use incremental linking for debug builds to speed development, but disable it for release builds to improve runtime performance.
 
 ## Handle TCHAR
 	pathLength = swprintf_s(finalPath, 200, L"String:    %s\n", s);
