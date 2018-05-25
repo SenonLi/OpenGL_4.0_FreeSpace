@@ -1,0 +1,51 @@
+window_QT.h 
+#define QT_WINDOWS_H
+-------------------------------------------------------------------------------------------------------------------------------------------
+* Libs Requirements:
+
+* Qt5Testd.lib          // QTest
+* Qt5Cored.lib          // qt_assert, qBadAlloc, qFlagLocation, QArrayData, QByteArray, QChar, QCoreApplication, QDate, QDebug, QEvent,
+*                       // QFile, QFileDevice, QFileInfo, QFutureInterfaceBase, QGenericArgument, QGenericReturnArgument, QLineF,
+*                       // QListData, QMapDataBase, QMapNodeBase, QMessageLogger, QMetaObject, QMutex, QMutexLocker, QObject, QPoint,
+*                       // QPointF, QRect, QRectF, QReturnArgument, QRunnable, QSettings, QSize, QString, QThread, QThreadPool, QTimer,
+*                       // QUnhandledException, QVariant, QVarLengthArray, QWaitCondition, QtPrivate, QtSharedPointer.
+* -----------------------------------------------------------------------------------------------------------------------------------------
+* Qt5Guid.lib           // QCursor, QFlags, QFont, QFontMetrics, QIcon, QImage, QKeyEvent, QKeySequence, QBrush, QPainter, QPen, QPixmap,
+*                       // QPoint, QRegion, QSize, QTransform, QWheelEvent,
+* -----------------------------------------------------------------------------------------------------------------------------------------
+* Qt5OpenGLd.lib        // QGLWidget
+
+* Qt5Widgetsd.lib       // QAbstractButton, QAbstractSlider, QAbstractScrollArea, QAction, QApplication, QBoxLayout,
+*                       // QButtonGroup, QCheckBox, QFileDialog, QFrame, QGraphicsView, QHBoxLayout, QInputDialog, QLabel,
+*                       // QLayout, QLayoutItem, QList, QMenu, QPaintDevice, QPushButton, QRadioButton, QShortcut,
+*                       // QSlider, QStatusBar, QToolBar, QWidget
+
+## How to add Qt Libraries into a Visual Studio project:
+### Need to change from Win32Proj to Qt4VSv1.0 !!!
+1. Install QT Add In  "QT VS TOOLS",
+		TOOLS -> Extensions and Updates -> Online -> search for "Qt" -> Install "Qt Visual Studio Tools".
+2. Right click the project to which you want add Qt elements, select "Unload project";
+3. Right click the Unloaded project -> Edit *.vcxproj ;
+4. Seach for <PropertyGroup Label="Globals">, and change 
+		<keyword>Win32Proj</keyword>
+		to
+		<keyword>Qt4VSv1.0</keyword>
+
+### Set Up the new Qt Project in Visual Studio, 
+though it won't seem the same way as the Qt Projects created from the beginning in Visual Studio;
+1. Right click project -> Reload project;
+2. Right click project -> "Set as Startup Project";
+3. Select the project -> "QT VS TOOLS" -> "Convert Project to Qt VS Tools Project"
+		-> Click "Yes" when asking "Do you really want to convert the selected project", 
+		be careful selected the right one, because in this step, QT VS TOOLS will help you further change your *.vcxproj;
+4. "QT VS TOOLS" -> set your new Qt project's "Qt Project Settings":
+		e.g., (sample) contours2, go to tab "Qt Modules" -> check "Core";
+5. set up your include folder and lib folder: in step 4, after check "Core", "QT VS TOOLS" will automatically help you add
+		$(QTDIR)\include\QtCore to your Additional Include Directories, however, not enough;
+		you still need to add the Qt libraries folder:
+		e.g., Add "$(QTDIR)\lib" to Linker -> General -> Additional Library Directories;
+6. Now, time to run :).
+7. From others' tip:
+		In each of your class derived from Q_OBJECT, delete the Q_OBJECT macro, save the file,
+		return the Q_OBJECT macro (Ctrl+Z) and save again. It adds the 'moc' files to your generated files folder.
+

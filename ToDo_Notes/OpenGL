@@ -1,0 +1,49 @@
+
+## Collision Detection
+* Axis-Aligned Bounding Box
+* Circle to AABB, Clamp --> Closest Point
+
+
+## texture disappear Problems:
+* One of the shader initialization problems happens: program (important), projection, view, model
+* (Z-fighting) :
+Sometime, the later texture(plane) always lose in the Z-fighting if two textures are on the same plane.
+Pay attention the order of painting.
+
+* State Machine Nature : any state that is changed by things that happen main will still be in effect when display is called for the first time, and any state that display changes will still be in effect the next time display is called.
+
+### Geometry Shader
+* A geometry shader does not receive strips, fans, or loops. The geometry shader receives the assembled primitives. So if the draw command specifies triangle strips, the geometry shader actually receives triangles.
+
+### Camera View
+* Problem: screen "shakes" a lot whenever the CameraView (mouse move) changes direction
+  Solution: decrease the sensitivity of mouse move (pitch, yaw, scroll).
+### Texture
+* Parameter: 
+
+-magnification
+-minification
+
+### Color Buffer
+* Default: reset to (clean) 0x00.
+
+### Depth Buffer
+* Default: reset to (clean) 0x01.
+
+### Stencil Buffer
+* Default: reset to (clean) 0x00.
+* Tip: stencil test (stencil Func) first, check to draw the fragment or not; 
+       stencil buffer updating (stencil Oper) second (depends of stencil Mask).
+
+### Blending
+* technique to implement Transparency within objects.
+* Transparency : objects (or parts of them) not having a solid color, but having a
+combination of colors from the object itself and any other object behind it with varying intensity.
+* The amount of transparency of an object is defined by its color’s alpha value.
+* Occluding Problem: manually sort, draw the windows in the background first
+
+### Text Blend using FreeType (load TrueType fonts)
+* FT_Set_Pixel_Sizes: Setting the width to 0 lets the face dynamically calculate the width based on the given height.
+* For each character, we retrieve glyph, generate a texture, set its options and store its metrics.
+* use GL_RED as the glyph texture’s internalFormat and format arguments
+* TrueType texture 8-bit grayscale: (restriction of OpenGL) glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

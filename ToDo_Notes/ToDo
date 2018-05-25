@@ -1,0 +1,56 @@
+To Do:
+
+
+When Rebuilding GLFW 3D Engine and MFC 3D Engine, 
+1. Add general SL3DPlayer project first;
+2. Make sure widgets of same functionalitis in both engines share the exact same name.
+
+---------------------------------------------------------------------------------------------------------------------
+0. Try to update both MFC and Qt GUI with basic libraries.
+0.1 vsSenOpenGL is a trial and collection for learning and practicing only basically, 
+but the final aim should be an engine / graphic library with enough 3D metrology functions.
+vsSenOpenGL should be split into non-UI library, which could be used by MFC GUI engine and Qt GUI engine.
+0.2 When implementing Qt ui libarary, try to put Qt lirbaries into GraphicUsr to get rid of Qt tools.
+0.3 Add Draw Circle in SLGeometry library
+----------------------------------------------------------------------------------------------------------------------
+Draw Circle Curve flow:
+
+void DataView::RefreshView()
+void DataView::Prepare3dRendering(GLuint width, GLuint height)
+
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\SceneManager.cpp
+void SceneManager::Prepare3dRendering(DataView* view)
+	void SetupDisplay(DataView* view)
+	void UpdateRenderableEntries(DataView* view)
+	void InitRenderableEntries(DataView* view)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\EntityRendererManager.h
+	template <typename FUNC>	void ForEach(FUNC&& func)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\SceneManager.cpp
+		void InitRenderableEntries(DataView* view)
+C:\Developer\buildit_Master\internal_libraries\geometry\private\rendering\CurveRenderer.cpp
+void CurveRenderer::Update(DataView* /*viewport*/)
+
+----------------------------------------------------------------------------------------------------------------------
+
+1. Learn how to use Git Tag.
+2. Add QImage Support with library in GraphicUsr into SLDigitalImageProcess library.
+3. vsSenOpenGL -> Project Properties -> General -> Project Defaults -> Character Set -> Use Unicode Character Set
+4. Set up the highest Warning -> Error compiler, and fix all the errors!
+5.0 Change project vsSenOpenGL to SLGLFW3DPlayer that can refer SLInternalUtility and SLDigitalImageProcess libraries.
+
+5. Add QImage support into SLQt3DPlayer; And replace all CImage with template application of SLImage
+6. Add Linux support!
+
+
+Library:
+1. slutil       -> SLInternalUtility;     Handle memory, string, and other related base class
+2  slgeom       -> SLGeometry
+3. sldip        -> SLDigitalImageProcess
+4. slopencv     -> SLOpenCVProcess
+5. slmfc3dng    -> SLMfc3DEngine
+6. slglfw3dng   -> SLGlfw3DEngine
+7. slqt3dng     -> SLQt3DEngine
+
+Application:
+SL3DPlayer
+

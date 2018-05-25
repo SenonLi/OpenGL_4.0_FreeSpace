@@ -1,0 +1,12 @@
+## No way to change 3rd party souce code from Multi-Byte Character Set to Unicode Character Set:
+OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling the OpenCV library !!!
+0. OpenCV_Python script can only be built on Release mode, and need Python, Numpy be found automatically.!!!
+1. Remember:
+	Uncheck BUILD_SHARED_LIBS if you want to build static *.lib library !!!
+	Uncheck BUILD_WITH_STATIC_CRT all the time!!!! CRT means C runtime library, and you always want shared !
+	Check BUILD_ZLIB, you wil have to compile and use this library when loading an image using OpenCV !!!
+2. Make sure the settings are correct (usually is): C++ Code Generation -> Runtime Library -> Multi-threaded Debug DLL (/MDd) !!!!!!
+3. Have to build dynamic dll modules, as were already set up, in order to successfully compile test/examples;
+4. Have to choose World (combined) module in order to get samples projects;
+   if it were set as dll libraries, hard to change to static while make all examples work;
+5. Make sure Modules output folder is where the test_examples are looking for.
