@@ -47,9 +47,11 @@ Library:
 2  slgeom       -> SLGeometry
 3. sldip        -> SLDigitalImageProcess
 4. slopencv     -> SLOpenCVProcess
-5. slmfc3dng    -> SLMfc3DEngine
-6. slglfw3dng   -> SLGlfw3DEngine
-7. slqt3dng     -> SLQt3DEngine
+------------------------------------------------------------------------------------------------------------
+--- UI Engine: libraries that support Graphic (OpenGL/Vulkan/Cuda) 2D/3D User Interface for drawing --------
+5. slmfcui      -> SLMfcUIEngine
+6. slglfwui     -> SLGlfwUIEngine
+7. slqt3dui     -> SLQtUIEngine
 
 Application:
 SL3DPlayer

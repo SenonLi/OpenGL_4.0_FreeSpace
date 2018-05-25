@@ -203,9 +203,6 @@
     <ProjectReference Include="..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\SLOpenCVProcess\SLOpenCVProcess.vcxproj">
-      <Project>{8bda7646-d78e-4bc1-a47a-1f738ad56464}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\vsSenOpenGL\vsSenOpenGL.vcxproj">
       <Project>{8ba8bf5e-5636-415d-945a-08534317cc12}</Project>
     </ProjectReference>
