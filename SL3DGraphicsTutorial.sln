@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Optional", "Optional", "{F5
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLMfc3DPlayer", "SLMfc3DPlayer\SLMfc3DPlayer.vcxproj", "{0E3357C1-EF31-44C3-BA30-D21325079675}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLLearnMfc_ViewOnly", "SLLearnMfc_ViewOnly\SLLearnMfc_ViewOnly\SLLearnMfc_ViewOnly.vcxproj", "{7E85A1E8-43B2-47EB-BED6-5C978E5420C3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLLearnMfc_ViewOnly", "SLLearnMfc_ViewOnly\SLLearnMfc_ViewOnly.vcxproj", "{7E85A1E8-43B2-47EB-BED6-5C978E5420C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
