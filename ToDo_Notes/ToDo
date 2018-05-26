@@ -42,11 +42,15 @@ void CurveRenderer::Update(DataView* /*viewport*/)
 6. Add Linux support!
 
 
+# Structure of application SL3DPlayer
 Library:
 1. slutil       -> SLInternalUtility;     Handle memory, string, and other related base class
-2  slgeom       -> SLGeometry
-3. sldip        -> SLDigitalImageProcess
-4. slopencv     -> SLOpenCVProcess
+2. slgeom   (slutil)     
+				-> SLGeometry: all math, matrix, camera, model, view, , rotation, translation, structure of primatives (curve, circle, ellipse, cylinder, sphere, cube ...)
+3. sldip    (slutil, slgeom)
+				-> SLDigitalImageProcess (No UI, either pure CPU process, or GPU context)
+4. slopencv (slutil, slgeom, sldip)
+				-> SLOpenCVProcess : Above sldip, because any implemention that may require OpenCV will definitely use sldip.
 ------------------------------------------------------------------------------------------------------------
 --- UI Engine: libraries that support Graphic (OpenGL/Vulkan/Cuda) 2D/3D User Interface for drawing --------
 5. slmfcui      -> SLMfcUIEngine
@@ -54,5 +58,5 @@ Library:
 7. slqt3dui     -> SLQtUIEngine
 
 Application:
-SL3DPlayer
+SL3DPlayer (requires at lease one UI enine + sldip: together to implement rendering)
 
