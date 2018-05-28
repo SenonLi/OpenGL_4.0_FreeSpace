@@ -11,6 +11,69 @@ namespace slopencv
 		::ptrBinaryEllipseCorrelationInstance->PaintWidgetCallBack(pos, userData);
 	}
 
+	void SLBinaryEllipseCorrelation::LoadDefaultImage()
+	{
+		//m_Src = cv::imread(m_ImagePath + m_ImageName + m_ImageExtension, cv::IMREAD_GRAYSCALE);
+		//assert(!m_Src.empty());
+
+		// Get basic image info
+		CImage imageLoader;
+		imageLoader.Load(_T("../WatchMe/Images/poor_3.bmp"));
+
+		slopencv::GetImageMat(imageLoader, m_Src);
+
+		assert(!m_Src.empty());
+	}
+
+	void SLBinaryEllipseCorrelation::GetSourceImageGray()
+	{
+		assert(!m_Src.empty());
+		if(!m_SrcGray.empty())
+			m_SrcGray.release();
+
+		switch (m_Src.type())
+		{
+		case CV_8UC1:
+			m_SrcGray = m_Src.clone();
+			break;
+		case CV_8UC3:
+			cvtColor(m_Src, m_SrcGray, cv::COLOR_BGR2GRAY);
+			break;
+		case CV_8UC4:
+			cvtColor(m_Src, m_SrcGray, cv::COLOR_BGRA2GRAY);
+			break;
+		}
+	}
+
+	void SLBinaryEllipseCorrelation::ShowWidget()
+	{
+		LoadDefaultImage();
+		GetSourceImageGray();
+
+		// Histogram-Equalize Image and show it
+		cv::equalizeHist(m_SrcGray, m_SrcGray);
+		m_Dst = m_SrcGray.clone();
+		cvtColor(m_SrcGray, m_SrcRGB, cv::COLOR_GRAY2RGB);
+
+		cv::namedWindow(m_OriginalWindowName, m_ImageFlags);
+		// Create Trackbar to choose m_LengthOfBlurSqureSide of Image Blure
+		cv::createTrackbar("Thresh", m_OriginalWindowName, &m_CannyThreshValue,
+			slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
+		// Create Trackbar to choose Threshold value
+		cv::createTrackbar("Ratio", m_OriginalWindowName, &m_iCannyThreshRatio,
+			slopencv::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
+
+		cv::resizeWindow("Original", 600, 600);
+		cv::imshow(m_OriginalWindowName, m_SrcRGB);
+		cv::moveWindow(m_OriginalWindowName, 300, 270);
+
+
+		// Begin of OpenCV Process
+		ShowBestFitEllipse();
+
+		cv::waitKey();
+	}
+
 	/// <summary>Thresholding after different Blur methods, with Blur Area and Threshold Value controled by Trackbar </summary>
 	/// <remarks>Blur Methods: HomogeneousBlur (average), GaussianBlur</remarks>
 	void SLBinaryEllipseCorrelation::ShowBestFitEllipse()
@@ -34,11 +97,11 @@ namespace slopencv
 	void SLBinaryEllipseCorrelation::ApplyImageBlur()
 	{
 		// Best HomogeneousBlur (average) m_LengthOfBlurSqureSide = 15, 13, not good for findContours
-		//cv::blur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), cv::Point(-1, -1));
+		//cv::blur(m_SrcGray, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), cv::Point(-1, -1));
 
 		// Best GaussianBlur m_LengthOfBlurSqureSide = 35
 		m_LengthOfBlurSqureSide = (m_LengthOfBlurSqureSide % 2) == 0 ? (m_LengthOfBlurSqureSide + 1) : m_LengthOfBlurSqureSide;
-		cv::GaussianBlur(m_Src, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
+		cv::GaussianBlur(m_SrcGray, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
 	}
 	void SLBinaryEllipseCorrelation::GetBinaryImage()
 	{
@@ -64,7 +127,7 @@ namespace slopencv
 		/// Find contours
 		cv::findContours(m_CannyOutput, m_Contours, m_Hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
 		/// Draw contours
-		cvtColor(m_Src, m_SrcRGB, cv::COLOR_GRAY2RGB);
+		cvtColor(m_SrcGray, m_SrcRGB, cv::COLOR_GRAY2RGB);
 		int levelZeroCount = 0;
 		int levelOneCount = 0;
 		int levelTwoCount = 0;
@@ -120,37 +183,6 @@ namespace slopencv
 		}
 
 	}
-
-	void SLBinaryEllipseCorrelation::ShowWidget()
-	{
-		m_Src = cv::imread(m_ImagePath + m_ImageName + m_ImageExtension, cv::IMREAD_GRAYSCALE);
-		assert(!m_Src.empty());
-
-		// Histogram-Equalize Image and show it
-		cv::equalizeHist(m_Src, m_Src);
-		m_Dst = m_Src.clone();
-		cvtColor(m_Src, m_SrcRGB, cv::COLOR_GRAY2RGB);
-
-		cv::namedWindow(m_OriginalWindowName, m_ImageFlags);
-		// Create Trackbar to choose m_LengthOfBlurSqureSide of Image Blure
-		cv::createTrackbar("Thresh", m_OriginalWindowName, &m_CannyThreshValue,
-			slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
-		// Create Trackbar to choose Threshold value
-		cv::createTrackbar("Ratio", m_OriginalWindowName, &m_iCannyThreshRatio,
-			slopencv::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
-
-		cv::resizeWindow("Original", 600, 600);
-		cv::imshow(m_OriginalWindowName, m_SrcRGB);
-		cv::moveWindow(m_OriginalWindowName, 300, 270);
-
-
-		// Begin of OpenCV Process
-		ShowBestFitEllipse();
-		
-		cv::waitKey();
-	}
-
-
 
 
 } // End of namespace slopencv

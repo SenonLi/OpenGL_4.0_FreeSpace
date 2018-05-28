@@ -1,5 +1,6 @@
 To Do:
 
+0. Split SLDigitalImageProcess into independent lib with SL3DPlayer's widget;
 
 When Rebuilding GLFW 3D Engine and MFC 3D Engine, 
 1. Add general SL3DPlayer project first;

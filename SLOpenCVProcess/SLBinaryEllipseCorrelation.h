@@ -16,6 +16,9 @@ namespace slopencv
 		void ShowWidget();
 
 	private:
+		void LoadDefaultImage();
+		void GetSourceImageGray();
+
 		void ApplyImageBlur();
 		void GetBinaryImage();
 		void FindOuterEllipse();
@@ -39,6 +42,7 @@ namespace slopencv
 		//const std::string m_ImageName = "perfect_2";
 
 		cv::Mat m_Src;
+		cv::Mat m_SrcGray;
 		cv::Mat m_SrcRGB;
 		cv::Mat m_Blurred;
 		cv::Mat m_Dst;
