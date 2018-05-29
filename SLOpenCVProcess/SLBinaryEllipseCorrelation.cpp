@@ -33,6 +33,7 @@ namespace slopencv
 		// Get basic image info
 		CImage imageLoader;
 		imageLoader.Load((s2ws(m_ImagePath + m_ImageName + m_ImageExtension)).c_str());
+		assert(!imageLoader.IsNull());
 
 		slopencv::GetImageMat(imageLoader, m_Src);
 
@@ -116,6 +117,13 @@ namespace slopencv
 		// Best GaussianBlur m_LengthOfBlurSqureSide = 35
 		m_LengthOfBlurSqureSide = (m_LengthOfBlurSqureSide % 2) == 0 ? (m_LengthOfBlurSqureSide + 1) : m_LengthOfBlurSqureSide;
 		cv::GaussianBlur(m_SrcGray, m_Blurred, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
+	
+		//m_Blurred = m_SrcGray + cv::Mat(m_SrcGray.size(), m_SrcGray.type(), cv::Scalar(127)) - m_Blurred;
+
+		cv::namedWindow("Blured", m_ImageFlags); // Create a window to display results
+		cv::resizeWindow("Blured", 600, 680);
+		cv::imshow("Blured", m_Blurred);
+
 	}
 	void SLBinaryEllipseCorrelation::GetBinaryImage()
 	{
@@ -136,7 +144,8 @@ namespace slopencv
 		/// Detect edges using canny
 		m_dCannyThreshRatio = m_iCannyThreshRatio / 10.0;
 		cv::Canny(m_Binary, m_CannyOutput, m_CannyThreshValue, m_CannyThreshValue * m_dCannyThreshRatio, 3);
-		cv::imshow(m_ConstWindowName, m_CannyOutput);
+		//cv::imshow(m_ConstWindowName, m_CannyOutput);
+
 
 		/// Find contours
 		cv::findContours(m_CannyOutput, m_Contours, m_Hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
@@ -145,6 +154,7 @@ namespace slopencv
 		int levelZeroCount = 0;
 		int levelOneCount = 0;
 		int levelTwoCount = 0;
+		int otherLevelCount = 0;
 		size_t maxEllipseContourSize = 0;
 		int maxEllipseContourIndex = m_EllipseContoursIndex;
 		for (int i = 0; i< m_Contours.size(); i++)
@@ -152,11 +162,6 @@ namespace slopencv
 			if (m_Hierarchy[i][3] == 0)
 			{
 				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_BLUE, 2, 8, m_Hierarchy, 0);
-				if (m_Contours[i].size() > maxEllipseContourSize)
-				{
-					maxEllipseContourSize = m_Contours[i].size();
-					maxEllipseContourIndex = i;
-				}
 				levelZeroCount++;
 			}
 			else if (m_Hierarchy[i][3] == 1)
@@ -169,9 +174,29 @@ namespace slopencv
 				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_CYAN, 2, 8, m_Hierarchy, 0);
 				levelTwoCount++;
 			}
+			else if (m_Hierarchy[i][3] == -1)
+			{
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_RED, 1, 8, m_Hierarchy, 0);
+				otherLevelCount++;
+			}
+			else
+			{
+				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_WHITE, 1, 8, m_Hierarchy, 0);
+				otherLevelCount++;
+			}
+
+			if (m_Contours[i].size() > maxEllipseContourSize)
+			{
+				maxEllipseContourSize = m_Contours[i].size();
+				maxEllipseContourIndex = i;
+			}
 		}
 		m_EllipseContoursIndex = maxEllipseContourIndex;
-		cv::imshow(m_OriginalWindowName, m_SrcRGB);
+		//cv::imshow(m_OriginalWindowName, m_SrcRGB);
+		cv::namedWindow("Outer Contours", m_ImageFlags); // Create a window to display results
+		cv::resizeWindow("Outer Contours", 600, 680);
+		cv::imshow("Outer Contours", m_SrcRGB);
+
 
 		std::cout << "Total Level 0  Contours: \t " << levelZeroCount
 			<< "\t Level 1 : \t " << levelOneCount << "\t Level 2 : \t" << levelTwoCount << std::endl;
@@ -191,7 +216,7 @@ namespace slopencv
 				cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 
 			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_RED, 2, 8);
-			cv::imshow(m_ConstWindowName, m_DstRGB);
+			//cv::imshow(m_ConstWindowName, m_DstRGB);
 
 			cv::imwrite(m_ImagePath + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
 		}
