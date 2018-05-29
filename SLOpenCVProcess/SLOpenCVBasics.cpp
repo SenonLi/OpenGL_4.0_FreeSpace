@@ -20,7 +20,7 @@ namespace slopencv
 			{
 				for (int col = 0; col < src.GetWidth(); col++)
 				{
-					dst.at<unsigned char>(col, row) = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
+					dst.at<unsigned char>(row, col) = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
 				}
 			}
 			break;
@@ -33,9 +33,9 @@ namespace slopencv
 			{
 				for (int col = 0; col < src.GetWidth(); col++)
 				{
-					dst.at<cv::Vec3b>(col, row)[0] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
-					dst.at<cv::Vec3b>(col, row)[1] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[1];
-					dst.at<cv::Vec3b>(col, row)[2] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[2];
+					dst.at<cv::Vec3b>(row, col)[0] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
+					dst.at<cv::Vec3b>(row, col)[1] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[1];
+					dst.at<cv::Vec3b>(row, col)[2] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[2];
 				}
 			}
 
@@ -49,10 +49,10 @@ namespace slopencv
 			{
 				for (int col = 0; col < src.GetWidth(); col++)
 				{
-					dst.at<cv::Vec4b>(col, row)[0] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
-					dst.at<cv::Vec4b>(col, row)[1] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[1];
-					dst.at<cv::Vec4b>(col, row)[2] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[2];
-					dst.at<cv::Vec4b>(col, row)[3] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[3];
+					dst.at<cv::Vec4b>(row, col)[0] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[0];
+					dst.at<cv::Vec4b>(row, col)[1] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[1];
+					dst.at<cv::Vec4b>(row, col)[2] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[2];
+					dst.at<cv::Vec4b>(row, col)[3] = static_cast<BYTE*>(src.GetPixelAddress(col, row))[3];
 				}
 			}
 

@@ -18,7 +18,7 @@ namespace slopencv
 
 		// Get basic image info
 		CImage imageLoader;
-		imageLoader.Load(_T("../WatchMe/Images/poor_3.bmp"));
+		imageLoader.Load(_T("../WatchMe/Images/scan.png"));
 
 		slopencv::GetImageMat(imageLoader, m_Src);
 
