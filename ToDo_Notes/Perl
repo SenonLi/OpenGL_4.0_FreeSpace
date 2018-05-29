@@ -1,0 +1,51 @@
+Windows Stawberry Perl 
+
+0. Solve "couldn't find diagnostic data"
+Have do remove all per related files + folders, make sure there is only one perl.exe.
+--------------------------------------------------------------------------------------
+1. Solve "Unable to get Terminal Size."
+
+C:\>mode con
+
+Status for device CON:
+----------------------
+    Lines:          9001
+    Columns:        120
+    Keyboard rate:  31
+    Keyboard delay: 1
+    Code page:      437 
+
+set LINES=9001
+set COLUMNS=120
+
+--------------------------------------------------------------------------------------
+2. Solve "Perl Debug error: SetConsoleMode failed, LastError=|5|"
+set TERM=dumb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
