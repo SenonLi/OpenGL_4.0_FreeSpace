@@ -2,6 +2,8 @@
 #include "SLBinaryEllipseCorrelation.h"
 #include <iostream>
 
+#include <codecvt>
+
 slopencv::SLBinaryEllipseCorrelation* ptrBinaryEllipseCorrelationInstance;
 
 namespace slopencv
@@ -11,14 +13,26 @@ namespace slopencv
 		::ptrBinaryEllipseCorrelationInstance->PaintWidgetCallBack(pos, userData);
 	}
 
+	std::string ws2s(const std::wstring& wstr)
+	{
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.to_bytes(wstr);
+	}
+	std::wstring s2ws(const std::string& str)
+	{
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.from_bytes(str);
+	}
+
 	void SLBinaryEllipseCorrelation::LoadDefaultImage()
 	{
-		//m_Src = cv::imread(m_ImagePath + m_ImageName + m_ImageExtension, cv::IMREAD_GRAYSCALE);
-		//assert(!m_Src.empty());
-
 		// Get basic image info
 		CImage imageLoader;
-		imageLoader.Load(_T("../WatchMe/Images/scan.png"));
+		imageLoader.Load((s2ws(m_ImagePath + m_ImageName + m_ImageExtension)).c_str());
 
 		slopencv::GetImageMat(imageLoader, m_Src);
 
