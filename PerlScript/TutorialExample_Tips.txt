@@ -1,0 +1,43 @@
+perl -v #Check perl version
+
+1. Solve problem "couldn't find diagnostics data"
+Have to delete all perl file + folders in Git;
+
+2. Solve problem "Unable to get Terminal Size. "
+
+C:\>mode con
+
+Status for device CON:
+----------------------
+    Lines:          9001
+    Columns:        172
+    Keyboard rate:  31
+    Keyboard delay: 1
+    Code page:      437
+	
+set LINES=9001
+set COLUMNS=172
+
+3. Solve problem "SetConsoleMode failed,"
+set TERM=dumb
+
+==================================================================================
+How to run:     perl TutorialExample.pl
+How to debug:   perl -d TutorialExample.pl
+Step 1: add 
+use strict;
+use warnings;
+to the top of your script. If that doesn't help, 
+go to step 2: use perl -d.
+
+ShortCuts:
+DB<>n           # Step
+DB<>s           # Step in
+DB<>T           # See where you are "upper level of a sub-function" in the code
+DB<>r           # Step out and print out the return value
+
+
+
+
+
+
