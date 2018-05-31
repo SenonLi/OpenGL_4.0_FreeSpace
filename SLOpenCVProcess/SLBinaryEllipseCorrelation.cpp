@@ -36,6 +36,27 @@ namespace slopencv
 		assert(!imageLoader.IsNull());
 
 		slopencv::GetImageMat(imageLoader, m_Src);
+		cv::imshow(m_OriginalWindowName, m_Src);
+
+
+
+
+		//cv::Mat testCV_64FC1(m_Src.size(), CV_64FC1);
+		//for (int row = 0; row < m_Src.rows; row++)
+		//{
+		//	for (int col = 0; col < m_Src.cols; col++)
+		//	{
+		//		testCV_64FC1.at<double>(cv::Point(col, row)) = m_Src.at<cv::Vec4b>(cv::Point(col, row))[0] / 255.0;
+		//	}
+		//}
+
+		//cv::Mat blurredCV_64FC1;
+		//cv::GaussianBlur(m_SrcGray, blurredCV_64FC1, cv::Size(m_LengthOfBlurSqureSide, m_LengthOfBlurSqureSide), 0, 0);
+
+		//cv::namedWindow("m_CV_32FC1_RGB", m_ImageFlags);
+
+		//cv::imshow("m_CV_32FC1_RGB", testCV_64FC1);
+
 
 		assert(!m_Src.empty());
 	}
@@ -66,7 +87,7 @@ namespace slopencv
 		GetSourceImageGray();
 
 		// Histogram-Equalize Image and show it
-		cv::equalizeHist(m_SrcGray, m_SrcGray);
+		//cv::equalizeHist(m_SrcGray, m_SrcGray);
 		m_Dst = m_SrcGray.clone();
 		cvtColor(m_SrcGray, m_SrcRGB, cv::COLOR_GRAY2RGB);
 
@@ -78,7 +99,7 @@ namespace slopencv
 		cv::createTrackbar("Ratio", m_OriginalWindowName, &m_iCannyThreshRatio,
 			slopencv::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
 
-		cv::resizeWindow("Original", 600, 600);
+		cv::resizeWindow(m_OriginalWindowName, 600, 600);
 		cv::imshow(m_OriginalWindowName, m_SrcRGB);
 		cv::moveWindow(m_OriginalWindowName, 300, 270);
 
@@ -120,9 +141,9 @@ namespace slopencv
 	
 		//m_Blurred = m_SrcGray + cv::Mat(m_SrcGray.size(), m_SrcGray.type(), cv::Scalar(127)) - m_Blurred;
 
-		cv::namedWindow("Blured", m_ImageFlags); // Create a window to display results
-		cv::resizeWindow("Blured", 600, 680);
-		cv::imshow("Blured", m_Blurred);
+		//cv::namedWindow("Blured", m_ImageFlags); // Create a window to display results
+		//cv::resizeWindow("Blured", 600, 680);
+		//cv::imshow("Blured", m_Blurred);
 
 	}
 	void SLBinaryEllipseCorrelation::GetBinaryImage()
@@ -137,6 +158,31 @@ namespace slopencv
 	{
 		GetBinaryImage();
 		FindOuterEllipse();
+	}
+
+	void SLBinaryEllipseCorrelation::DrawEllipseAxis()
+	{
+
+		double majorAxisLength = m_cvEllipse.size.width / 2.0;
+		double minorAxisLength = m_cvEllipse.size.height / 2.0;
+
+		//cv::rectangle(m_DstRGB, m_cvEllipse.boundingRect2f(), slopencv::CV_COLOR_SCALAR_YELLOW, 3, 8);
+		cv::Point2f center = m_cvEllipse.center;
+		cv::Point2f vectorMajorAxis(1.0, tanf((m_cvEllipse.angle) / 180.0f * (float)CV_PI));
+		cv::Point2f vectorMinorAxis(1.0, tanf((m_cvEllipse.angle - 90.0f) / 180.0f * (float)CV_PI));
+		float majorDistance = sqrt(vectorMajorAxis.x * vectorMajorAxis.x + vectorMajorAxis.y * vectorMajorAxis.y);
+		float minorDistance = sqrt(vectorMinorAxis.x * vectorMinorAxis.x + vectorMinorAxis.y * vectorMinorAxis.y);
+		cv::Point2f normalMajorAxis = vectorMajorAxis / majorDistance;
+		cv::Point2f normalMinorAxis = vectorMinorAxis / minorDistance;
+		cv::Point2f majorPoint = center + normalMajorAxis * majorAxisLength;
+		cv::Point2f minorPoint = center + normalMinorAxis * minorAxisLength;
+
+		cv::line(m_DstRGB, center, majorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
+		cv::line(m_DstRGB, center, minorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
+
+
+		//cv::imshow(m_ConstWindowName, m_DstRGB);
+
 	}
 
 	void SLBinaryEllipseCorrelation::FindOuterEllipse()
@@ -192,7 +238,7 @@ namespace slopencv
 			}
 		}
 		m_EllipseContoursIndex = maxEllipseContourIndex;
-		//cv::imshow(m_OriginalWindowName, m_SrcRGB);
+		cv::imshow(m_OriginalWindowName, m_SrcRGB);
 		cv::namedWindow("Outer Contours", m_ImageFlags); // Create a window to display results
 		cv::resizeWindow("Outer Contours", 600, 680);
 		cv::imshow("Outer Contours", m_SrcRGB);
@@ -203,20 +249,23 @@ namespace slopencv
 
 		if (maxEllipseContourSize > 5)
 		{
-			cv::RotatedRect ellipseRotatedRect;
-			ellipseRotatedRect = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
+			m_cvEllipse = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
 
 			cvtColor(m_Dst, m_DstRGB, cv::COLOR_GRAY2RGB);
 
-			cv::putText(m_DstRGB, "Best-Fit",
-				cv::Point2f(ellipseRotatedRect.center.x - 35, ellipseRotatedRect.center.y - 20),
-				cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
-			cv::putText(m_DstRGB, "Ellipse",
-				cv::Point2f(ellipseRotatedRect.center.x - 35, ellipseRotatedRect.center.y - 00),
-				cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
+			//cv::putText(m_DstRGB, "Best-Fit",
+			//	cv::Point2f(m_cvEllipse.center.x - 35, m_cvEllipse.center.y - 20),
+			//	cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
+			//cv::putText(m_DstRGB, "Ellipse",
+			//	cv::Point2f(m_cvEllipse.center.x - 35, m_cvEllipse.center.y - 00),
+			//	cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 
-			cv::ellipse(m_DstRGB, ellipseRotatedRect, slopencv::CV_COLOR_SCALAR_RED, 2, 8);
-			//cv::imshow(m_ConstWindowName, m_DstRGB);
+			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 2, 8);
+
+			DrawEllipseAxis();
+
+
+			cv::imshow(m_ConstWindowName, m_DstRGB);
 
 			cv::imwrite(m_ImagePath + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
 		}

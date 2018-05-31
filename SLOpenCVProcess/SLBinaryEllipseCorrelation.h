@@ -22,10 +22,13 @@ namespace slopencv
 		void ApplyImageBlur();
 		void GetBinaryImage();
 		void FindOuterEllipse();
+		void DrawEllipseAxis();
+
+
 		void ShowBestFitEllipse();
 
-		int m_LengthOfBlurSqureSide = 20;
-		int m_ThresholdValue        = 127; // For Binary Image before extracting Outer Ellipse
+		int m_LengthOfBlurSqureSide = 21;
+		int m_ThresholdValue        = 90; // For Binary Image before extracting Outer Ellipse
 		int m_CannyThreshValue      = 100; // For Canny Edge Detect before FindContours
 
 		int m_iCannyThreshRatio     = 20;
@@ -37,8 +40,10 @@ namespace slopencv
 		const char* m_OriginalWindowName = "Original";
 		
 		const std::string m_ImagePath = "../WatchMe/Images/ExtractEllipse/";
-		const std::string m_ImageExtension = ".png";
-		const std::string m_ImageName = "Hole";
+		const std::string m_ImageExtension = ".bmp";
+		const std::string m_ImageName = "perfect_2";
+
+		cv::RotatedRect m_cvEllipse;
 
 		cv::Mat m_Src;
 		cv::Mat m_SrcGray;
