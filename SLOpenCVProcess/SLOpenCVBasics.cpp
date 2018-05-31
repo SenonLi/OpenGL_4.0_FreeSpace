@@ -3,6 +3,16 @@
 
 namespace slopencv
 {
+	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi)
+	{
+		double newPhi = 0.0;
+
+		newPhi = atan( ((a*a - b * b) * sin(phi) + abs(y) * b) / (abs(x) * a) );
+
+		return newPhi;
+	}
+
+
 	/// <summary>Bad solution to Get cv::Mat from CImage</summary>
 	/// <param name="src">CImage [IN]</param>
 	/// <param name="dst">cv::Mat [OUT]</param>

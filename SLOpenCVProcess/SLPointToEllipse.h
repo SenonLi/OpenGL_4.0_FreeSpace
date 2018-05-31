@@ -16,6 +16,11 @@ namespace slopencv
 		void InitialBasicEllipse();
 		void DrawBasicEllipse();
 		void DrawPoint();
+		
+		
+		void CalculateDistance();
+
+
 		void DrawDistanceCircle();
 		void PaintScreen();
 
@@ -26,7 +31,7 @@ namespace slopencv
 		int m_Ellipse_b = 400;
 		int m_Point_x = 600;
 		int m_Point_y = 400;
-		float m_Distance = 100.0f;
+		double m_Distance = 100.0;
 
 		cv::Mat m_EllipseRGB;
 		cv::RotatedRect m_Ellipse;

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SLPointToEllipse.h"
-
+#include <iostream>
 slopencv::SLPointToEllipse* ptrSLPointToEllipseInstance;
 
 namespace slopencv
@@ -26,6 +26,35 @@ namespace slopencv
 		cv::circle(m_EllipseRGB, m_RandomPoint, 10, slopencv::CV_COLOR_SCALAR_BLUE, CV_FILLED, 8);
 	}
 
+	void SLPointToEllipse::CalculateDistance()
+	{
+		double phiShortest = 0.0;
+		double newDistance = 9999999.0;
+		double shortestDistance = newDistance;
+		double vecX = 0.0;
+		double vecY = 0.0;
+		int iterationCount = 1;
+
+		phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(m_Point_x, m_Point_y, m_Ellipse_a, m_Ellipse_b, phiShortest);
+		vecX = abs(m_Point_x) - m_Ellipse_a * cos(phiShortest);
+		vecY = abs(m_Point_y) - m_Ellipse_b * sin(phiShortest);
+		newDistance = sqrt(vecX * vecX + vecY * vecY);
+
+		while (shortestDistance - newDistance > 1.0)
+		{
+			shortestDistance = newDistance;
+			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(m_Point_x, m_Point_y, m_Ellipse_a, m_Ellipse_b, phiShortest);
+			vecX = abs(m_Point_x) - m_Ellipse_a * cos(phiShortest);
+			vecY = abs(m_Point_y) - m_Ellipse_b * sin(phiShortest);
+			newDistance = sqrt(vecX * vecX + vecY * vecY);
+
+			iterationCount++;
+		}
+
+		m_Distance = shortestDistance;
+		std::cout << "Iteratio Count : \t " << iterationCount << "\t Times !!\n";
+	}
+
 	void SLPointToEllipse::DrawDistanceCircle()
 	{
 		cv::circle(m_EllipseRGB, m_RandomPoint, (int)m_Distance, slopencv::CV_COLOR_SCALAR_BLACK, 3, cv::LINE_8);
@@ -34,7 +63,7 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-
+		CalculateDistance();
 		DrawDistanceCircle();
 
 		PaintScreen();
