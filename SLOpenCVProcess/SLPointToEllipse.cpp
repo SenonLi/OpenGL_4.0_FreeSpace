@@ -22,37 +22,31 @@ namespace slopencv
 
 	void SLPointToEllipse::DrawPoint()
 	{
-		m_RandomPoint = cv::Point(m_Point_x, m_Point_y);
+		m_RandomPoint = cv::Point(m_RandomPoint_x, m_RandomPoint_y);
 		cv::circle(m_EllipseRGB, m_RandomPoint, 10, slopencv::CV_COLOR_SCALAR_BLUE, CV_FILLED, 8);
 	}
 
-	void SLPointToEllipse::CalculateDistance()
+	void SLPointToEllipse::DetermineShortestDistanceFromPointToEllipse()
 	{
-		double phiShortest = 0.0;
-		double newDistance = 9999999.0;
-		double shortestDistance = newDistance;
-		double vecX = 0.0;
-		double vecY = 0.0;
-		int iterationCount = 1;
+		double phiShortest = CV_PI / 2.0; // starting point has to be 90 degree, if start from 0, iteration may return two same values due to sin(0) == 0
+		double shortestDistance = 999999.0;
+		double newDistance = shortestDistance - 2.0;
 
-		phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(m_Point_x, m_Point_y, m_Ellipse_a, m_Ellipse_b, phiShortest);
-		vecX = abs(m_Point_x) - m_Ellipse_a * cos(phiShortest);
-		vecY = abs(m_Point_y) - m_Ellipse_b * sin(phiShortest);
-		newDistance = sqrt(vecX * vecX + vecY * vecY);
+		double x_RelativePoint = -1.0;
+		double y_RelativePoint = -1.0;
+		slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, x_RelativePoint, y_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, Ellipse_Angle / 180.0 * CV_PI);
+		int iterationCount = 0;
 
-		while (shortestDistance - newDistance > 1.0)
+		while (shortestDistance - newDistance > 1)
 		{
 			shortestDistance = newDistance;
-			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(m_Point_x, m_Point_y, m_Ellipse_a, m_Ellipse_b, phiShortest);
-			vecX = abs(m_Point_x) - m_Ellipse_a * cos(phiShortest);
-			vecY = abs(m_Point_y) - m_Ellipse_b * sin(phiShortest);
-			newDistance = sqrt(vecX * vecX + vecY * vecY);
-
+			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, m_Ellipse_a, m_Ellipse_b, phiShortest);
+			newDistance = slopencv::GetDistanceFromPointToPoint(abs(x_RelativePoint), abs(y_RelativePoint), m_Ellipse_a * cos(phiShortest), m_Ellipse_b * sin(phiShortest));
 			iterationCount++;
 		}
 
 		m_Distance = shortestDistance;
-		std::cout << "Iteratio Count : \t " << iterationCount << "\t Times !!\n";
+		std::cout << "Shortest Distance : \t " << shortestDistance << " , \t Iteratio Count : \t " << iterationCount << "\t Times !!\n";
 	}
 
 	void SLPointToEllipse::DrawDistanceCircle()
@@ -63,7 +57,7 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		CalculateDistance();
+		DetermineShortestDistanceFromPointToEllipse();
 		DrawDistanceCircle();
 
 		PaintScreen();
@@ -71,9 +65,8 @@ namespace slopencv
 
 	void SLPointToEllipse::InitialBasicEllipse()
 	{
-		m_Ellipse.center = Ellipse_Center;
-		m_Ellipse.size = Ellipse_Size;
 		m_Ellipse.angle = Ellipse_Angle;
+		m_Ellipse.size = cv::Size(m_Ellipse_a * 2, m_Ellipse_b * 2);
 	}
 
 	void SLPointToEllipse::ShowWidget()
@@ -81,12 +74,12 @@ namespace slopencv
 		::ptrSLPointToEllipseInstance = this;
 
 		cv::namedWindow(m_ConstWindowName, m_ImageFlags); // Create a window to display results
-		cv::resizeWindow(m_ConstWindowName, 800, 1000);
+		cv::resizeWindow(m_ConstWindowName, WIDGET_SIZE_WIDTH, WIDGET_SIZE_HEIGHT + 130);
 
-		cv::createTrackbar("a", m_ConstWindowName, &m_Ellipse_a, 800, FunPtrPaintEllipseWidgetCallBack);
-		cv::createTrackbar("b", m_ConstWindowName, &m_Ellipse_b, 800, FunPtrPaintEllipseWidgetCallBack);
-		cv::createTrackbar("x", m_ConstWindowName, &m_Point_x, 800, FunPtrPaintEllipseWidgetCallBack);
-		cv::createTrackbar("y", m_ConstWindowName, &m_Point_y, 800, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("x_ellipse", m_ConstWindowName, &m_Ellipse_x0, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("y_ellipse", m_ConstWindowName, &m_Ellipse_y0, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("x_point", m_ConstWindowName, &m_RandomPoint_x, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("y_point", m_ConstWindowName, &m_RandomPoint_y, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 
 		InitialBasicEllipse();
 
@@ -99,7 +92,7 @@ namespace slopencv
 	void SLPointToEllipse::DrawBasicEllipse()
 	{
 		m_EllipseRGB = cv::Mat(800, 800, CV_8UC3, slopencv::CV_COLOR_SCALAR_EyeProtection);
-		m_Ellipse.size = cv::Size(m_Ellipse_a * 2, m_Ellipse_b * 2);
+		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
 		cv::ellipse(m_EllipseRGB, m_Ellipse, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
 	}
 

@@ -162,7 +162,6 @@ namespace slopencv
 
 	void SLBinaryEllipseCorrelation::DrawEllipseAxis()
 	{
-
 		double majorAxisLength = m_cvEllipse.size.width / 2.0;
 		double minorAxisLength = m_cvEllipse.size.height / 2.0;
 
@@ -203,7 +202,7 @@ namespace slopencv
 		int otherLevelCount = 0;
 		size_t maxEllipseContourSize = 0;
 		int maxEllipseContourIndex = m_EllipseContoursIndex;
-		for (int i = 0; i< m_Contours.size(); i++)
+		for (size_t i = 0; i< m_Contours.size(); i++)
 		{
 			if (m_Hierarchy[i][3] == 0)
 			{

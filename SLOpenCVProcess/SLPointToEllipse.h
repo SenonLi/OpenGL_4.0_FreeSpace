@@ -17,8 +17,7 @@ namespace slopencv
 		void DrawBasicEllipse();
 		void DrawPoint();
 		
-		
-		void CalculateDistance();
+		void DetermineShortestDistanceFromPointToEllipse();
 
 
 		void DrawDistanceCircle();
@@ -27,18 +26,22 @@ namespace slopencv
 		int m_ImageFlags = cv::WINDOW_NORMAL;
 		const char* m_ConstWindowName = "Point To Ellipse";
 
-		int m_Ellipse_a = 600;
-		int m_Ellipse_b = 400;
-		int m_Point_x = 600;
-		int m_Point_y = 400;
+		const int WIDGET_SIZE_WIDTH = 600;
+		const int WIDGET_SIZE_HEIGHT = 600;
+
+		const int m_Ellipse_a = WIDGET_SIZE_WIDTH * 6 / 16;
+		const int m_Ellipse_b = WIDGET_SIZE_HEIGHT * 3 / 16;
+		
+		int m_Ellipse_x0 = WIDGET_SIZE_WIDTH * 2 / 5;
+		int m_Ellipse_y0 = WIDGET_SIZE_HEIGHT * 3 / 5;
+		int m_RandomPoint_x = WIDGET_SIZE_WIDTH * 15 / 16;
+		int m_RandomPoint_y = WIDGET_SIZE_HEIGHT * 15 / 16;
 		double m_Distance = 100.0;
 
 		cv::Mat m_EllipseRGB;
 		cv::RotatedRect m_Ellipse;
-		cv::Point m_RandomPoint = cv::Point(600, 400);
-		const cv::Point2f Ellipse_Center = cv::Point2f(0.0f, 0.0f);
-		const cv::Size2f Ellipse_Size = cv::Size2f(800.0f, 800.0f);
-		const float Ellipse_Angle = 0.0f;
+		cv::Point m_RandomPoint;
+		const float Ellipse_Angle = 60.0f; // in degree
 
 	};
 
