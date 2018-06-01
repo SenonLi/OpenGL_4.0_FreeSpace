@@ -181,8 +181,8 @@ namespace slopencv
 		cv::Point2f majorPoint = center + normalMajorAxis * majorAxisLength;
 		cv::Point2f minorPoint = center + normalMinorAxis * minorAxisLength;
 
-		cv::line(m_DstRGB, center, majorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
-		cv::line(m_DstRGB, center, minorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
+		cv::line(m_DstRGB, center, majorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 1, 8);
+		cv::line(m_DstRGB, center, minorPoint, slopencv::CV_COLOR_SCALAR_BLUE, 1, 8);
 
 
 		//cv::imshow(m_ConstWindowName, m_DstRGB);
@@ -263,7 +263,7 @@ namespace slopencv
 			//	cv::Point2f(m_cvEllipse.center.x - 35, m_cvEllipse.center.y - 00),
 			//	cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 
-			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 2, 8);
+			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 1, 8);
 
 			DrawEllipseAxis();
 
