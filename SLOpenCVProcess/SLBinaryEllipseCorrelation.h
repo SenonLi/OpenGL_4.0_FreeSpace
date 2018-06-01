@@ -18,7 +18,6 @@ namespace slopencv
 	private:
 		void LoadDefaultImage();
 		void GetSourceImageGray();
-
 		void ApplyImageBlur();
 		void GetBinaryImage();
 		void FindOuterEllipse();
@@ -40,8 +39,9 @@ namespace slopencv
 		const char* m_OriginalWindowName = "Original";
 		
 		const std::string m_ImagePath = "../WatchMe/Images/ExtractEllipse/";
-		const std::string m_ImageExtension = ".bmp";
-		const std::string m_ImageName = "perfect_2";
+		const std::string m_ImageExtension = ".png";
+		const std::string m_ImageName = "ProjectorAlignment_RetroTarget_2";
+		//const std::string m_ImageName = "Hole_1";
 
 		cv::RotatedRect m_cvEllipse;
 

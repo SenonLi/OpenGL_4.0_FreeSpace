@@ -158,6 +158,11 @@ namespace slopencv
 	{
 		GetBinaryImage();
 		FindOuterEllipse();
+
+		double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
+
+		std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();
+		std::cout << "\t\t RMS of this Ellipse : \t" << rms << std::endl;
 	}
 
 	void SLBinaryEllipseCorrelation::DrawEllipseAxis()
@@ -206,45 +211,44 @@ namespace slopencv
 		{
 			if (m_Hierarchy[i][3] == 0)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_BLUE, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_BLUE, 1, 8, m_Hierarchy, 0);
 				levelZeroCount++;
 			}
 			else if (m_Hierarchy[i][3] == 1)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_YELLOW, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_YELLOW, 1, 8, m_Hierarchy, 0);
 				levelOneCount++;
 			}
 			else if (m_Hierarchy[i][3] == 2)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_CYAN, 2, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_CYAN, 1, 8, m_Hierarchy, 0);
 				levelTwoCount++;
 			}
 			else if (m_Hierarchy[i][3] == -1)
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_RED, 1, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_RED, 1, 8, m_Hierarchy, 0);
 				otherLevelCount++;
 			}
 			else
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, i, slopencv::CV_COLOR_SCALAR_WHITE, 1, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_WHITE, 1, 8, m_Hierarchy, 0);
 				otherLevelCount++;
 			}
 
 			if (m_Contours[i].size() > maxEllipseContourSize)
 			{
 				maxEllipseContourSize = m_Contours[i].size();
-				maxEllipseContourIndex = i;
+				maxEllipseContourIndex = (int)i;
 			}
 		}
 		m_EllipseContoursIndex = maxEllipseContourIndex;
-		cv::imshow(m_OriginalWindowName, m_SrcRGB);
 		cv::namedWindow("Outer Contours", m_ImageFlags); // Create a window to display results
 		cv::resizeWindow("Outer Contours", 600, 680);
 		cv::imshow("Outer Contours", m_SrcRGB);
 
 
-		std::cout << "Total Level 0  Contours: \t " << levelZeroCount
-			<< "\t Level 1 : \t " << levelOneCount << "\t Level 2 : \t" << levelTwoCount << std::endl;
+		//std::cout << "Total Level 0  Contours: \t " << levelZeroCount
+		//	<< "\t Level 1 : \t " << levelOneCount << "\t Level 2 : \t" << levelTwoCount << std::endl;
 
 		if (maxEllipseContourSize > 5)
 		{
