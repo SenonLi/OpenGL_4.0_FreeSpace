@@ -77,8 +77,8 @@ Sen_BreakOutMap::Sen_BreakOutMap(GLfloat spareSide, std::vector<std::vector<GLui
 		GLfloat brickWidth = 2.0f / static_cast<GLfloat>(lineBricksNum);
 		GLfloat brickHeight = 1.0f / static_cast<GLfloat>(totalLinesNum);
 
-		GLuint incompleteLinesNum = std::ceil(spareSide / brickHeight);
-		GLuint incompleteLineBricksNum = std::floor((2.0f - spareSide) / brickWidth);
+		GLuint incompleteLinesNum = (GLuint)std::ceil(spareSide / brickHeight);
+		GLuint incompleteLineBricksNum = (GLuint)std::floor((2.0f - spareSide) / brickWidth);
 
 		glm::vec2 brickSize(brickWidth, brickHeight);
 		glm::vec2 brickPosition = glm::vec2(0.0f);
@@ -487,9 +487,9 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 	map2DBrickTypesinfo.clear();
 
 	if (breakOutLevel == 1)	{
-		GLuint rowNum = sizeof(levelOneBrickTypesMap) / sizeof(levelOneBrickTypesMap[0]);
+		int rowNum = sizeof(levelOneBrickTypesMap) / sizeof(levelOneBrickTypesMap[0]);
 		for (int i = 0; i < rowNum; i++)	{
-			GLuint columnNum = sizeof(levelOneBrickTypesMap[i]) / sizeof(GLuint);
+			int columnNum = sizeof(levelOneBrickTypesMap[i]) / sizeof(GLuint);
 			std::vector<GLuint> lineBrickTypesInfo;
 			for (int j = 0; j < columnNum; j++)	{
 				lineBrickTypesInfo.push_back(levelOneBrickTypesMap[i][j]);
@@ -498,9 +498,9 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 		}
 	}
 	else if (breakOutLevel == 2)	{
-		GLuint rowNum = sizeof(levelTwoBrickTypesMap) / sizeof(levelTwoBrickTypesMap[0]);
+		int rowNum = sizeof(levelTwoBrickTypesMap) / sizeof(levelTwoBrickTypesMap[0]);
 		for (int i = 0; i < rowNum; i++)	{
-			GLuint columnNum = sizeof(levelTwoBrickTypesMap[i]) / sizeof(GLuint);
+			int columnNum = sizeof(levelTwoBrickTypesMap[i]) / sizeof(GLuint);
 			std::vector<GLuint> lineBrickTypesInfo;
 			for (int j = 0; j < columnNum; j++)	{
 				lineBrickTypesInfo.push_back(levelTwoBrickTypesMap[i][j]);
@@ -509,9 +509,9 @@ void Sen_BreakOut::init2DMapInfo(std::vector<std::vector<GLuint>> &map2DBrickTyp
 		}
 	}
 	else if (breakOutLevel == 3)	{
-		GLuint rowNum = sizeof(levelThirdBrickTypesMap) / sizeof(levelThirdBrickTypesMap[0]);
+		int rowNum = sizeof(levelThirdBrickTypesMap) / sizeof(levelThirdBrickTypesMap[0]);
 		for (int i = 0; i < rowNum; i++)	{
-			GLuint columnNum = sizeof(levelThirdBrickTypesMap[i]) / sizeof(GLuint);
+			int columnNum = sizeof(levelThirdBrickTypesMap[i]) / sizeof(GLuint);
 			std::vector<GLuint> lineBrickTypesInfo;
 			for (int j = 0; j < columnNum; j++)	{
 				lineBrickTypesInfo.push_back(levelThirdBrickTypesMap[i][j]);

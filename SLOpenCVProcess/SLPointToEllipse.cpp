@@ -31,17 +31,26 @@ namespace slopencv
 		double phiShortest = CV_PI / 2.0; // starting point has to be 90 degree, if start from 0, iteration may return two same values due to sin(0) == 0
 		double shortestDistance = 999999.0;
 		double newDistance = shortestDistance - 2.0;
+		double x_RelativePoint, y_RelativePoint;
+		int ellipseRelative_a, ellipseRelative_b;
+		// Make sure a > b, and a is always on X-axis;
+		if (m_Ellipse_a > m_Ellipse_b)	{
+			ellipseRelative_a = m_Ellipse_a;
+			ellipseRelative_b = m_Ellipse_b;
+			slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, x_RelativePoint, y_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, Ellipse_Angle / 180.0 * CV_PI);
+		}else {
+			// if not, we need to Fix It, and switch the X/Y-axis Coordinate for RelativePoint
+			ellipseRelative_a = m_Ellipse_b;
+			ellipseRelative_b = m_Ellipse_a;
+			slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, y_RelativePoint, x_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, Ellipse_Angle / 180.0 * CV_PI);
+		}
 
-		double x_RelativePoint = -1.0;
-		double y_RelativePoint = -1.0;
-		slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, x_RelativePoint, y_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, Ellipse_Angle / 180.0 * CV_PI);
 		int iterationCount = 0;
-
 		while (shortestDistance - newDistance > 1)
 		{
 			shortestDistance = newDistance;
-			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, m_Ellipse_a, m_Ellipse_b, phiShortest);
-			newDistance = slopencv::GetDistanceFromPointToPoint(abs(x_RelativePoint), abs(y_RelativePoint), m_Ellipse_a * cos(phiShortest), m_Ellipse_b * sin(phiShortest));
+			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, ellipseRelative_a, ellipseRelative_b, phiShortest);
+			newDistance = slopencv::GetDistanceFromPointToPoint(abs(x_RelativePoint), abs(y_RelativePoint), ellipseRelative_a * cos(phiShortest), ellipseRelative_b * sin(phiShortest));
 			iterationCount++;
 		}
 
@@ -57,10 +66,10 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		//DetermineShortestDistanceFromPointToEllipse();
+		DetermineShortestDistanceFromPointToEllipse();
 
-		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse);
+		//m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+		//m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse);
 
 		DrawDistanceCircle();
 
@@ -95,7 +104,7 @@ namespace slopencv
 
 	void SLPointToEllipse::DrawBasicEllipse()
 	{
-		m_EllipseRGB = cv::Mat(800, 800, CV_8UC3, slopencv::CV_COLOR_SCALAR_EyeProtection);
+		m_EllipseRGB = cv::Mat(WIDGET_SIZE_WIDTH, WIDGET_SIZE_HEIGHT, CV_8UC3, slopencv::CV_COLOR_SCALAR_EyeProtection);
 		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
 		cv::ellipse(m_EllipseRGB, m_Ellipse, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
 	}

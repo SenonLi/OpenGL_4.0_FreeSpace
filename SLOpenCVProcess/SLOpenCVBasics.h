@@ -4,8 +4,11 @@
 
 namespace slopencv
 {
+	extern std::string ws2s(const std::wstring& wstr);
+	extern std::wstring s2ws(const std::string& str);
+
 	// slutil, statistic
-	double GetRootMeanSquare(const std::vector<double>& dataVect);
+	extern double GetRootMeanSquare(const std::vector<double>& dataVect);
 
 	extern void GetImageMat(CImage& src, cv::Mat& dst);
 	extern double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi = 0.0);

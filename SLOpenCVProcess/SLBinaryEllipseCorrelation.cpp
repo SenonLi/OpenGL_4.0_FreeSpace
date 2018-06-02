@@ -2,8 +2,6 @@
 #include "SLBinaryEllipseCorrelation.h"
 #include <iostream>
 
-#include <codecvt>
-
 slopencv::SLBinaryEllipseCorrelation* ptrBinaryEllipseCorrelationInstance;
 
 namespace slopencv
@@ -11,21 +9,6 @@ namespace slopencv
 	extern "C" void FunPtrPaintWidgetCallBack(int pos, void* userData)
 	{
 		::ptrBinaryEllipseCorrelationInstance->PaintWidgetCallBack(pos, userData);
-	}
-
-	std::string ws2s(const std::wstring& wstr)
-	{
-		using convert_typeX = std::codecvt_utf8<wchar_t>;
-		std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-		return converterX.to_bytes(wstr);
-	}
-	std::wstring s2ws(const std::string& str)
-	{
-		using convert_typeX = std::codecvt_utf8<wchar_t>;
-		std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-		return converterX.from_bytes(str);
 	}
 
 	void SLBinaryEllipseCorrelation::LoadDefaultImage()
@@ -159,10 +142,14 @@ namespace slopencv
 		GetBinaryImage();
 		FindOuterEllipse();
 
-		double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
+		if (m_EllipseContoursIndex != -1 && (int)m_Contours.size() > m_EllipseContoursIndex)
+		{
+			double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
 
-		std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();
-		std::cout << "\t\t RMS of this Ellipse : \t" << rms << std::endl;
+			std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();
+			std::cout << "\t\t RMS of this Ellipse : \t" << rms << std::endl;
+		}
+
 	}
 
 	void SLBinaryEllipseCorrelation::DrawEllipseAxis()
@@ -194,7 +181,7 @@ namespace slopencv
 		/// Detect edges using canny
 		m_dCannyThreshRatio = m_iCannyThreshRatio / 10.0;
 		cv::Canny(m_Binary, m_CannyOutput, m_CannyThreshValue, m_CannyThreshValue * m_dCannyThreshRatio, 3);
-		//cv::imshow(m_ConstWindowName, m_CannyOutput);
+		cv::imshow("Canny Output", m_CannyOutput);
 
 
 		/// Find contours

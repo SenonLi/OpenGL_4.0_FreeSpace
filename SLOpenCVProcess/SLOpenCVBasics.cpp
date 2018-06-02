@@ -1,8 +1,25 @@
 #include "stdafx.h"
 #include "SLOpenCVBasics.h"
+#include <codecvt>              // for ws2s() and s2ws
 
 namespace slopencv
 {
+	// slutil, statistic
+	std::string ws2s(const std::wstring& wstr)
+	{
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.to_bytes(wstr);
+	}
+	std::wstring s2ws(const std::string& str)
+	{
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.from_bytes(str);
+	}
+
 	// slutil, statistic
 	double GetRootMeanSquare(const std::vector<double>& dataVect)
 	{
@@ -10,7 +27,7 @@ namespace slopencv
 			return -1.0;
 
 		double sum = 0.0;
-		for (int i = 0; i < dataVect.size(); ++i) {
+		for (int i = 0; i < (int)dataVect.size(); ++i) {
 			sum += dataVect[i] * dataVect[i];
 		}
 		return sqrt(sum / dataVect.size());
@@ -25,19 +42,21 @@ namespace slopencv
 	/// <summary>Iterative Equation, to get better Phi (Point on Ellipse) for shorter distance form Point to Ellipse
 	///      Every point on an Self-Centered Ellipse can be expressed by ellipse-equation feature a, b, and angle phi (phi is the angle)
 	///      x = a * cos(phi), y = b * sin(phi) </summary>
-	/// <param name="xp">x of Random Point</param>
-	/// <param name="yp">y of Random Point</param>
-	/// <param name="a">a of Ellipse Equation</param>
-	/// <param name="b">b of Ellipse Equation</param>
-	/// <param name="phi">old phi of an point on the ellipse that was assumed to be with shortest distance to the Random Point  [IN] </param>
-	/// <return>better phi with a shorter distance from the RandomPoint to the point on Ellipse (to which point the better phi belongs)</return>
-	double IteratePhiForShortestDistanceToEllipse(double xp, double yp, double a, double b, double phi)
+	/// <remarks> Requirements:   ar > br  !!!!!</remarks>
+	/// <param name="xr">x of Relative Point</param>
+	/// <param name="yr">y of Relative Point</param>
+	/// <param name="ar">a of Relative-Ellipse's Equation, need to be larger than br</param>
+	/// <param name="br">b of Relative-Ellipse's Equation</param>
+	/// <param name="phi">old phi of an point on the ellipse that was assumed to be with shortest distance to the Relative Point  [IN] </param>
+	/// <return>better phi with ar shorter distance from the RandomPoint to the point on Ellipse (to which point the better phi belongs)</return>
+	double IteratePhiForShortestDistanceToEllipse(double xr, double yr, double ar, double br, double phi)
 	{
-		return atan(((a*a - b * b) * sin(phi) + abs(yp) * b) / (abs(xp) * a));
+		assert(ar > br);// In this algorithm, "ar > br" is required, otherwise it won't work
+		return atan(((ar*ar - br * br) * sin(phi) + abs(yr) * br) / (abs(xr) * ar));
 	}
 
 	/// <summary>Transfer RamdomPoint to new CoordinateSystem that is relative to ellipse, with ellipse center be Origin and majorAxis be axis-X</summary>
-	/// <param name="theta">ngle of ellipse in radians</param>
+	/// <param name="theta">angle of ellipse in radians</param>
 	void GetPointRelativeToEllipse(int x_RandomPoint, int y_RandomPoint, double& x_RelativePoint, double& y_RelativePoint
 		, double x_EllipseCenter, double y_EllipseCenter, double theta)
 	{
@@ -50,15 +69,26 @@ namespace slopencv
 		double phiShortest = CV_PI / 2.0; // starting point has to be 90 degree, if start from 0, iteration may return two same values due to sin(0) == 0
 		double shortestDistance = 999999.0;
 		double newDistance = shortestDistance - 2.0;
-		double majorAxisLength = ellipse.size.width / 2.0;
-		double minorAxisLength = ellipse.size.height / 2.0;
+		double majorAxisLength;
+		double minorAxisLength;
+		double x_RelativePoint;
+		double y_RelativePoint;
 
-		double x_RelativePoint = -1.0;
-		double y_RelativePoint = -1.0;
-		slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, x_RelativePoint, y_RelativePoint, ellipse.center.x, ellipse.center.y, ellipse.angle / 180.0 * CV_PI);
+		// Make sure a > b, and a is always on X-axis;
+		if (ellipse.size.width > ellipse.size.height)
+		{
+			majorAxisLength = ellipse.size.width / 2.0;
+			minorAxisLength = ellipse.size.height / 2.0;
+			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, x_RelativePoint, y_RelativePoint, ellipse.center.x, ellipse.center.y, (ellipse.angle) / 180.0 * CV_PI);
+		}else {
+			// if ellipse.size.width < ellipse.size.height, we need to switch the X/Y-axis Coordinate for RelativePoint
+			majorAxisLength = ellipse.size.height / 2.0;
+			minorAxisLength = ellipse.size.width / 2.0;
+			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, y_RelativePoint, x_RelativePoint, ellipse.center.x, ellipse.center.y, (ellipse.angle) / 180.0 * CV_PI);
+		}
+
 		int iterationCount = 0;
-
-		while (shortestDistance - newDistance > 0.1)
+		while (shortestDistance - newDistance > 0.01)
 		{
 			shortestDistance = newDistance;
 			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, majorAxisLength, minorAxisLength, phiShortest);
@@ -78,7 +108,7 @@ namespace slopencv
 		std::vector<double> edgesDistancesToBestFitEllipse;
 		edgesDistancesToBestFitEllipse.resize(ellipseEdges.size());
 
-		for (int i = 0; i < ellipseEdges.size(); ++i)
+		for (int i = 0; i < (int)ellipseEdges.size(); ++i)
 		{
 			edgesDistancesToBestFitEllipse[i] = GetShortestDistanceFromPointToEllipse(ellipseEdges[i], bestFitEllipse);
 		}
