@@ -111,6 +111,9 @@ namespace slopencv
 		for (int i = 0; i < (int)ellipseEdges.size(); ++i)
 		{
 			edgesDistancesToBestFitEllipse[i] = GetShortestDistanceFromPointToEllipse(ellipseEdges[i], bestFitEllipse);
+			// distance less than one pixel could be taken as 0, such that a perfect ellipse RMS = 0
+			if (edgesDistancesToBestFitEllipse[i] < 0.99)
+				edgesDistancesToBestFitEllipse[i] = 0;
 		}
 
 		return GetRootMeanSquare(edgesDistancesToBestFitEllipse);

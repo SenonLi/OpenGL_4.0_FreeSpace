@@ -257,7 +257,7 @@ namespace slopencv
 
 			cv::imshow(m_ConstWindowName, m_DstRGB);
 
-			cv::imwrite(m_ImagePath + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
+			cv::imwrite("../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
 		}
 
 	}
