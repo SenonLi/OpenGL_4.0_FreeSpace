@@ -147,7 +147,7 @@ namespace slopencv
 			double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
 
 			std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();
-			std::cout << "\t\t RMS of this Ellipse : \t" << rms << std::endl;
+			std::cout << "\t\t RMS (in percentage) of this Ellipse : \t" << rms << " % \n";
 		}
 
 	}
@@ -218,7 +218,7 @@ namespace slopencv
 			}
 			else
 			{
-				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_WHITE, 1, 8, m_Hierarchy, 0);
+				cv::drawContours(m_SrcRGB, m_Contours, (int)i, slopencv::CV_COLOR_SCALAR_EyeProtection, 1, 8, m_Hierarchy, 0);
 				otherLevelCount++;
 			}
 
@@ -229,6 +229,9 @@ namespace slopencv
 			}
 		}
 		m_EllipseContoursIndex = maxEllipseContourIndex;
+		
+		cv::drawContours(m_SrcRGB, m_Contours, m_EllipseContoursIndex, slopencv::CV_COLOR_SCALAR_PURPLE, 1, 8, m_Hierarchy, 0);
+
 		cv::namedWindow("Outer Contours", m_ImageFlags); // Create a window to display results
 		cv::resizeWindow("Outer Contours", 600, 680);
 		cv::imshow("Outer Contours", m_SrcRGB);

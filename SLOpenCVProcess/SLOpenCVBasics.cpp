@@ -111,9 +111,10 @@ namespace slopencv
 		for (int i = 0; i < (int)ellipseEdges.size(); ++i)
 		{
 			edgesDistancesToBestFitEllipse[i] = GetShortestDistanceFromPointToEllipse(ellipseEdges[i], bestFitEllipse);
-			// distance less than one pixel could be taken as 0, such that a perfect ellipse RMS = 0
-			if (edgesDistancesToBestFitEllipse[i] < 0.99)
-				edgesDistancesToBestFitEllipse[i] = 0;
+			// "- 1" for every distance for RMS calculation can remove the noise due to pixel quantification
+			edgesDistancesToBestFitEllipse[i] = edgesDistancesToBestFitEllipse[i] > 1 ? edgesDistancesToBestFitEllipse[i] - 1 : 0;
+			// Will calculate RMS in percentage, with respect to semi-Major a of the ellipse
+			edgesDistancesToBestFitEllipse[i] = edgesDistancesToBestFitEllipse[i] * 100.0 / std::max(bestFitEllipse.size.width / 2.0, bestFitEllipse.size.height / 2.0);
 		}
 
 		return GetRootMeanSquare(edgesDistancesToBestFitEllipse);
