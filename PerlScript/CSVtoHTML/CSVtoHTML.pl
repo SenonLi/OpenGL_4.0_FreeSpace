@@ -48,7 +48,7 @@ sub process_timings
 		my $command = shift @times;
 		my $index   = shift @times;
 
-		if (not defined $command || $command eq '' ) # Only check for the overall process timings, not individual commands/operations
+		if (!$command) # Only check for the overall process timings, not individual commands/operations
 		{
 			$alltimes->{$process}->{'Minimum'} = 10000;
 			$alltimes->{$process}->{'Maximum'} = 0.001;
