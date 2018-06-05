@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Time::Local;
+use v5.24;
 
 # --------------------------------------------------------------------------------------------------
 # As we are samurai, honoring the bushido code, we will die with honor rather than fall into the
@@ -28,7 +29,7 @@ sub process_timings
 
 	# Process the first line of the file to the the dates of the runs
 	my $line = <FILE>;
-	chomp $line;
+	chomp $line; # remove \n at the end of $line
 	$line =~ s/^"//; # Remove the leading quote
 	$line =~ s/"$//; # Remove the trailing quote
 	my @dates = split /"?,"?/, $line; # Split the fields at the commas and include the internal quotes
@@ -47,7 +48,7 @@ sub process_timings
 		my $command = shift @times;
 		my $index   = shift @times;
 
-		if (!$command) # Only check for the overall process timings, not individual commands/operations
+		if (not defined $command || $command eq '' ) # Only check for the overall process timings, not individual commands/operations
 		{
 			$alltimes->{$process}->{'Minimum'} = 10000;
 			$alltimes->{$process}->{'Maximum'} = 0.001;
@@ -81,10 +82,14 @@ sub process_timings
 #-----------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------
 
-my $results = $ARGV[0] || 'AllData.csv';
+my $results = $ARGV[0] || 'AllData.csv'; # if $ARGV[0] is defined, $results = $ARGV[0]; else $results = 'AllData.csv'
 my $output = $results;
-$output =~ s/\.[a-z]+$/.html/i;
+$output =~ s/\.[a-z]+$/.html/i; # match replace .* to .html, case insensitive; $output = 'AllData.html'
+# http://perldoc.perl.org/perlretut.html
+#    "don't" =~ / .+? \b{wb} /x;  # matches the whole string
 
+#  Here less than < sign indicates that file has to be opend in read-only mode.
+# Here TEMPLATE is the file handle which will be used to read the file.
 open (TEMPLATE, '<AllData.template') || harakiri('ERROR: Could not open file: AllData');
 open (HTML, '>'.$output) || harakiri('ERROR: Could not open file: '.$output);
 my $line;
@@ -92,7 +97,7 @@ my $line;
 # Prepare the header for the HTML file
 while ($line=<TEMPLATE>)
 {
-	last if ($line =~ /INSERT DATA/);
+	last if ($line =~ /INSERT DATA/); # read TEMPLATE and write into HTML util line contains "INSERT DATA"
 	print HTML $line;
 }
 
@@ -104,7 +109,7 @@ if ($line =~ /INSERT DATA/)
 	foreach my $step (sort keys %$times)
 	{
 		# Do not report processes for which the difference between the max an min time is 2 seconds or less.
-		if (($times->{$step}->{'Maximum'}-$times->{$step}->{'Minimum'}) > 2 || $times->{$step}->{'Number'} < 5)
+		#if (($times->{$step}->{'Maximum'}-$times->{$step}->{'Minimum'}) > 2 || $times->{$step}->{'Number'} < 5)
 		{
 			my $name = $step;
 			$name =~ s/\s*\S?monitor\S?//;
