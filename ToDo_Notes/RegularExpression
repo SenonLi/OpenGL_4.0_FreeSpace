@@ -3,3 +3,26 @@
 
 ## To figure out:
  *  "don't" =~ / .+? \b{wb} /x;  # matches the whole string
+
+
+* Is the string empty?
+if ($str eq '') {
+    print "String is empty.";
+}
+That would work, but if use warnings; is in effect, as it should be, then you might get a Use of uninitialized value warnings if $str is undef. So it might be better to check this too, before any other comparison:
+
+* if (not defined $str) {
+    print "String is so empty, it is not even defined.";
+}
+and to do the other comparisons only if $str is defined.
+
+* Has the string only spaces in it?
+if ($str =~ /^ *$/) {
+    print "String contains 0 or more spaces and nothing else.";
+}
+* Has the string only white-spaces in it?
+if ($str =~ /^\s*$/) {
+    print "String contains 0 or more white-space character and nothing else.";
+}
+
+

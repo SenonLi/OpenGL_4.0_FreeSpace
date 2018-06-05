@@ -48,7 +48,7 @@ sub process_timings
 		my $command = shift @times;
 		my $index   = shift @times;
 
-		if (!$command) # Only check for the overall process timings, not individual commands/operations
+		if (not defined $command || $command eq '' ) # Only check for the overall process timings, not individual commands/operations
 		{
 			$alltimes->{$process}->{'Minimum'} = 10000;
 			$alltimes->{$process}->{'Maximum'} = 0.001;
@@ -109,7 +109,7 @@ if ($line =~ /INSERT DATA/)
 	foreach my $step (sort keys %$times)
 	{
 		# Do not report processes for which the difference between the max an min time is 2 seconds or less.
-		if (($times->{$step}->{'Maximum'}-$times->{$step}->{'Minimum'}) > 2 || $times->{$step}->{'Number'} < 5)
+		#if (($times->{$step}->{'Maximum'}-$times->{$step}->{'Minimum'}) > 2 || $times->{$step}->{'Number'} < 5)
 		{
 			my $name = $step;
 			$name =~ s/\s*\S?monitor\S?//;

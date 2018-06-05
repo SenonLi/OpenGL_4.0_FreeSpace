@@ -23,6 +23,31 @@ set COLUMNS=120
 set TERM=dumb
 
 
+Perl Syntax
+## Data Types
+* Scalars - preceded by a dollar sign ($);
+* Arrays  - preceded by an "at" sign (@);
+* Hashes  - preceded by a percent sign (%).
+
+## Keyword
+* last:
+When a last statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop.
+
+## Debug
+* b [line] [condition]
+Set a breakpoint before the given line.
+If a condition is specified, it's evaluated each time the statement is reached: a breakpoint is taken only if the condition is true. 
+ - DB<>  b 237 $x > 30
+
+
+
+
+
+
+
+
+
+
 
 
 
