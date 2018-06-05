@@ -240,7 +240,7 @@ namespace slopencv
 		//std::cout << "Total Level 0  Contours: \t " << levelZeroCount
 		//	<< "\t Level 1 : \t " << levelOneCount << "\t Level 2 : \t" << levelTwoCount << std::endl;
 
-		if (maxEllipseContourSize > 5)
+		if (maxEllipseContourSize > CV_MINIMUM_NUM_FOR_FIT_ELLIPSE)
 		{
 			m_cvEllipse = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
 
