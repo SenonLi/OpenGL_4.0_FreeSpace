@@ -33,7 +33,6 @@ void CurveRenderer::Update(DataView* /*viewport*/)
 
 ----------------------------------------------------------------------------------------------------------------------
 
-1. Learn how to use Git Tag.
 2. Add QImage Support with library in GraphicUsr into SLDigitalImageProcess library.
 3. vsSenOpenGL -> Project Properties -> General -> Project Defaults -> Character Set -> Use Unicode Character Set
 4. Set up the highest Warning -> Error compiler, and fix all the errors!
@@ -52,8 +51,14 @@ Library:
 				-> SLDigitalImageProcess (No UI, either pure CPU process, or GPU context)
 4. slopencv (slutil, slgeom, sldip)
 				-> SLOpenCVProcess : Above sldip, because any implemention that may require OpenCV will definitely use sldip.
+
+4.1 SLMfc3DPlayer
+4.2 SLQt3DPlayer
+4.3 SLGlfw3DPlayer
+
+To do an UI engine, you need to be super familiar with 4.1, 4.2, and 4.3 !!! Start from SLMfc3DPlayer first!
 ------------------------------------------------------------------------------------------------------------
---- UI Engine: libraries that support Graphic (OpenGL/Vulkan/Cuda) 2D/3D User Interface for drawing --------
+--- Far Future - UI Engine: libraries that support Graphic (OpenGL/Vulkan/Cuda) 2D/3D User Interface for drawing --------
 5. slmfcui      -> SLMfcUIEngine
 6. slglfwui     -> SLGlfwUIEngine
 7. slqt3dui     -> SLQtUIEngine
