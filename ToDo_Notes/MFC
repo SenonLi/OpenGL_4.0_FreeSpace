@@ -1,3 +1,16 @@
 Tutorial for Beginners:  https://www.youtube.com/watch?v=Su1x9EA5Njk
 
+## From scratch to MFC
+1. Create a resource file (*.rc) in the resources folder;
+2. Create a Dialog within your resource file;
+3. Add *.cpp (for main function) source file;
+4. Add the bare minimum "boilerplate code" for an MFC application;
+	- This consists First writing a class that inherits from either CDialog or CFrameWnd;
+	- Then write a class that inherits from CWinApp and instantiate the first class from within the second.
+	- Finally, add Message Map tags for the CDialog class and instantiate your CWinApp class.
 
+
+To do:
+first, copy SLMfc3DPlayer.cpp
+and class SLMfc3DPlayerDlg, then delete as much as possible to get the minimum bone of MFC with CDialog as first class,
+then check the difference between CDialog and CWinApp and CFrameWnd.
