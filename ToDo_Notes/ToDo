@@ -45,8 +45,11 @@ void CurveRenderer::Update(DataView* /*viewport*/)
 # Structure of application SL3DPlayer
 Library:
 1. slutil       -> SLInternalUtility;     Handle memory, string, and other related base class
+	- class Math;
+
 2. slgeom   (slutil)     
 				-> SLGeometry: all math, matrix, camera, model, view, , rotation, translation, structure of primatives (curve, circle, ellipse, cylinder, sphere, cube ...)
+			- Determine whether to use Vec2D or Point2D class name;
 3. sldip    (slutil, slgeom)
 				-> SLDigitalImageProcess (No UI, either pure CPU process, or GPU context)
 4. slopencv (slutil, slgeom, sldip)
