@@ -28,8 +28,7 @@ namespace slopencv
 
 	void SLPointToEllipse::DetermineShortestDistanceFromPointToEllipse()
 	{
-		double phiShortest = CV_PI / 2.0; // starting point has to be 90 degree, if start from 0, iteration may return two same values due to sin(0) == 0
-		double shortestDistance = 999999.0;
+		double shortestDistance = slopencv::MAX_POSITION;
 		double newDistance = shortestDistance - 2.0;
 		double x_RelativePoint, y_RelativePoint;
 		int ellipseRelative_a, ellipseRelative_b;
@@ -45,8 +44,14 @@ namespace slopencv
 			slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, y_RelativePoint, x_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, Ellipse_Angle / 180.0 * CV_PI);
 		}
 
+		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
+		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
+		double phiShortest = atan2(y_RelativePoint, x_RelativePoint);
+		if (phiShortest == 0)
+			phiShortest = 0.01; // Make sure the initial phiShortest is not 0, in case  
+
 		int iterationCount = 0;
-		while (shortestDistance - newDistance > 1)
+		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL)
 		{
 			shortestDistance = newDistance;
 			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, ellipseRelative_a, ellipseRelative_b, phiShortest);
@@ -66,10 +71,10 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		DetermineShortestDistanceFromPointToEllipse();
+		//DetermineShortestDistanceFromPointToEllipse();
 
-		//m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		//m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse);
+		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+		m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
 
 		DrawDistanceCircle();
 
