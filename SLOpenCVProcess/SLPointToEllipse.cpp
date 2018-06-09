@@ -71,10 +71,10 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		DetermineShortestDistanceFromPointToEllipse();
+		//DetermineShortestDistanceFromPointToEllipse();
 
-		//m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		//m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
+		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
 
 		DrawDistanceCircle();
 

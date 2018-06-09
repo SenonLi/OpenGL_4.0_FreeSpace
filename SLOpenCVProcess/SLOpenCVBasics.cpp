@@ -134,9 +134,10 @@ namespace slopencv
 	void GetDistancesArrayFromPointsToEllipse(const std::vector<cv::Point>& randomPointsVect, const cv::RotatedRect& targetEllipse, double iterativeCriterion, std::vector<double>& distancesVect)
 	{
 		if (randomPointsVect.empty())	return;
-
+	
 		distancesVect.resize(randomPointsVect.size());
-		double thetaInRadian = targetEllipse.angle / 180.0 * CV_PI;
+		double thetaInRadian = (/*targetEllipse.angle*/ -120.0) / 180.0 * CV_PI;
+		//double thetaInRadian = (targetEllipse.angle - 180.0) / 180.0 * CV_PI;
 		double sinTheta = sin(thetaInRadian);
 		double cosTheta = cos(thetaInRadian);
 		double semiMajor = std::max(targetEllipse.size.width / 2.0, targetEllipse.size.height / 2.0);
