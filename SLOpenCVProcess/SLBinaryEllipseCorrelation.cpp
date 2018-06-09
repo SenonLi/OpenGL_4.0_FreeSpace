@@ -18,7 +18,7 @@ namespace slopencv
 		imageLoader.Load((s2ws(m_ImagePath + m_ImageName + m_ImageExtension)).c_str());
 		assert(!imageLoader.IsNull());
 
-		slopencv::GetImageMat(imageLoader, m_Src);
+		slopencv::ConvertImageToCVMat(imageLoader, m_Src);
 		cv::imshow(m_OriginalWindowName, m_Src);
 
 

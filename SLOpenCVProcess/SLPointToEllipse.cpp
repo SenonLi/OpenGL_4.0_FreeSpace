@@ -28,39 +28,34 @@ namespace slopencv
 
 	void SLPointToEllipse::DetermineShortestDistanceFromPointToEllipse()
 	{
-		double shortestDistance = slopencv::MAX_POSITION;
-		double newDistance = shortestDistance - 2.0;
-		double x_RelativePoint, y_RelativePoint;
-		int ellipseRelative_a, ellipseRelative_b;
+		// Make sure a > b
+		assert(m_Ellipse_a > m_Ellipse_b);
 
+		double semiMajor = m_Ellipse_a;
+		double semiMinor = m_Ellipse_b;
 		double thetaInRadian = Ellipse_Angle / 180.0 * CV_PI;
 		double sinTheta = sin(thetaInRadian);
 		double cosTheta = cos(thetaInRadian);
 
-		// Make sure a > b, and a is always on X-axis;
-		if (m_Ellipse_a > m_Ellipse_b)	{
-			ellipseRelative_a = m_Ellipse_a;
-			ellipseRelative_b = m_Ellipse_b;
-			slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, x_RelativePoint, y_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, sinTheta, cosTheta);
-		}else {
-			// if not, we need to Fix It, and switch the X/Y-axis Coordinate for RelativePoint
-			ellipseRelative_a = m_Ellipse_b;
-			ellipseRelative_b = m_Ellipse_a;
-			slopencv::GetPointRelativeToEllipse(m_RandomPoint_x, m_RandomPoint_y, y_RelativePoint, x_RelativePoint, m_Ellipse_x0, m_Ellipse_y0, sinTheta, cosTheta);
-		}
+		cv::Point2d relativePoint;
+		slopencv::GetPointRelativeToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), cv::Point(m_Ellipse_x0, m_Ellipse_y0), sinTheta, cosTheta, relativePoint);
+
+		double shortestDistance = slopencv::MAX_POSITION;
+		double newDistance = shortestDistance - 2.0;
 
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
 		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
-		double phiShortest = atan2(y_RelativePoint, x_RelativePoint);
+		double phiShortest = atan2(relativePoint.y, relativePoint.x);
+		// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistance would be to close to newDistance )
 		if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
-			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL; // Make sure the initial phiShortest is not too small, in case iterative equation won't work
+			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
 
 		int iterationCount = 0;
 		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL)
 		{
 			shortestDistance = newDistance;
-			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(x_RelativePoint, y_RelativePoint, ellipseRelative_a, ellipseRelative_b, phiShortest);
-			newDistance = slopencv::GetDistanceFromPointToPoint(abs(x_RelativePoint), abs(y_RelativePoint), ellipseRelative_a * cos(phiShortest), ellipseRelative_b * sin(phiShortest));
+			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest);
+			newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
 			iterationCount++;
 		}
 
@@ -76,10 +71,10 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		//DetermineShortestDistanceFromPointToEllipse();
+		DetermineShortestDistanceFromPointToEllipse();
 
-		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
+		//m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+		//m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
 
 		DrawDistanceCircle();
 

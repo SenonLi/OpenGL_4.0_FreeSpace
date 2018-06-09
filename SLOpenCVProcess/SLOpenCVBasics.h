@@ -20,12 +20,16 @@ namespace slopencv
 	// slutil, statistic
 	double GetRootMeanSquare(const std::vector<double>& dataVect);
 
-	void GetImageMat(CImage& src, cv::Mat& dst);
+	void ConvertImageToCVMat(CImage& src, cv::Mat& dst);
+	
 	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi = 0.0);
+	void GetPointRelativeToEllipse(const cv::Point2d& randomPoint, const cv::Point2d& targetEllipseCenter
+		, double sinTheta, double cosTheta, cv::Point2d& relativePoint);
+	
 	double GetDistanceFromPointToPoint(double x1, double y1, double x2, double y2);
-	void GetPointRelativeToEllipse(int x_RandomPoint, int y_RandomPoint, double& x_RelativePoint, double& y_RelativePoint
-		, double x_EllipseCenter, double y_EllipseCenter, double sinTheta, double cosTheta);
-	double GetShortestDistanceFromPointToEllipse(const cv::Point& randomPoint, const cv::RotatedRect& ellipse, double iterativeCriterion);
+	double GetDistanceFromPointToEllipse(const cv::Point& randomPoint, const cv::RotatedRect& ellipse, double iterativeCriterion);
+	void GetDistancesArrayFromPointsToEllipse(const std::vector<cv::Point>& randomPointsVect, const cv::RotatedRect& targetEllipse, double iterativeCriterion, std::vector<double>& distancesVect);
+
 	double GetExtractedEllipseRootMeanSquare(const std::vector<cv::Point>& ellipseEdges, const cv::RotatedRect& bestFitEllipse);
 
 }
