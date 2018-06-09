@@ -52,8 +52,8 @@ namespace slopencv
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
 		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
 		double phiShortest = atan2(y_RelativePoint, x_RelativePoint);
-		if (phiShortest == 0)
-			phiShortest = 0.01; // Make sure the initial phiShortest is not 0, in case  
+		if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
+			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL; // Make sure the initial phiShortest is not too small, in case iterative equation won't work
 
 		int iterationCount = 0;
 		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL)
@@ -76,10 +76,10 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		DetermineShortestDistanceFromPointToEllipse();
+		//DetermineShortestDistanceFromPointToEllipse();
 
-		//m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		//m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
+		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+		m_Distance = slopencv::GetShortestDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
 
 		DrawDistanceCircle();
 
