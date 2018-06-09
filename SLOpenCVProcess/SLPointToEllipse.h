@@ -41,7 +41,7 @@ namespace slopencv
 		cv::Mat m_EllipseRGB;
 		cv::RotatedRect m_Ellipse;
 		cv::Point m_RandomPoint;
-		const float Ellipse_Angle = 0.0f;//60.0f; // in degree
+		const float Ellipse_Angle = 90.0f;//60.0f; // in degree
 
 	};
 
