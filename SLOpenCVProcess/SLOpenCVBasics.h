@@ -23,7 +23,7 @@ namespace slopencv
 	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi = 0.0);
 	double GetDistanceFromPointToPoint(double x1, double y1, double x2, double y2);
 	void GetPointRelativeToEllipse(int x_RandomPoint, int y_RandomPoint, double& x_RelativePoint, double& y_RelativePoint
-		, double x_EllipseCenter, double y_EllipseCenter, double theta);
+		, double x_EllipseCenter, double y_EllipseCenter, double sinTheta, double cosTheta);
 	double GetShortestDistanceFromPointToEllipse(const cv::Point& randomPoint, const cv::RotatedRect& ellipse, double iterativeCriterion);
 	double GetExtractedEllipseRootMeanSquare(const std::vector<cv::Point>& ellipseEdges, const cv::RotatedRect& bestFitEllipse);
 

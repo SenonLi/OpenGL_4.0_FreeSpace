@@ -73,14 +73,17 @@ namespace slopencv
 	}
 
 	/// <summary>Transfer RamdomPoint to new CoordinateSystem that is relative to ellipse, with ellipse center be Origin and majorAxis be axis-X</summary>
-	/// <param name="theta">angle of ellipse in radians</param>
+	/// <remarks>theta in radian (ellipse's angle from X-Axis to semi-Mejor-Axis); to reduce trigonometric-function's high cost, 
+	///                  pass down sinTheta and cosTheta directly, in case many points with same theta (same ellipse)</remarks>
+	/// <param name="sinTheta">sin(theta) [IN]</param>
+	/// <param name="sinTheta">cos(theta) [IN]</param>
 	/// <remarks> Algorithm Reference: http://www.am.ub.edu/~robert/Documents/ellipse.pdf </remarks>
 	/// <Belongs>slgeom::Ellipse2D</Belongs>
 	void GetPointRelativeToEllipse(int x_RandomPoint, int y_RandomPoint, double& x_RelativePoint, double& y_RelativePoint
-		, double x_EllipseCenter, double y_EllipseCenter, double theta)
+		, double x_EllipseCenter, double y_EllipseCenter, double sinTheta, double cosTheta)
 	{
-		x_RelativePoint = abs( (x_RandomPoint - x_EllipseCenter) * cos(theta) + (y_RandomPoint - y_EllipseCenter) * sin(theta) );
-		y_RelativePoint = abs( -(x_RandomPoint - x_EllipseCenter) * sin(theta) + (y_RandomPoint - y_EllipseCenter) * cos(theta) );
+		x_RelativePoint = abs( (x_RandomPoint - x_EllipseCenter) * cosTheta + (y_RandomPoint - y_EllipseCenter) * sinTheta);
+		y_RelativePoint = abs( -(x_RandomPoint - x_EllipseCenter) * sinTheta + (y_RandomPoint - y_EllipseCenter) * cosTheta);
 	}
 
 	/// <summary>Calculate distance from point to Ellipse<summary>
@@ -96,28 +99,29 @@ namespace slopencv
 	{
 		double shortestDistance = slopencv::MAX_POSITION;
 		double newDistance = shortestDistance - 1.0;// just to make sure the initial value of distance is shorter than shortestDistance
-		double majorAxisLength;
-		double minorAxisLength;
-		double x_RelativePoint;
-		double y_RelativePoint;
+		double majorAxisLength, minorAxisLength;
+		double x_RelativePoint, y_RelativePoint;
+		double thetaInRadian = ellipse.angle / 180.0 * CV_PI;
+		double sinTheta = sin(thetaInRadian);
+		double cosTheta = cos(thetaInRadian);
 
 		// Make sure a > b, and a is always on X-axis;
 		if (ellipse.size.width > ellipse.size.height)
 		{
 			majorAxisLength = ellipse.size.width / 2.0;
 			minorAxisLength = ellipse.size.height / 2.0;
-			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, x_RelativePoint, y_RelativePoint, ellipse.center.x, ellipse.center.y, (ellipse.angle) / 180.0 * CV_PI);
+			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, x_RelativePoint, y_RelativePoint, ellipse.center.x, ellipse.center.y, sinTheta, cosTheta);
 		}else {
 			// if ellipse.size.width < ellipse.size.height, we need to switch the X/Y-axis Coordinate for RelativePoint
 			majorAxisLength = ellipse.size.height / 2.0;
 			minorAxisLength = ellipse.size.width / 2.0;
-			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, y_RelativePoint, x_RelativePoint, ellipse.center.x, ellipse.center.y, (ellipse.angle) / 180.0 * CV_PI);
+			slopencv::GetPointRelativeToEllipse(randomPoint.x, randomPoint.y, y_RelativePoint, x_RelativePoint, ellipse.center.x, ellipse.center.y, sinTheta, cosTheta);
 		}
 
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
 		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
 		double phiShortest = atan2(y_RelativePoint, x_RelativePoint);
-		if (phiShortest == 0)
+		if (phiShortest == 0.0)
 			phiShortest = 0.01; // Make sure the initial phiShortest is not 0, in case  
 
 		int iterationCount = 0;
