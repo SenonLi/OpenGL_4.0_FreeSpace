@@ -51,3 +51,8 @@
 *.vsp
 *.vspx
 *.sap
+
+# Visual Studio Debug
+*.pdb
+*.ilk
+*.exp
