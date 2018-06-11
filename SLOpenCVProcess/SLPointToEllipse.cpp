@@ -28,9 +28,6 @@ namespace slopencv
 
 	void SLPointToEllipse::DetermineShortestDistanceFromPointToEllipse()
 	{
-		// Make sure a > b
-		assert(m_Ellipse_a > m_Ellipse_b);
-
 		double semiMajor = m_Ellipse_a;
 		double semiMinor = m_Ellipse_b;
 		double thetaInRadian = Ellipse_Angle / 180.0 * CV_PI;
@@ -94,9 +91,9 @@ namespace slopencv
 		cv::namedWindow(m_ConstWindowName, m_ImageFlags); // Create a window to display results
 		cv::resizeWindow(m_ConstWindowName, WIDGET_SIZE_WIDTH, WIDGET_SIZE_HEIGHT + 130);
 
-		cv::createTrackbar("x_ellipse", m_ConstWindowName, &m_Ellipse_x0, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
-		cv::createTrackbar("y_ellipse", m_ConstWindowName, &m_Ellipse_y0, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
-		cv::createTrackbar("x_point", m_ConstWindowName, &m_RandomPoint_x, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("a", m_ConstWindowName, &m_Ellipse_a, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("b", m_ConstWindowName, &m_Ellipse_b, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("theta", m_ConstWindowName, &m_iAngle, 720, FunPtrPaintEllipseWidgetCallBack);
 		cv::createTrackbar("y_point", m_ConstWindowName, &m_RandomPoint_y, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 
 		InitialBasicEllipse();
@@ -111,6 +108,10 @@ namespace slopencv
 	{
 		m_EllipseRGB = cv::Mat(WIDGET_SIZE_WIDTH, WIDGET_SIZE_HEIGHT, CV_8UC3, slopencv::CV_COLOR_SCALAR_EyeProtection);
 		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
+
+		m_Ellipse.angle = m_iAngle * 1.0f;
+		m_Ellipse.size = cv::Size(m_Ellipse_a * 2, m_Ellipse_b * 2);
+
 		cv::ellipse(m_EllipseRGB, m_Ellipse, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
 	}
 

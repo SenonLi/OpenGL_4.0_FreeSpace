@@ -61,14 +61,15 @@ namespace slopencv
 	/// <return>better phi with ar shorter distance from the RandomPoint to the point on Ellipse (to which point the better phi belongs)</return>
 	/// <remarks> Algorithm Reference: http://www.am.ub.edu/~robert/Documents/ellipse.pdf </remarks>
 	/// <Belongs>slgeom::Ellipse2D</Belongs>
-	double IteratePhiForShortestDistanceToEllipse(double xr, double yr, double ar, double br, double phi)
+	double IteratePhiForShortestDistanceToEllipse(double xr, double yr, double ar, double br, double phi, int interationCount)
 	{
 		assert(br > 0.0 && ar >= br);// In this algorithm, "ar > br" is required, otherwise it won't work
 		assert(xr >= 0.0 && yr >= 0.0); // The relative point must be inside the first quadrant
-		assert(!(phi == 0.0 && yr == 0.0));// phi and yr cannot equal to 0.0 at the same time, otherwise the returned "output phi" == "input phi" == 0.0, and iteration equation will never work
+		// For the first time iteration, phi and yr cannot equal to 0.0 at the same time, otherwise the returned "output phi" == "input phi" == 0.0, and iteration equation will never work
+		assert(!(interationCount == 0 && phi == 0.0 && yr == 0.0));
 
-		std::cout << "Input xr = \t" << xr << "\t yr = " << yr;
-		std::cout << "\t phi = \t" << phi << std::endl;
+		//std::cout << "Input xr = \t" << xr << "\t yr = " << yr;
+		//std::cout << "\t phi = \t" << phi << std::endl;
 		return atan2( (ar*ar - br * br) * sin(phi) + abs(yr) * br,  abs(xr) * ar );
 	}
 
@@ -77,12 +78,12 @@ namespace slopencv
 	///                  pass down sinTheta and cosTheta directly, in case many points with same theta (same ellipse)</remarks>
 	/// <param name="sinTheta">sin(theta) [IN]</param>
 	/// <param name="sinTheta">cos(theta) [IN]</param>
-	/// <remarks> Algorithm Reference: http://www.am.ub.edu/~robert/Documents/ellipse.pdf </remarks>
+	/// <remarks> Translate + Rotation </remarks>
 	/// <Belongs>slgeom::Ellipse2D</Belongs>
 	void GetPointRelativeToEllipse(const cv::Point2d& randomPoint, const cv::Point2d& targetEllipseCenter, double sinTheta, double cosTheta, cv::Point2d& relativePoint)
 	{
-		relativePoint.x = abs( (randomPoint.x - targetEllipseCenter.x) * cosTheta + (randomPoint.y - targetEllipseCenter.y) * sinTheta);
-		relativePoint.y = abs( -(randomPoint.x - targetEllipseCenter.x) * sinTheta + (randomPoint.y - targetEllipseCenter.y) * cosTheta);
+		relativePoint.x = abs( (randomPoint.x - targetEllipseCenter.x) * cosTheta - (randomPoint.y - targetEllipseCenter.y) * sinTheta );
+		relativePoint.y = abs( (randomPoint.x - targetEllipseCenter.x) * sinTheta + (randomPoint.y - targetEllipseCenter.y) * cosTheta );
 	}
 
 	/// <summary>Calculate distance from point to Ellipse<summary>
@@ -98,13 +99,22 @@ namespace slopencv
 	{
 		double shortestDistance = slopencv::MAX_POSITION;
 		double newDistance = shortestDistance - 1.0;// just to make sure the initial value of distance is shorter than shortestDistance
-		double thetaInRadian = ellipse.angle / 180.0 * CV_PI;
-		double sinTheta = sin(thetaInRadian);
-		double cosTheta = cos(thetaInRadian);
-		cv::Point2d relativePoint;
+		double semiMajor, semiMinor;
+		double thetaInRadian, sinTheta, cosTheta;
+		if (ellipse.size.width >= ellipse.size.height)
+		{
+			thetaInRadian = ellipse.angle / 180.0 * CV_PI;
+			semiMajor = ellipse.size.width / 2.0;
+			semiMinor = ellipse.size.height / 2.0;
+		}else {
+			thetaInRadian = ( ellipse.angle - 90.0 ) / 180.0 * CV_PI;
+			semiMajor = ellipse.size.height / 2.0;
+			semiMinor = ellipse.size.width / 2.0;
+		}
+		sinTheta = sin(thetaInRadian);
+		cosTheta = cos(thetaInRadian);
 
-		double semiMajor = std::max(ellipse.size.width / 2.0, ellipse.size.height / 2.0);
-		double semiMinor = std::min(ellipse.size.width / 2.0, ellipse.size.height / 2.0);
+		cv::Point2d relativePoint;
 		slopencv::GetPointRelativeToEllipse(randomPoint, ellipse.center, sinTheta, cosTheta, relativePoint);
 
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
@@ -118,7 +128,7 @@ namespace slopencv
 		while (shortestDistance - newDistance > iterativeCriterion)
 		{
 			shortestDistance = newDistance;
-			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest);
+			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest, iterationCount);
 			newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
 			iterationCount++;
 		}
@@ -136,12 +146,24 @@ namespace slopencv
 		if (randomPointsVect.empty())	return;
 	
 		distancesVect.resize(randomPointsVect.size());
-		double thetaInRadian = (/*targetEllipse.angle*/ -120.0) / 180.0 * CV_PI;
-		//double thetaInRadian = (targetEllipse.angle - 180.0) / 180.0 * CV_PI;
-		double sinTheta = sin(thetaInRadian);
-		double cosTheta = cos(thetaInRadian);
-		double semiMajor = std::max(targetEllipse.size.width / 2.0, targetEllipse.size.height / 2.0);
-		double semiMinor = std::min(targetEllipse.size.width / 2.0, targetEllipse.size.height / 2.0);
+
+		// By testing, it turns out that the angle 
+		double semiMajor, semiMinor;
+		double thetaInRadian, sinTheta, cosTheta;
+		if (targetEllipse.size.width >= targetEllipse.size.height)
+		{
+			thetaInRadian = targetEllipse.angle / 180.0 * CV_PI;
+			semiMajor = targetEllipse.size.width / 2.0;
+			semiMinor = targetEllipse.size.height / 2.0;
+		}
+		else {
+			thetaInRadian = (targetEllipse.angle - 90.0) / 180.0 * CV_PI;
+			semiMajor = targetEllipse.size.height / 2.0;
+			semiMinor = targetEllipse.size.width / 2.0;
+		}
+		sinTheta = sin(thetaInRadian);
+		cosTheta = cos(thetaInRadian);
+
 		double shortestDistance, newDistance;
 		double phiShortest;
 		cv::Point2d relativePoint;
@@ -160,11 +182,13 @@ namespace slopencv
 			if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
 				phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
 
+			int iterationCount = 0;
 			while (shortestDistance - newDistance > iterativeCriterion)
 			{
 				shortestDistance = newDistance;
-				phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest);
+				phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest, iterationCount);
 				newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
+				iterationCount++;
 			}
 
 			distancesVect[i] = shortestDistance;

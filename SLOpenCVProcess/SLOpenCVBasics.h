@@ -22,7 +22,7 @@ namespace slopencv
 
 	void ConvertImageToCVMat(CImage& src, cv::Mat& dst);
 	
-	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi = 0.0);
+	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi, int interationCount = 0);
 	void GetPointRelativeToEllipse(const cv::Point2d& randomPoint, const cv::Point2d& targetEllipseCenter
 		, double sinTheta, double cosTheta, cv::Point2d& relativePoint);
 	
