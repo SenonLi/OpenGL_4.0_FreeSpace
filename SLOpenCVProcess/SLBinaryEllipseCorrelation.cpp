@@ -144,6 +144,8 @@ namespace slopencv
 
 		if (m_EllipseContoursIndex != -1 && (int)m_Contours.size() > m_EllipseContoursIndex)
 		{
+			// Need to fix angle from OpenCV, due to its Opposite Y-Axis
+			m_cvEllipse.angle = -m_cvEllipse.angle;
 			double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
 
 			std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();

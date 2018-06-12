@@ -40,7 +40,7 @@ namespace slopencv
 		
 		const std::string m_ImagePath = "../WatchMe/Images/ExtractEllipse/";
 		const std::string m_ImageExtension = ".png";
-		const std::string m_ImageName = "Ellipse_30";
+		const std::string m_ImageName = "Ellipse_-30";
 		//const std::string m_ImagePath = "../WatchMe/Images/";
 		//const std::string m_ImageExtension = ".jpg";
 		//const std::string m_ImageName = "ProjectorAlignment_RetroTarget";
