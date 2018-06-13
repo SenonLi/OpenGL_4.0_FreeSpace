@@ -12,11 +12,13 @@ namespace slopencv
 
 	void SLPointToEllipse::PaintScreen()
 	{
-		cv::Mat showEllipse;
-		cv::flip(m_EllipseRGB, showEllipse, 1);
-		cv::Point2f rotationCenter(m_EllipseRGB.cols / 2.0f, m_EllipseRGB.rows / 2.0f);
-		cv::Mat rot_mat = cv::getRotationMatrix2D(rotationCenter, 180.0f, 1.0);
-		cv::warpAffine(showEllipse, showEllipse, rot_mat, m_EllipseRGB.size());
+		cv::Mat showEllipse = m_EllipseRGB.clone();
+		//cv::Mat showEllipse;
+		//cv::flip(m_EllipseRGB, showEllipse, 1);
+		//cv::Point2f rotationCenter(m_EllipseRGB.cols / 2.0f, m_EllipseRGB.rows / 2.0f);
+		//cv::Mat rot_mat = cv::getRotationMatrix2D(rotationCenter, 180.0f, 1.0);
+		//cv::warpAffine(showEllipse, showEllipse, rot_mat, m_EllipseRGB.size());
+
 		cv::imshow(m_ConstWindowName, showEllipse);
 	}
 
@@ -94,6 +96,7 @@ namespace slopencv
 		cv::createTrackbar("a", m_ConstWindowName, &m_Ellipse_a, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 		cv::createTrackbar("b", m_ConstWindowName, &m_Ellipse_b, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 		cv::createTrackbar("theta", m_ConstWindowName, &m_iAngle, 720, FunPtrPaintEllipseWidgetCallBack);
+		cv::createTrackbar("x_point", m_ConstWindowName, &m_RandomPoint_x, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 		cv::createTrackbar("y_point", m_ConstWindowName, &m_RandomPoint_y, WIDGET_SIZE_WIDTH, FunPtrPaintEllipseWidgetCallBack);
 
 		InitialBasicEllipse();

@@ -144,8 +144,6 @@ namespace slopencv
 
 		if (m_EllipseContoursIndex != -1 && (int)m_Contours.size() > m_EllipseContoursIndex)
 		{
-			// Need to fix angle from OpenCV, due to its Opposite Y-Axis
-			m_cvEllipse.angle = -m_cvEllipse.angle;
 			double rms = slopencv::GetExtractedEllipseRootMeanSquare(m_Contours[m_EllipseContoursIndex], m_cvEllipse);
 
 			std::cout << "\t \"Perimeter\" : " << m_Contours[m_EllipseContoursIndex].size();
@@ -245,8 +243,8 @@ namespace slopencv
 		if (maxEllipseContourSize > CV_MINIMUM_NUM_FOR_FIT_ELLIPSE)
 		{
 			m_cvEllipse = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
-
 			cvtColor(m_Dst, m_DstRGB, cv::COLOR_GRAY2RGB);
+			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 1, 8);
 
 			//cv::putText(m_DstRGB, "Best-Fit",
 			//	cv::Point2f(m_cvEllipse.center.x - 35, m_cvEllipse.center.y - 20),
@@ -255,7 +253,6 @@ namespace slopencv
 			//	cv::Point2f(m_cvEllipse.center.x - 35, m_cvEllipse.center.y - 00),
 			//	cv::FONT_HERSHEY_TRIPLEX, 0.6, cv::Scalar(255, 0, 0));
 
-			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 1, 8);
 
 			DrawEllipseAxis();
 

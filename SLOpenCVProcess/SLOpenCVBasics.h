@@ -16,6 +16,7 @@ namespace slopencv
 	std::wstring s2ws(const std::string& str);
 
 	static const int CV_MINIMUM_NUM_FOR_FIT_ELLIPSE = 5;
+	static const double INVALID_ELLIPSE_EXTRACTION_RMS = -1.0;
 
 	// slutil, statistic
 	double GetRootMeanSquare(const std::vector<double>& dataVect);
