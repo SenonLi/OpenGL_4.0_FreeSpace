@@ -87,8 +87,8 @@ namespace slopencv
 	/// <Belongs>slgeom::Ellipse2D</Belongs>
 	void GetPointRelativeToEllipse(const cv::Point2d& randomPoint, const cv::Point2d& targetEllipseCenter, double sinTheta, double cosTheta, cv::Point2d& relativePoint)
 	{
-		relativePoint.x = abs( (randomPoint.x - targetEllipseCenter.x) * cosTheta + (randomPoint.y - targetEllipseCenter.y) * sinTheta );
-		relativePoint.y = abs( -(randomPoint.x - targetEllipseCenter.x) * sinTheta + (randomPoint.y - targetEllipseCenter.y) * cosTheta );
+		relativePoint.x = (randomPoint.x - targetEllipseCenter.x) * cosTheta + (randomPoint.y - targetEllipseCenter.y) * sinTheta;
+		relativePoint.y = -(randomPoint.x - targetEllipseCenter.x) * sinTheta + (randomPoint.y - targetEllipseCenter.y) * cosTheta;
 	}
 
 	/// <summary>Calculate distance from point to Ellipse<summary>
@@ -119,8 +119,12 @@ namespace slopencv
 
 		cv::Point2d relativePoint;
 		slopencv::GetPointRelativeToEllipse(randomPoint, ellipse.center, sinTheta, cosTheta, relativePoint);
+		// Make sure relativePoint would be in the first Quadrant
 		if (ellipse.size.width < ellipse.size.height)
-			relativePoint = { relativePoint.y, relativePoint.x };
+			relativePoint = { abs(relativePoint.y), abs(relativePoint.x) };
+		else
+			relativePoint = { abs(relativePoint.x), abs(relativePoint.y) };
+
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
 		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
 		double phiShortest = atan2(relativePoint.y, relativePoint.x);
@@ -173,8 +177,12 @@ namespace slopencv
 		for (size_t i = 0; i < randomPointsVect.size(); ++i)
 		{
 			slopencv::GetPointRelativeToEllipse(randomPointsVect[i], targetEllipse.center, sinTheta, cosTheta, relativePoint);
+			
+			// Make sure relativePoint would be in the first Quadrant
 			if (targetEllipse.size.width < targetEllipse.size.height)
-				relativePoint = { relativePoint.y, relativePoint.x };
+				relativePoint = { abs(relativePoint.y), abs(relativePoint.x) };
+			else
+				relativePoint = { abs(relativePoint.x), abs(relativePoint.y) };
 
 			shortestDistanceSquare = slopencv::MAX_POSITION * slopencv::MAX_POSITION;
 			newDistanceSquare = shortestDistanceSquare - 10.0;// just to make sure the initial value of distance is shorter than shortestDistanceSquare
