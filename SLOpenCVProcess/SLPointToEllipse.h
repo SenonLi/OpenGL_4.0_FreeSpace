@@ -11,6 +11,7 @@ namespace slopencv
 	public:
 		void ShowWidget();
 		void PaintWidgetCallBack(int pos = 0, void* userData = nullptr); // Signature here for Trackerbar registration
+		void Samples_CaculateDistanceFromPointToEllipse();
 
 	private:
 		void InitialBasicEllipse();

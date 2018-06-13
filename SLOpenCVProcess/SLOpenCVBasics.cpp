@@ -75,7 +75,7 @@ namespace slopencv
 		// For the first time iteration, phi and yr cannot equal to 0.0 at the same time, otherwise the returned "output phi" == "input phi" == 0.0, and iteration equation will never work
 		assert(!(interationCount == 0 && phi == 0.0 && yr == 0.0));
 
-		return atan2( (ar*ar - br * br) * sin(phi) + abs(yr) * br,  abs(xr) * ar );
+		return atan2( (ar*ar - br * br) * sin(phi) + yr * br,  xr * ar );
 	}
 
 	/// <summary>Transfer RamdomPoint to new CoordinateSystem that is relative to ellipse, with ellipse center be Origin and majorAxis be axis-X</summary>
@@ -216,7 +216,7 @@ namespace slopencv
 			return INVALID_ELLIPSE_EXTRACTION_RMS;
 
 		std::vector<double> edgesDistancesToBestFitEllipse;
-		GetDistancesArrayFromPointsToEllipse(ellipseEdges, bestFitEllipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL, edgesDistancesToBestFitEllipse);
+		GetDistancesArrayFromPointsToEllipse(ellipseEdges, bestFitEllipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE, edgesDistancesToBestFitEllipse);
 		for (int i = 0; i < (int)ellipseEdges.size(); ++i)
 		{
 			// "- 1.0" for every distance for RMS calculation can remove the noise due to pixel quantification

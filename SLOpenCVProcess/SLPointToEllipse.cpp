@@ -50,7 +50,7 @@ namespace slopencv
 			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
 
 		int iterationCount = 0;
-		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL)
+		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE)
 		{
 			shortestDistance = newDistance;
 			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest);
@@ -73,7 +73,7 @@ namespace slopencv
 		//DetermineShortestDistanceFromPointToEllipse();
 
 		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL);
+		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE);
 
 		DrawDistanceCircle();
 
@@ -118,8 +118,34 @@ namespace slopencv
 		cv::ellipse(m_EllipseRGB, m_Ellipse, slopencv::CV_COLOR_SCALAR_BLUE, 3, 8);
 	}
 
+	static const int RANDOM_OFFSET = 200;
 
+	void SLPointToEllipse::Samples_CaculateDistanceFromPointToEllipse()
+	{
+		cv::RotatedRect randomEllipse;
+		randomEllipse.center = cv::Size2f(300.0f, 300.0f);
+		randomEllipse.angle = 150.0f;
+		randomEllipse.size = cv::Size2f(270.0f * 2.0f, 160.0f * 2.0f);
 
+		cv::Point ellipseCenter = { (int)randomEllipse.center.x, (int)randomEllipse.center.y};
+		std::vector<cv::Point> randomPointsOffEllipse = {
+			{ ellipseCenter.x, ellipseCenter.y },
+			// random points in four Quadrant corresponds to Ellipse
+			{ ellipseCenter.x + RANDOM_OFFSET, ellipseCenter.y + RANDOM_OFFSET },
+			{ ellipseCenter.x + RANDOM_OFFSET, ellipseCenter.y - RANDOM_OFFSET },
+			{ ellipseCenter.x - RANDOM_OFFSET, ellipseCenter.y + RANDOM_OFFSET },
+			{ ellipseCenter.x - RANDOM_OFFSET, ellipseCenter.y - RANDOM_OFFSET },
+		};
+
+		std::vector<double> distances;
+		slopencv::GetDistancesArrayFromPointsToEllipse(randomPointsOffEllipse, randomEllipse, slopencv::POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE, distances);
+
+		std::cout << "Distance to Ellipse, point Ellipse Center: \t" << distances[0];
+		std::cout << "\nDistance to Ellipse, point RANDOM_OFFSET in 1st Quadrant: \t" << distances[1];
+		std::cout << "\nDistance to Ellipse, point RANDOM_OFFSET in 2nd Quadrant: \t" << distances[2];
+		std::cout << "\nDistance to Ellipse, point RANDOM_OFFSET in 3rd Quadrant: \t" << distances[3];
+		std::cout << "\nDistance to Ellipse, point RANDOM_OFFSET in 4th Quadrant: \t" << distances[4];
+	}
 
 
 

@@ -7,7 +7,7 @@ namespace slopencv
 	//========================================================
 	//--------  slutil::ResolutionValues (namespace)  --------
 	static const double MAX_POSITION = 10000.0;
-	static const double POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXEL = 0.1;
+	static const double POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE = 0.1;
 	static const double POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL = CV_PI / 10.0;
 
 	//--------  slutil::ResolutionValues (namespace)  --------
