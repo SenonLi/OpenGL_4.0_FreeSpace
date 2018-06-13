@@ -39,12 +39,12 @@ namespace slopencv
 		const char* m_OriginalWindowName = "Original";
 		
 		const std::string m_ImagePath = "../WatchMe/Images/ExtractEllipse/";
-		const std::string m_ImageExtension = ".png";
-		const std::string m_ImageName = "Ellipse_-30";
+		const std::string m_ImageExtension = ".bmp";
+		//const std::string m_ImageName = "Ellipse_-30";
 		//const std::string m_ImagePath = "../WatchMe/Images/";
 		//const std::string m_ImageExtension = ".jpg";
 		//const std::string m_ImageName = "ProjectorAlignment_RetroTarget";
-		//const std::string m_ImageName = "UKY";
+		const std::string m_ImageName = "perfect_2";
 
 		cv::RotatedRect m_cvEllipse;
 

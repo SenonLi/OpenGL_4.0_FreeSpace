@@ -44,9 +44,15 @@ namespace slopencv
 
 	// 	slgeom
 	/// <Belongs>slgeom::Point2D</Belongs>
+	double GetDistSquareFromPointToPoint(double x1, double y1, double x2, double y2)
+	{
+		return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+	}
+
+	/// <Belongs>slgeom::Point2D</Belongs>
 	double GetDistanceFromPointToPoint(double x1, double y1, double x2, double y2)
 	{
-		return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		return sqrt(GetDistSquareFromPointToPoint(x1, y1, x2, y2));
 	}
 
 	/// <summary>Iterative Equation, to get better Phi (Point on Ellipse) for shorter distance form Point to Ellipse
@@ -96,8 +102,8 @@ namespace slopencv
 	/// <Belongs>slgeom::Ellipse2D</Belongs>
 	double GetDistanceFromPointToEllipse(const cv::Point& randomPoint, const cv::RotatedRect& ellipse, double iterativeCriterion)
 	{
-		double shortestDistance = slopencv::MAX_POSITION;
-		double newDistance = shortestDistance - 1.0;// just to make sure the initial value of distance is shorter than shortestDistance
+		double shortestDistanceSquare = slopencv::MAX_POSITION * slopencv::MAX_POSITION;
+		double newDistanceSquare = shortestDistanceSquare - 10.0;// just to make sure the initial value of distance is shorter than shortestDistanceSquare
 		double semiMajor, semiMinor;
 		if (ellipse.size.width >= ellipse.size.height)
 		{
@@ -118,21 +124,21 @@ namespace slopencv
 		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
 		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
 		double phiShortest = atan2(relativePoint.y, relativePoint.x);
-		// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistance would be to close to newDistance )
+		// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistanceSquare would be to close to newDistanceSquare )
 		if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
 			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
 
 		int iterationCount = 0;
-		while (shortestDistance - newDistance > iterativeCriterion)
+		while (shortestDistanceSquare - newDistanceSquare > iterativeCriterion)
 		{
-			shortestDistance = newDistance;
+			shortestDistanceSquare = newDistanceSquare;
 			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest, iterationCount);
-			newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
+			newDistanceSquare = slopencv::GetDistSquareFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
 			iterationCount++;
 		}
-		std::cout << "Shortest Distance : \t " << shortestDistance << " , \t Iteration Count : \t " << iterationCount << "\t Times !!\n";
+		std::cout << "Shortest Distance : \t " << sqrt(newDistanceSquare) << " , \t Iteration Count : \t " << iterationCount << "\t Times !!\n";
 
-		return shortestDistance;
+		return sqrt(newDistanceSquare);
 	}
 
 	/// <summary>Calculate multiple distances, from multiple random points to one targetEllipse<summary>
@@ -159,7 +165,7 @@ namespace slopencv
 		double cosTheta = cos(thetaInRadian);
 
 		// Declarations of varaibles used for distances calculation
-		double shortestDistance, newDistance;
+		double shortestDistanceSquare, newDistanceSquare;
 		double phiShortest;
 		cv::Point2d relativePoint;
 		distancesVect.resize(randomPointsVect.size());
@@ -170,26 +176,26 @@ namespace slopencv
 			if (targetEllipse.size.width < targetEllipse.size.height)
 				relativePoint = { relativePoint.y, relativePoint.x };
 
-			shortestDistance = slopencv::MAX_POSITION;
-			newDistance = shortestDistance - 1.0;// just to make sure the initial value of distance is shorter than shortestDistance
+			shortestDistanceSquare = slopencv::MAX_POSITION * slopencv::MAX_POSITION;
+			newDistanceSquare = shortestDistanceSquare - 10.0;// just to make sure the initial value of distance is shorter than shortestDistanceSquare
 
 			// phiShortest (phi) here is the angle start from semi-Major-Axis of random targetEllipse, to the intersection point ray 
 			// and the ray starts from center of targetEllipse to the intersection point on elllipse, which is the closest point to the random point on the targetEllipse
 			phiShortest = atan2(relativePoint.y, relativePoint.x);
-			// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistance would be to close to newDistance )
+			// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistanceSquare would be to close to newDistanceSquare )
 			if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
 				phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
 
 			int iterationCount = 0;
-			while (shortestDistance - newDistance > iterativeCriterion)
+			while (shortestDistanceSquare - newDistanceSquare > iterativeCriterion)
 			{
-				shortestDistance = newDistance;
+				shortestDistanceSquare = newDistanceSquare;
 				phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest, iterationCount);
-				newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
+				newDistanceSquare = slopencv::GetDistSquareFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
 				iterationCount++;
 			}
 
-			distancesVect[i] = shortestDistance;
+			distancesVect[i] = sqrt(newDistanceSquare);
 		}
 	}
 
