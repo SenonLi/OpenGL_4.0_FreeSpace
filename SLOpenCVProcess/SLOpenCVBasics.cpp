@@ -214,7 +214,8 @@ namespace slopencv
 	{
 		if (ellipseEdges.empty())
 			return INVALID_ELLIPSE_EXTRACTION_RMS;
-
+		
+		// Will First use edgesDistancesToBestFitEllipse to get Distances in pixels, then devide by semi-Major of Ellipse to get ratio in percentage
 		std::vector<double> edgesDistancesToBestFitEllipse;
 		GetDistancesArrayFromPointsToEllipse(ellipseEdges, bestFitEllipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE, edgesDistancesToBestFitEllipse);
 		for (int i = 0; i < (int)ellipseEdges.size(); ++i)

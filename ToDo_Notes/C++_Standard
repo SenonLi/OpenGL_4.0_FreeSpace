@@ -8,3 +8,9 @@ In GDI, all DIBs are bottom-up.
 CBitmap bmp;  
 CImage img;
 bmp = CBitmap::FromHandle(img.Detach());
+
+
+## Debug
+Adding try/catch is usually a good practice when you call an API with multiple risks impossible to handle all at the same time.
+
+
