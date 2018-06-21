@@ -242,7 +242,7 @@ namespace slopencv
 
 		if (maxEllipseContourSize > CV_MINIMUM_NUM_FOR_FIT_ELLIPSE)
 		{
-			m_cvEllipse = cv::fitEllipse(cv::Mat(m_Contours[m_EllipseContoursIndex]));
+			m_cvEllipse = cv::fitEllipse(m_Contours[m_EllipseContoursIndex]);
 			cvtColor(m_Dst, m_DstRGB, cv::COLOR_GRAY2RGB);
 			cv::ellipse(m_DstRGB, m_cvEllipse, slopencv::CV_COLOR_SCALAR_RED, 1, 8);
 

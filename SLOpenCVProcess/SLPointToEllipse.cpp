@@ -28,40 +28,6 @@ namespace slopencv
 		cv::circle(m_EllipseRGB, m_RandomPoint, 10, slopencv::CV_COLOR_SCALAR_BLUE, CV_FILLED, 8);
 	}
 
-	void SLPointToEllipse::DetermineShortestDistanceFromPointToEllipse()
-	{
-		double semiMajor = m_Ellipse_a;
-		double semiMinor = m_Ellipse_b;
-		double thetaInRadian = Ellipse_Angle / 180.0 * CV_PI;
-		double sinTheta = sin(thetaInRadian);
-		double cosTheta = cos(thetaInRadian);
-
-		cv::Point2d relativePoint;
-		slopencv::GetPointRelativeToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), cv::Point(m_Ellipse_x0, m_Ellipse_y0), sinTheta, cosTheta, relativePoint);
-
-		double shortestDistance = slopencv::MAX_POSITION;
-		double newDistance = shortestDistance - 2.0;
-
-		// phiShortest (phi) here is the angle start from semi-Major-Axis of random ellipse, to the intersection point ray 
-		// and the ray starts from center of ellipse to the intersection point on elllipse, which is the closest point to the random point on the ellipse
-		double phiShortest = atan2(relativePoint.y, relativePoint.x);
-		// Make sure the initial phiShortest is not too small, in case slopencv::IteratePhiForShortestDistanceToEllipse won't work well (shortestDistance would be to close to newDistance )
-		if (phiShortest < POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL)
-			phiShortest = POINT_TO_ELLIPSE_INTERATIVE_MIN_PHI_IN_PIXEL;
-
-		int iterationCount = 0;
-		while (shortestDistance - newDistance > POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE)
-		{
-			shortestDistance = newDistance;
-			phiShortest = slopencv::IteratePhiForShortestDistanceToEllipse(relativePoint.x, relativePoint.y, semiMajor, semiMinor, phiShortest);
-			newDistance = slopencv::GetDistanceFromPointToPoint(abs(relativePoint.x), abs(relativePoint.y), semiMajor * cos(phiShortest), semiMinor * sin(phiShortest));
-			iterationCount++;
-		}
-
-		m_Distance = shortestDistance;
-		std::cout << "Shortest Distance : \t " << shortestDistance << " , \t Iteratio Count : \t " << iterationCount << "\t Times !!\n";
-	}
-
 	void SLPointToEllipse::DrawDistanceCircle()
 	{
 		cv::circle(m_EllipseRGB, m_RandomPoint, (int)m_Distance, slopencv::CV_COLOR_SCALAR_BLACK, 3, cv::LINE_8);
@@ -70,7 +36,6 @@ namespace slopencv
 	{
 		DrawBasicEllipse();
 		DrawPoint();
-		//DetermineShortestDistanceFromPointToEllipse();
 
 		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
 		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE);

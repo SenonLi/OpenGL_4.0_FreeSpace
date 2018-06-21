@@ -105,7 +105,8 @@ namespace slopencv
 		double shortestDistanceSquare = slopencv::MAX_POSITION * slopencv::MAX_POSITION;
 		double lastDistanceSquare = shortestDistanceSquare;
 		
-		double semiMajor, semiMinor;
+		double semiMajor = 0.0;
+		double semiMinor = 0.0;
 		if (ellipse.size.width >= ellipse.size.height)
 		{
 			semiMajor = ellipse.size.width / 2.0;
@@ -118,7 +119,7 @@ namespace slopencv
 		double sinTheta = sin(thetaInRadian);
 		double cosTheta = cos(thetaInRadian);
 
-		cv::Point2d relativePoint;
+		cv::Point2d relativePoint{};
 		slopencv::GetPointRelativeToEllipse(randomPoint, ellipse.center, sinTheta, cosTheta, relativePoint);
 		// Make sure relativePoint would be in the first Quadrant
 		if (ellipse.size.width < ellipse.size.height)
@@ -155,7 +156,8 @@ namespace slopencv
 		if (randomPointsVect.empty())	return;
 
 		// Preparation for Relative (to ellipse) Point calculation
-		double semiMajor, semiMinor;
+		double semiMajor = 0.0;
+		double semiMinor = 0.0;
 		if (targetEllipse.size.width >= targetEllipse.size.height)
 		{
 			semiMajor = targetEllipse.size.width / 2.0;
@@ -169,7 +171,7 @@ namespace slopencv
 		double sinTheta = sin(thetaInRadian);
 		double cosTheta = cos(thetaInRadian);
 
-		cv::Point2d relativePoint;
+		cv::Point2d relativePoint{};
 		distancesVect.resize(randomPointsVect.size());
 		for (size_t i = 0; i < randomPointsVect.size(); ++i)
 		{

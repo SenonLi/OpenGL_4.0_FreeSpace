@@ -18,9 +18,6 @@ namespace slopencv
 		void DrawBasicEllipse();
 		void DrawPoint();
 		
-		void DetermineShortestDistanceFromPointToEllipse();
-
-
 		void DrawDistanceCircle();
 		void PaintScreen();
 
