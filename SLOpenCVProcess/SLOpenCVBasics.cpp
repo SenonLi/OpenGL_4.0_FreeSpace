@@ -230,7 +230,7 @@ namespace slopencv
 	/// <summary>Bad solution to Get cv::Mat from CImage</summary>
 	/// <param name="src">CImage [IN]</param>
 	/// <param name="dst">cv::Mat [OUT]</param>
-	void ConvertImageToCVMat(CImage& src, cv::Mat& dst)
+	void ConvertCImageToCVMat(CImage& src, cv::Mat& dst)
 	{
 		assert(!src.IsNull());
 		dst.release();
@@ -288,6 +288,61 @@ namespace slopencv
 
 	}
 
+	/// <summary>cv::imwrite doesn't support Unicode, we need to use CImage to save </summary>
+	/// <param name="in">cv::Mat image [IN]</param>
+	/// <param name="out">CImage image [OUT]</param>
+	/// <remarks>This function only accept BYTE image (8bits per single channel), doesn't support double value image </remarks>
+	void ConvertCVMatToCImage(const cv::Mat& in, CImage& out)
+	{
+		assert(!in.empty());
+		assert(in.depth() == CV_8U); // Only support BYTE image
+		if (!out.IsNull())
+			out.Destroy();
+		out.Create(in.cols, in.rows, in.channels() * BYTE_IMAGE_SINGLE_CHANNEL_BITS);
 
+		switch (in.channels())
+		{
+		case 1:
+		{
+			for (int row = 0; row < in.rows; row++)
+			{
+				for (int col = 0; col < in.cols; col++)
+				{
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[0] = in.at<BYTE>(row, col);
+				}
+			}
+		}break;
+
+		case 3:
+		{
+			for (int row = 0; row < in.rows; row++)
+			{
+				for (int col = 0; col < in.cols; col++)
+				{
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[0] = in.at<cv::Vec3b>(row, col)[0];
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[1] = in.at<cv::Vec3b>(row, col)[1];
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[2] = in.at<cv::Vec3b>(row, col)[2];
+				}
+			}
+		}break;
+
+		case 4:
+		{
+			for (int row = 0; row < in.rows; row++)
+			{
+				for (int col = 0; col < in.cols; col++)
+				{
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[0] = in.at<cv::Vec4b>(row, col)[0];
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[1] = in.at<cv::Vec4b>(row, col)[1];
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[2] = in.at<cv::Vec4b>(row, col)[2];
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[3] = in.at<cv::Vec4b>(row, col)[3];
+				}
+			}
+		}break;
+		
+		default:
+			assert(true);// Doesn't support cases other than 8bits/24bits/32bits image
+		} // End of switch
+	}
 
 }

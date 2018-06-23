@@ -18,7 +18,7 @@ namespace slopencv
 		imageLoader.Load((s2ws(m_ImagePath + m_ImageName + m_ImageExtension)).c_str());
 		assert(!imageLoader.IsNull());
 
-		slopencv::ConvertImageToCVMat(imageLoader, m_Src);
+		slopencv::ConvertCImageToCVMat(imageLoader, m_Src);
 		cv::imshow(m_OriginalWindowName, m_Src);
 
 
@@ -259,7 +259,13 @@ namespace slopencv
 
 			cv::imshow(m_ConstWindowName, m_DstRGB);
 
-			cv::imwrite("../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension, m_DstRGB);
+			CImage imageToSave;
+			slopencv::ConvertCVMatToCImage(m_DstRGB, imageToSave);
+
+			std::string filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
+			std::wstring wFilePath = slopencv::s2ws(filePath);
+			HRESULT result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
+			assert(SUCCEEDED(result));
 		}
 
 	}

@@ -17,11 +17,13 @@ namespace slopencv
 
 	static const int CV_MINIMUM_NUM_FOR_FIT_ELLIPSE = 5;
 	static const double INVALID_ELLIPSE_EXTRACTION_RMS = -1.0;
+	static const int BYTE_IMAGE_SINGLE_CHANNEL_BITS = 8;
 
 	// slutil, statistic
 	double GetRootMeanSquare(const std::vector<double>& dataVect);
 
-	void ConvertImageToCVMat(CImage& src, cv::Mat& dst);
+	void ConvertCImageToCVMat(CImage& src, cv::Mat& dst);
+	void ConvertCVMatToCImage(const cv::Mat& in, CImage& out);
 	
 	double IteratePhiForShortestDistanceToEllipse(double x, double y, double a, double b, double phi, int interationCount = 0);
 	void GetPointRelativeToEllipse(const cv::Point2d& randomPoint, const cv::Point2d& targetEllipseCenter
