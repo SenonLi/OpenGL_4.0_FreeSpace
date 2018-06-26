@@ -298,7 +298,10 @@ namespace slopencv
 		assert(in.depth() == CV_8U); // Only support BYTE image
 		if (!out.IsNull())
 			out.Destroy();
-		out.Create(in.cols, in.rows, in.channels() * BYTE_IMAGE_SINGLE_CHANNEL_BITS);
+		if(in.type() == CV_8UC1) // single channel
+			out.Create(in.cols, in.rows, in.channels() * BYTE_IMAGE_SINGLE_CHANNEL_BITS * 3);//CImage doesn't support 8bit single pixel color change
+		else
+			out.Create(in.cols, in.rows, in.channels() * BYTE_IMAGE_SINGLE_CHANNEL_BITS);
 
 		switch (in.channels())
 		{
@@ -308,7 +311,10 @@ namespace slopencv
 			{
 				for (int col = 0; col < in.cols; col++)
 				{
-					static_cast<BYTE*>(out.GetPixelAddress(col, row))[0] = in.at<BYTE>(row, col);
+					BYTE intensity = in.at<BYTE>(row, col);
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[0] = intensity;
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[1] = intensity;
+					static_cast<BYTE*>(out.GetPixelAddress(col, row))[2] = intensity;
 				}
 			}
 		}break;

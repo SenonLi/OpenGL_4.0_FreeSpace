@@ -183,6 +183,14 @@ namespace slopencv
 		cv::Canny(m_Binary, m_CannyOutput, m_CannyThreshValue, m_CannyThreshValue * m_dCannyThreshRatio, 3);
 		cv::imshow("Canny Output", m_CannyOutput);
 
+		CImage imageToSave;
+		slopencv::ConvertCVMatToCImage(m_CannyOutput, imageToSave);
+
+		std::string filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvCanny.png");
+		std::wstring wFilePath = slopencv::s2ws(filePath);
+		HRESULT result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
+		assert(SUCCEEDED(result));
+
 
 		/// Find contours
 		cv::findContours(m_CannyOutput, m_Contours, m_Hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
@@ -259,12 +267,11 @@ namespace slopencv
 
 			cv::imshow(m_ConstWindowName, m_DstRGB);
 
-			CImage imageToSave;
 			slopencv::ConvertCVMatToCImage(m_DstRGB, imageToSave);
 
-			std::string filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
-			std::wstring wFilePath = slopencv::s2ws(filePath);
-			HRESULT result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
+			filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
+			wFilePath = slopencv::s2ws(filePath);
+			result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
 			assert(SUCCEEDED(result));
 		}
 
