@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLLearnMfc_ViewOnly", "SLLe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLMfc3DPlayer", "SLMfc3DPlayer\SLMfc3DPlayer.vcxproj", "{DFE54CD6-8BF2-401F-ABC0-86432EA93A22}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLUnit_VisualTest", "SLUnitTest\SLUnit_VisualTest\SLUnit_VisualTest.vcxproj", "{66834183-0A5C-4F56-BD4D-2507BC130EA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -97,6 +99,14 @@ Global
 		{DFE54CD6-8BF2-401F-ABC0-86432EA93A22}.Release|Win32.Build.0 = Release|Win32
 		{DFE54CD6-8BF2-401F-ABC0-86432EA93A22}.Release|x64.ActiveCfg = Release|x64
 		{DFE54CD6-8BF2-401F-ABC0-86432EA93A22}.Release|x64.Build.0 = Release|x64
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Debug|Win32.Build.0 = Debug|Win32
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Debug|x64.ActiveCfg = Debug|x64
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Debug|x64.Build.0 = Debug|x64
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|Win32.ActiveCfg = Release|Win32
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|Win32.Build.0 = Release|Win32
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|x64.ActiveCfg = Release|x64
+		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,7 +35,7 @@ public:
 protected:
 	GLFWwindow* widgetGLFW;
 	GLint m_WidgetWidth, m_WidgetHeight;
-	char* strWindowName;
+	std::string strWindowName;
 	float xRot, yRot;
 	float aspect;
 

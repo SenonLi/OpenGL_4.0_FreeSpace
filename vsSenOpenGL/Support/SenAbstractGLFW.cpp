@@ -37,7 +37,7 @@ void SenAbstractGLFW::initGlfwGlewGL()
 #endif
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	widgetGLFW = glfwCreateWindow(m_WidgetWidth, m_WidgetHeight, strWindowName, nullptr, nullptr);
+	widgetGLFW = glfwCreateWindow(m_WidgetWidth, m_WidgetHeight, strWindowName.c_str(), nullptr, nullptr);
 	glfwSetWindowPos(widgetGLFW, 400, 240);
 	glfwMakeContextCurrent(widgetGLFW);
 
