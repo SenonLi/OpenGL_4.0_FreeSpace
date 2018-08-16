@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLMfc3DPlayer", "SLMfc3DPla
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLUnit_VisualTest", "SLUnitTest\SLUnit_VisualTest\SLUnit_VisualTest.vcxproj", "{66834183-0A5C-4F56-BD4D-2507BC130EA3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLUnit_ConsoleTest", "SLUnitTest\SLUnit_ConsoleTest\SLUnit_ConsoleTest.vcxproj", "{AF6892D1-8952-430F-8936-EBD7A85BE4FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -107,6 +109,14 @@ Global
 		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|Win32.Build.0 = Release|Win32
 		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|x64.ActiveCfg = Release|x64
 		{66834183-0A5C-4F56-BD4D-2507BC130EA3}.Release|x64.Build.0 = Release|x64
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Debug|Win32.Build.0 = Debug|Win32
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Debug|x64.ActiveCfg = Debug|x64
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Debug|x64.Build.0 = Debug|x64
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|Win32.ActiveCfg = Release|Win32
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|Win32.Build.0 = Release|Win32
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|x64.ActiveCfg = Release|x64
+		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
