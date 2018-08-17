@@ -1,5 +1,17 @@
 To Do:
 
+
+Make sldip::HistorgramEqualization work!
+
+Move all CImage related function into CImageHandles;
+Put #include <atliamge.h> into *.cpp only;
+
+Add image renderer into slgeom project;
+Add different shader specially for 8bit image;
+
+
+
+
 0. Split SLDigitalImageProcess into independent lib with SL3DPlayer's widget;
 
 When Rebuilding GLFW 3D Engine and MFC 3D Engine, 

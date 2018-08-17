@@ -22,9 +22,9 @@ namespace sldip
 	class SLImageParam;
 	class SLLibreImage;
 
-	void DuplicateImage(const SLImageParam& srcImageParam, CImage& destImage);
 	void DuplicateImage(const CImage& srcImage, CImage& dstImage);
 	void DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage);
+	void DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage);
 
 	SLImageParam GetImageParam(CImage& image);
 	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath);

@@ -40,8 +40,8 @@ namespace sldip
 	SLImageParam GetImageParam(const SLLibreImage& image);
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath);
 
-	void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType);
-	void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType);
+	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& filePath, const SLImageFileType& imageType);
+	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& folderPath, const std::wstring& fileName, const SLImageFileType& imageType);
 
 
 	void UploadLinearImageToGPU(SLImageParam& textureParam);

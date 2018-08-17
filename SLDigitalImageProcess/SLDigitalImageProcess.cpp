@@ -19,8 +19,7 @@ namespace sldip
 	void AdaptiveThresholding(SLImageParam& textureParam, SLAdaptiveThresholdingType filterType)
 	{
 		// Copy Image for Background Preparation
-		CImage backgroundImage;
-		sldip::DuplicateImage(textureParam, backgroundImage);
+
 
 		// Get Image Background
 		switch (filterType)
@@ -34,7 +33,6 @@ namespace sldip
 		default:
 			assert(false);
 		}
-
 
 	}// End of AdaptiveThresholding
 
@@ -68,8 +66,8 @@ namespace sldip
 		{
 			sumCDF += cdf[grayLevel];
 			float lambda = sumCDF / totalPixel;
-			if (lambda < VALID_HISTOGRAM_FLOOR_RATIO)          minValidGrayLevel = grayLevel;
-			else if (lambda < VALID_HISTOGRAM_CEIL_RATIO)           maxValidGrayLevel = grayLevel;
+			if (lambda < VALID_HISTOGRAM_FLOOR_RATIO)           minValidGrayLevel = grayLevel;
+			else if (lambda < VALID_HISTOGRAM_CEIL_RATIO)       maxValidGrayLevel = grayLevel;
 		}
 		// Re-scale imageBufferEntry
 		for (int row = 0; row < imageHeight; ++row) {
@@ -82,11 +80,9 @@ namespace sldip
 				// Calculate New gray-scaled Color Intensity
 				if (oldIntensity <= minValidGrayLevel) {
 					newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK;
-				}
-				else if (oldIntensity > maxValidGrayLevel) {
+				}else if (oldIntensity > maxValidGrayLevel) {
 					newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE;
-				}
-				else {
+				}else {
 					newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE * (oldIntensity - minValidGrayLevel) / (maxValidGrayLevel - minValidGrayLevel);
 				}
 
@@ -98,18 +94,31 @@ namespace sldip
 		}
 	} // End of HistorgramEqualization
 
-	/// <summary>Save CImage To Disk Image File </summary>
+	/// <summary>Save SLLibreImage To Disk Image File using CImage </summary>
 	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
-	void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType)
+	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& filePath, const SLImageFileType& imageType)
 	{
-		HRESULT result = imageLoader.Save(filePath.c_str(), imageType);
+		CImage tmpImageForSaving;
+
+		sldip::DuplicateImage(srcImage, tmpImageForSaving);
+
+		GUID imageTypeGUID = Gdiplus::ImageFormatPNG;
+		switch (imageType)
+		{
+			case SLImageFileType::IMAGE_BMP:            imageTypeGUID = Gdiplus::ImageFormatBMP;            break;
+			case SLImageFileType::IMAGE_JPG:            imageTypeGUID = Gdiplus::ImageFormatJPEG;           break;
+			case SLImageFileType::IMAGE_PNG:            imageTypeGUID = Gdiplus::ImageFormatPNG;            break;
+			default:                                    assert(false);
+		}
+
+		HRESULT result = tmpImageForSaving.Save(filePath.c_str(), imageTypeGUID);
 		assert(SUCCEEDED(result));
 	}
-	void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType)
+	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& folderPath, const std::wstring& fileName, const SLImageFileType& imageType)
 	{
-		SaveToImageFile(imageLoader, (folderPath + fileName), imageType);
+		SaveToImageFile(srcImage, (folderPath + fileName), imageType);
 	}
 
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>

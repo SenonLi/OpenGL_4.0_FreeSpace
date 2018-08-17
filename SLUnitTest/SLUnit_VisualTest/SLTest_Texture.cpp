@@ -46,21 +46,18 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/grass.png");
+	m_ImagePath = _T("../../WatchMe/Images/Einstein 8bit.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
-
-	//// Process Images
-	//CImage imageLoader;
-	//imageLoader.Load(m_ImagePath);
-
-	//sldip::SaveToImageFile(imageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
-	//sldip::HistorgramEqualization(m_ImageParam);
-	//sldip::SaveToImageFile(imageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
 
 	// GLPaint
 	m_ImageParam = sldip::LoadImageParam(m_LibreImage, m_ImagePath);
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
+
+	// Process Images
+	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("Origin.png"), sldip::SLImageFileType::IMAGE_PNG);
+	sldip::HistorgramEqualization(m_ImageParam);
+	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("HistogramEqualization.png"), sldip::SLImageFileType::IMAGE_PNG);
 }
 
 void SLTest_Texture::initGlfwGlewGL()
