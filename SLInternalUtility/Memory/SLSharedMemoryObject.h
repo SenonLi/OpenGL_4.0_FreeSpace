@@ -10,14 +10,12 @@ namespace slutil
 	class SLAlignedMemoryBuffer
 	{
 	public:
-		explicit SLAlignedMemoryBuffer(unsigned long long totalBytes);
+		SLAlignedMemoryBuffer() {};
+		explicit SLAlignedMemoryBuffer(unsigned long long totalBytes, unsigned int alignment);
 		~SLAlignedMemoryBuffer();
-		void AllocateAlignedMemory(unsigned long long totalBytes);
+		void AllocateAlignedMemory(unsigned long long totalBytes, unsigned int alignment);
 
 		BYTE* m_BufferEntry = nullptr;
-
-		static const unsigned int SL_SSE_MemoryAllocationSafetyOffset = 128;// Same type with m_TotalBytes
-		static const unsigned int SL_SSE_MemoryAlignmentSize = 16;
 
 		/// <remarks>m_InstanceCounter will only count when </remarks>
 		static int m_InstanceCounter;	
@@ -31,15 +29,21 @@ namespace slutil
 	class SLSharedMemoryObject
 	{
 	public:
-		explicit SLSharedMemoryObject(unsigned long long totalBytes);
+		SLSharedMemoryObject(); // Default constructor here for class member initialization
+		explicit SLSharedMemoryObject(unsigned long long totalBytes, unsigned int alignment);
 		virtual ~SLSharedMemoryObject() {};
 
+		virtual void Reset();
+
 		inline bool IsNull() const { return (m_SharedBuffer && m_SharedBuffer->m_BufferEntry == nullptr); }
-		unsigned char* GetBufferEntry() { return m_SharedBuffer->m_BufferEntry; }
+		BYTE* GetBufferEntry() { return m_SharedBuffer->m_BufferEntry; }
+		const BYTE* GetBufferEntry() const { return const_cast<const BYTE*>(m_SharedBuffer->m_BufferEntry); }
 
 	protected:
 		std::shared_ptr<SLAlignedMemoryBuffer> m_SharedBuffer;
 		unsigned long long m_TotalBytes = 0;
+
+		void CreateSharedMemory(unsigned long long totalBytes, unsigned int alignment);
 	};
 
 

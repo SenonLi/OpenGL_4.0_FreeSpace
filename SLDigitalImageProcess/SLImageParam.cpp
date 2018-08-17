@@ -3,9 +3,40 @@
 
 namespace sldip
 {
-	SLImageParam::SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType)
-		: m_Width(cols), m_Height(rows), m_Pitch(pitch), m_ImageColorType(colorType)
-	{};
+	SLImageParam::SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry)
+		: m_Width(cols), m_Height(rows), m_Pitch(pitch), m_ImageColorType(colorType), m_LinearBufferEntry(linearBufferEntry)
+	{
+		assert(cols > 0 && rows > 0 && colorType != SLImageColorType::ColorUndefined && linearBufferEntry);
+	};
+	SLImageParam::SLImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry)
+	: SLImageParam(cols, rows, static_cast<int>(pitch), colorType, linearBufferEntry)
+	{
+	};
+
+	/// <summary> SLImageParam is not supposed to be edited in the air, so that no need to reset </summary>
+	void SLImageParam::CreateImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry)
+	{
+		assert(cols > 0 && rows > 0 && colorType != SLImageColorType::ColorUndefined && linearBufferEntry);
+		m_Width = cols;
+		m_Height = rows;
+		m_Pitch = pitch;
+		m_ImageColorType = colorType;
+		m_LinearBufferEntry = linearBufferEntry;
+	}
+	void SLImageParam::CreateImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry)
+	{
+		CreateImageParam(cols, rows, static_cast<int>(pitch), colorType, linearBufferEntry);
+	}
+
+	/// <summary>Reset SLImageParam</summary>
+	void SLImageParam::Reset()
+	{
+		m_TextureID = 0;
+		m_Width = 0;
+		m_Height = 0;
+		m_ImageColorType = SLImageColorType::ColorUndefined;
+		BYTE* m_LinearBufferEntry = nullptr;
+	}
 
 	unsigned int SLImageParam::GetChannelsNum(const SLImageColorType& colorType)
 	{

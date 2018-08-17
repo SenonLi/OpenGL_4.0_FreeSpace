@@ -188,10 +188,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SLCImageHandles.cpp" />
     <ClCompile Include="SLLibreImage.cpp" />
     <ClCompile Include="SLDigitalImageProcess.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SLImageParam.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -213,6 +214,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SLCImageHandles.h" />
     <ClInclude Include="SLLibreImage.h" />
     <ClInclude Include="SLDigitalImageProcess.h" />
     <ClInclude Include="SLImageParam.h" />

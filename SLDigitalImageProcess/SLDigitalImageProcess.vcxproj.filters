@@ -23,6 +23,9 @@
     <ClCompile Include="SLLibreImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SLCImageHandles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -38,6 +41,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SLLibreImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SLCImageHandles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -46,18 +46,21 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/Einstein.jpg");
+	m_ImagePath = _T("../../WatchMe/Images/grass.png");
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
 
-	// Get basic image info
-	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
+	//// Process Images
+	//CImage imageLoader;
+	//imageLoader.Load(m_ImagePath);
+
+	//sldip::SaveToImageFile(imageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
+	//sldip::HistorgramEqualization(m_ImageParam);
+	//sldip::SaveToImageFile(imageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
+
+	// GLPaint
+	m_ImageParam = sldip::LoadImageParam(m_LibreImage, m_ImagePath);
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
-
-	// Process Images
-	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
-	sldip::HistorgramEqualization(m_ImageParam);
-	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
 }
 
 void SLTest_Texture::initGlfwGlewGL()
@@ -84,11 +87,11 @@ void SLTest_Texture::initialVertices()
 {
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
-		// Positions             // Colors               // Texture Coords
-		1.0f,    1.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f, 1.0f, // Top Right
-		1.0f,   -1.0f,   0.0f,   0.0f,   1.0f,   0.0f,   1.0f, 0.0f, // Bottom Right
-		-1.0f,  -1.0f,   0.0f,   0.0f,   0.0f,   1.0f,   0.0f, 0.0f, // Bottom Left
-		-1.0f,   1.0f,   0.0f,   1.0f,   1.0f,   0.0f,   0.0f, 1.0f  // Top Left 
+		// OpenGL Positions             // Colors               // Image Coords
+		1.0f,    1.0f,   0.0f,   1.0f,   0.0f,   0.0f,   1.0f, 0.0f, // Top Right
+		1.0f,   -1.0f,   0.0f,   0.0f,   1.0f,   0.0f,   1.0f, 1.0f, // Bottom Right
+		-1.0f,  -1.0f,   0.0f,   0.0f,   0.0f,   1.0f,   0.0f, 1.0f, // Bottom Left
+		-1.0f,   1.0f,   0.0f,   1.0f,   1.0f,   0.0f,   0.0f, 0.0f  // Top Left 
 	};
 	GLuint indices[] = {  // Note that we start from 0!
 		0, 1, 3, // First Triangle

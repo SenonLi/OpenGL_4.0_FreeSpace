@@ -34,32 +34,32 @@ namespace sldip
 		ColorXYZWRGBA,      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
 	};
 
+	/// <summary>SLImageParam is designed for ImageParam passing
+	///           it is designed to be an envelope for delivery, and one should not try to edit it after well initialed .</summary>
 	class SLImageParam
 	{
 	public:
-		SLImageParam() {};
-		SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType);
+		SLImageParam() {}; // Default constructor here for class member initialization
+		SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
+		SLImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
 		static unsigned int GetChannelsNum(const SLImageColorType& colorType);
 		static SLImageColorType GetImage2DColorType(unsigned int channelNumber);
 
+		void Reset();
+		void CreateImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
+		void CreateImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
+		inline void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
+		void SetImageColorType(unsigned int channelNumber);
+
 		inline unsigned int Width()      const { return m_Width; }
 		inline unsigned int Height()     const { return m_Height; }
-		inline int Pitch()      const { return m_Pitch; }
+		inline int Pitch()               const { return m_Pitch; }
 		inline int PitchAbsolute()      const { return std::abs(m_Pitch); }
 		inline int Channels() const { return GetChannelsNum( ColorType() ); }
 		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
-		inline BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }
+		inline const BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }
 		inline bool IsImageBufferNull() const { return (m_LinearBufferEntry == nullptr); }
-
-		inline void SetWidth(unsigned int width) { m_Width = width; }
-		inline void SetHeight(unsigned int height) { m_Height = height; }
-		inline void SetPitch(int pitch) { m_Pitch = pitch; }
-		inline void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
-		inline void SetImageColorType(SLImageColorType channels) { m_ImageColorType = channels; }
-		inline void SetLinearBufferEntry(BYTE* entry) { m_LinearBufferEntry = entry; }
-
-		void SetImageColorType(unsigned int channelNumber);
 
 	private:
 		GLuint m_TextureID = 0; // 0 means Binding-Free for OpenGL driver, i.e., no texture binding for GPU 
@@ -73,7 +73,14 @@ namespace sldip
 
 		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.
 		// Just an EntryAddress, not responsible for allocate/deallocate
-		BYTE* m_LinearBufferEntry = nullptr;
+		const BYTE* m_LinearBufferEntry = nullptr;
+
+
+		inline void SetWidth(unsigned int width) { m_Width = width; }
+		inline void SetHeight(unsigned int height) { m_Height = height; }
+		inline void SetPitch(int pitch) { m_Pitch = pitch; }
+		inline void SetImageColorType(SLImageColorType channels) { m_ImageColorType = channels; }
+		inline void SetLinearBufferEntry(const BYTE* entry) { m_LinearBufferEntry = entry; }
 	};
 
 

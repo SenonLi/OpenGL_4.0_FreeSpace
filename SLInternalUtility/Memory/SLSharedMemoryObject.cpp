@@ -10,9 +10,9 @@ namespace slutil
 
 	int SLAlignedMemoryBuffer::m_InstanceCounter = 0; // Declaration of private static counter
 
-	SLAlignedMemoryBuffer::SLAlignedMemoryBuffer(unsigned long long totalBytes)
+	SLAlignedMemoryBuffer::SLAlignedMemoryBuffer(unsigned long long totalBytes, unsigned int alignment)
 	{
-		AllocateAlignedMemory(totalBytes);
+		AllocateAlignedMemory(totalBytes, alignment);
 	}
 
 	SLAlignedMemoryBuffer::~SLAlignedMemoryBuffer()
@@ -30,13 +30,16 @@ namespace slutil
 	}
 
 	/// <summary> allocate Aligned Memory </summary>
-	void SLAlignedMemoryBuffer::AllocateAlignedMemory(unsigned long long totalBytes)
+	void SLAlignedMemoryBuffer::AllocateAlignedMemory(unsigned long long totalBytes, unsigned int alignment)
 	{
 		assert(totalBytes > 0 && m_BufferEntry == nullptr);
 
 		// Make sure m_TotalBytes > 0 when doing an actual allocation
 		m_InstanceCounter++;
-		m_BufferEntry = static_cast<BYTE*>( _mm_malloc(totalBytes + SL_SSE_MemoryAllocationSafetyOffset, SL_SSE_MemoryAlignmentSize) );
+
+		// It won't hurt to allocate a bit more, and will help a lot preventing potential crash
+		unsigned int alignedMemoryAllocationSafetyOffset = alignment * 4;
+		m_BufferEntry = static_cast<BYTE*>(_mm_malloc(totalBytes + alignedMemoryAllocationSafetyOffset, alignment));
 
 		std::wstringstream outputMessage;
 		outputMessage << _T("SLAlignedMemoryBuffer::AllocateAlignedMemory(), There exist now \t")
@@ -47,10 +50,29 @@ namespace slutil
 	//--------------------------- SLAlignedMemoryBuffer -----------------------------------------------------------------
 	//============================================================================================================
 	//--------------------------- SLSharedMemoryObject -----------------------------------------------------------------
-
-	SLSharedMemoryObject::SLSharedMemoryObject(unsigned long long totalBytes)
+	SLSharedMemoryObject::SLSharedMemoryObject()
 	{
-		m_SharedBuffer = std::make_shared<SLAlignedMemoryBuffer>(totalBytes);
+		m_SharedBuffer = std::make_shared<SLAlignedMemoryBuffer>();
+	}
+
+	SLSharedMemoryObject::SLSharedMemoryObject(unsigned long long totalBytes, unsigned int alignment)
+	{
+		CreateSharedMemory(totalBytes, alignment);
+	}
+
+	/// <summary> Will Create directly, no need to call Reset 
+	///           Will automatically re-new m_SharedBuffer and m_TotalBytes </summary>
+	void SLSharedMemoryObject::CreateSharedMemory(unsigned long long totalBytes, unsigned int alignment)
+	{
+		m_TotalBytes = totalBytes;
+		m_SharedBuffer = std::make_shared<SLAlignedMemoryBuffer>(m_TotalBytes, alignment);
+	}
+
+	/// <summary>Reset SLSharedMemoryObject</summary>
+	void SLSharedMemoryObject::Reset()
+	{
+		m_SharedBuffer.reset();
+		m_TotalBytes = 0;
 	}
 
 

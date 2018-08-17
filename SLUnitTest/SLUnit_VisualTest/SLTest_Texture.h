@@ -4,18 +4,7 @@
 
 #include "Support/SenAbstractGLFW.h"
 #include "SLImageParam.h"
-
-#include <algorithm>
-#if !defined(min) || !defined(max)
-#define min std::min
-#define max std::max
-#endif
-
-#include <atlimage.h> // For CImage
-
-// Undef Windows min and max macros so they don't clash with std::min and std::max
-#undef min
-#undef max
+#include "SLLibreImage.h"
 
 class SLTest_Texture : public SenAbstractGLFW
 {
@@ -38,8 +27,8 @@ protected:
 	GLuint newLayerTexture;
 	//----------------------------- Temporary --------------------
 	const TCHAR* m_ImagePath = nullptr;
-	CImage m_ImageLoader;
-	sldip::SLImageParam m_ImageParam;
+	sldip::SLImageParam m_ImageParam{};
+	sldip::SLLibreImage m_LibreImage{};
 };
 
 #endif __SLTEST_TEXTURE__

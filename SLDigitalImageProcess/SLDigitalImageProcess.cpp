@@ -1,44 +1,18 @@
 #include "stdafx.h"
 #include "SLDigitalImageProcess.h"
 
-#include "SLImageParam.h"
+#include "SLCImageHandles.h"
 
 namespace sldip
 {
-	void MeanFilterBlur(SLImageParam& textureParam)
+	void MeanFilterBlur(SLImageParam& /*textureParam*/)
 	{
-		BYTE* imageBufferEntry = textureParam.LinearBufferEntry();
-		assert(imageBufferEntry);
-		int imageWidth = textureParam.Width();
-		int imageHeight = textureParam.Height();
-		int imageChannels = textureParam.Channels();
-		int imageAbsPitch = textureParam.PitchAbsolute();
 	}// End of MeanFilterBlur
 
-	void GaussianFilterBlur(SLImageParam& textureParam)
+	void GaussianFilterBlur(SLImageParam& /*textureParam*/)
 	{
 
 	}// End of GaussianFilterBlur
-
-	void DuplicateImage(const SLImageParam& srcImageParam, CImage& destImage)
-	{
-		if (!destImage.IsNull())     destImage.Destroy();
-
-		// Deplicate from srcImage to destImage
-		// ...
-
-		assert(!destImage.IsNull());
-	};// End of DuplicateImage(const SLImageParam& srcParam, CImage& destImage)
-
-	void DuplicateImage(const CImage& srcImage, CImage& destImage)
-	{
-		if (!destImage.IsNull())     destImage.Destroy();
-		
-		// Deplicate from srcImage to destImage
-		// ...
-
-		assert(!destImage.IsNull());
-	};// End of DuplicateImage(const CImage& srcImage, CImage& destImage)
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <param name="textureParam">All basic Image Info; with Beginning address of image buffer [IN/OUT]</param>
@@ -68,7 +42,7 @@ namespace sldip
 	/// <param name="textureParam">All basic Image Info; with Beginning address of image buffer [IN/OUT]</param>
 	void HistorgramEqualization(SLImageParam& textureParam)
 	{
-		BYTE* imageBufferEntry = textureParam.LinearBufferEntry();
+		BYTE* imageBufferEntry = const_cast<BYTE*>(textureParam.LinearBufferEntry());
 		assert(imageBufferEntry);
 		int imageWidth = textureParam.Width();
 		int imageHeight = textureParam.Height();
@@ -182,59 +156,37 @@ namespace sldip
 		assert(textureParam.TextureID()); // New generated TextureID should not be 0
 	} // End of UploadLinearImageToGPU
 
-	/// <summary>Extract basic ImageParam from Full-Loaded CImage</summary>
-	/// <param name="image">Full-Loaded CImage, whose buffer cannot be empty [IN]</param>
-	/// <returns>basic ImageParam of the input image, whose LinearBufferEntry cannot be nullptr </returns>
-	SLImageParam GetImageParam(CImage& image)
-	{
-		assert(!image.IsNull());
-		SLImageParam imageParam(
-			static_cast<unsigned int>(image.GetWidth()),
-			static_cast<unsigned int>(image.GetHeight()),
-			image.GetPitch(),
-			SLImageParam::GetImage2DColorType(image.GetBPP() / BIT_NUM_IN_ONE_BYTE)
-		);
-
-		// CImage belongs to Windows GDI library, in which all DIBs (Device-Independent Bitmap) are bottom-up.
-		// GetBits() will return pixel address of (0,0) instead of the first byte of the image-buffer.
-		// To get the BufferEntry address for uploading to GPU, here we need to move pointer up [Height() - 1] levels.
-		BYTE* firstPixelAddress = static_cast<BYTE*>( image.GetBits() );
-		// Attention!! :  Must use int for BYTE* address seeking !
-		BYTE* bufferEntry = firstPixelAddress + static_cast<int>(imageParam.Height() - 1) * imageParam.Pitch();
-		imageParam.SetLinearBufferEntry(bufferEntry);
-
-		return imageParam;
-	}
-
 	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
-	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
+	/// <remakrs>SLLibreImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
 	/// <param name="filePath">picture filePath + fileName</param>
 	/// <returns>Image information, except Mapped GPU TextureID  </returns>
-	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath)
+	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath)
 	{
 		assert(filePath && _tcsclen(filePath) != 0);
-		if (!imageLoader.IsNull())
-			imageLoader.Destroy();
-		imageLoader.Load(filePath);
-		assert(!imageLoader.IsNull()); // failed to load image file or Param
 
-		return GetImageParam(imageLoader);
+		CImage tmpLoader;
+		tmpLoader.Load(filePath);
+		assert(!tmpLoader.IsNull()); // failed to load image file or Param
+
+		sldip::DuplicateImage(tmpLoader, targetImageLoader);
+
+		return GetImageParam(targetImageLoader);
 	}
 
-	/// <summary>Read picture file from Disk, and upload to GPU </summary>
-	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
-	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
-	/// <param name="filePath">picture filePath + fileName</param>
-	/// <returns>Image information with Mapped GPU TextureID  </returns>
-	SLImageParam UploadImageToGPUFromDisk(CImage& imageLoader, const TCHAR* filePath)
+	SLImageParam GetImageParam(const SLLibreImage& image)
 	{
-		// Get basic image info
-		SLImageParam textureParam = LoadImageParam(imageLoader, filePath);
-		// Then upload to GPU and update the newly generated TextureID into textureParam
-		UploadLinearImageToGPU(textureParam);
+		assert(!image.IsNull());
 
-		return textureParam;
+		SLImageParam imageParam(
+			image.GetWidth(),
+			image.GetHeight(),
+			image.GetPitch(),
+			image.GetColorType(),
+			image.GetBufferEntry()
+		);
+
+		return imageParam;
 	}
 
 } // End of namespace sldip
