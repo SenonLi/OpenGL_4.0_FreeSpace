@@ -4,22 +4,6 @@
 #include "SLDigitalImageProcess.h"
 #include "SLImageParam.h"
 
-void SLTest_Texture::PreImageProcess()
-{
-	m_ImagePath = _T("../../WatchMe/Images/Einstein.jpg");
-	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
-
-	// Get basic image info
-	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
-	m_WidgetWidth = m_ImageParam.Width();
-	m_WidgetHeight = m_ImageParam.Height();
-
-	// Process Images
-	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
-	sldip::HistorgramEqualization(m_ImageParam);
-	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
-}
-
 void SLTest_Texture::initialBackgroundTexture()
 {
 	// Then upload to GPU and update the newly generated TextureID into textureParam
@@ -31,10 +15,6 @@ void SLTest_Texture::initialBackgroundTexture()
 SLTest_Texture::SLTest_Texture()
 {
 	strWindowName = "Sen UnitTest_Visual Test Texture ";
-}
-
-SLTest_Texture::~SLTest_Texture()
-{
 }
 
 void SLTest_Texture::paintGL(void)
@@ -64,11 +44,26 @@ void SLTest_Texture::paintGL(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void SLTest_Texture::LoadLibreImage()
+{
+	m_ImagePath = _T("../../WatchMe/Images/Einstein.jpg");
+	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
+
+	// Get basic image info
+	m_ImageParam = sldip::LoadImageParam(m_ImageLoader, m_ImagePath);
+	m_WidgetWidth = m_ImageParam.Width();
+	m_WidgetHeight = m_ImageParam.Height();
+
+	// Process Images
+	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("Origin.png"), Gdiplus::ImageFormatPNG);
+	sldip::HistorgramEqualization(m_ImageParam);
+	sldip::SaveToImageFile(m_ImageLoader, saveFolderPath, _T("HistogramEqualization.png"), Gdiplus::ImageFormatPNG);
+}
+
 void SLTest_Texture::initGlfwGlewGL()
 {
-	// Get image size as window size
-	//textureImagePtr = SOIL_load_image("../WatchMe/Images/poor_3.bmp", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
-	PreImageProcess();
+	LoadLibreImage();
+
 	// Then initial window size
 	SenAbstractGLFW::initGlfwGlewGL();
 

@@ -20,7 +20,7 @@
     <ClCompile Include="SLImageParam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SLCaptured.cpp">
+    <ClCompile Include="SLLibreImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,7 +37,7 @@
     <ClInclude Include="SLImageParam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SLCaptured.h">
+    <ClInclude Include="SLLibreImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,7 +21,7 @@ class SLTest_Texture : public SenAbstractGLFW
 {
 public:
 	SLTest_Texture();
-	virtual ~SLTest_Texture();
+	virtual ~SLTest_Texture() {};
 
 protected:
 	void paintGL(void);
@@ -32,7 +32,7 @@ protected:
 	void initialBackgroundTexture();
 	void bindBackgroundTexture();
 
-	void PreImageProcess();
+	void LoadLibreImage();
 
 	unsigned char* textureImagePtr = nullptr;
 	GLuint newLayerTexture;

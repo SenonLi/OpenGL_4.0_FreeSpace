@@ -33,22 +33,22 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\SLMemoryObject.h">
-      <Filter>Header Files\Memory</Filter>
-    </ClInclude>
     <ClInclude Include="DebugHelper\SLDebugHelper.h">
       <Filter>Header Files\DebugHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\SLSharedMemoryObject.h">
+      <Filter>Header Files\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Memory\SLMemoryObject.cpp">
-      <Filter>Source Files\Memory</Filter>
-    </ClCompile>
     <ClCompile Include="DebugHelper\SLDebugHelper.cpp">
       <Filter>Source Files\DebugHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\SLSharedMemoryObject.cpp">
+      <Filter>Source Files\Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

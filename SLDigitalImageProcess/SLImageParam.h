@@ -43,7 +43,7 @@ namespace sldip
 		inline int Height()     const { return m_Height; }
 		inline int Pitch()      const { return m_Pitch; }
 		inline int PitchAbsolute()      const { return std::abs(m_Pitch); }
-		inline int ChannelNumber() const { return GetChannelsNum( ColorType() ); }
+		inline int Channels() const { return GetChannelsNum( ColorType() ); }
 		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
 		inline BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }

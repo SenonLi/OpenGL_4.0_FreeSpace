@@ -44,4 +44,4 @@ namespace sldip
 
 }; // end of namespace DIP
 
-#endif __SLDIGITALIMAGEPROCESS__
+#endif // __SLDIGITALIMAGEPROCESS__

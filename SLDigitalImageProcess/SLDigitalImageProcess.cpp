@@ -11,7 +11,7 @@ namespace sldip
 		assert(imageBufferEntry);
 		int imageWidth = textureParam.Width();
 		int imageHeight = textureParam.Height();
-		int imageChannels = textureParam.ChannelNumber();
+		int imageChannels = textureParam.Channels();
 		int imageAbsPitch = textureParam.PitchAbsolute();
 	}// End of MeanFilterBlur
 
@@ -72,7 +72,7 @@ namespace sldip
 		assert(imageBufferEntry);
 		int imageWidth = textureParam.Width();
 		int imageHeight = textureParam.Height();
-		int imageChannels = textureParam.ChannelNumber();
+		int imageChannels = textureParam.Channels();
 		int imageAbsPitch = textureParam.PitchAbsolute();
 
 		int cdf[CPU_TOTAL_GRAY_LEVEL]; // Array of Cumulative Distributive Function at each gray level
@@ -212,7 +212,6 @@ namespace sldip
 	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath)
 	{
 		assert(filePath && _tcsclen(filePath) != 0);
-		// assert(glew already initialed); // GLEW doesn't require UI, should be added in sldip
 		if (!imageLoader.IsNull())
 			imageLoader.Destroy();
 		imageLoader.Load(filePath);
