@@ -11,7 +11,7 @@ namespace sldip
 	class SLLibreImage : public slutil::SLSharedMemoryObject
 	{
 	public:
-		explicit SLLibreImage(unsigned int cols, unsigned int rows, unsigned int channels, int m_Pitch);
+		explicit SLLibreImage(unsigned int cols, unsigned int rows, unsigned int channels, int pitch);
 		virtual ~SLLibreImage() {};
 
 		unsigned int GetWidth() const { return m_ImageParam.Width(); }

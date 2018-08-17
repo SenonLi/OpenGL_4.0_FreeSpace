@@ -188,17 +188,19 @@ namespace sldip
 	SLImageParam GetImageParam(CImage& image)
 	{
 		assert(!image.IsNull());
-		SLImageParam imageParam;
-		imageParam.SetWidth(image.GetWidth());
-		imageParam.SetHeight(image.GetHeight());
-		imageParam.SetPitch(image.GetPitch());
-		imageParam.SetImageColorType(image.GetBPP() / BIT_NUM_IN_ONE_BYTE);
+		SLImageParam imageParam(
+			static_cast<unsigned int>(image.GetWidth()),
+			static_cast<unsigned int>(image.GetHeight()),
+			image.GetPitch(),
+			SLImageParam::GetImage2DColorType(image.GetBPP() / BIT_NUM_IN_ONE_BYTE)
+		);
 
 		// CImage belongs to Windows GDI library, in which all DIBs (Device-Independent Bitmap) are bottom-up.
 		// GetBits() will return pixel address of (0,0) instead of the first byte of the image-buffer.
 		// To get the BufferEntry address for uploading to GPU, here we need to move pointer up [Height() - 1] levels.
 		BYTE* firstPixelAddress = static_cast<BYTE*>( image.GetBits() );
-		BYTE* bufferEntry = firstPixelAddress + (imageParam.Height() - 1) * imageParam.Pitch();
+		// Attention!! :  Must use int for BYTE* address seeking !
+		BYTE* bufferEntry = firstPixelAddress + static_cast<int>(imageParam.Height() - 1) * imageParam.Pitch();
 		imageParam.SetLinearBufferEntry(bufferEntry);
 
 		return imageParam;

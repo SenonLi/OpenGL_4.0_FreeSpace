@@ -3,7 +3,11 @@
 
 namespace sldip
 {
-	int SLImageParam::GetChannelsNum(const SLImageColorType& colorType)
+	SLImageParam::SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType)
+		: m_Width(cols), m_Height(rows), m_Pitch(pitch), m_ImageColorType(colorType)
+	{};
+
+	unsigned int SLImageParam::GetChannelsNum(const SLImageColorType& colorType)
 	{
 		int channelsNumber = 0;
 		switch (colorType)
@@ -39,9 +43,7 @@ namespace sldip
 		return channelsNumber;
 	}
 
-	/// <summary>Will be used to determine 2D ImageColorType when loading image files from disk </summary>
-	/// <param name="image2DChannelNumber">Range could only be 1, 3, 4 </param>
-	void SLImageParam::SetImageColorType(int image2DChannelNumber)
+	SLImageColorType SLImageParam::GetImage2DColorType(unsigned int image2DChannelNumber)
 	{
 		SLImageColorType colorType = SLImageColorType::ColorUndefined;
 		switch (image2DChannelNumber)
@@ -60,7 +62,14 @@ namespace sldip
 		}
 
 		assert(colorType != SLImageColorType::ColorUndefined);
-		SetImageColorType(colorType);
+		return colorType;
+	}
+
+	/// <summary>Will be used to determine 2D ImageColorType when loading image files from disk </summary>
+	/// <param name="image2DChannelNumber">Range could only be 1, 3, 4 </param>
+	void SLImageParam::SetImageColorType(unsigned int image2DChannelNumber)
+	{
+		SetImageColorType(SLImageParam::GetImage2DColorType(image2DChannelNumber));
 	}
 
 }// End of namespace sldip

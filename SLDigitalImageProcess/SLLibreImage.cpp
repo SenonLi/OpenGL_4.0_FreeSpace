@@ -4,10 +4,11 @@
 
 namespace sldip
 {
-	//SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, unsigned int channels)
-	//	: SLSharedMemoryObject(cols * rows * channels), m_Rows(cols), m_Cols(rows), m_Channels(channels)
-	//{
-	//}
+	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, unsigned int channels, int pitch)
+	: SLSharedMemoryObject(cols * rows * channels)
+		, m_ImageParam(cols, rows, pitch, SLImageParam::GetImage2DColorType(channels))
+	{
+	}
 
 
 } // End of namespace sldip
