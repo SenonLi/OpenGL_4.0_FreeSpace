@@ -36,6 +36,10 @@ namespace sldip
 
 	}// End of AdaptiveThresholding
 
+	// // grayLevel == pixel intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
+	//int pixelEntryIndex = row * imageAbsPitch + column * imageChannels;
+	//double pixelGrayLevel = 0.2126 * static_cast<double>(imageBufferEntry[pixelEntryIndex]);
+
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <param name="textureParam">All basic Image Info; with Beginning address of image buffer [IN/OUT]</param>
 	void HistorgramEqualization(SLImageParam& textureParam)

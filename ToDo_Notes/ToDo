@@ -1,6 +1,9 @@
 To Do:
 
 
+1. write function to convert from color SLLibreImage image to grayscaled SLLibreImage image
+2. input SLImageParam from grayscaled SLLibreImage image (Check ColorType), and fix sldip::HistorgramEqualization
+
 Make sldip::HistorgramEqualization work!
 
 Move all CImage related function into CImageHandles;
