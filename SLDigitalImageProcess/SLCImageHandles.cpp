@@ -45,7 +45,7 @@ namespace sldip
 	void DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
 	{
 		assert(!srcImage.IsNull());
-		dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), srcImage.GetBPP() / sldip::BIT_NUM_IN_ONE_BYTE);
+		dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), sldip::GetImage2DColorType(srcImage));
 		assert(!dstImage.IsNull());
 
 		int srcPitch = srcImage.GetPitch();
@@ -106,6 +106,23 @@ namespace sldip
 		assert(!dstImage.IsNull());
 	};// End of DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage)
 
+	/// <remark>CImage save a pixel in color order BGR instead of RGB </remark>
+	SLImageColorType GetImage2DColorType(const CImage& image) 
+	{
+		assert(!image.IsNull());
+		SLImageColorType resultColorType = SLImageColorType::ColorUndefined;
+
+		unsigned int channels = static_cast<unsigned int>(image.GetBPP() / sldip::BIT_NUM_IN_ONE_BYTE);
+		switch (channels)
+		{
+			case CHANNEL_NUM_ColorGray:     resultColorType = SLImageColorType::ColorGray;		break;
+			case CHANNEL_NUM_ColorBGR:      resultColorType = SLImageColorType::ColorBGR;		break;
+			case CHANNEL_NUM_ColorBGRA:     resultColorType = SLImageColorType::ColorBGRA;		break;
+			default:                        assert(false);
+		}
+		
+		return resultColorType;
+	}
 
 
 	/// <summary>Extract basic ImageParam from Full-Loaded CImage</summary>
@@ -127,7 +144,7 @@ namespace sldip
 			static_cast<unsigned int>(image.GetWidth()),
 			static_cast<unsigned int>(image.GetHeight()),
 			image.GetPitch(),
-			SLImageParam::GetImage2DColorType(image.GetBPP() / BIT_NUM_IN_ONE_BYTE),
+			sldip::GetImage2DColorType(image),
 			actualBufferEntry
 		);
 

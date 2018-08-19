@@ -55,7 +55,7 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/ball.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
+	m_ImagePath = _T("../../WatchMe/Images/grass.png"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
 
 	// GLPaint

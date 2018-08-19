@@ -39,12 +39,13 @@ namespace sldip
 	{
 		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLImageColorType::ColorUndefined);
 		assert(srcImage.GetBufferEntry() != dstImage.GetBufferEntry());
+		// Only support Gray/RGB/BGR/RGBA/BGRA, doesn't support XYZRGB
 		assert(srcImage.GetChannels() <= SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA));
 		if (srcImage.GetColorType() == SLImageColorType::ColorGray)
 			dstImage = srcImage;
 		else 
 		{
-			dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), SLImageParam::GetChannelsNum(SLImageColorType::ColorGray));
+			dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), SLImageColorType::ColorGray);
 			assert(!dstImage.IsNull());
 
 			int srcPitch = srcImage.GetPitch();
@@ -53,6 +54,9 @@ namespace sldip
 			const BYTE* srcDataEntry = srcImage.GetBufferEntry();
 			BYTE* dstDataEntry = dstImage.GetBufferEntryForEdit();
 			unsigned int srcChannels = srcImage.GetChannels();
+			bool srcHasAlphaChannel = srcImage.HasAlphaChannel();
+			bool srcIsInColorOrder_RGB = srcImage.IsInColorOrder_RGB();
+			bool srcIsInColorOrder_BGR = srcImage.IsInColorOrder_BGR();
 
 			// from 24bit/32bit to 8bit CImage, memcpy won't work, have to copy pixel by pixel
 			for (int row = 0; row < static_cast<int>(dstImage.GetHeight()); row++) {
@@ -60,15 +64,20 @@ namespace sldip
 					BYTE grayIntensity = 0xFF; // Set Color White if there is Alpha channel
 					int srcPixelEntryIndex = row * srcPitch + col * srcChannels;
 
-					if (   (srcChannels == SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA)
-						       && srcDataEntry[srcPixelEntryIndex + 3] != 0x00 )
-						|| srcChannels != SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA)  )
+					if (   ( srcHasAlphaChannel && srcDataEntry[srcPixelEntryIndex + 3] != 0x00 ) // Pure Transparent
+						|| !srcHasAlphaChannel )
 					{
 						// GrayScaledPixel Intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
-						// CImage will load image with BRG instead of RGB
-						grayIntensity = static_cast<BYTE>(		0.2126 * srcDataEntry[srcPixelEntryIndex + 2]   // Red
-																+ 0.7152 * srcDataEntry[srcPixelEntryIndex + 1] // Green
-																+ 0.0722 * srcDataEntry[srcPixelEntryIndex] );  // Blue
+						if (srcIsInColorOrder_RGB) {
+							grayIntensity = static_cast<BYTE>( 0.2126 * srcDataEntry[srcPixelEntryIndex]
+															+ 0.7152 * srcDataEntry[srcPixelEntryIndex + 1]
+															+ 0.0722 * srcDataEntry[srcPixelEntryIndex + 2] );
+						}else if (srcIsInColorOrder_BGR) {
+							// CImage will load image with BRG instead of RGB
+							grayIntensity = static_cast<BYTE>( 0.2126 * srcDataEntry[srcPixelEntryIndex + 2]
+															+ 0.7152 * srcDataEntry[srcPixelEntryIndex + 1]
+															+ 0.0722 * srcDataEntry[srcPixelEntryIndex] );
+						}else assert(false);
 					}
 
 					dstDataEntry[row * dstPitch + col] = grayIntensity;
@@ -77,10 +86,8 @@ namespace sldip
 		}
 	}
 
-	// grayLevel == pixel intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
-	//double pixelGrayLevel = 0.2126 * static_cast<double>(imageBufferEntry[pixelEntryIndex]);
-
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
+	/// <remark>Only support ColorGray </remark>
 	/// <param name="textureParam">All basic Image Info; with Beginning address of image buffer [IN/OUT]</param>
 	void HistorgramEqualization(SLImageParam& textureParam)
 	{

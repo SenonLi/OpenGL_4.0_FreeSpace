@@ -16,19 +16,21 @@ namespace sldip
 	static const unsigned int SL_RGBA_AlignmentSize = 4; // must be an integer power of 2
 	static const unsigned int SL_XYZWRGBA_AlignmentSize = 16; // must be an integer power of 2
 
-	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, unsigned int channels)
-	: SLSharedMemoryObject(GetAlignedPitch(cols, channels) * rows, GetAlignmentSize(channels))
-	, m_ImageParam(cols, rows, static_cast<int>(GetAlignedPitch(cols, channels)), SLImageParam::GetImage2DColorType(channels), m_SharedBuffer->m_BufferEntry)
+	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, const SLImageColorType& colorType)
+	: m_TmpChannels(SLImageParam::GetChannelsNum(colorType))
+	, SLSharedMemoryObject(GetAlignedPitch(cols, m_TmpChannels) * rows, GetAlignmentSize(m_TmpChannels))
+	, m_ImageParam(cols, rows, static_cast<int>(GetAlignedPitch(cols, m_TmpChannels)), colorType, m_SharedBuffer->m_BufferEntry)
 	{
 	}
 
-	void SLLibreImage::CreateLibreImage(unsigned int cols, unsigned int rows, unsigned int channels)
+	void SLLibreImage::CreateLibreImage(unsigned int cols, unsigned int rows, const SLImageColorType& colorType)
 	{
-		unsigned int calculatedPitch = GetAlignedPitch(cols, channels);
+		m_TmpChannels = SLImageParam::GetChannelsNum(colorType);
+		unsigned int calculatedPitch = GetAlignedPitch(cols, m_TmpChannels);
 		// SharedMemoryObject will reset automatically
-		CreateSharedMemory(calculatedPitch * rows, GetAlignmentSize(channels));
+		CreateSharedMemory(calculatedPitch * rows, GetAlignmentSize(m_TmpChannels));
 		// SLImageParam is not supposed to be edited, so that no need to reset
-		m_ImageParam.CreateImageParam(cols, rows, static_cast<int>(calculatedPitch), SLImageParam::GetImage2DColorType(channels), m_SharedBuffer->m_BufferEntry);
+		m_ImageParam.CreateImageParam(cols, rows, static_cast<int>(calculatedPitch), colorType, m_SharedBuffer->m_BufferEntry);
 	}
 
 	unsigned int SLLibreImage::GetAlignedPitch(unsigned int cols, unsigned int channels)
