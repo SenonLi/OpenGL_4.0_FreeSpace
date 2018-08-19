@@ -74,20 +74,22 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -98,6 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,6 +112,9 @@
     <PostBuildEvent>
       <Command>xcopy	/D	/Y  "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341d.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
+    <BuildLog>
+      <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,11 +124,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <BuildLog>
+      <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -134,6 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +152,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <BuildLog>
+      <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,6 +166,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +180,9 @@
     <PostBuildEvent>
       <Command>xcopy	/D	/Y  "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
+    <BuildLog>
+      <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="SLTest_Texture.h" />
@@ -184,6 +202,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SLDigitalImageProcess\SLDigitalImageProcess.vcxproj">
       <Project>{801e69dd-5a95-48ce-a212-b6ea98392a88}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLGeometry\SLGeometry.vcxproj">
+      <Project>{fbad3379-0229-42e9-bde5-a5d024c1e88b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>

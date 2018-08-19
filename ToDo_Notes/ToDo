@@ -1,5 +1,8 @@
 To Do:
 
+#include <gli/gli.hpp> // contains <cassert>
+#include <soil/SOIL.h>
+
 
 1. write function to convert from color SLLibreImage image to grayscaled SLLibreImage image
 2. input SLImageParam from grayscaled SLLibreImage image (Check ColorType), and fix sldip::HistorgramEqualization
@@ -11,6 +14,8 @@ Put #include <atliamge.h> into *.cpp only;
 
 Add image renderer into slgeom project;
 Add different shader specially for 8bit image;
+
+4. Move SenAbstractGLFW to SLGlfw3DPlayer, make SLUnit_VisualTest Level 4 with Warning to Error
 
 
 

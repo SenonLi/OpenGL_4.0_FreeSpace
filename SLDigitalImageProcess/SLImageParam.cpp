@@ -31,11 +31,10 @@ namespace sldip
 	/// <summary>Reset SLImageParam</summary>
 	void SLImageParam::Reset()
 	{
-		m_TextureID = 0;
 		m_Width = 0;
 		m_Height = 0;
 		m_ImageColorType = SLImageColorType::ColorUndefined;
-		BYTE* m_LinearBufferEntry = nullptr;
+		m_LinearBufferEntry = nullptr;
 	}
 
 	unsigned int SLImageParam::GetChannelsNum(const SLImageColorType& colorType)
@@ -43,33 +42,16 @@ namespace sldip
 		int channelsNumber = 0;
 		switch (colorType)
 		{
-		case SLImageColorType::ColorUndefined:
-			channelsNumber = CHANNEL_NUM_ColorUndefined;
-			break;
-		case SLImageColorType::ColorGray:
-			channelsNumber = CHANNEL_NUM_ColorGray;
-			break;
-		case SLImageColorType::ColorRGB:
-			channelsNumber = CHANNEL_NUM_ColorRGB;
-			break;
-		case SLImageColorType::ColorRGBA:
-			channelsNumber = CHANNEL_NUM_ColorRGBA;
-			break;
-		case SLImageColorType::ColorXYZ:
-			channelsNumber = CHANNEL_NUM_ColorXYZ;
-			break;
-		case SLImageColorType::ColorXYZW:
-			channelsNumber = CHANNEL_NUM_ColorXYZW;
-			break;
-		case SLImageColorType::ColorXYZG:
-			channelsNumber = CHANNEL_NUM_ColorXYZG;
-			break;
-		case SLImageColorType::ColorXYZRGB:
-			channelsNumber = CHANNEL_NUM_ColorXYZRGB;
-			break;
-		case SLImageColorType::ColorXYZWRGBA:
-			channelsNumber = CHANNEL_NUM_ColorXYZWRGBA;
-			break;
+			case SLImageColorType::ColorUndefined:		channelsNumber = CHANNEL_NUM_ColorUndefined;	break;
+			case SLImageColorType::ColorGray:			channelsNumber = CHANNEL_NUM_ColorGray;			break;
+			case SLImageColorType::ColorRGB:			channelsNumber = CHANNEL_NUM_ColorRGB;			break;
+			case SLImageColorType::ColorRGBA:			channelsNumber = CHANNEL_NUM_ColorRGBA;			break;
+			case SLImageColorType::ColorXYZ:			channelsNumber = CHANNEL_NUM_ColorXYZ;			break;
+			case SLImageColorType::ColorXYZW:			channelsNumber = CHANNEL_NUM_ColorXYZW;			break;
+			case SLImageColorType::ColorXYZG:			channelsNumber = CHANNEL_NUM_ColorXYZG;			break;
+			case SLImageColorType::ColorXYZRGB:			channelsNumber = CHANNEL_NUM_ColorXYZRGB;		break;
+			case SLImageColorType::ColorXYZWRGBA:		channelsNumber = CHANNEL_NUM_ColorXYZWRGBA;		break;
+			default:									assert(false);
 		}
 		return channelsNumber;
 	}

@@ -48,7 +48,6 @@ namespace sldip
 		void Reset();
 		void CreateImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
 		void CreateImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
-		inline void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
 		void SetImageColorType(unsigned int channelNumber);
 
 		inline unsigned int Width()      const { return m_Width; }
@@ -56,14 +55,11 @@ namespace sldip
 		inline int Pitch()               const { return m_Pitch; }
 		inline int PitchAbsolute()      const { return std::abs(m_Pitch); }
 		inline int Channels() const { return GetChannelsNum( ColorType() ); }
-		inline GLuint TextureID() const { return m_TextureID; }
 		inline SLImageColorType ColorType()	const { return m_ImageColorType; }
 		inline const BYTE* LinearBufferEntry() const { return m_LinearBufferEntry; }
 		inline bool IsImageBufferNull() const { return (m_LinearBufferEntry == nullptr); }
 
 	private:
-		GLuint m_TextureID = 0; // 0 means Binding-Free for OpenGL driver, i.e., no texture binding for GPU 
-
 		unsigned int m_Width  = 0;
 		unsigned int m_Height = 0;
 		/// <summary>Or Stride, Length (in Bytes) of an image row in memory: Pitch =  NumRowPixels * BytesPerPixel + Padding </summary>

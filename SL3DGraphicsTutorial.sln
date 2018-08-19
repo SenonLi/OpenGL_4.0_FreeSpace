@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLUnit_VisualTest", "SLUnit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLUnit_ConsoleTest", "SLUnitTest\SLUnit_ConsoleTest\SLUnit_ConsoleTest.vcxproj", "{AF6892D1-8952-430F-8936-EBD7A85BE4FE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLGeometry", "SLGeometry\SLGeometry.vcxproj", "{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -117,6 +119,14 @@ Global
 		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|Win32.Build.0 = Release|Win32
 		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|x64.ActiveCfg = Release|x64
 		{AF6892D1-8952-430F-8936-EBD7A85BE4FE}.Release|x64.Build.0 = Release|x64
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Debug|Win32.Build.0 = Debug|Win32
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Debug|x64.ActiveCfg = Debug|x64
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Debug|x64.Build.0 = Debug|x64
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Release|Win32.ActiveCfg = Release|Win32
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Release|Win32.Build.0 = Release|Win32
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Release|x64.ActiveCfg = Release|x64
+		{FBAD3379-0229-42E9-BDE5-A5D024C1E88B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

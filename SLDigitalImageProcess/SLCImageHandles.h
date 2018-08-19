@@ -29,9 +29,6 @@ namespace sldip
 	SLImageParam GetImageParam(CImage& image);
 	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
 
-	//void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType);
-	//void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType);
-
 }; // end of namespace DIP
 
 #endif // __SLCIMAGEHANDLES__

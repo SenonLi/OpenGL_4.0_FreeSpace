@@ -4,12 +4,21 @@
 #include "SLDigitalImageProcess.h"
 #include "SLImageParam.h"
 
+#include "Rendering/SLTexture2D_Renderer.h"      // For Texture Rendering
+
+// GLM Mathematics
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#pragma once
+#pragma warning (push)
+#pragma warning (disable : 4067) // glm SKD won't pass static code analysis
+#include "glm/gtc/type_ptr.hpp""
+#pragma warning (pop)
+
 void SLTest_Texture::initialBackgroundTexture()
 {
 	// Then upload to GPU and update the newly generated TextureID into textureParam
-	sldip::UploadLinearImageToGPU(m_ImageParam);
-
-	defaultTextureID = m_ImageParam.TextureID();
+	defaultTextureID = slgeom::SLTexture2D_Renderer::UploadLinearImageToGPU(m_ImageParam);
 }
 
 SLTest_Texture::SLTest_Texture()
@@ -46,7 +55,7 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/grass.png"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
+	m_ImagePath = _T("../../WatchMe/Images/ball.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
 
 	// GLPaint
@@ -54,10 +63,19 @@ void SLTest_Texture::LoadLibreImage()
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
 
-	// Process Images
 	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("Origin.png"), sldip::SLImageFileType::IMAGE_PNG);
-	sldip::HistorgramEqualization(m_ImageParam);
-	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("HistogramEqualization.png"), sldip::SLImageFileType::IMAGE_PNG);
+
+	// Process Images
+	sldip::SLLibreImage gayscaledImage;
+	sldip::GetGrascaledImage(m_LibreImage, gayscaledImage);
+	m_ImageParam = sldip::GetImageParam(gayscaledImage);
+	sldip::SaveToImageFile(gayscaledImage, saveFolderPath, _T("GrayScaled.png"), sldip::SLImageFileType::IMAGE_PNG);
+
+	// Get shared GrayScaled Image
+	m_LibreImage = gayscaledImage;
+
+	//sldip::HistorgramEqualization(m_ImageParam);
+	//sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("HistogramEqualization.png"), sldip::SLImageFileType::IMAGE_PNG);
 }
 
 void SLTest_Texture::initGlfwGlewGL()

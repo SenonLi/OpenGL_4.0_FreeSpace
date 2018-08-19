@@ -19,8 +19,7 @@ namespace sldip
 	void AdaptiveThresholding(SLImageParam& textureParam, SLAdaptiveThresholdingType filterType)
 	{
 		// Copy Image for Background Preparation
-
-
+		// .....
 		// Get Image Background
 		switch (filterType)
 		{
@@ -36,8 +35,49 @@ namespace sldip
 
 	}// End of AdaptiveThresholding
 
-	// // grayLevel == pixel intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
-	//int pixelEntryIndex = row * imageAbsPitch + column * imageChannels;
+	void GetGrascaledImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
+	{
+		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLImageColorType::ColorUndefined);
+		assert(srcImage.GetBufferEntry() != dstImage.GetBufferEntry());
+		assert(srcImage.GetChannels() <= SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA));
+		if (srcImage.GetColorType() == SLImageColorType::ColorGray)
+			dstImage = srcImage;
+		else 
+		{
+			dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), SLImageParam::GetChannelsNum(SLImageColorType::ColorGray));
+			assert(!dstImage.IsNull());
+
+			int srcPitch = srcImage.GetPitch();
+			int dstPitch = dstImage.GetPitch();
+
+			const BYTE* srcDataEntry = srcImage.GetBufferEntry();
+			BYTE* dstDataEntry = dstImage.GetBufferEntryForEdit();
+			unsigned int srcChannels = srcImage.GetChannels();
+
+			// from 24bit/32bit to 8bit CImage, memcpy won't work, have to copy pixel by pixel
+			for (int row = 0; row < static_cast<int>(dstImage.GetHeight()); row++) {
+				for (int col = 0; col < static_cast<int>(dstImage.GetWidth()); col++) {
+					BYTE grayIntensity = 0xFF; // Set Color White if there is Alpha channel
+					int srcPixelEntryIndex = row * srcPitch + col * srcChannels;
+
+					if (   (srcChannels == SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA)
+						       && srcDataEntry[srcPixelEntryIndex + 3] != 0x00 )
+						|| srcChannels != SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA)  )
+					{
+						// GrayScaledPixel Intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
+						// CImage will load image with BRG instead of RGB
+						grayIntensity = static_cast<BYTE>(		0.2126 * srcDataEntry[srcPixelEntryIndex + 2]   // Red
+																+ 0.7152 * srcDataEntry[srcPixelEntryIndex + 1] // Green
+																+ 0.0722 * srcDataEntry[srcPixelEntryIndex] );  // Blue
+					}
+
+					dstDataEntry[row * dstPitch + col] = grayIntensity;
+				}
+			}
+		}
+	}
+
+	// grayLevel == pixel intensity = 0.2126 * Red + 0.7152 * Green + 0.0722 * Blue;
 	//double pixelGrayLevel = 0.2126 * static_cast<double>(imageBufferEntry[pixelEntryIndex]);
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
@@ -78,8 +118,8 @@ namespace sldip
 			for (int column = 0; column < imageWidth; ++column) {
 				// ImagePixel on CPU consists of RGBA 4 chanels, each represented by 1 unsigned byte under range 0~255
 				int curPixelEntry = row * imageAbsPitch + column * imageChannels;
-				unsigned int oldIntensity = imageBufferEntry[curPixelEntry];
-				unsigned int newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK;
+				BYTE oldIntensity = imageBufferEntry[curPixelEntry];
+				BYTE newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_BLACK;
 
 				// Calculate New gray-scaled Color Intensity
 				if (oldIntensity <= minValidGrayLevel) {
@@ -87,7 +127,7 @@ namespace sldip
 				}else if (oldIntensity > maxValidGrayLevel) {
 					newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE;
 				}else {
-					newIntensity = CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE * (oldIntensity - minValidGrayLevel) / (maxValidGrayLevel - minValidGrayLevel);
+					newIntensity = static_cast<BYTE>( CPU_COLOR_SINGLE_CHANNEL_PURE_WHITE * static_cast<double>(oldIntensity - minValidGrayLevel) / static_cast<double>(maxValidGrayLevel - minValidGrayLevel) );
 				}
 
 				// Assign New gray-scaled Color Intensity
@@ -124,50 +164,6 @@ namespace sldip
 	{
 		SaveToImageFile(srcImage, (folderPath + fileName), imageType);
 	}
-
-	/// <summary>Read picture file from Disk, and upload to GPU </summary>
-	/// <remarks> Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration
-	///               Designed to upload CPU-Processed image, which has to be linear     </remarks>
-	/// <param name="textureParam">Offer image information; Get generated TextureID [IN/OUT]</param>
-	void UploadLinearImageToGPU(SLImageParam& textureParam)
-	{
-		assert(textureParam.LinearBufferEntry());
-
-		// Generate and Bind TextureID
-		GLuint textureID;
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
-		textureParam.SetTextureID(textureID);
-
-		// Set the defaultTextureID wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set defaultTextureID filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		// Load textureImage, create defaultTextureID and generate mipmaps
-		switch (textureParam.ColorType())
-		{
-		case SLImageColorType::ColorGray:
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, textureParam.Width(), textureParam.Height(), 0, GL_RED, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
-			break;
-		case SLImageColorType::ColorRGB:
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_BGR, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
-			break;
-		case SLImageColorType::ColorRGBA:
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
-			break;
-		default:
-			assert(false);// Doesn't support the others ColorType yet
-		}
-
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_WidgetWidth, m_WidgetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureImagePtr);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glBindTexture(GL_TEXTURE_2D, 0);  // Unbind defaultTextureID when done, so we won't accidentily mess up our defaultTextureID.
-		assert(textureParam.TextureID()); // New generated TextureID should not be 0
-	} // End of UploadLinearImageToGPU
 
 	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
 	/// <remakrs>SLLibreImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>

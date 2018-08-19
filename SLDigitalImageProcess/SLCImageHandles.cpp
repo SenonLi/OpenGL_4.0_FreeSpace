@@ -1,13 +1,16 @@
 #include "stdafx.h"
 
 #include "SLCImageHandles.h"
-#include "SLDigitalImageProcess.h" // For basic slgip static const definition
-
 #include "SLImageParam.h"
 #include "SLLibreImage.h"
+#include "SLDigitalImageProcess.h" // For basic slgip static const definition
+
+#include <vector>
 
 namespace sldip
 {
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void DuplicateImage(const CImage& srcImage, CImage& dstImage)
 	{
 		assert(!srcImage.IsNull());
@@ -36,6 +39,9 @@ namespace sldip
 		dstImage.ReleaseDC();
 	};// End of DuplicateImage(const CImage& srcImage, CImage& destImage)
 
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
 	{
 		assert(!srcImage.IsNull());
@@ -46,7 +52,7 @@ namespace sldip
 		int dstPitch = dstImage.GetPitch();
 
 		const BYTE* srcBottomLineDataEntry = static_cast<const BYTE*>(srcImage.GetBits());
-		BYTE* dstDataEntry = dstImage.GetBufferEntry();
+		BYTE* dstDataEntry = dstImage.GetBufferEntryForEdit();
 
 		for (unsigned int row = 0; row < dstImage.GetHeight(); row++)
 		{
@@ -56,6 +62,9 @@ namespace sldip
 		}
 	}// End of DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
 
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage)
 	{
 		assert(!srcImage.IsNull());
@@ -97,6 +106,8 @@ namespace sldip
 		assert(!dstImage.IsNull());
 	};// End of DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage)
 
+
+
 	/// <summary>Extract basic ImageParam from Full-Loaded CImage</summary>
 	/// <param name="image">Full-Loaded CImage, whose buffer cannot be empty [IN]</param>
 	/// <returns>basic ImageParam of the input image, whose LinearBufferEntry cannot be nullptr </returns>
@@ -121,7 +132,8 @@ namespace sldip
 		);
 
 		return imageParam;
-	}
+	}// End of GetImageParam(CImage& image)
+
 
 	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
 	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
@@ -139,22 +151,6 @@ namespace sldip
 		return GetImageParam(imageLoader);
 	}
 
-
-
-
-	///// <summary>Save CImage To Disk Image File </summary>
-	///// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
-	///// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
-	///// <param name="filePath">picture filePath + fileName</param>
-	//void SaveToImageFile(const CImage& imageLoader, const std::wstring& filePath, GUID imageType)
-	//{
-	//	HRESULT result = imageLoader.Save(filePath.c_str(), imageType);
-	//	assert(SUCCEEDED(result));
-	//}
-	//void SaveToImageFile(const CImage& imageLoader, const std::wstring& folderPath, const std::wstring& fileName, GUID imageType)
-	//{
-	//	SaveToImageFile(imageLoader, (folderPath + fileName), imageType);
-	//}
 
 
 } // End of namespace sldip
