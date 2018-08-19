@@ -55,7 +55,7 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/grass.png"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
+	m_ImagePath = _T("../../WatchMe/Images/SunRaise.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
 
 	// GLPaint
@@ -74,8 +74,8 @@ void SLTest_Texture::LoadLibreImage()
 	// Get shared GrayScaled Image
 	m_LibreImage = gayscaledImage;
 
-	//sldip::HistorgramEqualization(m_ImageParam);
-	//sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("HistogramEqualization.png"), sldip::SLImageFileType::IMAGE_PNG);
+	sldip::HistorgramEqualization(m_LibreImage);
+	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("HistogramEqualization.png"), sldip::SLImageFileType::IMAGE_PNG);
 }
 
 void SLTest_Texture::initGlfwGlewGL()

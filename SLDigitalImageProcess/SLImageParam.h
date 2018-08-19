@@ -20,7 +20,7 @@ namespace sldip
 	{
 		IMAGE_BMP,          // Gdiplus::ImageFormatBMP
 		IMAGE_JPG,          // Gdiplus::ImageFormatJPEG
-		IMAGE_PNG,          // Gdiplus::ImageFormatPNG
+		IMAGE_PNG          // Gdiplus::ImageFormatPNG
 	};
 
 	enum SLImageColorType
@@ -35,7 +35,7 @@ namespace sldip
 		ColorXYZW,          // 3D,      32 BBP,     4 Coord channel, W is part of homogeneous coordinate, for Normalization
 		ColorXYZG,          // 3D,      32 BBP,     3 Coord channel and 1 color (Gray/Depth) channel
 		ColorXYZRGB,        // 3D,      48 BBP,     3 color channel and 3 Coord channel
-		ColorXYZWRGBA,      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
+		ColorXYZWRGBA      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
 	};
 
 	/// <summary>SLImageParam is designed for ImageParam passing

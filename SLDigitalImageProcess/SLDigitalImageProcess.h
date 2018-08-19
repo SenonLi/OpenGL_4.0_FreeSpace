@@ -28,8 +28,7 @@ namespace sldip
 	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& filePath, const SLImageFileType& imageType);
 	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& folderPath, const std::wstring& fileName, const SLImageFileType& imageType);
 
-	// !!! SLImageParam is not supposed to be edited!! Change it to SLLibreImage!
-	void HistorgramEqualization(SLImageParam& textureParam);
+	void HistorgramEqualization(SLLibreImage& grayScaledImage);
 	void AdaptiveThresholding(SLImageParam& textureParam, SLAdaptiveThresholdingType filterType);
 	void MeanFilterBlur(SLImageParam& textureParam);
 	void GaussianFilterBlur(SLImageParam& textureParam);

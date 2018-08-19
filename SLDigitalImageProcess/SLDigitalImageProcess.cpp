@@ -88,15 +88,15 @@ namespace sldip
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <remark>Only support ColorGray </remark>
-	/// <param name="textureParam">All basic Image Info; with Beginning address of image buffer [IN/OUT]</param>
-	void HistorgramEqualization(SLImageParam& textureParam)
+	/// <param name="grayScaledImage">Only support SLImageColorType::ColorGray! [IN/OUT]</param>
+	void HistorgramEqualization(SLLibreImage& grayScaledImage)
 	{
-		BYTE* imageBufferEntry = const_cast<BYTE*>(textureParam.LinearBufferEntry());
-		assert(imageBufferEntry);
-		int imageWidth = textureParam.Width();
-		int imageHeight = textureParam.Height();
-		int imageChannels = textureParam.Channels();
-		int imageAbsPitch = textureParam.PitchAbsolute();
+		assert(!grayScaledImage.IsNull() && grayScaledImage.GetColorType() == SLImageColorType::ColorGray);
+		BYTE* imageBufferEntry = grayScaledImage.GetBufferEntryForEdit();
+		int imageWidth = grayScaledImage.GetWidth();
+		int imageHeight = grayScaledImage.GetHeight();
+		int imageChannels = grayScaledImage.GetChannels();
+		int imageAbsPitch = grayScaledImage.GetPitch();
 
 		int cdf[CPU_TOTAL_GRAY_LEVEL]; // Array of Cumulative Distributive Function at each gray level
 		std::memset(cdf, 0, sizeof(cdf));
