@@ -1,9 +1,9 @@
-#include "stdafx.h"
-#include "SLBinaryEllipseCorrelation.h"
+#include "../stdafx.h"
+#include "../Public/SLBinaryEllipseCorrelation.h"
 #include <iostream>
 
 #include "SLOpenCVProcess.h"
-#include "Private/SLCVMatCImageHandles.h"
+#include "SLCVMatCImageHandles.h"
 #include "StaticConstBasics\SLGeneralImageBasics.h"
 
 slopencv::SLBinaryEllipseCorrelation* ptrBinaryEllipseCorrelationInstance;

@@ -74,22 +74,22 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(SolutionDir)SLOpenCVProcess;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "SLOpenCVProcess.h"
 #include <codecvt>              // for ws2s() and s2ws
 #include <string>

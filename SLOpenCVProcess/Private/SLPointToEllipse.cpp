@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "SLPointToEllipse.h"
+#include "../stdafx.h"
+#include "../Public/SLPointToEllipse.h"
 #include <iostream>
 
 #include "SLOpenCVProcess.h"
