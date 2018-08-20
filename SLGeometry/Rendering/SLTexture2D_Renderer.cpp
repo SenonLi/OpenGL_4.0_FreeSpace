@@ -2,6 +2,8 @@
 #include "SLTexture2D_Renderer.h"
 
 #include "SLImageParam.h"
+#include "SLLibreImage.h"
+#include "StaticConstBasics\SLGeneralImageBasics.h"
 
 namespace slgeom
 {
@@ -44,13 +46,17 @@ namespace slgeom
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, textureParam.Width(), textureParam.Height(), 0, GL_RED, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
 			break;
 		case sldip::SLLibreColorType::LibreColorRGB:
+			glPixelStorei(GL_UNPACK_ALIGNMENT, sldip::SLLibreImage::GetAlignmentSize(textureParam.Channels()));
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_RGB, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			glPixelStorei(GL_UNPACK_ALIGNMENT, slutil::SL_MIN_STORAGE_PACKING_AlignmentSize);
 			break;
 		case sldip::SLLibreColorType::LibreColorRGBA:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
 			break;
 		case sldip::SLLibreColorType::LibreColorBGR:
+			glPixelStorei(GL_UNPACK_ALIGNMENT, sldip::SLLibreImage::GetAlignmentSize(textureParam.Channels()));
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_BGR, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			glPixelStorei(GL_UNPACK_ALIGNMENT, slutil::SL_MIN_STORAGE_PACKING_AlignmentSize);
 			break;
 		case sldip::SLLibreColorType::LibreColorBGRA:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
