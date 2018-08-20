@@ -24,6 +24,7 @@ namespace sldip
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath);
 
 	void GetGrascaledImage(const SLLibreImage& srcImage, SLLibreImage& dstImage);
+	void DuplicateImage(const SLLibreImage& srcImage, SLLibreImage& dstImage);
 
 	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& filePath, const SLImageFileType& imageType);
 	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& folderPath, const std::wstring& fileName, const SLImageFileType& imageType);

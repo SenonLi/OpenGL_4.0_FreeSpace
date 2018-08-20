@@ -63,12 +63,15 @@ void SLTest_Texture::LoadLibreImage()
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
 
+	sldip::DuplicateImage(m_LibreImage, m_BackUp_LibreImage);
+	m_ImageParam = sldip::GetImageParam(m_BackUp_LibreImage);
+
 	sldip::SaveToImageFile(m_LibreImage, saveFolderPath, _T("Origin.png"), sldip::SLImageFileType::IMAGE_PNG);
 
 	// Process Images
 	sldip::SLLibreImage gayscaledImage;
 	sldip::GetGrascaledImage(m_LibreImage, gayscaledImage);
-	m_ImageParam = sldip::GetImageParam(gayscaledImage);
+	//m_ImageParam = sldip::GetImageParam(gayscaledImage);
 	sldip::SaveToImageFile(gayscaledImage, saveFolderPath, _T("GrayScaled.png"), sldip::SLImageFileType::IMAGE_PNG);
 
 	// Get shared GrayScaled Image

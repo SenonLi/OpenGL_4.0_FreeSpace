@@ -29,6 +29,8 @@ protected:
 	const TCHAR* m_ImagePath = nullptr;
 	sldip::SLImageParam m_ImageParam{};
 	sldip::SLLibreImage m_LibreImage{};
+
+	sldip::SLLibreImage m_BackUp_LibreImage{};
 };
 
 #endif __SLTEST_TEXTURE__

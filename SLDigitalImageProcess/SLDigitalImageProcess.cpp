@@ -5,10 +5,14 @@
 
 namespace sldip
 {
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void MeanFilterBlur(SLImageParam& /*textureParam*/)
 	{
 	}// End of MeanFilterBlur
 
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void GaussianFilterBlur(SLImageParam& /*textureParam*/)
 	{
 
@@ -35,6 +39,23 @@ namespace sldip
 
 	}// End of AdaptiveThresholding
 
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
+	/// <summary>Deep Copy from SLLibreImage to SLLibreImage </summary>
+	void DuplicateImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
+	{
+		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLLibreColorType::LibreColorUndefined);
+		assert(srcImage.GetBufferEntry() != dstImage.GetBufferEntry());
+		dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), srcImage.GetColorType());
+		assert(!dstImage.IsNull());
+
+		memcpy(dstImage.GetBufferEntryForEdit(), srcImage.GetBufferEntry(), srcImage.GetTotalBytes());
+	}// End of DuplicateImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
+
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	void GetGrascaledImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
 	{
 		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLLibreColorType::LibreColorUndefined);
@@ -85,6 +106,7 @@ namespace sldip
 			}
 		}
 	}
+
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
 	/// <remark>Only support LibreColorGray </remark>
@@ -145,6 +167,8 @@ namespace sldip
 		}
 	} // End of HistorgramEqualization
 
+
+
 	/// <summary>Save SLLibreImage To Disk Image File using CImage </summary>
 	/// <remakrs>CImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
@@ -172,6 +196,7 @@ namespace sldip
 		SaveToImageFile(srcImage, (folderPath + fileName), imageType);
 	}
 
+
 	/// <summary>Read picture file from Disk, and return SLImageParam </summary>
 	/// <remakrs>SLLibreImage can process *.bmp, *.gif, *.jpg, *.png, and *.tiff </remakrs>
 	/// <param name="imageLoader">Important here!!!  Help Control the Scope of ImageBuffer Life-Time on CPU [OUT]</param>
@@ -190,6 +215,9 @@ namespace sldip
 		return GetImageParam(targetImageLoader);
 	}
 
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
 	SLImageParam GetImageParam(const SLLibreImage& image)
 	{
 		assert(!image.IsNull());
