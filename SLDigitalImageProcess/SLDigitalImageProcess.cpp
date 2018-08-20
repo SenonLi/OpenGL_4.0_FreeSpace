@@ -37,15 +37,15 @@ namespace sldip
 
 	void GetGrascaledImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
 	{
-		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLImageColorType::ColorUndefined);
+		assert(!srcImage.IsNull() && srcImage.GetColorType() != SLLibreColorType::LibreColorUndefined);
 		assert(srcImage.GetBufferEntry() != dstImage.GetBufferEntry());
 		// Only support Gray/RGB/BGR/RGBA/BGRA, doesn't support XYZRGB
-		assert(srcImage.GetChannels() <= SLImageParam::GetChannelsNum(SLImageColorType::ColorRGBA));
-		if (srcImage.GetColorType() == SLImageColorType::ColorGray)
+		assert(srcImage.GetChannels() <= SLImageParam::GetChannelsNum(SLLibreColorType::LibreColorRGBA));
+		if (srcImage.GetColorType() == SLLibreColorType::LibreColorGray)
 			dstImage = srcImage;
 		else 
 		{
-			dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), SLImageColorType::ColorGray);
+			dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), SLLibreColorType::LibreColorGray);
 			assert(!dstImage.IsNull());
 
 			int srcPitch = srcImage.GetPitch();
@@ -87,11 +87,11 @@ namespace sldip
 	}
 
 	/// <summary>Do Image Historgram Equalization, to enhance image contrast</summary>
-	/// <remark>Only support ColorGray </remark>
-	/// <param name="grayScaledImage">Only support SLImageColorType::ColorGray! [IN/OUT]</param>
+	/// <remark>Only support LibreColorGray </remark>
+	/// <param name="grayScaledImage">Only support SLLibreColorType::LibreColorGray! [IN/OUT]</param>
 	void HistorgramEqualization(SLLibreImage& grayScaledImage)
 	{
-		assert(!grayScaledImage.IsNull() && grayScaledImage.GetColorType() == SLImageColorType::ColorGray);
+		assert(!grayScaledImage.IsNull() && grayScaledImage.GetColorType() == SLLibreColorType::LibreColorGray);
 		BYTE* imageBufferEntry = grayScaledImage.GetBufferEntryForEdit();
 		int imageWidth = grayScaledImage.GetWidth();
 		int imageHeight = grayScaledImage.GetHeight();

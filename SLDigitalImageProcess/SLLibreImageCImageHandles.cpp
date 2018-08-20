@@ -3,7 +3,7 @@
 #include "SLLibreImageCImageHandles.h"
 #include "SLImageParam.h"
 #include "SLLibreImage.h"
-#include "SLDigitalImageProcess.h" // For basic slgip static const definition
+#include "SLDigitalImageProcess.h" // For basic sldip static const definition
 
 #include <vector>
 
@@ -76,17 +76,17 @@ namespace sldip
 	};// End of DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage)
 
 	/// <remark>CImage save a pixel in color order BGR instead of RGB </remark>
-	SLImageColorType GetImage2DColorType(const CImage& image) 
+	SLLibreColorType GetImage2DColorType(const CImage& image) 
 	{
 		assert(!image.IsNull());
-		SLImageColorType resultColorType = SLImageColorType::ColorUndefined;
+		SLLibreColorType resultColorType = SLLibreColorType::LibreColorUndefined;
 
 		unsigned int channels = static_cast<unsigned int>(image.GetBPP() / sldip::BIT_NUM_IN_ONE_BYTE);
 		switch (channels)
 		{
-			case CHANNEL_NUM_ColorGray:     resultColorType = SLImageColorType::ColorGray;		break;
-			case CHANNEL_NUM_ColorBGR:      resultColorType = SLImageColorType::ColorBGR;		break;
-			case CHANNEL_NUM_ColorBGRA:     resultColorType = SLImageColorType::ColorBGRA;		break;
+			case CHANNEL_NUM_ColorGray:     resultColorType = SLLibreColorType::LibreColorGray;		break;
+			case CHANNEL_NUM_ColorBGR:      resultColorType = SLLibreColorType::LibreColorBGR;		break;
+			case CHANNEL_NUM_ColorBGRA:     resultColorType = SLLibreColorType::LibreColorBGRA;		break;
 			default:                        assert(false);
 		}
 		

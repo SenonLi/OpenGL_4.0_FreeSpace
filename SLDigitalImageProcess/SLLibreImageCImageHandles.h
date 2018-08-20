@@ -6,7 +6,7 @@
 
 namespace sldip
 {
-	enum SLImageColorType;
+	enum SLLibreColorType;
 	class SLImageParam;
 	class SLLibreImage;
 
@@ -14,7 +14,7 @@ namespace sldip
 	void DuplicateImage(const SLLibreImage& srcImage, CImage& dstImage);
 
 	SLImageParam LoadImageParam(CImage& imageLoader, const TCHAR* filePath);
-	SLImageColorType GetImage2DColorType(const CImage& image);
+	SLLibreColorType GetImage2DColorType(const CImage& image);
 	SLImageParam GetImageParam(CImage& image);
 
 }; // end of namespace sldip

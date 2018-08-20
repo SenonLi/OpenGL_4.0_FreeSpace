@@ -1,7 +1,8 @@
 To Do:
 
-#include <gli/gli.hpp> // contains <cassert>
-#include <soil/SOIL.h>
+Add Operator = into SLLibreImage
+newImage.GetBufferEntry() != m_LibreImage.GetBufferEntry()
+
 
 Split library into public (header only) and private (header + CPP)
 

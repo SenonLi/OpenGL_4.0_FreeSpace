@@ -16,14 +16,14 @@ namespace sldip
 	static const unsigned int SL_RGBA_AlignmentSize = 4; // must be an integer power of 2
 	static const unsigned int SL_XYZWRGBA_AlignmentSize = 16; // must be an integer power of 2
 
-	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, const SLImageColorType& colorType)
+	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType)
 	: m_TmpChannels(SLImageParam::GetChannelsNum(colorType))
 	, SLSharedMemoryObject(GetAlignedPitch(cols, m_TmpChannels) * rows, GetAlignmentSize(m_TmpChannels))
 	, m_ImageParam(cols, rows, static_cast<int>(GetAlignedPitch(cols, m_TmpChannels)), colorType, m_SharedBuffer->m_BufferEntry)
 	{
 	}
 
-	void SLLibreImage::CreateLibreImage(unsigned int cols, unsigned int rows, const SLImageColorType& colorType)
+	void SLLibreImage::CreateLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType)
 	{
 		m_TmpChannels = SLImageParam::GetChannelsNum(colorType);
 		unsigned int calculatedPitch = GetAlignedPitch(cols, m_TmpChannels);

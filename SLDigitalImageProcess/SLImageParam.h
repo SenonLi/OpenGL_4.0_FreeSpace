@@ -20,22 +20,22 @@ namespace sldip
 	{
 		IMAGE_BMP,          // Gdiplus::ImageFormatBMP
 		IMAGE_JPG,          // Gdiplus::ImageFormatJPEG
-		IMAGE_PNG          // Gdiplus::ImageFormatPNG
+		IMAGE_PNG           // Gdiplus::ImageFormatPNG
 	};
 
-	enum SLImageColorType
+	enum SLLibreColorType
 	{
-		ColorUndefined,	    // Invalid
-		ColorGray,          // 2D,      8  BBP,     1 color channel
-		ColorRGB,           // 2D,      24 BBP,     3 color channel
-		ColorBGR,           // 2D,      24 BBP,     3 color channel,   CImage
-		ColorRGBA,          // 2D,      32 BBP,     4 color channel
-		ColorBGRA,          // 2D,      32 BBP,     4 color channel,   CImage
-		ColorXYZ,           // 3D,      24 BBP,     3 Coord channel
-		ColorXYZW,          // 3D,      32 BBP,     4 Coord channel, W is part of homogeneous coordinate, for Normalization
-		ColorXYZG,          // 3D,      32 BBP,     3 Coord channel and 1 color (Gray/Depth) channel
-		ColorXYZRGB,        // 3D,      48 BBP,     3 color channel and 3 Coord channel
-		ColorXYZWRGBA      // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
+		LibreColorUndefined,	 // Invalid
+		LibreColorGray,          // 2D,      8  BBP,     1 color channel
+		LibreColorRGB,           // 2D,      24 BBP,     3 color channel
+		LibreColorBGR,           // 2D,      24 BBP,     3 color channel,   CImage
+		LibreColorRGBA,          // 2D,      32 BBP,     4 color channel
+		LibreColorBGRA,          // 2D,      32 BBP,     4 color channel,   CImage
+		LibreColorXYZ,           // 3D,      24 BBP,     3 Coord channel
+		LibreColorXYZW,          // 3D,      32 BBP,     4 Coord channel, W is part of homogeneous coordinate, for Normalization
+		LibreColorXYZG,          // 3D,      32 BBP,     3 Coord channel and 1 color (Gray/Depth) channel
+		LibreColorXYZRGB,        // 3D,      48 BBP,     3 color channel and 3 Coord channel
+		LibreColorXYZWRGBA       // 3D,      64 BBP,     4 Coord channel and 4 Coord channel
 	};
 
 	/// <summary>SLImageParam is designed for ImageParam passing
@@ -44,36 +44,36 @@ namespace sldip
 	{
 	public:
 		SLImageParam() {}; // Default constructor here for class member initialization
-		SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
-		SLImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
-		static unsigned int GetChannelsNum(const SLImageColorType& colorType);
+		SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
+		SLImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
+		static unsigned int GetChannelsNum(const SLLibreColorType& colorType);
 
 		void Reset();
-		void CreateImageParam(unsigned int cols, unsigned int rows, int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
-		void CreateImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLImageColorType& colorType, const BYTE* linearBufferEntry);
+		void CreateImageParam(unsigned int cols, unsigned int rows, int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
+		void CreateImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
 
 		inline unsigned int     Width()             const { return m_Width; }
 		inline unsigned int     Height()            const { return m_Height; }
 		inline int              Pitch()             const { return m_Pitch; }
 		inline int              PitchAbsolute()     const { return std::abs(m_Pitch); }
 		inline int              Channels()          const { return GetChannelsNum( ColorType() ); }
-		inline SLImageColorType	ColorType()	        const { return m_ImageColorType; }
+		inline SLLibreColorType	ColorType()	        const { return m_ImageColorType; }
 		inline const BYTE*      LinearBufferEntry() const { return m_LinearBufferEntry; }
 		inline bool             IsImageBufferNull() const { return (m_LinearBufferEntry == nullptr); }
 		inline bool             HasAlphaChannel()   const {
-			return m_ImageColorType == SLImageColorType::ColorBGRA 
-				|| m_ImageColorType == SLImageColorType::ColorRGBA
-				|| m_ImageColorType == SLImageColorType::ColorXYZWRGBA;
+			return m_ImageColorType == SLLibreColorType::LibreColorBGRA 
+				|| m_ImageColorType == SLLibreColorType::LibreColorRGBA
+				|| m_ImageColorType == SLLibreColorType::LibreColorXYZWRGBA;
 		}
 		inline bool             IsInColorOrder_RGB() const {
-			return m_ImageColorType == SLImageColorType::ColorRGB
-				|| m_ImageColorType == SLImageColorType::ColorRGBA
-				|| m_ImageColorType == SLImageColorType::ColorXYZRGB
-				|| m_ImageColorType == SLImageColorType::ColorXYZWRGBA;
+			return m_ImageColorType == SLLibreColorType::LibreColorRGB
+				|| m_ImageColorType == SLLibreColorType::LibreColorRGBA
+				|| m_ImageColorType == SLLibreColorType::LibreColorXYZRGB
+				|| m_ImageColorType == SLLibreColorType::LibreColorXYZWRGBA;
 		}
 		inline bool             IsInColorOrder_BGR() const {
-			return m_ImageColorType == SLImageColorType::ColorBGR
-				|| m_ImageColorType == SLImageColorType::ColorBGRA;
+			return m_ImageColorType == SLLibreColorType::LibreColorBGR
+				|| m_ImageColorType == SLLibreColorType::LibreColorBGRA;
 		}
 	private:
 		unsigned int m_Width  = 0;
@@ -81,7 +81,7 @@ namespace sldip
 		/// <summary>Or Stride, Length (in Bytes) of an image row in memory: Pitch =  NumRowPixels * BytesPerPixel + Padding </summary>
 		/// <remarks>In GDI library, where all DIBs (CImage) are bottom-up, m_Pitch may always be negative <remarks>
 		int m_Pitch  = 0; // Negative in CImage, cannot be unsigned int
-		SLImageColorType m_ImageColorType = SLImageColorType::ColorUndefined;
+		SLLibreColorType m_ImageColorType = SLLibreColorType::LibreColorUndefined;
 
 		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.
 		// Just an EntryAddress, not responsible for allocate/deallocate
@@ -91,7 +91,7 @@ namespace sldip
 		inline void SetWidth(unsigned int width) { m_Width = width; }
 		inline void SetHeight(unsigned int height) { m_Height = height; }
 		inline void SetPitch(int pitch) { m_Pitch = pitch; }
-		inline void SetImageColorType(SLImageColorType channels) { m_ImageColorType = channels; }
+		inline void SetImageColorType(SLLibreColorType channels) { m_ImageColorType = channels; }
 		inline void SetLinearBufferEntry(const BYTE* entry) { m_LinearBufferEntry = entry; }
 	};
 

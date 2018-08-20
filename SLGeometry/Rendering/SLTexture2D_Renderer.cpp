@@ -40,13 +40,19 @@ namespace slgeom
 		// Load textureImage, create defaultTextureID and generate mipmaps
 		switch (textureParam.ColorType())
 		{
-		case sldip::SLImageColorType::ColorGray:
+		case sldip::SLLibreColorType::LibreColorGray:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, textureParam.Width(), textureParam.Height(), 0, GL_RED, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
 			break;
-		case sldip::SLImageColorType::ColorRGB:
+		case sldip::SLLibreColorType::LibreColorRGB:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_RGB, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			break;
+		case sldip::SLLibreColorType::LibreColorRGBA:
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+			break;
+		case sldip::SLLibreColorType::LibreColorBGR:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_BGR, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
 			break;
-		case sldip::SLImageColorType::ColorRGBA:
+		case sldip::SLLibreColorType::LibreColorBGRA:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureParam.Width(), textureParam.Height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
 			break;
 		default:

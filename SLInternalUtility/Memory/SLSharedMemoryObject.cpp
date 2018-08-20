@@ -32,9 +32,9 @@ namespace slutil
 	/// <summary> allocate Aligned Memory </summary>
 	void SLAlignedMemoryBuffer::AllocateAlignedMemory(unsigned long long totalBytes, unsigned int alignment)
 	{
+		// Make sure m_TotalBytes > 0 when doing an actual allocation
 		assert(totalBytes > 0 && m_BufferEntry == nullptr);
 
-		// Make sure m_TotalBytes > 0 when doing an actual allocation
 		m_InstanceCounter++;
 
 		// It won't hurt to allocate a bit more, and will help a lot preventing potential crash
