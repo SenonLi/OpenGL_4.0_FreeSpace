@@ -3,14 +3,6 @@ To Do:
 #include <gli/gli.hpp> // contains <cassert>
 #include <soil/SOIL.h>
 
-
-#include "SLOpenCVProcess.h"
-
-Clean CImage in SLOpenCVProcess
-
-Make Public Interface for Project SLOpenCVProcess
-
-
 Split library into public (header only) and private (header + CPP)
 
 Add image renderer into slgeom project;

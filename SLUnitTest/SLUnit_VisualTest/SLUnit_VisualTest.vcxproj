@@ -74,22 +74,22 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -206,11 +206,11 @@
     <ProjectReference Include="..\..\SLGeometry\SLGeometry.vcxproj">
       <Project>{fbad3379-0229-42e9-bde5-a5d024c1e88b}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\SLImageLibraries\SLOpenCVProcess\SLOpenCVProcess.vcxproj">
+      <Project>{8bda7646-d78e-4bc1-a47a-1f738ad56464}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SLOpenCVProcess\SLOpenCVProcess.vcxproj">
-      <Project>{8bda7646-d78e-4bc1-a47a-1f738ad56464}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vsSenOpenGL\vsSenOpenGL.vcxproj">
       <Project>{8ba8bf5e-5636-415d-945a-08534317cc12}</Project>
