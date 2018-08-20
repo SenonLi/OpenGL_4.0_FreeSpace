@@ -55,11 +55,13 @@ void SLTest_Texture::paintGL(void)
 
 void SLTest_Texture::LoadLibreImage()
 {
-	m_ImagePath = _T("../../WatchMe/Images/Einstein.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png   Google24Bit225.jpg
+	m_ImagePath = _T("../../WatchMe/Images/Einstein 8bit.jpg"); //Einstein 8bit.jpg   Einstein.jpg    grass.png   Google24Bit225.jpg
 	std::wstring saveFolderPath = _T("../../../../../Developer/Processed Images/");
 
 	// GLPaint
-	m_ImageParam = sldip::LoadImageParam(m_LibreImage, m_ImagePath);
+	//m_ImageParam = sldip::LoadImageParam(m_LibreImage, m_ImagePath);
+	bool isLoadNon8bit = true;
+	m_ImageParam = sldip::LoadImageParam(m_LibreImage, m_ImagePath, isLoadNon8bit);
 	m_WidgetWidth = m_ImageParam.Width();
 	m_WidgetHeight = m_ImageParam.Height();
 

@@ -19,6 +19,7 @@
 namespace slcimage
 {
 	void DuplicateImage(const ATL::CImage& srcImage, ATL::CImage& dstImage);
+	void Convert8bitTo24Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
 
 }; // End of namespace slcimage
 

@@ -22,6 +22,7 @@ namespace sldip
 
 	SLImageParam GetImageParam(const SLLibreImage& image);
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath);
+	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath, bool IsLoadNon8bit);
 
 	void GetGrascaledImage(const SLLibreImage& srcImage, SLLibreImage& dstImage);
 	void DuplicateImage(const SLLibreImage& srcImage, SLLibreImage& dstImage);

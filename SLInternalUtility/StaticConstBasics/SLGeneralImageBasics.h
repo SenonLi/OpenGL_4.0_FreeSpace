@@ -19,6 +19,7 @@ namespace slutil
 	static const unsigned int SL_MIN_STORAGE_PACKING_AlignmentSize = 1;
 
 	static const int           BYTE_IMAGE_SINGLE_CHANNEL_BITS = 8;
+	static const int           GRAYSCALED_IMAGE_BIT_PER_PIXEL = 8;
 	static const int           MAX_CPU_SINGLE_CHANNEL_VALUE_INT = 255;
 	static const unsigned int  MAX_CPU_SINGLE_CHANNEL_VALUE_UNSIGNED_INT = 255;
 
