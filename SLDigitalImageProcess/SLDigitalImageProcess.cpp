@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SLDigitalImageProcess.h"
 
-#include "SLCImageHandles.h"
+#include "SLLibreImageCImageHandles.h"
 
 namespace sldip
 {

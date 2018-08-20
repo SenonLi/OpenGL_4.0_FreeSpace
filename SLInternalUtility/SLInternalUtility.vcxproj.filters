@@ -5,25 +5,24 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\DebugHelper">
-      <UniqueIdentifier>{caa21d87-bb94-4eaf-85c3-d11b4af473a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\DebugHelper">
       <UniqueIdentifier>{4097bcca-731b-462b-a427-877afac24cb9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Memory">
       <UniqueIdentifier>{b29547cd-1c47-49a5-86e7-15bd595a2c07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DebugHelper">
+      <UniqueIdentifier>{caa21d87-bb94-4eaf-85c3-d11b4af473a2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Memory">
       <UniqueIdentifier>{209ce9e3-ef27-4b12-a87c-3c81de01ab2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StaticConstBasics">
+      <UniqueIdentifier>{9148f91a-2930-453a-8af7-3d6c682fcf41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +37,15 @@
     </ClInclude>
     <ClInclude Include="Memory\SLSharedMemoryObject.h">
       <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticConstBasics\SLGeneralImageBasics.h">
+      <Filter>Header Files\StaticConstBasics</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticConstBasics\SLGeometryBasics.h">
+      <Filter>Header Files\StaticConstBasics</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticConstBasics\SLResolutionValueBasics.h">
+      <Filter>Header Files\StaticConstBasics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

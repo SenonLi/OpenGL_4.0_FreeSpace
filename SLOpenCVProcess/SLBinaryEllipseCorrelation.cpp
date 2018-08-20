@@ -2,6 +2,10 @@
 #include "SLBinaryEllipseCorrelation.h"
 #include <iostream>
 
+#include "SLOpenCVProcess.h"
+#include "Private/SLCVMatCImageHandles.h"
+#include "StaticConstBasics\SLGeneralImageBasics.h"
+
 slopencv::SLBinaryEllipseCorrelation* ptrBinaryEllipseCorrelationInstance;
 
 namespace slopencv
@@ -77,10 +81,10 @@ namespace slopencv
 		cv::namedWindow(m_OriginalWindowName, m_ImageFlags);
 		// Create Trackbar to choose m_LengthOfBlurSqureSide of Image Blure
 		cv::createTrackbar("Thresh", m_OriginalWindowName, &m_CannyThreshValue,
-			slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
+			slutil::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
 		// Create Trackbar to choose Threshold value
 		cv::createTrackbar("Ratio", m_OriginalWindowName, &m_iCannyThreshRatio,
-			slopencv::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
+			slutil::MAX_CANNY_THRESH_RATIO_INT, FunPtrPaintWidgetCallBack);
 
 		cv::resizeWindow(m_OriginalWindowName, 600, 600);
 		cv::imshow(m_OriginalWindowName, m_SrcRGB);
@@ -105,7 +109,7 @@ namespace slopencv
 			MAX_LENGTH_OF_BLUR_SQUARE_SIDE, FunPtrPaintWidgetCallBack);
 		// Create Trackbar to choose Threshold value
 		cv::createTrackbar("Thresh", m_ConstWindowName, &m_ThresholdValue, 
-			slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
+			slutil::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, FunPtrPaintWidgetCallBack);
 		cv::moveWindow(m_ConstWindowName, 550, 190);
 
 		// GetBinaryImage, and FindOuterEllipse
@@ -132,7 +136,7 @@ namespace slopencv
 	void SLBinaryEllipseCorrelation::GetBinaryImage()
 	{
 		ApplyImageBlur();
-		cv::threshold(m_Blurred, m_Dst, m_ThresholdValue, slopencv::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, cv::THRESH_BINARY);
+		cv::threshold(m_Blurred, m_Dst, m_ThresholdValue, slutil::MAX_CPU_SINGLE_CHANNEL_VALUE_INT, cv::THRESH_BINARY);
 		cv::imshow(m_ConstWindowName, m_Dst);
 		m_Binary = m_Dst.clone();
 	}
@@ -186,7 +190,7 @@ namespace slopencv
 		CImage imageToSave;
 		slopencv::ConvertCVMatToCImage(m_CannyOutput, imageToSave);
 
-		std::string filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvCanny.png");
+		std::string filePath = "../../../../Processed Images/" + m_ImageName + std::string("_cvCanny.png");
 		std::wstring wFilePath = slopencv::s2ws(filePath);
 		HRESULT result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
 		assert(SUCCEEDED(result));
@@ -269,7 +273,7 @@ namespace slopencv
 
 			slopencv::ConvertCVMatToCImage(m_DstRGB, imageToSave);
 
-			filePath = "../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
+			filePath = "../../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
 			wFilePath = slopencv::s2ws(filePath);
 			result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
 			assert(SUCCEEDED(result));

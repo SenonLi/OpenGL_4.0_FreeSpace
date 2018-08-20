@@ -74,25 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SLImageLibraries\SLCImageProcess\public;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SLImageLibraries\SLCImageProcess\public;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SLImageLibraries\SLCImageProcess\public;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SLImageLibraries\SLCImageProcess\public;$(SolutionDir)SLInternalUtility;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -183,8 +183,9 @@
     <ClInclude Include="OpenCVTutorialExamples\CVShapeExample.h" />
     <ClInclude Include="OpenCVTutorialExamples\CVSmoothing.h" />
     <ClInclude Include="OpenCVTutorialExamples\CVThreshold.h" />
+    <ClInclude Include="Private\SLCVMatCImageHandles.h" />
     <ClInclude Include="SLBinaryEllipseCorrelation.h" />
-    <ClInclude Include="SLOpenCVBasics.h" />
+    <ClInclude Include="SLOpenCVProcess.h" />
     <ClInclude Include="SLPointToEllipse.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -214,8 +215,14 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Private\SLCVMatCImageHandles.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="SLBinaryEllipseCorrelation.cpp" />
-    <ClCompile Include="SLOpenCVBasics.cpp" />
+    <ClCompile Include="SLOpenCVProcess.cpp" />
     <ClCompile Include="SLPointToEllipse.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -225,6 +232,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SLImageLibraries\SLCImageProcess\SLCImageProcess.vcxproj">
+      <Project>{c348ba29-8395-48b0-a03c-c39e0998d399}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
     </ProjectReference>

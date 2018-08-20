@@ -38,7 +38,7 @@ namespace slopencv
 		const char* m_ConstWindowName = "To Extract Ellipse";
 		const char* m_OriginalWindowName = "Original";
 		
-		const std::string m_ImagePath = "../WatchMe/Images/ExtractEllipse/";
+		const std::string m_ImagePath = "../../WatchMe/Images/ExtractEllipse/";
 		const std::string m_ImageExtension = ".png";
 		//const std::string m_ImageName = "Ellipse_-30";
 		//const std::string m_ImagePath = "../WatchMe/Images/";

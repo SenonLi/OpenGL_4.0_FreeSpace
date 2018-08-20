@@ -4,13 +4,14 @@ To Do:
 #include <soil/SOIL.h>
 
 
-1. write function to convert from color SLLibreImage image to grayscaled SLLibreImage image
-2. input SLImageParam from grayscaled SLLibreImage image (Check ColorType), and fix sldip::HistorgramEqualization
+#include "SLOpenCVProcess.h"
 
-Make sldip::HistorgramEqualization work!
+Clean CImage in SLOpenCVProcess
 
-Move all CImage related function into CImageHandles;
-Put #include <atliamge.h> into *.cpp only;
+Make Public Interface for Project SLOpenCVProcess
+
+
+Split library into public (header only) and private (header + CPP)
 
 Add image renderer into slgeom project;
 Add different shader specially for 8bit image;

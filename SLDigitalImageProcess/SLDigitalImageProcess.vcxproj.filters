@@ -23,7 +23,7 @@
     <ClCompile Include="SLLibreImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SLCImageHandles.cpp">
+    <ClCompile Include="SLLibreImageCImageHandles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -43,7 +43,7 @@
     <ClInclude Include="SLLibreImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SLCImageHandles.h">
+    <ClInclude Include="SLLibreImageCImageHandles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

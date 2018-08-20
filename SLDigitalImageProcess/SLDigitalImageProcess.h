@@ -33,6 +33,6 @@ namespace sldip
 	void MeanFilterBlur(SLImageParam& textureParam);
 	void GaussianFilterBlur(SLImageParam& textureParam);
 
-}; // end of namespace DIP
+}; // end of namespace sldip
 
 #endif // __SLDIGITALIMAGEPROCESS__

@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "SLPointToEllipse.h"
 #include <iostream>
+
+#include "SLOpenCVProcess.h"
+#include "StaticConstBasics\SLGeometryBasics.h"
+
 slopencv::SLPointToEllipse* ptrSLPointToEllipseInstance;
 
 namespace slopencv
@@ -38,7 +42,8 @@ namespace slopencv
 		DrawPoint();
 
 		m_Ellipse.center = cv::Size2f((float)m_Ellipse_x0, (float)m_Ellipse_y0);
-		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y), m_Ellipse, POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE);
+		m_Distance = slopencv::GetDistanceFromPointToEllipse(cv::Point(m_RandomPoint_x, m_RandomPoint_y),
+										m_Ellipse, slutil::POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE);
 
 		DrawDistanceCircle();
 
@@ -103,7 +108,8 @@ namespace slopencv
 		};
 
 		std::vector<double> distances;
-		slopencv::GetDistancesArrayFromPointsToEllipse(randomPointsOffEllipse, randomEllipse, slopencv::POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE, distances);
+		slopencv::GetDistancesArrayFromPointsToEllipse(randomPointsOffEllipse, randomEllipse, 
+						slutil::POINT_TO_ELLIPSE_INTERATIVE_CRITERION_IN_PIXELSQUARE, distances);
 
 		std::cout << "Distance to Ellipse, point Ellipse Center: \t" << distances[0];
 		std::cout << "\nDistance to Ellipse, point RANDOM_OFFSET in 1st Quadrant: \t" << distances[1];
