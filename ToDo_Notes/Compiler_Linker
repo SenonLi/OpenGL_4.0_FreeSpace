@@ -15,13 +15,39 @@ Input Libraries:
 /NODEFAULTLIB:msvcrtd.lib;      // For avoid warning after using GLFW_GLEW
               warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
 
-opencv_world341.lib;            // OpenCV Image Process
+opencv_world341.lib;            // OpenCV Image Process, using official Dynamic OpenCV library, but still need a small static lib
 glew32.lib;                     // OpenGL function extension Wrangller
 glfw3.lib;                      // UI window creation
 opengl32.lib;                   // Basic OpenGL requirement
 
 
+Attension !! :
+Stay away from Win32 Release with OpenCV static library, because the static OpenCV will cost 2GB memory for Visual Studio to link, 
+make it supper slow for the whole solution even for Win64 dynamic test.
+
+Win32 Special:
+OpenCV self-compiled library for 32bit static libraries:
+OpenCV Release:
+Additional Library Directory: 
+S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;
+
+Input Libariy:
+opencv_world341.lib
+libjpeg.lib
+libpng.lib
+libtiff.lib
+zlib.lib
+
+OpenCV Debug:
+Additional Library Directory: 
+S:\OpenCV3\Lib32\LeastCombinedStatic\Debug;S:\OpenCV3\Lib32\3rd_Party\Debug;
+
+Input Libariy:
+opencv_world341d.lib
+libjpegd.lib
+libpngd.lib
+libtiffd.lib
+zlibd.lib
 
 
 
-9>  MSVCRT.lib(initializers.obj) : warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs; use /NODEFAULTLIB:library

@@ -166,8 +166,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrtd.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>/NODEFAULTLIB:msvcrtd.lib;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
