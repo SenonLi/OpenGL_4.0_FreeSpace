@@ -12,6 +12,8 @@
 
 namespace slgeom
 {
+	int SLOpenGLTextureID::m_InstanceCounter = 0; // Declaration of private static counter
+
 	SLOpenGLTextureID::~SLOpenGLTextureID()
 	{
 		Reset();
@@ -25,7 +27,31 @@ namespace slgeom
 			glDeleteTextures(1, &m_TextureID);
 			m_TextureID = 0;
 			m_LinearImageBufferEntry = nullptr;
+
+			m_InstanceCounter--;
+			assert(m_InstanceCounter >= 0);
+			std::wstringstream outputMessage;
+			outputMessage << _T("SLOpenGLTextureID::Reset(), There exist now \t") << m_InstanceCounter << _T(" \t SLOpenGLTextureID alive.\n");
+			SLOutputDebugString(outputMessage.str().c_str());
 		}
+	}
+
+	void SLOpenGLTextureID::SetTextureID(GLuint textureID) {
+		// textureID is expected to be successfully initialed
+		assert(textureID);
+		m_TextureID = textureID;
+
+		m_InstanceCounter++;
+		assert(m_InstanceCounter >= 0);
+		std::wstringstream outputMessage;
+		outputMessage << _T("SLOpenGLTextureID::SetTextureID(), There exist now \t") << m_InstanceCounter << _T(" \t SLOpenGLTextureID alive.\n");
+		SLOutputDebugString(outputMessage.str().c_str());
+	}
+
+	void SLOpenGLTextureID::SetLinearBufferEntry(const BYTE* bufferEntry) {
+		// bufferEntry is expected to be initialed
+		assert(bufferEntry);
+		m_LinearImageBufferEntry = bufferEntry;
 	}
 
 	bool SLOpenGLTextureID::IsReadyForRendering() const

@@ -21,17 +21,23 @@ namespace slgeom
 	public:
 		~SLOpenGLTextureID(); // call Reset() to free texture memory on GPU
 		GLuint GetTextureID() const { return m_TextureID; }
-		void SetTextureID(GLuint textureID) { m_TextureID = textureID; }
+		void SetTextureID(GLuint textureID);
 
 		const BYTE* GetLinearBufferEntry() const { return m_LinearImageBufferEntry; }
-		void SetLinearBufferEntry(const BYTE* bufferEntry) { m_LinearImageBufferEntry = bufferEntry; }
+		void SetLinearBufferEntry(const BYTE* bufferEntry);
 
 		bool IsReadyForRendering() const;
 		void Reset();
 
 	private:
 		GLuint m_TextureID = 0; // 0 means Binding-Free for OpenGL driver, i.e., no texture binding for GPU 
+
+		/// <remark> m_LinearImageBufferEntry here is only a mark showing weather or not the corresponding image is uploaded to GPU;
+		///            one should not Allocate/Free this m_LinearImageBufferEntry </remark>
 		const BYTE* m_LinearImageBufferEntry = nullptr;
+
+		/// <remarks>m_InstanceCounter counts whenever SLOpenGLTextureID Created/Freed</remarks>
+		static int m_InstanceCounter;
 	};
 
 	GLuint UploadLinearImageToGPU(const sldip::SLImageParam& textureParam);

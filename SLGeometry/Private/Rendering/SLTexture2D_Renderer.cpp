@@ -90,16 +90,33 @@ namespace slgeom
 	///   along with m_GLTextureID [OUT] waiting to be updated, the new created textureID from GPU, corresponding CPU image bufferEntry [IN/OUT]</param>
 	/// <remark>LibreImage image data may change frequently before being painted;
 	/// to make sure we never miss new imageData uploading, and never over uploading the same image data, check before uploading !! </remark>
-	void SLTexture2D_Renderer::UploadLinearImageToGPU(SLLibreImagePaintable& libreImagePaintable) const
+	void SLTexture2D_Renderer::UploadLinearImageToGPU(SLLibreImagePaintable& libreImagePaintable)
 	{
 		// Make sure image data is not over up-loaded, nor miss uploaded
-		if (libreImagePaintable.IsUploadToGPUNecessary())
-		{
-			libreImagePaintable.InitialGLTextureID();
+		if ( !libreImagePaintable.IsGLTextureID_Empty() && !libreImagePaintable.IsGLTextureID_OutDated() ) {
+			// ImageBuffer Already been uploaded, No need to re-upload
+			assert(libreImagePaintable.GetGLTextureID().lock()->IsReadyForRendering());
+		}else {
+			// Run into here, it is necessary to upload new ImageBuffer and create new GLTextureID anyway
+			
+			// First, check if there is outdated textureID waiting to be free from GPU
+			if (!libreImagePaintable.IsGLTextureID_Empty())	{
+				// We should erase the outdated image textureID from GPU
+				std::shared_ptr<SLOpenGLTextureID> oldGLTextureID = libreImagePaintable.GetGLTextureID().lock();
+				assert(oldGLTextureID && m_GLTextureIDSet.find(oldGLTextureID) != m_GLTextureIDSet.end() );
+				m_GLTextureIDSet.erase(oldGLTextureID);
+			}
+
+			// Then, Upload the new ImageBuffer upto GPU now
+			std::shared_ptr<SLOpenGLTextureID> slGLTextureID = std::make_shared<SLOpenGLTextureID>();
 			GLuint textureID = slgeom::UploadLinearImageToGPU(libreImagePaintable.GetImageParam());
-			libreImagePaintable.SetGLTextureID(textureID, libreImagePaintable.GetBufferEntry());
+			slGLTextureID->SetTextureID(textureID);
+			slGLTextureID->SetLinearBufferEntry(libreImagePaintable.GetBufferEntry());
+
+			m_GLTextureIDSet.insert(slGLTextureID);
+			libreImagePaintable.SetGLTextureID(std::weak_ptr<SLOpenGLTextureID>(slGLTextureID));
 		}
-	}
+	}// End of UploadLinearImageToGPU(SLLibreImagePaintable& libreImagePaintable)
 
 	void SLTexture2D_Renderer::PaintTexture2D(GLuint textureID) const
 	{

@@ -1,6 +1,8 @@
 #ifndef __SLTEXTURE2D_RENDERER__
 #define __SLTEXTURE2D_RENDERER__
 #pragma once
+#include <memory>
+#include <unordered_set>
 
 #include "../../Private/Rendering/SLAbstractRenderer.h"
 #include "SLOpenGLPaintBasicss.h"
@@ -21,10 +23,12 @@ namespace slgeom
 		SLTexture2D_Renderer();
 		virtual ~SLTexture2D_Renderer();
 
-		void UploadLinearImageToGPU(SLLibreImagePaintable& libreImagePaintable) const;
+		void UploadLinearImageToGPU(SLLibreImagePaintable& libreImagePaintable);
 		void PaintTexture2D(GLuint textureID) const;
 
 	private:
+		std::unordered_set<std::shared_ptr<SLOpenGLTextureID>> m_GLTextureIDSet;
+
 		GLuint m_VertexArrayObject = 0;
 		GLuint m_VertexBufferObject = 0;
 		GLuint m_IndicesBufferObject = 0;

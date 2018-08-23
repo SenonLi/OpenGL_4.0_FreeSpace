@@ -26,21 +26,27 @@ namespace slgeom
 		explicit SLLibreImagePaintable(const SLLibreImage& libreImage); // Always Create SLLibreImage first, then create SLLibreImagePaintable
 		void Reset() override;
 
-		/// <summary>Will automatically reset m_GLTextureID no matter it was already initialed or not </summary>
-		/// <remark>Call this function if and only if it is necessary to re-upload image to GPU </remark>
-		void InitialGLTextureID();
+		bool IsGLTextureID_Empty() const;
+		bool IsGLTextureID_OutDated() const;
 
-		bool IsUploadToGPUNecessary() const;
-		void SetGLTextureID(GLuint textureID, const BYTE* linearImageBufferEntry);
+		void SetGLTextureID(const std::weak_ptr<SLOpenGLTextureID>& glTextureID);
+		const std::weak_ptr<SLOpenGLTextureID>&  GetGLTextureID()  const;
+
 		GLuint GetTextureID() const;
 
 	private:
 		/// <summary>Shared TextureID along with corresponding LibreImageBufferEntry </summary>
 		/// <remark>  Considering that image data is shared, and multiple SLLibreImagePaintable with same image content 
 		///      should should also share textureID, so that the same image will be uploaded to GPU for only once;
-		///    1. To avoid multiple GPU uploading, we use shared_ptr;
-		///    2. To avoid unused shared_ptr initial, call InitialGLTextureID() only when preparing for texture painting </remark>
-		std::shared_ptr<SLOpenGLTextureID> m_GLTextureID = nullptr;
+		///    1. To avoid multiple GPU uploading, we use unordered_set<shared_ptr<SLOpenGLTextureID>> to save actual GLTextureID s;
+		///    2. To bind textureID with corresponding image, we save weak_ptr<SLOpenGLTextureID> in SLLibreImagePaintable here;
+		///    3. As long as the SLTexture2D_Renderer is alive, textureID would be alive; 
+		///         we just need to destroy the SLTexture2D_Renderer before the Graphic Context shutdown;
+		///    4. To pair GLTextureID, you should 
+		///         a. Upload image to GPU under the help of SLTexture2D_Renderer;
+		///         b. Initial a shared_ptr<SLOpenGLTextureID> and insert it into the SLTexture2D_Renderer unordered_set;
+		///         c. Call SetGLTextureID to set the weak_ptr<SLOpenGLTextureID>.                                         </remark>
+		std::weak_ptr<SLOpenGLTextureID> m_GLTextureID;
 
 	};
 

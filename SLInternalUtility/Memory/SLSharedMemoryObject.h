@@ -17,7 +17,7 @@ namespace slutil
 
 		BYTE* m_BufferEntry = nullptr;
 
-		/// <remarks>m_InstanceCounter will only count when </remarks>
+		/// <remarks>m_InstanceCounter counts whenever SLAlignedMemoryBuffer Allocated/Freed</remarks>
 		static int m_InstanceCounter;	
 	};
 
