@@ -74,28 +74,28 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Public;$(ProjectDir)Private;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Public;$(ProjectDir)Private;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib32;S:\SenGraphicsUsr\VS2017\Lib32;S:\SenGraphicsUsr\VS2017\Lib32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Public;$(ProjectDir)Private;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib32;S:\SenGraphicsUsr\VS2017\Lib32;S:\SenGraphicsUsr\VS2017\Lib32\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Public;$(ProjectDir)Private;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -179,23 +179,37 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Rendering\SLAbstractRenderer.h" />
-    <ClInclude Include="Rendering\SLTexture2D_Renderer.h" />
+    <ClInclude Include="Private\Rendering\SLAbstractRenderer.h" />
+    <ClInclude Include="Public\Paintables\SLLibreImagePaintable.h" />
+    <ClInclude Include="Public\Rendering\SLOpenGLPaintBasicss.h" />
+    <ClInclude Include="Public\Rendering\SLTexture2D_Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Rendering\SLAbstractRenderer.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
+    <ClCompile Include="Private\Paintables\SLLibreImagePaintable.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Rendering\SLTexture2D_Renderer.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
+    <ClCompile Include="Private\Rendering\SLAbstractRenderer.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Private\Rendering\SLOpenGLPaintBasicss.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Private\Rendering\SLTexture2D_Renderer.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -211,6 +225,10 @@
     <ProjectReference Include="..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Private\Shaders\SLTexture2DCoords.frag" />
+    <None Include="Private\Shaders\SLTexture2DCoords.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

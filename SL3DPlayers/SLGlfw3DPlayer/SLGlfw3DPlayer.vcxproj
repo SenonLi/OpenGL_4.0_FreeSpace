@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C348BA29-8395-48B0-A03C-C39E0998D399}</ProjectGuid>
+    <ProjectGuid>{74A32730-3C63-47A6-9139-E4F92153722A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SLCImageProcess</RootNamespace>
+    <RootNamespace>SLGlfw3DPlayer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLGeometry\public;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -120,6 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLGeometry\public;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -140,6 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLGeometry\public;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -162,6 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLGeometry\public;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -175,12 +179,19 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Public\SLCImageProcess.h" />
+    <ClInclude Include="Public\SLAbstractGLFW_GLEW.h" />
+    <ClInclude Include="Public\SLGLFW_01_Texture.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Private\SLCImageProcess.cpp">
+    <ClCompile Include="Private\SLAbstractGLFW_GLEW.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Private\SLGLFW_01_Texture.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
@@ -192,6 +203,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SLDigitalImageProcess\SLDigitalImageProcess.vcxproj">
+      <Project>{801e69dd-5a95-48ce-a212-b6ea98392a88}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLGeometry\SLGeometry.vcxproj">
+      <Project>{fbad3379-0229-42e9-bde5-a5d024c1e88b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLInternalUtility\SLInternalUtility.vcxproj">
+      <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

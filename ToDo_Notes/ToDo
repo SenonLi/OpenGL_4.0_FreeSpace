@@ -1,5 +1,10 @@
 To Do:
 
+1. class LibreImagePaintable : public SLLibreImage
+2. put LibreImageCImageHandles.h into private folder, split SLDigitalImageProcess
+
+
+
 Add Operator = into SLLibreImage
 newImage.GetBufferEntry() != m_LibreImage.GetBufferEntry()
 
@@ -9,6 +14,8 @@ Split library into public (header only) and private (header + CPP)
 Add image renderer into slgeom project;
 Add different shader specially for 8bit image;
 
+
+3. Move LoadShader.h/cpp to SLGeometry project;
 4. Move SenAbstractGLFW to SLGlfw3DPlayer, make SLUnit_VisualTest Level 4 with Warning to Error
 
 
@@ -61,11 +68,12 @@ Library:
 1. slutil       -> SLInternalUtility;     Handle memory, string, and other related base class
 	- class Math;
 
-2. slgeom   (slutil)     
+2. sldip    (slutil, slcimage, slopencv)
+				-> SLDigitalImageProcess (No UI, either pure CPU process, or GPU context)
+
+3. slgeom   (slutil, sldip)     
 				-> SLGeometry: all math, matrix, camera, model, view, , rotation, translation, structure of primatives (curve, circle, ellipse, cylinder, sphere, cube ...)
 			- Determine whether to use Vec2D or Point2D class name;
-3. sldip    (slutil, slgeom)
-				-> SLDigitalImageProcess (No UI, either pure CPU process, or GPU context)
 4. slopencv (slutil, slgeom, sldip)
 				-> SLOpenCVProcess : Above sldip, because any implemention that may require OpenCV will definitely use sldip.
 
@@ -75,7 +83,7 @@ Library:
 
 To do an UI engine, you need to be super familiar with 4.1, 4.2, and 4.3 !!! Start from SLMfc3DPlayer first!
 ------------------------------------------------------------------------------------------------------------
---- Far Future - UI Engine: libraries that support Graphic (OpenGL/Vulkan/Cuda) 2D/3D User Interface for drawing --------
+--- Far Future - UI Engine: libraries that support Graphic (OpenGL/Vulkan) 2D/3D User Interface for drawing --------
 5. slmfcui      -> SLMfcUIEngine
 6. slglfwui     -> SLGlfwUIEngine
 7. slqt3dui     -> SLQtUIEngine

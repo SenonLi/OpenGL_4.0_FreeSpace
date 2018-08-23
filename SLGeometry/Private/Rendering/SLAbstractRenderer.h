@@ -2,10 +2,6 @@
 #define __SLABSTRACTRENDERER__
 #pragma once
 
-//-------------------------- OpenGL Graphics --------------------------------------
-#define GLEW_STATIC
-#include <GL/glew.h>       // Support basic OpenGL
-
 namespace slgeom
 {
 	class SLAbstractRenderer
@@ -13,8 +9,6 @@ namespace slgeom
 	public:
 		SLAbstractRenderer();
 		virtual ~SLAbstractRenderer();
-
-
 
 
 

@@ -1,5 +1,10 @@
-#include "../stdafx.h"
-#include "SLTexture2D_Renderer.h"
+#include "../../stdafx.h"
+#include "../../Public/Rendering/SLOpenGLPaintBasicss.h"
+
+#ifndef GLEW_STATIC
+#define GLEW_STATIC
+#include <GL/glew.h>       // Support basic OpenGL
+#endif
 
 #include "SLImageParam.h"
 #include "SLLibreImage.h"
@@ -7,23 +12,42 @@
 
 namespace slgeom
 {
-	SLTexture2D_Renderer::SLTexture2D_Renderer()
+	SLOpenGLTextureID::~SLOpenGLTextureID()
 	{
+		Reset();
 	}
-	
-	SLTexture2D_Renderer::~SLTexture2D_Renderer()
+	void SLOpenGLTextureID::Reset()
 	{
-
-		m_TextureID = 0;
-
+		if (m_LinearImageBufferEntry != nullptr)
+		{
+			// m_TextureID must be initialed along with m_ImageBufferEntry
+			assert(glIsTexture(m_TextureID));
+			glDeleteTextures(1, &m_TextureID);
+			m_TextureID = 0;
+			m_LinearImageBufferEntry = nullptr;
+		}
 	}
+
+	bool SLOpenGLTextureID::IsReadyForRendering() const
+	{
+		bool isReady = false;
+		if (m_LinearImageBufferEntry) {
+			assert(m_TextureID);// m_TextureID should not be zero
+			isReady = true;
+		}else {
+			assert(m_TextureID == 0); // m_TextureID should be zero
+			isReady = false;
+		}
+		return isReady;
+	}
+
 
 	/// <summary>Read picture file from Disk, and upload to GPU </summary>
 	/// <remarks> Will be called by UploadImageToGPUFromDisk, should be put infront of it to avoid pre-declaration
 	///               Designed to upload CPU-Processed image, which has to be linear     </remarks>
 	/// <param name="textureParam">Offer image information; Get generated TextureID [IN/OUT]</param>
 	/// <return>TextureID of textureParam </return>
-	GLuint SLTexture2D_Renderer::UploadLinearImageToGPU(sldip::SLImageParam& textureParam)
+	GLuint UploadLinearImageToGPU(const sldip::SLImageParam& textureParam)
 	{
 		assert(textureParam.LinearBufferEntry());
 
@@ -32,7 +56,7 @@ namespace slgeom
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID); // All upcoming GL_TEXTURE_2D operations now have effect on this defaultTextureID object
 
-		// Set the defaultTextureID wrapping parameters
+												 // Set the defaultTextureID wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set defaultTextureID wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		// Set defaultTextureID filtering parameters
@@ -74,4 +98,4 @@ namespace slgeom
 
 
 
-}// End of namespace slgeom
+} // End of namespace slgeom

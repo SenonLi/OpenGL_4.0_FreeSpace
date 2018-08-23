@@ -5,40 +5,75 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{2d610506-7f81-4929-b3b0-7c29556bbec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private Headers">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Rendering">
+    <Filter Include="Private Headers\Rendering">
       <UniqueIdentifier>{6da75597-a426-409b-9e46-78ab0376f800}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Rendering">
-      <UniqueIdentifier>{2d610506-7f81-4929-b3b0-7c29556bbec0}</UniqueIdentifier>
+    <Filter Include="Public Headers">
+      <UniqueIdentifier>{cb4fdb12-10a3-4161-be78-6809ab5795c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public Headers\Rendering">
+      <UniqueIdentifier>{06195e8e-ec2a-4046-a423-937667dc733b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public Headers\Paintables">
+      <UniqueIdentifier>{8ee07948-8249-4279-8ad9-51c33b61c83d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Paintables">
+      <UniqueIdentifier>{e99f2c41-4108-4d0a-b79f-a4dab58ac2c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4bc18354-a1bf-4f84-8d8f-d16bb71895ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\SLTexture2D_Renderer.h">
-      <Filter>Header Files\Rendering</Filter>
+    <ClInclude Include="Public\Rendering\SLTexture2D_Renderer.h">
+      <Filter>Public Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\SLAbstractRenderer.h">
-      <Filter>Header Files\Rendering</Filter>
+    <ClInclude Include="Private\Rendering\SLAbstractRenderer.h">
+      <Filter>Private Headers\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Rendering\SLOpenGLPaintBasicss.h">
+      <Filter>Public Headers\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Paintables\SLLibreImagePaintable.h">
+      <Filter>Public Headers\Paintables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\SLTexture2D_Renderer.cpp">
+    <ClCompile Include="Private\Rendering\SLAbstractRenderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\SLAbstractRenderer.cpp">
+    <ClCompile Include="Private\Rendering\SLTexture2D_Renderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Private\Rendering\SLOpenGLPaintBasicss.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Paintables\SLLibreImagePaintable.cpp">
+      <Filter>Source Files\Paintables</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Private\Shaders\SLTexture2DCoords.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Private\Shaders\SLTexture2DCoords.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

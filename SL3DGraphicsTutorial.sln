@@ -7,13 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vsSenOpenGL", "vsSenOpenGL\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLDigitalImageProcess", "SLDigitalImageProcess\SLDigitalImageProcess.vcxproj", "{801E69DD-5A95-48CE-A212-B6EA98392A88}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt3DPlayer", "Qt3DPlayer\Qt3DPlayer.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Items", "External Items", "{006F3F34-DC4F-4DEC-A6C0-7DAD535DA753}"
 	ProjectSection(SolutionItems) = preProject
 		ToDo_Notes\C++_Standard = ToDo_Notes\C++_Standard
 		ToDo_Notes\Compiler_Linker = ToDo_Notes\Compiler_Linker
 		ToDo_Notes\Git = ToDo_Notes\Git
+		ToDo_Notes\Installer = ToDo_Notes\Installer
 		ToDo_Notes\MFC = ToDo_Notes\MFC
 		ToDo_Notes\OpenCV = ToDo_Notes\OpenCV
 		ToDo_Notes\OpenGL = ToDo_Notes\OpenGL
@@ -27,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Items", "External 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLInternalUtility", "SLInternalUtility\SLInternalUtility.vcxproj", "{11478A94-C9ED-45E0-B0B8-7A0774152BDF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Optional", "Optional", "{F567DADB-11D6-4B0A-A459-39C71370BB93}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SL3DPlayers", "SL3DPlayers", "{F567DADB-11D6-4B0A-A459-39C71370BB93}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLLearnMfc_ViewOnly", "SLLearnMfc_ViewOnly\SLLearnMfc_ViewOnly.vcxproj", "{7E85A1E8-43B2-47EB-BED6-5C978E5420C3}"
 EndProject
@@ -44,6 +43,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLCImageProcess", "SLImageLibraries\SLCImageProcess\SLCImageProcess.vcxproj", "{C348BA29-8395-48B0-A03C-C39E0998D399}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLOpenCVProcess", "SLImageLibraries\SLOpenCVProcess\SLOpenCVProcess.vcxproj", "{8BDA7646-D78E-4BC1-A47A-1F738AD56464}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLGlfw3DPlayer", "SL3DPlayers\SLGlfw3DPlayer\SLGlfw3DPlayer.vcxproj", "{74A32730-3C63-47A6-9139-E4F92153722A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,12 +70,6 @@ Global
 		{801E69DD-5A95-48CE-A212-B6EA98392A88}.Release|Win32.Build.0 = Release|Win32
 		{801E69DD-5A95-48CE-A212-B6EA98392A88}.Release|x64.ActiveCfg = Release|x64
 		{801E69DD-5A95-48CE-A212-B6EA98392A88}.Release|x64.Build.0 = Release|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.ActiveCfg = Debug|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.Build.0 = Debug|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|x64
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.Build.0 = Release|x64
 		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|Win32.ActiveCfg = Debug|Win32
 		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|Win32.Build.0 = Debug|Win32
 		{11478A94-C9ED-45E0-B0B8-7A0774152BDF}.Debug|x64.ActiveCfg = Debug|x64
@@ -139,14 +134,22 @@ Global
 		{8BDA7646-D78E-4BC1-A47A-1F738AD56464}.Release|Win32.Build.0 = Release|Win32
 		{8BDA7646-D78E-4BC1-A47A-1F738AD56464}.Release|x64.ActiveCfg = Release|x64
 		{8BDA7646-D78E-4BC1-A47A-1F738AD56464}.Release|x64.Build.0 = Release|x64
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Debug|Win32.Build.0 = Debug|Win32
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Debug|x64.ActiveCfg = Debug|x64
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Debug|x64.Build.0 = Debug|x64
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Release|Win32.ActiveCfg = Release|Win32
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Release|Win32.Build.0 = Release|Win32
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Release|x64.ActiveCfg = Release|x64
+		{74A32730-3C63-47A6-9139-E4F92153722A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B12702AD-ABFB-343A-A199-8E24837244A3} = {F567DADB-11D6-4B0A-A459-39C71370BB93}
 		{C348BA29-8395-48B0-A03C-C39E0998D399} = {611AFB33-FE74-4B48-B3BC-86181EC3A0F0}
 		{8BDA7646-D78E-4BC1-A47A-1F738AD56464} = {611AFB33-FE74-4B48-B3BC-86181EC3A0F0}
+		{74A32730-3C63-47A6-9139-E4F92153722A} = {F567DADB-11D6-4B0A-A459-39C71370BB93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5D9E938-1FDF-4CD4-AB11-4562C0D450CF}

@@ -7,15 +7,14 @@
 
 namespace sldip
 {
-	/// <summary>Aligned Allocation Image with No Padding, using SLSharedMemoryObject, specially for live image GPU-Process </summary>
-	/// <remark> using Aligned SLSharedMemoryObject with No Padding, SLImageParam::m_Pitch should always equal to cols * channels </remark>
+	/// <summary>Aligned Self-Allocated Image with shared memory, 
+	/// and whole freedom of pitch, channels, BBP, colors, specially for live image GPU-Process </summary>
 	/// <remark> The alignment: 4 Bytes is designed for RGBA for now; 16 for XYXWRGBA</remark>
 	class SLLibreImage : public slutil::SLSharedMemoryObject
 	{
 	public:
 		SLLibreImage() {};
 		explicit SLLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType);
-		virtual ~SLLibreImage() {};
 
 		static unsigned int GetAlignedPitch(unsigned int cols, unsigned int channels);
 		static unsigned int GetAlignmentSize(unsigned int channels);
@@ -31,6 +30,8 @@ namespace sldip
 		const bool              HasAlphaChannel()   const { return m_ImageParam.HasAlphaChannel(); }
 		const bool              IsInColorOrder_RGB()const { return m_ImageParam.IsInColorOrder_RGB(); }
 		const bool              IsInColorOrder_BGR()const { return m_ImageParam.IsInColorOrder_BGR(); }
+
+		const sldip::SLImageParam GetImageParam()   const { return m_ImageParam; }
 
 	private:
 		/// <remark> SLLibreImage is designed as an Top-down ImageType, and SLImageParam::m_Pitch should not be nagetive </remark>

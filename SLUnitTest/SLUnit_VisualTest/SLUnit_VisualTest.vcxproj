@@ -74,22 +74,26 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SL3DPlayers\SLGlfw3DPlayer\Public;$(SolutionDir)SLGeometry\Public;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)vsSenOpenGL;S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SL3DPlayers\SLGlfw3DPlayer\Public;$(SolutionDir)SLGeometry\Public;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)vsSenOpenGL;S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SL3DPlayers\SLGlfw3DPlayer\Public;$(SolutionDir)SLGeometry\Public;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)vsSenOpenGL;S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\$(ProjectName)\</IntDir>
-    <IncludePath>S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(SolutionDir)SLInternalUtility;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLGeometry;$(SolutionDir)vsSenOpenGL;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SL3DPlayers\SLGlfw3DPlayer\Public;$(SolutionDir)SLGeometry\Public;$(SolutionDir)SLImageLibraries\SLOpenCVProcess\Public;$(SolutionDir)SLDigitalImageProcess;$(SolutionDir)SLInternalUtility;$(SolutionDir)vsSenOpenGL;S:\OpenCV3\Include;S:\SenOpenGLusr\Include;S:\SenGraphicsUsr\Include;S:\SenGraphicsUsr\VS2017\Include;$(IncludePath)</IncludePath>
     <LibraryPath>S:\SenOpenGLusr\Lib;S:\SenGraphicsUsr\VS2017\Lib;S:\SenGraphicsUsr\VS2017\Lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,7 +114,11 @@
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;libcd.lib;MSVCRT.lib;</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy	/D	/Y  "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341d.dll" "$(OutDir)"</Command>
+      <Command>xcopy /D /Y /i /s  "$(SolutionDir)\SLGeometry\Private\Shaders\*.*"                "$(OutputPath)\Shaders"
+
+xcopy /D /Y /i /s  "$(SolutionDir)\WatchMe\Images\*.*"                            "$(OutputPath)\Images"  
+
+xcopy /D /Y /i /s "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341d.dll"  "$(OutDir)"</Command>
     </PostBuildEvent>
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
@@ -133,6 +141,10 @@
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <PostBuildEvent>
+      <Command>xcopy /D /Y  "$(SolutionDir)\SLGeometry\Private\Shaders\*.*"    "$(OutputPath)\Shaders\"
+xcopy /D /Y  "$(SolutionDir)\WatchMe\Images\*.*"                       "$(OutputPath)\Images\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -155,6 +167,10 @@
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <PostBuildEvent>
+      <Command>xcopy /D /Y  "$(SolutionDir)\SLGeometry\Private\Shaders\*.*"    "$(OutputPath)\Shaders\"
+xcopy /D /Y  "$(SolutionDir)\WatchMe\Images\*.*"                       "$(OutputPath)\Images\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,19 +194,21 @@
       <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;libc.lib;</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy	/D	/Y  "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341.dll" "$(OutDir)"</Command>
+      <Command>xcopy /D /Y /i /s  "$(SolutionDir)\SLGeometry\Private\Shaders\*.*"                "$(OutputPath)\Shaders"
+
+xcopy /D /Y /i /s  "$(SolutionDir)\WatchMe\Images\*.*"                            "$(OutputPath)\Images"  
+
+xcopy /D /Y  "S:\OpenCV3\CV_OfficialDynamic_341\bin\opencv_world341s.dll"  "$(OutDir)"</Command>
     </PostBuildEvent>
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="SLTest_Texture.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SLTest_Texture.cpp" />
     <ClCompile Include="SLUnit_VisualTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -200,11 +218,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SLDigitalImageProcess\SLDigitalImageProcess.vcxproj">
-      <Project>{801e69dd-5a95-48ce-a212-b6ea98392a88}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SLGeometry\SLGeometry.vcxproj">
-      <Project>{fbad3379-0229-42e9-bde5-a5d024c1e88b}</Project>
+    <ProjectReference Include="..\..\SL3DPlayers\SLGlfw3DPlayer\SLGlfw3DPlayer.vcxproj">
+      <Project>{74a32730-3c63-47a6-9139-e4f92153722a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\SLImageLibraries\SLOpenCVProcess\SLOpenCVProcess.vcxproj">
       <Project>{8bda7646-d78e-4bc1-a47a-1f738ad56464}</Project>

@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "SLAbstractRenderer.h"
 
 namespace slgeom
@@ -10,7 +10,6 @@ namespace slgeom
 	SLAbstractRenderer::~SLAbstractRenderer()
 	{
 	}
-
 
 
 

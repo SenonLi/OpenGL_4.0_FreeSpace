@@ -8,47 +8,47 @@
     <Filter Include="Source Files\OpenCVTutorialExamples">
       <UniqueIdentifier>{05a78a39-4507-4abd-be3d-6d3df6493ec1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Private Header Files">
+    <Filter Include="Private Headers">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Private Header Files\OpenCVTutorialExamples">
+    <Filter Include="Private Headers\OpenCVTutorialExamples">
       <UniqueIdentifier>{54d1e524-8192-4b52-a32d-702fcaace2c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Public Header Files">
+    <Filter Include="Public Headers">
       <UniqueIdentifier>{a323d612-9712-4ef0-bbcb-da22570b61f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Private Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Private Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVShapeExample.h">
-      <Filter>Private Header Files\OpenCVTutorialExamples</Filter>
+      <Filter>Private Headers\OpenCVTutorialExamples</Filter>
     </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVSmoothing.h">
-      <Filter>Private Header Files\OpenCVTutorialExamples</Filter>
+      <Filter>Private Headers\OpenCVTutorialExamples</Filter>
     </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVThreshold.h">
-      <Filter>Private Header Files\OpenCVTutorialExamples</Filter>
+      <Filter>Private Headers\OpenCVTutorialExamples</Filter>
     </ClInclude>
     <ClInclude Include="OpenCVTutorialExamples\CVFindContours.h">
-      <Filter>Private Header Files\OpenCVTutorialExamples</Filter>
+      <Filter>Private Headers\OpenCVTutorialExamples</Filter>
     </ClInclude>
     <ClInclude Include="Private\SLCVMatCImageHandles.h">
-      <Filter>Private Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
     <ClInclude Include="Public\SLBinaryEllipseCorrelation.h">
-      <Filter>Public Header Files</Filter>
+      <Filter>Public Headers</Filter>
     </ClInclude>
     <ClInclude Include="Public\SLPointToEllipse.h">
-      <Filter>Public Header Files</Filter>
+      <Filter>Public Headers</Filter>
     </ClInclude>
     <ClInclude Include="Private\SLOpenCVProcess.h">
-      <Filter>Private Header Files</Filter>
+      <Filter>Private Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

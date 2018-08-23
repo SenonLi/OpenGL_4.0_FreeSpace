@@ -10,6 +10,6 @@ namespace slopencv
 	void ConvertCVMatToCImage(const cv::Mat& in, CImage& out);
 
 
-}; // end of namespace slopencv
+}; // End of namespace slopencv
 
 #endif // __SLCVMATCIMAGEHANDLES__
