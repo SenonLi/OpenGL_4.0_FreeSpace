@@ -52,7 +52,7 @@ namespace sldip
 		dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), srcImage.GetColorType());
 		assert(!dstImage.IsNull());
 
-		memcpy(dstImage.GetBufferEntryForEdit(), srcImage.GetBufferEntry(), srcImage.GetTotalBytes());
+		memcpy(dstImage.GetBufferEntryForEdit(), srcImage.GetBufferEntry(), static_cast<size_t>(srcImage.GetTotalBytes()) );
 	}// End of DuplicateImage(const SLLibreImage& srcImage, SLLibreImage& dstImage)
 
 

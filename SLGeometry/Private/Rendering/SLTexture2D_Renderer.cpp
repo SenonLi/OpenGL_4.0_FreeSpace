@@ -7,7 +7,7 @@
 
 #include "../../Public/Rendering/SLTexture2D_Renderer.h"
 #include "../../Public/Paintables/SLLibreImagePaintable.h"
-#include "LoadShaders.h"
+#include "SLShaderProgram.h"
 
 namespace slgeom
 {
@@ -24,12 +24,12 @@ namespace slgeom
 	void SLTexture2D_Renderer::InitShadersAndVertices()
 	{
 		// Prepare ShaderProgram
-		ShaderInfo shaders[] = {
+		PipelineShaders shaders[] = {
 			{ GL_VERTEX_SHADER, m_Texture2DShaderVert.c_str() },
 			{ GL_FRAGMENT_SHADER, m_Texture2DShaderFrag.c_str() },
 			{ GL_NONE, NULL }
 		};
-		m_TextureShaderProgram = LoadShaders(shaders);
+		m_TextureShaderProgram = CreatePipelineShaderProgram(shaders);
 		assert(m_TextureShaderProgram); // Failed if assert
 
 		// Prepare Vertices

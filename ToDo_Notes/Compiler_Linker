@@ -7,3 +7,21 @@
 * The only runtime effect it might have is that it may make your exe/dll slightly bigger and slower, as decribed here:
 http://msdn.microsoft.com/en-us/library/4khtbfyf.aspx
 * You may want to use incremental linking for debug builds to speed development, but disable it for release builds to improve runtime performance.
+
+
+
+Input Libraries:
+
+/NODEFAULTLIB:msvcrtd.lib;      // For avoid warning after using GLFW_GLEW
+              warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+
+opencv_world341.lib;            // OpenCV Image Process
+glew32.lib;                     // OpenGL function extension Wrangller
+glfw3.lib;                      // UI window creation
+opengl32.lib;                   // Basic OpenGL requirement
+
+
+
+
+
+9>  MSVCRT.lib(initializers.obj) : warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs; use /NODEFAULTLIB:library

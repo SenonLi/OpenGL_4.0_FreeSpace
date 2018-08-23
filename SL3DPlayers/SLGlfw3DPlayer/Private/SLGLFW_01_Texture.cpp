@@ -3,8 +3,6 @@
 
 #include "SLDigitalImageProcess.h"               // sldip:  For Basic LibreImage Process
 
-//#include "SLImageParam.h"
-
 SLGLFW_01_Texture::SLGLFW_01_Texture()
 {
 	m_WindowName = "Sen UnitTest_Visual Test Texture ";

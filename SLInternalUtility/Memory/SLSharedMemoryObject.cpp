@@ -39,7 +39,7 @@ namespace slutil
 
 		// It won't hurt to allocate a bit more, and will help a lot preventing potential crash
 		unsigned int alignedMemoryAllocationSafetyOffset = alignment * 4;
-		m_BufferEntry = static_cast<BYTE*>(_mm_malloc(totalBytes + alignedMemoryAllocationSafetyOffset, alignment));
+		m_BufferEntry = static_cast<BYTE*>(_mm_malloc(static_cast<size_t>(totalBytes + alignedMemoryAllocationSafetyOffset), alignment) );
 
 		std::wstringstream outputMessage;
 		outputMessage << _T("SLAlignedMemoryBuffer::AllocateAlignedMemory(), There exist now \t")

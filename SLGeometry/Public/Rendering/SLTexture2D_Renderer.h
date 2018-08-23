@@ -1,11 +1,12 @@
 #ifndef __SLTEXTURE2D_RENDERER__
 #define __SLTEXTURE2D_RENDERER__
 #pragma once
-#include <memory>
-#include <unordered_set>
 
 #include "../../Private/Rendering/SLAbstractRenderer.h"
-#include "SLOpenGLPaintBasicss.h"
+
+#include "SLOpenGLPaintBasicss.h" // For SLOpenGLTextureID
+#include <memory>                 // For SLOpenGLTextureID actual saving, instancing m_GLTextureIDSet
+#include <unordered_set>          // For SLOpenGLTextureID actual saving, instancing m_GLTextureIDSet
 
 namespace slgeom
 {

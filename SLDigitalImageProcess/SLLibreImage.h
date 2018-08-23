@@ -13,7 +13,7 @@ namespace sldip
 	class SLLibreImage : public slutil::SLSharedMemoryObject
 	{
 	public:
-		SLLibreImage() {};
+		SLLibreImage() = default;
 		explicit SLLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType);
 
 		static unsigned int GetAlignedPitch(unsigned int cols, unsigned int channels);

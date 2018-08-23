@@ -43,7 +43,7 @@ namespace sldip
 	class SLImageParam
 	{
 	public:
-		SLImageParam() {}; // Default constructor here for class member initialization
+		SLImageParam() = default; // Default constructor here for class member initialization
 		SLImageParam(unsigned int cols, unsigned int rows, int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
 		SLImageParam(unsigned int cols, unsigned int rows, unsigned int pitch, const SLLibreColorType& colorType, const BYTE* linearBufferEntry);
 		static unsigned int GetChannelsNum(const SLLibreColorType& colorType);

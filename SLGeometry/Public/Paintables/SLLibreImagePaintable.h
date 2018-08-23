@@ -22,7 +22,7 @@ namespace slgeom
 	class SLLibreImagePaintable : public sldip::SLLibreImage
 	{
 	public:
-		SLLibreImagePaintable() {}; // Default constructor for member instancing
+		SLLibreImagePaintable() = default; // Default constructor for member instancing
 		explicit SLLibreImagePaintable(const SLLibreImage& libreImage); // Always Create SLLibreImage first, then create SLLibreImagePaintable
 		void Reset() override;
 

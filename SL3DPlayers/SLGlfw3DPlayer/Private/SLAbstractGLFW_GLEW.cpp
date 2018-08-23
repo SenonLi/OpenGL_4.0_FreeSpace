@@ -30,7 +30,7 @@ SLAbstractGLFW_GLEW::SLAbstractGLFW_GLEW()
 
 SLAbstractGLFW_GLEW::~SLAbstractGLFW_GLEW()
 {
-	OutputDebugString(L"\n ~SLAbstractGLFW_GLEW()\n");
+	SLOutputDebugString(L"\n ~SLAbstractGLFW_GLEW()\n");
 }
 
 void SLAbstractGLFW_GLEW::InitGlfwGlew()
@@ -79,7 +79,7 @@ void SLAbstractGLFW_GLEW::InitGlfwGlew()
 
 	glEnable(GL_DEPTH_TEST);
 
-	OutputDebugString(L"\n Initial OpenGL\n");
+	SLOutputDebugString(L"\n Initial OpenGL\n");
 }
 
 void SLAbstractGLFW_GLEW::ShowWidget()

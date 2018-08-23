@@ -77,7 +77,10 @@ namespace slopencv
 		assert(br > 0.0 && ar >= br);// In this algorithm, "ar > br" is required, otherwise it won't work
 		assert(xr >= 0.0 && yr >= 0.0); // The relative point must be inside the first quadrant
 		// For the first time iteration, phi and yr cannot equal to 0.0 at the same time, otherwise the returned "output phi" == "input phi" == 0.0, and iteration equation will never work
-		assert(!(interationCount == 0 && phi == 0.0 && yr == 0.0));
+		if (interationCount == 0 && phi == 0.0 && yr == 0.0)  {
+			assert(false);
+			return 0.0;
+		}
 
 		return atan2( (ar*ar - br * br) * sin(phi) + yr * br,  xr * ar );
 	}

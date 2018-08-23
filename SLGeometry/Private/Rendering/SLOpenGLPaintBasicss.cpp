@@ -42,7 +42,6 @@ namespace slgeom
 		m_TextureID = textureID;
 
 		m_InstanceCounter++;
-		assert(m_InstanceCounter >= 0);
 		std::wstringstream outputMessage;
 		outputMessage << _T("SLOpenGLTextureID::SetTextureID(), There exist now \t") << m_InstanceCounter << _T(" \t SLOpenGLTextureID alive.\n");
 		SLOutputDebugString(outputMessage.str().c_str());

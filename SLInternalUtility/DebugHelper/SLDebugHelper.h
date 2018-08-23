@@ -2,8 +2,8 @@
 #define __SLDEBUGHELPER__
 #pragma once
 
-#include <sstream>
-#include <Windows.h>
+#include <Windows.h>   // For both OutputDebugString() and declaration of type BYTE
+#include <sstream>     // For construct Output stringstream
 
 #if defined(_DEBUG) || defined(SL_ReleaseDebug)
 #define SLOutputDebugString(message) OutputDebugString(message)
