@@ -35,7 +35,7 @@ namespace slutil
 
 		virtual void Reset();
 
-		inline bool IsNull() const { return (m_SharedBuffer && m_SharedBuffer->m_BufferEntry == nullptr); }
+		inline bool IsNull() const { return (m_SharedBuffer == nullptr || m_SharedBuffer->m_BufferEntry == nullptr); }
 		BYTE* GetBufferEntryForEdit() { return m_SharedBuffer->m_BufferEntry; }
 		const BYTE* GetBufferEntry() const { return const_cast<const BYTE*>(m_SharedBuffer->m_BufferEntry); }
 		const unsigned long long GetTotalBytes() const { return m_TotalBytes; }
