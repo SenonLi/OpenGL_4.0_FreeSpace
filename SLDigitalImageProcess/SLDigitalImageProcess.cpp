@@ -214,7 +214,7 @@ namespace sldip
 
 		sldip::DuplicateImage(tmpLoader, targetImageLoader);
 
-		return GetImageParam(targetImageLoader);
+		return targetImageLoader.GetImageParam();
 	}
 
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath, bool IsLoadNon8bit)
@@ -234,24 +234,7 @@ namespace sldip
 		}else 
 			sldip::DuplicateImage(tmpLoader, targetImageLoader);
 
-		return GetImageParam(targetImageLoader);
-	}
-
-	//====================================================================================================================
-	//--------------------------------------------------------------------------------------------------------------------
-	SLImageParam GetImageParam(const SLLibreImage& image)
-	{
-		assert(!image.IsNull());
-
-		SLImageParam imageParam(
-			image.GetWidth(),
-			image.GetHeight(),
-			image.GetPitch(),
-			image.GetColorType(),
-			image.GetBufferEntry()
-		);
-
-		return imageParam;
+		return targetImageLoader.GetImageParam();
 	}
 
 } // End of namespace sldip

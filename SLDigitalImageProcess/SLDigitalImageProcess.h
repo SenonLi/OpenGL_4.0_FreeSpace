@@ -20,7 +20,6 @@ namespace sldip
 		ADAPTIVE_THRESH_GAUSSIAN,
 	};
 
-	SLImageParam GetImageParam(const SLLibreImage& image);
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath);
 	SLImageParam LoadImageParam(SLLibreImage& targetImageLoader, const TCHAR* filePath, bool IsLoadNon8bit);
 

@@ -167,7 +167,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrtd.lib;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -197,7 +197,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrtd.lib;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
