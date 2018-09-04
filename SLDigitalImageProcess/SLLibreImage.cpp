@@ -6,39 +6,30 @@ namespace sldip
 {
 	SLLibreImage::SLLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType)
 	: m_TmpChannels(SLImageParam::GetChannelsNum(colorType))
-	, SLSharedMemoryObject(GetAlignedPitch(cols, m_TmpChannels) * rows, GetAlignmentSize(m_TmpChannels))
-	, m_ImageParam(cols, rows, static_cast<int>(GetAlignedPitch(cols, m_TmpChannels)), colorType, m_SharedBuffer->m_BufferEntry)
+	, SLSharedMemoryObject(GetPitchWithValidPadding(cols, m_TmpChannels) * rows)
+	, m_ImageParam(cols, rows, static_cast<int>(GetPitchWithValidPadding(cols, m_TmpChannels)), colorType, m_SharedBuffer->m_BufferEntry)
 	{
 	}
 
 	void SLLibreImage::CreateLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType)
 	{
 		m_TmpChannels = SLImageParam::GetChannelsNum(colorType);
-		unsigned int calculatedPitch = GetAlignedPitch(cols, m_TmpChannels);
+		unsigned int calculatedPitch = GetPitchWithValidPadding(cols, m_TmpChannels);
 		// SharedMemoryObject will reset automatically
-		CreateSharedMemory(calculatedPitch * rows, GetAlignmentSize(m_TmpChannels));
+		CreateSharedMemory(calculatedPitch * rows);
 		// SLImageParam is not supposed to be edited, so that no need to reset
 		m_ImageParam.CreateImageParam(cols, rows, static_cast<int>(calculatedPitch), colorType, m_SharedBuffer->m_BufferEntry);
 	}
 
-	unsigned int SLLibreImage::GetAlignedPitch(unsigned int cols, unsigned int channels)
+	unsigned int SLLibreImage::GetPitchWithValidPadding(unsigned int cols, unsigned int channels)
 	{
-		unsigned int alignmentSize = SLLibreImage::GetAlignmentSize(channels);
+		// See remark of slutil::SL_BitmapLeastRowBlockSize for how padding is added
 		unsigned int validRowPixelBytes = cols * channels;
-		if (validRowPixelBytes % alignmentSize == 0)
+		if (validRowPixelBytes % slutil::SL_BitmapLeastRowBlockSize == 0)
 			return validRowPixelBytes;
 		else {
-			return (validRowPixelBytes / alignmentSize) * alignmentSize + alignmentSize;
-		}
-	}
-	unsigned int SLLibreImage::GetAlignmentSize(unsigned int channels)
-	{
-		if (channels <= slutil::SL_RGBA_AlignmentSize)              return slutil::SL_RGBA_AlignmentSize;
-		else if (channels <= slutil::SL_XYZWRGBA_AlignmentSize)     return slutil::SL_XYZWRGBA_AlignmentSize;
-		else {
-			assert(false);
-			return slutil::SL_XYZWRGBA_AlignmentSize;
-		}
+			return (validRowPixelBytes / slutil::SL_BitmapLeastRowBlockSize) * slutil::SL_BitmapLeastRowBlockSize + slutil::SL_BitmapLeastRowBlockSize;
+		}	
 	}
 
 	/// <summary>Reset SLLibreImage</summary>

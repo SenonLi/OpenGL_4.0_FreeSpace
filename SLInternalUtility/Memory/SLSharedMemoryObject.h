@@ -11,9 +11,9 @@ namespace slutil
 	{
 	public:
 		SLAlignedMemoryBuffer() {};
-		explicit SLAlignedMemoryBuffer(unsigned long long totalBytes, unsigned int alignment);
+		explicit SLAlignedMemoryBuffer(unsigned long long totalBytes);
 		~SLAlignedMemoryBuffer();
-		void AllocateAlignedMemory(unsigned long long totalBytes, unsigned int alignment);
+		void AllocateAlignedMemory(unsigned long long totalBytes);
 
 		BYTE* m_BufferEntry = nullptr;
 
@@ -30,7 +30,7 @@ namespace slutil
 	{
 	public:
 		SLSharedMemoryObject(); // Default constructor here for class member initialization
-		explicit SLSharedMemoryObject(unsigned long long totalBytes, unsigned int alignment);
+		explicit SLSharedMemoryObject(unsigned long long totalBytes);
 		virtual ~SLSharedMemoryObject() {};
 
 		virtual void Reset();
@@ -44,7 +44,7 @@ namespace slutil
 		std::shared_ptr<SLAlignedMemoryBuffer> m_SharedBuffer;
 		unsigned long long m_TotalBytes = 0;
 
-		void CreateSharedMemory(unsigned long long totalBytes, unsigned int alignment);
+		void CreateSharedMemory(unsigned long long totalBytes);
 	};
 
 

@@ -16,8 +16,7 @@ namespace sldip
 		SLLibreImage() = default;
 		explicit SLLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType);
 
-		static unsigned int GetAlignedPitch(unsigned int cols, unsigned int channels);
-		static unsigned int GetAlignmentSize(unsigned int channels);
+		static unsigned int GetPitchWithValidPadding(unsigned int cols, unsigned int channels);
 
 		void Reset() override;
 		void CreateLibreImage(unsigned int cols, unsigned int rows, const SLLibreColorType& colorType);

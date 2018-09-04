@@ -5,18 +5,18 @@
 
 namespace slutil
 {
-	/// <summary>    Image data that you pass to OpenGL is expected to be grouped into rows.
-	///       Each row contains width number of pixels, with each pixel being the size as defined by the format and type parameters.
-	///       So a format of GL_RGB with a type of GL_UNSIGNED_BYTE will result in a pixel that is 24-bits in size. 
-	///       Pixels are otherwise expected to be packed, so a row of 16 pixels (GL_RGB) will take up 48 bytes.
-	///              Each row is expected to be aligned on a specific value, as defined by the GL_PACK / UNPACK_ALIGNMENT.
-	///       This means that the value you add to the pointer to get to the next row is : align(pixel_size * width, GL_*_ALIGNMENT).
-	///       If the pixel (RGB) size is 3 bytes, the width is 2, and the alignment is 1 (Byte), the row byte size is 6.
-	///       If the alignment is 4 (Bytes), the row byte size is eight.  </summary>
-	/// <remark>The alignment: 4 Bytes is designed for RGBA; 16 for XYXWRGBA</remark>
-	static const unsigned int SL_RGBA_AlignmentSize = 4; // must be an integer power of 2
-	static const unsigned int SL_XYZWRGBA_AlignmentSize = 16; // must be an integer power of 2
+	static const unsigned int SL_DEFAULT_STORAGE_PACKING_AlignmentSize = 4;
 	static const unsigned int SL_MIN_STORAGE_PACKING_AlignmentSize = 1;
+
+	/// <remark>According to Wikipedia, the bitmap file format specifies that:
+	/// The bits representing the bitmap pixels are packed in rows. The size of each row is rounded up to a multiple of 4 bytes(a 32 - bit DWORD) by padding.
+	/// Padding bytes(not necessarily 0) must be appended to the end of the rows in order to bring up the length of the rows to a multiple of four bytes.
+	/// When the pixel array is loaded into memory, each row must begin at a memory address that is a multiple of 4. 
+	/// This address / offset restriction is mandatory only for Pixel Arrays loaded in memory.
+	/// For file storage purposes, only the size of each row must be a multiple of 4 bytes while the file offset can be arbitrary.
+	/// A 24 - bit bitmap with Width = 1, would have 3 bytes of data per row(blue, green, red) and 1 byte of padding, while Width = 2 would have 2 bytes of padding,
+	/// Width = 3 would have 3 bytes of padding, and Width = 4 would not have any padding at all. </remark>
+	static const unsigned int SL_BitmapLeastRowBlockSize = 4;
 
 	static const int           BYTE_IMAGE_SINGLE_CHANNEL_BITS = 8;
 	static const int           GRAYSCALED_IMAGE_BIT_PER_PIXEL = 8;

@@ -26,3 +26,6 @@ if ($str =~ /^\s*$/) {
 }
 
 
+std::Tregex rx(_T("\\$\\(([^\\(\\)\\$]*?)\\)"))
+Trying to match some string like "$(...)", as long as there were no extra open "(" or close ")" or "$" contained in "...".
+

@@ -23,7 +23,7 @@ protected:
 
 private:
 	// Relative Address start from the project file .proj where instance SLTexture2D_Renderer, which is now in folder SLUnit_VisualTest
-	const TCHAR* m_ImagePath = _T("../../WatchMe/Images/Einstein 8bit.jpg");//Einstein 8bit.jpg   Einstein.jpg    grass.png   Google24Bit225.jpg
+	const TCHAR* m_ImagePath = _T("../../WatchMe/Images/grass.png");//Einstein 8bit.jpg   Einstein.jpg    grass.png   Google24Bit225.jpg
 	std::wstring m_SaveFolderPath = _T("../../../../../Developer/Processed Images/");
 
 	sldip::SLLibreImage m_LibreImage{};                     // For PostPaintProcess 

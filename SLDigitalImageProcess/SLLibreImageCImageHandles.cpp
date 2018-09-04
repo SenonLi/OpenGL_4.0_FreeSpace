@@ -27,7 +27,7 @@ namespace sldip
 		{
 			// Attention!! :  Must use int for BYTE* address seeking !
 			// For Example:   BYTE* bufferEntry = srcBottomLineDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch() // image.GetPitch() < 0
-			memcpy(dstDataEntry + static_cast<int>( row * dstPitch), srcBottomLineDataEntry + static_cast<int>(row * srcPitch), std::abs(srcPitch));
+			memcpy(dstDataEntry + static_cast<int>( row * dstPitch), srcBottomLineDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
 		}
 	}// End of DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
 
