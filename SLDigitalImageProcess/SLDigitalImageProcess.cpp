@@ -181,7 +181,7 @@ namespace sldip
 
 		sldip::DuplicateImage(srcImage, tmpImageForSaving);
 
-		GUID imageTypeGUID = Gdiplus::ImageFormatPNG;
+		GUID imageTypeGUID = Gdiplus::ImageFormatUndefined;
 		switch (imageType)
 		{
 			case SLImageFileType::IMAGE_BMP:            imageTypeGUID = Gdiplus::ImageFormatBMP;            break;

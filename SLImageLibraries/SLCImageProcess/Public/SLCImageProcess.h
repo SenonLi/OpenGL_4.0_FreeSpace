@@ -19,11 +19,14 @@
 namespace slcimage
 {
 	void DuplicateImage(const ATL::CImage& srcImage, ATL::CImage& dstImage);
+
+	void StretchImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage);
 	void Convert8bitTo24Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
 
 	/// <remark>CImage::BitBlt won't work with alpha channel, we have to set pixel one by one</remark>
 	void Convert8bitTo32Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
 	void Convert24bitTo32Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
+
 
 
 }; // End of namespace slcimage

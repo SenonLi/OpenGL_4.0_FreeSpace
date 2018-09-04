@@ -18,7 +18,8 @@ namespace slgeom
 	class SLOpenGLTextureID;
 
 	/// <summary>SLLibreImage is designed only for dip, saving image data;
-	///          SLLibreImagePaintable is designed for Graphic Painting     </summary>
+	///          SLLibreImagePaintable is designed for Graphic Painting;
+	///         and all related shared textureID will be saved in Texture2D_Renderer </summary>
 	class SLLibreImagePaintable : public sldip::SLLibreImage
 	{
 	public:
