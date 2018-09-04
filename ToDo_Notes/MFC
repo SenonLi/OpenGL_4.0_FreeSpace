@@ -1,5 +1,8 @@
 Tutorial for Beginners:  https://www.youtube.com/watch?v=Su1x9EA5Njk
 
+About CImage 8bit image:
+http://letcoderock.blogspot.com/2013/09/scaling-8-bit-image-by-using-stretchblt.html
+
 ## From scratch to MFC
 1. Create a resource file (*.rc) in the resources folder;
 2. Create a Dialog within your resource file;
