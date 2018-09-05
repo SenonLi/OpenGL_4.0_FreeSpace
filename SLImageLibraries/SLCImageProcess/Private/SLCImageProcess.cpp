@@ -104,25 +104,5 @@ namespace slcimage
 		}
 	}
 
-	void Convert24bitTo32Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage)
-	{
-		assert(!srcImage.IsNull() && srcImage != dstImage && srcImage.GetBPP() == 24);
-
-		if (!dstImage.IsNull())     dstImage.Destroy();
-		dstImage.Create(srcImage.GetWidth(), srcImage.GetHeight(), 32, CImage::createAlphaChannel);
-
-		for (int row = 0; row < dstImage.GetHeight(); row++)
-		{
-			for (int col = 0; col < dstImage.GetWidth(); col++)
-			{
-				BYTE* dstPixelEntry = static_cast<BYTE*>(dstImage.GetPixelAddress(col, row));
-				const BYTE* srcPixelEntry = static_cast<const BYTE*>(srcImage.GetPixelAddress(col, row));
-				dstPixelEntry[0] = srcPixelEntry[0];
-				dstPixelEntry[1] = srcPixelEntry[1];
-				dstPixelEntry[2] = srcPixelEntry[2];
-				dstPixelEntry[3] = 0xFF;
-			}
-		}
-	}
 
 } // End of namespace slcimage

@@ -5,6 +5,7 @@
 
 namespace slutil
 {
+	// Both of the Alignment below are GPU alignment !
 	static const unsigned int SL_DEFAULT_STORAGE_PACKING_AlignmentSize = 4;
 	static const unsigned int SL_MIN_STORAGE_PACKING_AlignmentSize = 1;
 

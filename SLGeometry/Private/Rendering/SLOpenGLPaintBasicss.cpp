@@ -22,6 +22,9 @@ namespace slgeom
 	{
 		if (m_LinearImageBufferEntry != nullptr)
 		{
+			// A valid OpenGL context is required !
+			assert(wglGetCurrentContext());
+
 			// m_TextureID must be initialed along with m_ImageBufferEntry
 			assert(glIsTexture(m_TextureID));
 			glDeleteTextures(1, &m_TextureID);

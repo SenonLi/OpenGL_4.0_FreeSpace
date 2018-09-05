@@ -25,7 +25,6 @@ namespace slcimage
 
 	/// <remark>CImage::BitBlt won't work with alpha channel, we have to set pixel one by one</remark>
 	void Convert8bitTo32Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
-	void Convert24bitTo32Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage);
 
 
 
