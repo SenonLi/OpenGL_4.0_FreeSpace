@@ -39,7 +39,6 @@ namespace slcimage
 	void StretchImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage)
 	{
 		assert(!srcImage.IsNull() && srcImage != dstImage && widthInPixel > 0);
-		if (!dstImage.IsNull())         dstImage.Destroy();
 
 		int srcBitsCount = srcImage.GetBPP();
 		double imageAspectRatio = static_cast<double>( srcImage.GetHeight() ) / srcImage.GetWidth() ;

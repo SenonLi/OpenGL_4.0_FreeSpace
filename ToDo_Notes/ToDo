@@ -1,6 +1,8 @@
 To Do:
 
-1. class LibreImagePaintable : public SLLibreImage
+0. Use std::unordered_map<SLLibreImagePaintable, GLTextureID> such that whenever paintable is gone, GLTextureID could be removed
+
+
 2. put LibreImageCImageHandles.h into private folder, split SLDigitalImageProcess
 
 

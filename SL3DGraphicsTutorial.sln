@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Items", "External 
 		ToDo_Notes\C++_Standard = ToDo_Notes\C++_Standard
 		ToDo_Notes\Compiler_Linker = ToDo_Notes\Compiler_Linker
 		ToDo_Notes\Git = ToDo_Notes\Git
+		ToDo_Notes\ImageProcess = ToDo_Notes\ImageProcess
 		ToDo_Notes\Installer = ToDo_Notes\Installer
 		ToDo_Notes\MFC = ToDo_Notes\MFC
 		ToDo_Notes\OpenCV = ToDo_Notes\OpenCV

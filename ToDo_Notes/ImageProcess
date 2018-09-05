@@ -1,0 +1,3 @@
+1. JPG doesn't support 32bit image saving
+2. Image require Padding to guarrentee 4 bytes block pixel Address accessing.
+
