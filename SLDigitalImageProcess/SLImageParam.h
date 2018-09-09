@@ -86,13 +86,6 @@ namespace sldip
 		// When image is loaded into CImage (linear CPU memory), m_LinearBufferEntry is beginning Byte address.
 		// Just an EntryAddress, not responsible for allocate/deallocate
 		const BYTE* m_LinearBufferEntry = nullptr;
-
-
-		inline void SetWidth(unsigned int width) { m_Width = width; }
-		inline void SetHeight(unsigned int height) { m_Height = height; }
-		inline void SetPitch(int pitch) { m_Pitch = pitch; }
-		inline void SetImageColorType(SLLibreColorType channels) { m_ImageColorType = channels; }
-		inline void SetLinearBufferEntry(const BYTE* entry) { m_LinearBufferEntry = entry; }
 	};
 
 

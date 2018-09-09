@@ -41,6 +41,7 @@ namespace slutil
 		const unsigned long long GetTotalBytes() const { return m_TotalBytes; }
 
 	protected:
+		// Equivalent to std::shared_ptr<std::vector<BYTE>> when no alignment is set up
 		std::shared_ptr<SLAlignedMemoryBuffer> m_SharedBuffer;
 		unsigned long long m_TotalBytes = 0;
 
