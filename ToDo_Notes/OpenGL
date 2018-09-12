@@ -1,4 +1,14 @@
 
+#Error:
+#1.
+glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureParam.Width(), textureParam.Height(), 0, GL_BGR, GL_UNSIGNED_BYTE, textureParam.LinearBufferEntry());
+glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+if using glPixelStorei(GL_PACK_ALIGNMENT, 1) after glTexImage2D, texture after this one may not be renderered correctly, e.g., freetype font will be vague.
+
+
+
 ## Collision Detection
 * Axis-Aligned Bounding Box
 * Circle to AABB, Clamp --> Closest Point

@@ -1,3 +1,4 @@
+
 # ShortCut Setting
 You have been asked what keyboard binding you want to use at the first use of Visual Studio.
 F7 is still available if you answer "C++". If you've chosen the default setting, you have Ctrl-Shift-B as Build command.

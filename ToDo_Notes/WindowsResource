@@ -1,0 +1,24 @@
+
+## How to add a resource:
+To include resources in your Windows-based application with RC, do the following:
+
+1. Create individual files for your cursors, icons, bitmaps, dialog boxes, and fonts.
+2. Create a resource-definition script (.rc file) that describes the resources used by your application.
+3. Compile the script with RC. For more information, see Using RC (The RC Command Line).
+4. Link the compiled resource (.res) file into the application's executable file with your linker.
+
+*. https://docs.microsoft.com/en-us/windows/desktop/menurc/about-resource-files
+*. User-Defined Resource
+https://docs.microsoft.com/en-us/windows/desktop/menurc/user-defined-resource
+
+
+## Resource-Definition Statements 
+The resource-definition statements define the resources that the resource compiler puts in the resource (.Res) file. 
+After the .Res file is linked to the executable file, the application can load its resources at run time as needed.
+All resource statements associate an identifying name or number with a given resource.
+
+The resource-definition statements can be divided into the following categories:
+1. Resources
+2. Controls
+3. Statements
+

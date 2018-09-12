@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Items", "External 
 		ToDo_Notes\ToDo = ToDo_Notes\ToDo
 		ToDo_Notes\Versions_GitTag = ToDo_Notes\Versions_GitTag
 		ToDo_Notes\VisualStudio = ToDo_Notes\VisualStudio
+		ToDo_Notes\WindowsResource = ToDo_Notes\WindowsResource
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SLInternalUtility", "SLInternalUtility\SLInternalUtility.vcxproj", "{11478A94-C9ED-45E0-B0B8-7A0774152BDF}"

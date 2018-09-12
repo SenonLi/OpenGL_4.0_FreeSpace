@@ -27,7 +27,10 @@
     <Filter Include="Source Files\Paintables">
       <UniqueIdentifier>{e99f2c41-4108-4d0a-b79f-a4dab58ac2c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
+    <Filter Include="Resources">
+      <UniqueIdentifier>{89ed83c2-eed0-4577-af73-f4dd4ab684c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
       <UniqueIdentifier>{4bc18354-a1bf-4f84-8d8f-d16bb71895ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -53,6 +56,9 @@
     <ClInclude Include="Private\Rendering\SLShaderProgram.h">
       <Filter>Private Headers\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Private\Resources\SLGLShadersResource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -76,10 +82,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Private\Shaders\SLTexture2DCoords.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Resources\Shaders</Filter>
     </None>
     <None Include="Private\Shaders\SLTexture2DCoords.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Resources\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Private\Resources\SLGLShaders.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -181,6 +181,7 @@
   <ItemGroup>
     <ClInclude Include="Private\Rendering\SLAbstractRenderer.h" />
     <ClInclude Include="Private\Rendering\SLShaderProgram.h" />
+    <ClInclude Include="Private\Resources\SLGLShadersResource.h" />
     <ClInclude Include="Public\Paintables\SLLibreImagePaintable.h" />
     <ClInclude Include="Public\Rendering\SLOpenGLPaintBasicss.h" />
     <ClInclude Include="Public\Rendering\SLTexture2D_Renderer.h" />
@@ -236,6 +237,9 @@
   <ItemGroup>
     <None Include="Private\Shaders\SLTexture2DCoords.frag" />
     <None Include="Private\Shaders\SLTexture2DCoords.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Private\Resources\SLGLShaders.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
