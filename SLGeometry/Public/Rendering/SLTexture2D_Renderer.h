@@ -35,10 +35,6 @@ namespace slgeom
 		GLuint m_IndicesBufferObject = 0;
 		GLuint m_TextureShaderProgram = 0;
 
-		// Relative Address start from the project file .proj where instance SLTexture2D_Renderer, which is now in folder SLUnit_VisualTest
-		const std::string m_Texture2DShaderVert = "../../SLGeometry/Private/Shaders/SLTexture2DCoords.vert";
-		const std::string m_Texture2DShaderFrag = "../../SLGeometry/Private/Shaders/SLTexture2DCoords.frag";
-
 		void InitVertexArrayObject();
 		void InitShadersAndVertices();
 		void ResetShadersAndVertices();

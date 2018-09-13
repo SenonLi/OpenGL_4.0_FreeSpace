@@ -25,7 +25,6 @@ namespace slgeom
 
 	typedef struct {
 		GLenum       type;
-		const char*  filename;
 		int          resourceID;
 		GLuint       shader;
 	}PipelineShaders;

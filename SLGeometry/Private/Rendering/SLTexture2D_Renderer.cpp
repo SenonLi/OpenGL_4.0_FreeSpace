@@ -10,6 +10,9 @@
 #include "SLShaderProgram.h"
 #include "../Resources/SLGLShadersResource.h"
 
+static const int TEXTURE_2D_COORDS_VERT = IDR_SLTEXTURE_2D_COORDS_VERT;
+static const int TEXTURE_2D_COORDS_FRAG = IDR_SLTEXTURE_2D_COORDS_FRAG;
+
 namespace slgeom
 {
 	SLTexture2D_Renderer::SLTexture2D_Renderer()
@@ -26,8 +29,8 @@ namespace slgeom
 	{
 		// Prepare ShaderProgram
 		PipelineShaders shaders[] = {
-			{ GL_VERTEX_SHADER, m_Texture2DShaderVert.c_str(),  IDR_SLTEXTURE_2D_COORDS_VERT },
-			{ GL_FRAGMENT_SHADER, m_Texture2DShaderFrag.c_str(), IDR_SLTEXTURE_2D_COORDS_FRAG },
+			{ GL_VERTEX_SHADER, TEXTURE_2D_COORDS_VERT },
+			{ GL_FRAGMENT_SHADER, TEXTURE_2D_COORDS_FRAG },
 			{ GL_NONE, NULL }
 		};
 		m_TextureShaderProgram = CreatePipelineShaderProgram(shaders);

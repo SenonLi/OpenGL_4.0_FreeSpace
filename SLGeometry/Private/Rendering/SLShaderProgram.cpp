@@ -13,48 +13,13 @@
 
 namespace slgeom
 {
-
-//	static const GLchar* ReadShaderFile(const char* filename)
-//	{
-//		//std::Tstring fullPath = FolderUtility::GetInstance()->GetBuildit_Exe_Path() + filename;
-//		//FILE * infile = _tfsopen(fullPath.c_str(), L"rb", _SH_DENYWR);
-//		//ASSERT_AND_RETURN(infile, nullptr, L"Invalid shader file, code must be rewviewed!!");
-//
-//#ifdef WIN32
-//		FILE* infile;
-//		fopen_s(&infile, filename, "rb");
-//#else
-//		FILE* infile = fopen(filename, "rb");
-//#endif // WIN32
-//
-//		if (!infile) {
-//#ifdef _DEBUG
-//			std::cerr << "Unable to open file '" << filename << "'" << std::endl;
-//#endif /* DEBUG */
-//			return NULL;
-//		}
-//
-//		fseek(infile, 0, SEEK_END);
-//		size_t len = ftell(infile);
-//		fseek(infile, 0, SEEK_SET);
-//
-//		GLchar * source = new GLchar[len + 1];
-//
-//		fread(source, 1, len, infile);
-//		fclose(infile);
-//
-//		source[len] = 0;
-//
-//		return source;
-//	}
-
 	/// <summary>Loads the program from the embedded resources, using the resource ID</summary>
 	/// <param name="sourceID">The resouce ID</param>
 	/// <returns>The program source, or empty on error (an assert will be triggered)</returns>
 	/// <remark>This function should be put into slutil::FileManager.h !! </remark>
 	/// <remark>This function should be put into slutil::FileManager.h !! </remark>
 	/// <remark>This function should be put into slutil::FileManager.h !! </remark>
-	static std::unique_ptr<std::string> LoadSourceFromResources(int resourceID)
+	static std::unique_ptr<std::string> LoadGLShaderFromResources(int resourceID)
 	{
 		LPCWSTR resourceIDName = MAKEINTRESOURCE(resourceID);
 		assert(resourceIDName);
@@ -91,23 +56,9 @@ namespace slgeom
 		PipelineShaders* entry = shaders;
 		while (entry->type != GL_NONE) {
 			GLuint shader = glCreateShader(entry->type);
-
 			entry->shader = shader;
 
-			//const GLchar* source = ReadShaderFile(entry->filename);
-			//if (source == NULL) {
-			//	for (entry = shaders; entry->type != GL_NONE; ++entry) {
-			//		glDeleteShader(entry->shader);
-			//		entry->shader = 0;
-			//	}
-
-			//	return 0;
-			//}
-
-			//glShaderSource(shader, 1, &source, NULL);
-			//delete[] source;
-
-			std::unique_ptr<std::string> shaderSource = LoadSourceFromResources(entry->resourceID);
+			std::unique_ptr<std::string> shaderSource = LoadGLShaderFromResources(entry->resourceID);
 			if (shaderSource == NULL) {
 				for (entry = shaders; entry->type != GL_NONE; ++entry) {
 					glDeleteShader(entry->shader);
