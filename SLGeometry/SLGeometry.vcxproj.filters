@@ -89,7 +89,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Private\Resources\SLGLShaders.rc">
+    <ResourceCompile Include="Private\Resources\SLGLShadersResource.rc">
       <Filter>Resources</Filter>
     </ResourceCompile>
   </ItemGroup>

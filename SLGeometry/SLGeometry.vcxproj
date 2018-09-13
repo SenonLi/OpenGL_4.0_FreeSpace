@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -239,7 +240,7 @@
     <None Include="Private\Shaders\SLTexture2DCoords.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Private\Resources\SLGLShaders.rc" />
+    <ResourceCompile Include="Private\Resources\SLGLShadersResource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

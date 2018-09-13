@@ -8,6 +8,7 @@
 #include "../../Public/Rendering/SLTexture2D_Renderer.h"
 #include "../../Public/Paintables/SLLibreImagePaintable.h"
 #include "SLShaderProgram.h"
+#include "../Resources/SLGLShadersResource.h"
 
 namespace slgeom
 {
@@ -25,8 +26,8 @@ namespace slgeom
 	{
 		// Prepare ShaderProgram
 		PipelineShaders shaders[] = {
-			{ GL_VERTEX_SHADER, m_Texture2DShaderVert.c_str() },
-			{ GL_FRAGMENT_SHADER, m_Texture2DShaderFrag.c_str() },
+			{ GL_VERTEX_SHADER, m_Texture2DShaderVert.c_str(),  IDR_SLTEXTURE_2D_COORDS_VERT },
+			{ GL_FRAGMENT_SHADER, m_Texture2DShaderFrag.c_str(), IDR_SLTEXTURE_2D_COORDS_FRAG },
 			{ GL_NONE, NULL }
 		};
 		m_TextureShaderProgram = CreatePipelineShaderProgram(shaders);

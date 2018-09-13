@@ -1,3 +1,7 @@
+## ID Naming and Numbering Conventions
+Search for "msdn resource id range"
+https://docs.microsoft.com/en-us/cpp/mfc/tn020-id-naming-and-numbering-conventions?view=vs-2017
+
 
 ## How to add a resource:
 To include resources in your Windows-based application with RC, do the following:

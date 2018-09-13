@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -111,8 +112,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world341d.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SLGLShadersResource.res;opencv_world341d.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -136,8 +137,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SLGLShadersResource.res;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -166,8 +167,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;SLGLShadersResource.res;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -196,8 +197,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;SLGLShadersResource.res;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -224,6 +225,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SL3DPlayers\SLGlfw3DPlayer\SLGlfw3DPlayer.vcxproj">
       <Project>{74a32730-3c63-47a6-9139-e4f92153722a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLGeometry\SLGeometry.vcxproj">
+      <Project>{fbad3379-0229-42e9-bde5-a5d024c1e88b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\SLImageLibraries\SLOpenCVProcess\SLOpenCVProcess.vcxproj">
       <Project>{8bda7646-d78e-4bc1-a47a-1f738ad56464}</Project>

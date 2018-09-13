@@ -57,3 +57,17 @@ combination of colors from the object itself and any other object behind it with
 * For each character, we retrieve glyph, generate a texture, set its options and store its metrics.
 * use GL_RED as the glyph texture’s internalFormat and format arguments
 * TrueType texture 8-bit grayscale: (restriction of OpenGL) glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+
+
+## Texture Resources
+For concepts of 
+* 2D Texture and 2D Texture Array
+* 3D Texture
+* Subresources
+* Array Slice
+* Mip Slice
+* Selecting a Single Subresource
+* Selecting Multiple Subresources
+
+https://docs.microsoft.com/en-us/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types
