@@ -15,6 +15,10 @@ To include resources in your Windows-based application with RC, do the following
 *. User-Defined Resource
 https://docs.microsoft.com/en-us/windows/desktop/menurc/user-defined-resource
 
+Remark:
+A success compilation (generation of .res file) of .rc along with resource.h is not enough to make it work;
+after compiling, we still need to link .res into the exe project like how you link a library, and add the corresponding path;
+only after linking, the exe would be able to find the compiled resource!
 
 ## Resource-Definition Statements 
 The resource-definition statements define the resources that the resource compiler puts in the resource (.Res) file. 

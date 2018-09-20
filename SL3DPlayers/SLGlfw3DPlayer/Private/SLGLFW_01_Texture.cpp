@@ -45,15 +45,18 @@ void SLGLFW_01_Texture::PostPaintProcess()
 	sldip::GetGrascaledImage(m_LibreImage, gayscaledImage);
 	sldip::SaveToImageFile(gayscaledImage, m_SaveFolderPath, L"GrayScaled.png", sldip::SLImageFileType::IMAGE_PNG);
 
-	sldip::HistorgramEqualization(gayscaledImage);
+	//sldip::HistorgramEqualization(gayscaledImage);
 
-	sldip::SaveToImageFile(gayscaledImage, m_SaveFolderPath, L"HistogramEqualization.png", sldip::SLImageFileType::IMAGE_PNG);
+	//sldip::SaveToImageFile(gayscaledImage, m_SaveFolderPath, L"HistogramEqualization.png", sldip::SLImageFileType::IMAGE_PNG);
 }
 
 
 void SLGLFW_01_Texture::LoadTexture()
 {
 	//sldip::LoadImageParam(m_LibreImage, m_ImagePath);
+
+	/// <remark>When loading image with BPP less than 8, isLoadNon8bit should be true, otherwise, current shader cannot tell the color,
+	///          basically all the screen will be black. </remark>
 	bool isLoadNon8bit = true;
 	sldip::LoadImageParam(m_LibreImage, m_ImagePath, isLoadNon8bit);
 

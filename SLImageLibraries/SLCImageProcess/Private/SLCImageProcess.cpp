@@ -70,13 +70,28 @@ namespace slcimage
 	}// End of GetSmallerImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage)
 
 
-	/// <summary>Will help save cost when loading 8bit (GrayScaled) images need to go between CImage and LibreImage </summary>
-	void Convert8bitTo24Bit(const ATL::CImage& srcImage, ATL::CImage& dstImage)
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
+	/// <summary>Converting 1Bit/4Bit image to 8Bit/24Bit, help low bit image loading for LibreImage</summary>
+	void Convert8BitBelowToAbove(const ATL::CImage& srcImage, int dstBitPerPixel, ATL::CImage& dstImage)
 	{
-		assert(!srcImage.IsNull() && srcImage != dstImage && srcImage.GetBPP() == 8);
+		assert(!srcImage.IsNull() && srcImage != dstImage && srcImage.GetBPP() <= 8 && srcImage.GetBPP() < dstBitPerPixel);
+		assert(dstBitPerPixel == 1 || dstBitPerPixel == 4 || dstBitPerPixel == 8 // GrayScaled
+			|| dstBitPerPixel == 24 || dstBitPerPixel == 32);                    // Colored
 
 		if (!dstImage.IsNull())     dstImage.Destroy();
-		dstImage.Create(srcImage.GetWidth(), srcImage.GetHeight(), 24, 0);
+		dstImage.Create(srcImage.GetWidth(), srcImage.GetHeight(), dstBitPerPixel, 0);
+
+		// For 8bit CImage, we need to copy the ColorTable after image creation
+		if (dstImage.IsIndexed()) {
+			// 8-bit: 0x100000000 = 256, in the same way, 4-bit: 0x10000 = 16, 2-bit: 0x100 = 4, 1-bit: 0x10 = 2
+			int nColors = srcImage.GetMaxColorTableEntries();
+			if (nColors > 0) {
+				std::vector<RGBQUAD> rgbColors(nColors);
+				srcImage.GetColorTable(0, nColors, rgbColors.data());
+				dstImage.SetColorTable(0, nColors, rgbColors.data());
+			}
+		}
 
 		srcImage.BitBlt(dstImage.GetDC(), 0, 0, SRCCOPY);
 		dstImage.ReleaseDC(); // Remember to dstImage.ReleaseDC() after dstImage.GetDC()

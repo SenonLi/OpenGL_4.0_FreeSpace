@@ -225,11 +225,11 @@ namespace sldip
 		tmpLoader.Load(filePath);
 		assert(!tmpLoader.IsNull()); // failed to load image file or Param
 
-		if (IsLoadNon8bit && tmpLoader.GetBPP() == slutil::GRAYSCALED_IMAGE_BIT_PER_PIXEL)
+		if (IsLoadNon8bit && tmpLoader.GetBPP() <= slutil::GRAYSCALED_IMAGE_BIT_PER_PIXEL)
 		{
 			// Need to Get 24bit CImage first, then duplicate to LibreImage, which could save Per-Pixel Copy
 			CImage tmp24bit;
-			slcimage::Convert8bitTo24Bit(tmpLoader, tmp24bit);
+			slcimage::Convert8BitBelowToAbove(tmpLoader, 24, tmp24bit);
 			sldip::DuplicateImage(tmp24bit, targetImageLoader);
 		}else 
 			sldip::DuplicateImage(tmpLoader, targetImageLoader);

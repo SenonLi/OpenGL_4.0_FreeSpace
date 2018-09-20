@@ -4,21 +4,21 @@
 #include "SLImageParam.h"
 #include "SLLibreImage.h"
 #include "SLDigitalImageProcess.h" // For basic sldip static const definition
+#include "StaticConstBasics\SLGeneralImageBasics.h"
 
 #include <vector>
 
 namespace sldip
 {
-	//====================================================================================================================
-	//--------------------------------------------------------------------------------------------------------------------
-	void DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
+	static void DuplicateLibreSupportedImage(const CImage& srcImage, SLLibreImage& dstImage)
 	{
-		assert(!srcImage.IsNull());
+		assert(!srcImage.IsNull() && srcImage.GetBPP() >= 8);
 		dstImage.CreateLibreImage(srcImage.GetWidth(), srcImage.GetHeight(), sldip::GetImage2DColorType(srcImage));
 		assert(!dstImage.IsNull());
 
 		int srcPitch = srcImage.GetPitch();
 		int dstPitch = dstImage.GetPitch();
+		assert(std::abs(srcPitch) == std::abs(dstPitch));
 
 		const BYTE* srcBottomLineDataEntry = static_cast<const BYTE*>(srcImage.GetBits());
 		BYTE* dstDataEntry = dstImage.GetBufferEntryForEdit();
@@ -27,7 +27,22 @@ namespace sldip
 		{
 			// Attention!! :  Must use int for BYTE* address seeking !
 			// For Example:   BYTE* bufferEntry = srcBottomLineDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch() // image.GetPitch() < 0
-			memcpy(dstDataEntry + static_cast<int>( row * dstPitch), srcBottomLineDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
+			memcpy(dstDataEntry + static_cast<int>(row * dstPitch), srcBottomLineDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
+		}
+	}
+
+	//====================================================================================================================
+	//--------------------------------------------------------------------------------------------------------------------
+	void DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
+	{
+		assert(!srcImage.IsNull());
+		if (srcImage.GetBPP() >= slutil::GRAYSCALED_IMAGE_BIT_PER_PIXEL)
+			DuplicateLibreSupportedImage(srcImage, dstImage);
+		else {
+			// LibreImage does not support BPP smaller than 8, we Need to Get 8bit CImage first, then duplicate to LibreImage
+			CImage tmp8bit;
+			slcimage::Convert8BitBelowToAbove(srcImage, 8, tmp8bit);
+			DuplicateLibreSupportedImage(tmp8bit, dstImage);
 		}
 	}// End of DuplicateImage(const CImage& srcImage, SLLibreImage& dstImage)
 
@@ -81,7 +96,11 @@ namespace sldip
 		assert(!image.IsNull());
 		SLLibreColorType resultColorType = SLLibreColorType::LibreColorUndefined;
 
-		unsigned int channels = static_cast<unsigned int>(image.GetBPP() / sldip::BIT_NUM_IN_ONE_BYTE);
+		unsigned int channels = CHANNEL_NUM_ColorUndefined;
+		if (image.GetBPP() < 8)
+			channels = CHANNEL_NUM_ColorGray;
+		else
+			channels = static_cast<unsigned int>(image.GetBPP() / sldip::BIT_NUM_IN_ONE_BYTE);
 		switch (channels)
 		{
 			case CHANNEL_NUM_ColorGray:     resultColorType = SLLibreColorType::LibreColorGray;		break;
