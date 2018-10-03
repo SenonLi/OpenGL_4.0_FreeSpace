@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\Debug\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SLGLShadersResource.res;opencv_world341d.lib;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -137,7 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\Debug\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SLGLShadersResource.res;glew32d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -167,8 +167,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;SLGLShadersResource.res;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib32\Release\GLFW;S:\OpenCV3\Lib32\LeastCombinedStatic\Release;S:\OpenCV3\Lib32\3rd_Party\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SLGLShadersResource.res;glew32.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;libjpeg.lib;libpng.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -197,8 +197,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>/NODEFAULTLIB:msvcrt.lib;SLGLShadersResource.res;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\Release\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SLGLShadersResource.res;opencv_world341.lib;glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

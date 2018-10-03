@@ -11,9 +11,13 @@ http://msdn.microsoft.com/en-us/library/4khtbfyf.aspx
 
 
 Input Libraries:
+cmake -G "Visual Studio 17 Win64" ..
 
 /NODEFAULTLIB:msvcrtd.lib;      // For avoid warning after using GLFW_GLEW
-              warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+  warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs;
+  Solution: 
+  1. add "/NODEFAULTLIB:library;" to project settings "linker" -> "Input" -> "Additional Dependencies";
+  2. Recompile GLFW to get new GLFW3.lib, with exact same setting with you solution, for both Release and Debug
 
 opencv_world341.lib;            // OpenCV Image Process, using official Dynamic OpenCV library, but still need a small static lib
 glew32.lib;                     // OpenGL function extension Wrangller
