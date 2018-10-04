@@ -1,8 +1,9 @@
 #include "../stdafx.h"
-
 #include "SLCImageProcess.h"
 
 #include <vector>
+#include <wincodec.h> // for COM: IWICImagingFactory / IWICBitmapScaler
+#include <VersionHelpers.h>
 
 namespace slcimage
 {
@@ -53,6 +54,7 @@ namespace slcimage
 		else                    dstImage.Create(dstImageWidth, dstImageHeight, srcBitsCount, 0);
 
 		// For 8bit CImage, we need to copy the ColorTable after image creation
+		// IWICBitmapScaler::CopyPixels will always fail on 8bit image and BPP smaller than 8, can only use StretchBlt
 		if (srcImage.IsIndexed()) {
 			// 8-bit: 0x100000000 = 256, in the same way, 4-bit: 0x10000 = 16, 2-bit: 0x100 = 4, 1-bit: 0x10 = 2
 			int nColors = srcImage.GetMaxColorTableEntries();
@@ -61,38 +63,47 @@ namespace slcimage
 				srcImage.GetColorTable(0, nColors, rgbColors.data());
 				dstImage.SetColorTable(0, nColors, rgbColors.data());
 			}
+
+			HDC dstHDC = dstImage.GetDC();
+			SetBrushOrgEx(dstHDC, 0, 0, nullptr);
+			SetStretchBltMode(dstHDC, HALFTONE);
+			srcImage.StretchBlt(dstHDC, 0, 0, dstImageWidth, dstImageHeight, SRCCOPY);
+			dstImage.ReleaseDC();
 		}
+		else
+		{
+			// Down-Sampling using Bicubic algorithm
+			IWICImagingFactory *imagingFactory;
+			HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+			assert(hr == S_OK);
+			hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&imagingFactory));
+			assert(hr == S_OK);
+			if (hr != S_OK)  return;
 
-		HDC dstHDC = dstImage.GetDC();
-		SetStretchBltMode(dstHDC, COLORONCOLOR);
-		srcImage.StretchBlt(dstHDC, 0, 0, dstImageWidth, dstImageHeight, SRCCOPY);
-		dstImage.ReleaseDC(); // Remember to dstImage.ReleaseDC() after dstImage.GetDC()
+			IWICBitmap* srcIWICBitmap;
+			hr = imagingFactory->CreateBitmapFromHBITMAP(srcImage, 0, WICBitmapUseAlpha, &srcIWICBitmap);
+			IWICBitmapScaler* bitmapScaler;
+			hr = imagingFactory->CreateBitmapScaler(&bitmapScaler);
+			if (IsWindows10OrGreater())
+				hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeHighQualityCubic);
+			else
+				hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeCubic);
 
-		//========== Below is for DownSample Algorithms Testing ===============================================
-		//----------     include #include <wincodec.h> before using IWICBitmapScaler   ------------------------
+			WICRect rect = { 0, 0, dstImageWidth, 1 };
+			int stride = std::abs(dstImage.GetPitch());
+			BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
 
-		//IWICImagingFactory *imagingFactory;
-		//CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&imagingFactory));
-		//IWICBitmap* srcIWICBitmap;
-		//imagingFactory->CreateBitmapFromHBITMAP(srcImage, 0, WICBitmapUseAlpha, &srcIWICBitmap);
-		//IWICBitmapScaler* bitmapScaler;
-		//imagingFactory->CreateBitmapScaler(&bitmapScaler);
-		//bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeCubic);
+			for (int i = 0; i < dstImageHeight; ++i) {
+				hr = bitmapScaler->CopyPixels(&rect, stride, stride, bufferEntry);
+				bufferEntry -= stride;
+				rect.Y += 1;
+			}
 
-		//WICRect rect = { 0, 0, dstImageWidth, 1 };
-		//int stride = std::abs(dstImage.GetPitch());
-		//BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
+			bitmapScaler->Release();
+			imagingFactory->Release();
 
-		//for (int i = 0; i < dstImageHeight; ++i)
-		//{
-		//	bitmapScaler->CopyPixels(&rect, stride, stride, bufferEntry);
-		//	bufferEntry -= stride;
-		//	rect.Y += 1;
-		//}
-
-		//bitmapScaler->Release();
-		//imagingFactory->Release();
-
+			CoUninitialize();
+		}
 	}// End of GetSmallerImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage)
 
 
