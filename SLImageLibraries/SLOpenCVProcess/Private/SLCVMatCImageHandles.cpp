@@ -66,6 +66,8 @@ namespace slopencv
 			out.Destroy();
 		if (in.type() == CV_8UC1) // single channel
 			out.Create(in.cols, in.rows, in.channels() * slutil::BYTE_IMAGE_SINGLE_CHANNEL_BITS * 3);//CImage doesn't support 8bit single pixel color change
+		else if (in.type() == CV_8UC4)
+			out.Create(in.cols, in.rows, in.channels() * slutil::BYTE_IMAGE_SINGLE_CHANNEL_BITS, CImage::createAlphaChannel);
 		else
 			out.Create(in.cols, in.rows, in.channels() * slutil::BYTE_IMAGE_SINGLE_CHANNEL_BITS);
 

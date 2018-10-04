@@ -10,3 +10,7 @@ OpenCV 3.4.1 : Remember to configure in CMake GUI instead of cmd when compiling 
 4. Have to choose World (combined) module in order to get samples projects;
    if it were set as dll libraries, hard to change to static while make all examples work;
 5. Make sure Modules output folder is where the test_examples are looking for.
+
+
+## OpenCV Bug:
+1. cv::imshow cannot show alpha channel correctly; it will show only RGB, not RGBA unless using layer;
