@@ -113,5 +113,28 @@ namespace slopencv
 		} // End of switch (in.channels())
 	}// End of ConvertCVMatToCImage(const cv::Mat& in, CImage& out)
 
+	
+	/// <summary>Get down-sampled CImage based on maxWidthInPixel from raw image stream </summary>
+	/// <param name="srcEncodedImage">Source Image Stream read from raw image file [IN]</param>
+	/// <param name="maxWidthInPixel">Down-sampled image width [IN]</param>
+	/// <param name="dstImage">Down-sampled CImage [OUT]</param>
+	void GetSmallerImageByWidth(const std::vector<BYTE>& srcEncodedImage, int maxWidthInPixel, CImage& dstImage)
+	{
+		assert(!srcEncodedImage.empty());
+
+		cv::Mat fullImage = cv::imdecode(cv::Mat(srcEncodedImage), cv::IMREAD_UNCHANGED);
+		assert(!fullImage.empty() && fullImage.depth() == CV_8U);
+
+		if (fullImage.type() == CV_8UC1)
+			cv::cvtColor(fullImage, fullImage, cv::COLOR_GRAY2RGB);
+
+		if (fullImage.cols > maxWidthInPixel)
+		{
+			cv::Size newSize(maxWidthInPixel, static_cast<int>(static_cast<double>(fullImage.rows) / fullImage.cols * maxWidthInPixel));
+			cv::resize(fullImage, fullImage, newSize, 0, 0, cv::INTER_CUBIC);
+		}
+
+		ConvertCVMatToCImage(fullImage, dstImage);
+	}// End of GetImageByWidth(const std::vector<BYTE>& srcEncodedImage, int maxWidthInPixel, CImage& dstImage)
 
 } // End of namespace slopencv
