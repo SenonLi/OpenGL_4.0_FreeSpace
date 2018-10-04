@@ -67,6 +67,32 @@ namespace slcimage
 		SetStretchBltMode(dstHDC, COLORONCOLOR);
 		srcImage.StretchBlt(dstHDC, 0, 0, dstImageWidth, dstImageHeight, SRCCOPY);
 		dstImage.ReleaseDC(); // Remember to dstImage.ReleaseDC() after dstImage.GetDC()
+
+		//========== Below is for DownSample Algorithms Testing ===============================================
+		//----------     include #include <wincodec.h> before using IWICBitmapScaler   ------------------------
+
+		//IWICImagingFactory *imagingFactory;
+		//CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&imagingFactory));
+		//IWICBitmap* srcIWICBitmap;
+		//imagingFactory->CreateBitmapFromHBITMAP(srcImage, 0, WICBitmapUseAlpha, &srcIWICBitmap);
+		//IWICBitmapScaler* bitmapScaler;
+		//imagingFactory->CreateBitmapScaler(&bitmapScaler);
+		//bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeCubic);
+
+		//WICRect rect = { 0, 0, dstImageWidth, 1 };
+		//int stride = std::abs(dstImage.GetPitch());
+		//BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
+
+		//for (int i = 0; i < dstImageHeight; ++i)
+		//{
+		//	bitmapScaler->CopyPixels(&rect, stride, stride, bufferEntry);
+		//	bufferEntry -= stride;
+		//	rect.Y += 1;
+		//}
+
+		//bitmapScaler->Release();
+		//imagingFactory->Release();
+
 	}// End of GetSmallerImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage)
 
 
