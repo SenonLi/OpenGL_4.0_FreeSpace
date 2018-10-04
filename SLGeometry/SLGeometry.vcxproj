@@ -134,6 +134,9 @@
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <Lib>
+      <AdditionalOptions>/machine:x86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -156,6 +159,9 @@
     <BuildLog>
       <Path>..\$(IntDir)$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <Lib>
+      <AdditionalOptions>/machine:x86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

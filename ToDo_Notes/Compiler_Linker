@@ -13,11 +13,21 @@ http://msdn.microsoft.com/en-us/library/4khtbfyf.aspx
 Input Libraries:
 cmake -G "Visual Studio 17 Win64" ..
 
+Typical Bug #1:
 /NODEFAULTLIB:msvcrtd.lib;      // For avoid warning after using GLFW_GLEW
   warning LNK4098: defaultlib 'msvcrtd.lib' conflicts with use of other libs;
   Solution: 
   1. add "/NODEFAULTLIB:library;" to project settings "linker" -> "Input" -> "Additional Dependencies";
   2. Recompile GLFW to get new GLFW3.lib, with exact same setting with you solution, for both Release and Debug
+
+Typical Bug #2:
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+Culprit: When adding resource in slgeom, resource compiling need to link;
+			however, slgeom is static library instead of executable, there is no settings of "Linker";
+			by default no where to set /MACHINE:x86
+Solution:
+	"Librarian" -> "Command Line" -> "Additional Options", input "/MACHINE:x86"
+
 
 opencv_world341.lib;            // OpenCV Image Process, using official Dynamic OpenCV library, but still need a small static lib
 glew32.lib;                     // OpenGL function extension Wrangller
