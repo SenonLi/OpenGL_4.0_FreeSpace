@@ -28,6 +28,12 @@ Culprit: When adding resource in slgeom, resource compiling need to link;
 Solution:
 	"Librarian" -> "Command Line" -> "Additional Options", input "/MACHINE:x86"
 
+Typical Bug #3:
+warning LNK4020: a type record in 'SLGeometry_ib_1.pdb' is corrupted; some symbols and types may not be accessible from the debugger
+Culprit: the update from old VisualStudio to New added "Whole Program Optimization" in General
+Solution: in release of crupted project, set "Whole Program Optimization" to "No Whole Program Optimization"
+
+
 
 opencv_world341.lib;            // OpenCV Image Process, using official Dynamic OpenCV library, but still need a small static lib
 glew32.lib;                     // OpenGL function extension Wrangller
