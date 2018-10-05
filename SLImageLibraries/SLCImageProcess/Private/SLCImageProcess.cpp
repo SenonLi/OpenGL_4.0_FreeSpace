@@ -56,6 +56,10 @@ namespace slcimage
 		// For 8bit CImage, we need to copy the ColorTable after image creation
 		// IWICBitmapScaler::CopyPixels will always fail on 8bit image and BPP smaller than 8, can only use StretchBlt
 		if (srcImage.IsIndexed()) {
+			// If using IWICBitmapScaler::CopyPixels, IWICBitmapScaler will generate Top-Down image, 
+			// Using StretchBlt, both dstImage and srcImage are Bottom-Up image
+			//dstImage.Create(dstImageWidth, dstImageHeight, srcBitsCount, 0);
+
 			// 8-bit: 0x100000000 = 256, in the same way, 4-bit: 0x10000 = 16, 2-bit: 0x100 = 4, 1-bit: 0x10 = 2
 			int nColors = srcImage.GetMaxColorTableEntries();
 			if (nColors > 0) {
@@ -72,37 +76,55 @@ namespace slcimage
 		}
 		else
 		{
-			// Down-Sampling using Bicubic algorithm
-			IWICImagingFactory *imagingFactory;
+			// Down-Sampling using Bicubic algorithm, COM application
+			// COM is run-time system component and it may fail due to all kind of reasons,
+			// which means any COM runtime error will lead to a crash, so we must check the return value every step
 			HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-			assert(hr == S_OK);
-			hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&imagingFactory));
-			assert(hr == S_OK);
-			if (hr != S_OK)  return;
+			if (SUCCEEDED(hr)) {
+				CComPtr<IWICImagingFactory> imagingFactory;
+				hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&imagingFactory));
+				if (SUCCEEDED(hr))	{
+					CComPtr<IWICBitmap> srcIWICBitmap;
+					hr = imagingFactory->CreateBitmapFromHBITMAP(srcImage, 0, WICBitmapUseAlpha, &srcIWICBitmap);
+					if (SUCCEEDED(hr))	{
+						CComPtr<IWICBitmapScaler> bitmapScaler;
+						hr = imagingFactory->CreateBitmapScaler(&bitmapScaler);
+						if (SUCCEEDED(hr)) {
+							if (IsWindows10OrGreater())
+								hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeHighQualityCubic);
+							else
+								hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeCubic);
+							if (SUCCEEDED(hr)) {
+								WICRect rect = { 0, 0, dstImageWidth, 1 };
+								int stride = std::abs(dstImage.GetPitch());
+								BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
 
-			IWICBitmap* srcIWICBitmap;
-			hr = imagingFactory->CreateBitmapFromHBITMAP(srcImage, 0, WICBitmapUseAlpha, &srcIWICBitmap);
-			IWICBitmapScaler* bitmapScaler;
-			hr = imagingFactory->CreateBitmapScaler(&bitmapScaler);
-			if (IsWindows10OrGreater())
-				hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeHighQualityCubic);
-			else
-				hr = bitmapScaler->Initialize(srcIWICBitmap, dstImageWidth, dstImageHeight, WICBitmapInterpolationModeCubic);
+								for (int i = 0; i < dstImageHeight; ++i) {
+									hr = bitmapScaler->CopyPixels(&rect, stride, stride, bufferEntry);
+									if (FAILED(hr)) break;
+									bufferEntry -= stride;
+									rect.Y += 1;
+								}
+							}
+						}
+					}
+				}
 
-			WICRect rect = { 0, 0, dstImageWidth, 1 };
-			int stride = std::abs(dstImage.GetPitch());
-			BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
+				CoUninitialize();
+			} // End of if ( SUCCEEDED( CoInitializeEx(..) ))
 
-			for (int i = 0; i < dstImageHeight; ++i) {
-				hr = bitmapScaler->CopyPixels(&rect, stride, stride, bufferEntry);
-				bufferEntry -= stride;
-				rect.Y += 1;
+			assert(hr == S_OK);// COM failure, code should be reviewed !!
+			if (FAILED(hr))	{
+				HDC dstHDC = dstImage.GetDC();
+				if (srcBitsCount == 32)
+					SetStretchBltMode(dstHDC, COLORONCOLOR);// HALFTONE doesn't support alpha channel
+				else {
+					SetBrushOrgEx(dstHDC, 0, 0, nullptr);
+					SetStretchBltMode(dstHDC, HALFTONE);
+				}
+				srcImage.StretchBlt(dstHDC, 0, 0, dstImageWidth, dstImageHeight, SRCCOPY);
+				dstImage.ReleaseDC();
 			}
-
-			bitmapScaler->Release();
-			imagingFactory->Release();
-
-			CoUninitialize();
 		}
 	}// End of GetSmallerImageByWidth(const ATL::CImage& srcImage, int widthInPixel, ATL::CImage& dstImage)
 
