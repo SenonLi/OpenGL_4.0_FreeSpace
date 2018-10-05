@@ -20,14 +20,20 @@ namespace sldip
 		int dstPitch = dstImage.GetPitch();
 		assert(std::abs(srcPitch) == std::abs(dstPitch));
 
-		const BYTE* srcBottomLineDataEntry = static_cast<const BYTE*>(srcImage.GetBits());
+		const BYTE* srcFirstPixelDataEntry = static_cast<const BYTE*>(srcImage.GetBits());
 		BYTE* dstDataEntry = dstImage.GetBufferEntryForEdit();
 
-		for (unsigned int row = 0; row < dstImage.GetHeight(); row++)
+		// Pitch > 0, image is Top-Down; Pitch < 0, image is Bottom-Up.
+		if(srcPitch > 0)
+			memcpy(dstDataEntry, srcFirstPixelDataEntry, srcPitch * srcImage.GetHeight() );
+		else
 		{
-			// Attention!! :  Must use int for BYTE* address seeking !
-			// For Example:   BYTE* bufferEntry = srcBottomLineDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch() // image.GetPitch() < 0
-			memcpy(dstDataEntry + static_cast<int>(row * dstPitch), srcBottomLineDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
+			for (unsigned int row = 0; row < dstImage.GetHeight(); row++)
+			{
+				// Attention!! :  Must use int for BYTE* address seeking !
+				// For Example:   BYTE* bufferEntry = srcFirstPixelDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch() // image.GetPitch() < 0
+				memcpy(dstDataEntry + static_cast<int>(row * dstPitch), srcFirstPixelDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
+			}
 		}
 	}
 
@@ -58,25 +64,28 @@ namespace sldip
 		int srcWidth = srcImage.GetWidth();
 		int srcHeight = srcImage.GetHeight();
 
-		if (srcBitsCount == 32)             dstImage.Create(srcWidth, srcHeight, srcBitsCount, CImage::createAlphaChannel);
-		else if (srcBitsCount == 24)        dstImage.Create(srcWidth, srcHeight, srcBitsCount, 0);
-		else if (srcBitsCount == 8)         dstImage.Create(srcWidth, srcHeight, 24, 0); // Save to 24bit image, otherwise CImage 8bit need to handle colorTable
+		// CImage belongs to Windows GDI library, in which all default DIBs (Device-Independent Bitmap) are bottom-up;
+		// i.e., the default Pitch < 0, unless you create CImage with input targetHeight < 0,
+		// in which case, the generated CImage would have hight still > 0, but Pitch would be > 0.
+		// GetBits() will return pixel address of (0,0) instead of the Top-Line byte of the image-buffer.
+		// To get the BufferEntry address for uploading to GPU, 
+		// if Pitch > 0, GetBits() will work; 
+		// if Pitch < 0 (by default), here we need to move pointer up [Height() - 1] levels.
+
+		// Here we create CImage with negative Input Height for fast data copy, 
+		// otherwise, for 32bit and 24bit, we need to do copy line by line.
+		if (srcBitsCount == 32)             dstImage.Create(srcWidth, -srcHeight, srcBitsCount, CImage::createAlphaChannel);
+		else if (srcBitsCount == 24)        dstImage.Create(srcWidth, -srcHeight, srcBitsCount, 0);
+		else if (srcBitsCount == 8)         dstImage.Create(srcWidth, -srcHeight, 24, 0); // Save to 24bit image, otherwise CImage 8bit need to handle colorTable
 		else                                assert(false);
 
-		// CImage belongs to Windows GDI library, in which all DIBs (Device-Independent Bitmap) are bottom-up.
-		// GetBits() will return pixel address of (0,0) instead of the first byte of the image-buffer.
-		// To get the BufferEntry address for uploading to GPU, here we need to move pointer up [Height() - 1] levels.
-		BYTE* dstBottomLineDataEntry = static_cast<BYTE*>(dstImage.GetBits());
+		BYTE* dstFirstPixelDataEntry = static_cast<BYTE*>(dstImage.GetBits());
 		const BYTE* srcDataEntry = srcImage.GetBufferEntry();
 		int srcPitch = static_cast<int>(srcImage.GetPitch());
 
 		if (srcBitsCount != 8)		{
 			int dstPitch = dstImage.GetPitch();
-			for (int row = 0; row < dstImage.GetHeight(); row++)	{
-				// Attention!! :  Must use int for BYTE* address seeking !
-				// For Example:   BYTE* bufferEntry = srcBottomLineDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch() // image.GetPitch() < 0
-				memcpy(dstBottomLineDataEntry + static_cast<int>(row * dstPitch), srcDataEntry + static_cast<int>(row * srcPitch), std::abs(dstPitch));
-			}
+			memcpy(dstFirstPixelDataEntry, srcDataEntry, dstPitch * srcHeight);
 		}else {
 			// from 8bit to 24bit CImage, memcpy won't work, have to copy pixel by pixel
 			for (int row = 0; row < dstImage.GetHeight(); row++) {
@@ -120,13 +129,21 @@ namespace sldip
 	{
 		assert(!image.IsNull());
 
-		// CImage belongs to Windows GDI library, in which all DIBs (Device-Independent Bitmap) are bottom-up.
-		// GetBits() will return pixel address of (0,0) instead of the first byte of the image-buffer.
-		// To get the BufferEntry address for uploading to GPU, here we need to move pointer up [Height() - 1] levels.
-		BYTE* srcBottomLineDataEntry = static_cast<BYTE*>( image.GetBits() );
-		// Attention!! :  Must use int for BYTE* address seeking !
-		// actualBufferEntry here from CImage is the BottomeLine FirstPixel Address
-		BYTE* actualBufferEntry = srcBottomLineDataEntry + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch();
+		// CImage belongs to Windows GDI library, in which all default DIBs (Device-Independent Bitmap) are bottom-up;
+		// i.e., the default Pitch < 0, unless you create CImage with input targetHeight < 0,
+		// in which case, the generated CImage would have hight still > 0, but Pitch would be > 0.
+		// GetBits() will return pixel address of (0,0) instead of the Top-Line byte of the image-buffer.
+		// To get the BufferEntry address for uploading to GPU, 
+		// if Pitch > 0, GetBits() will work; 
+		// if Pitch < 0 (by default), here we need to move pointer up [Height() - 1] levels.
+		BYTE* actualBufferEntry = nullptr;
+		if (image.GetPitch() > 0)
+			actualBufferEntry = static_cast<BYTE*>(image.GetBits());
+		else {
+			// Attention!! :  Must use int for BYTE* address seeking !
+			// actualBufferEntry here from CImage is the BottomeLine FirstPixel Address
+			actualBufferEntry = static_cast<BYTE*>(image.GetBits()) + static_cast<size_t>(image.GetHeight() - 1) * image.GetPitch();
+		}
 
 		SLImageParam imageParam(
 			static_cast<unsigned int>(image.GetWidth()),
