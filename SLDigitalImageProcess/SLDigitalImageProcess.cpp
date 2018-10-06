@@ -191,7 +191,10 @@ namespace sldip
 		}
 
 		HRESULT result = tmpImageForSaving.Save(filePath.c_str(), imageTypeGUID);
-		assert(SUCCEEDED(result));
+		if (FAILED(result)) {
+			assert(false);
+			return;
+		}
 	}
 	void SaveToImageFile(const SLLibreImage& srcImage, const std::wstring& folderPath, const std::wstring& fileName, const SLImageFileType& imageType)
 	{

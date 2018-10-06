@@ -23,7 +23,7 @@ namespace sldip
 		IMAGE_PNG           // Gdiplus::ImageFormatPNG
 	};
 
-	enum SLLibreColorType
+	enum SLLibreColorType : unsigned
 	{
 		LibreColorUndefined,	 // Invalid
 		LibreColorGray,          // 2D,      8  BBP,     1 color channel

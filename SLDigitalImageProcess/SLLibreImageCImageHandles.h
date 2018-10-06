@@ -6,7 +6,7 @@
 
 namespace sldip
 {
-	enum SLLibreColorType;
+	enum SLLibreColorType : unsigned;
 	class SLImageParam;
 	class SLLibreImage;
 

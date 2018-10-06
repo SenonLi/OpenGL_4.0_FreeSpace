@@ -193,7 +193,10 @@ namespace slopencv
 		std::string filePath = "../../../../Processed Images/" + m_ImageName + std::string("_cvCanny.png");
 		std::wstring wFilePath = slopencv::s2ws(filePath);
 		HRESULT result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
-		assert(SUCCEEDED(result));
+		if (FAILED(result)) {
+			assert(false);
+			return;
+		}
 
 
 		/// Find contours
@@ -276,7 +279,10 @@ namespace slopencv
 			filePath = "../../../../Processed Images/" + m_ImageName + std::string("_cvEllipse") + m_ImageExtension;
 			wFilePath = slopencv::s2ws(filePath);
 			result = imageToSave.Save(wFilePath.c_str(), Gdiplus::ImageFormatPNG);
-			assert(SUCCEEDED(result));
+			if (FAILED(result)) {
+				assert(false);
+				return;
+			}
 		}
 
 	}

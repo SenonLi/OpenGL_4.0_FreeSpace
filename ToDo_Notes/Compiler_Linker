@@ -33,7 +33,10 @@ warning LNK4020: a type record in 'SLGeometry_ib_1.pdb' is corrupted; some symbo
 Culprit: the update from old VisualStudio to New added "Whole Program Optimization" in General
 Solution: in release of crupted project, set "Whole Program Optimization" to "No Whole Program Optimization"
 
-
+Typical Bug #4:
+warning C4471: 'SLLibreColorType': a forward declaration of an unscoped enumeration must have an underlying type
+Culprit: In C++11, you can add an explicit type to an unscoped enumeration and to its forward declaration.
+Solution: enum Example : unsigned {}. Add : type (int/unsigned) at the end of the enum definition and forward declaration.
 
 opencv_world341.lib;            // OpenCV Image Process, using official Dynamic OpenCV library, but still need a small static lib
 glew32.lib;                     // OpenGL function extension Wrangller
