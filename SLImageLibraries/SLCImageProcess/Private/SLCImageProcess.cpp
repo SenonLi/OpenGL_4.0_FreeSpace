@@ -100,6 +100,8 @@ namespace slcimage
 								WICRect rect = { 0, 0, dstImageWidth, dstImageHeight };
 								int stride = std::abs(dstImage.GetPitch());
 								BYTE* bufferEntry = static_cast<BYTE*>(dstImage.GetBits());
+								// Attension! CopyPixels will do resampling everytime it's called, we should not call it line by line
+								// Attension! Resampling is not done by Initialize(...), instead, it's done by CopyPixels(...)
 								hr = bitmapScaler->CopyPixels(&rect, stride, stride * dstImageHeight, bufferEntry);
 							}
 						}
