@@ -30,6 +30,7 @@ private:
 	slgeom::SLLibreImagePaintable m_LibreImagePaintable{};  // For Texture Paint
 
 	/// <summary>One global renderer that can handle all texture renderings </summary>
+	/// <remarks>m_Texture2DRenderer is supposed to be a singleton </remarks>
 	std::unique_ptr<slgeom::SLTexture2D_Renderer> m_Texture2DRenderer = nullptr;
 
 
