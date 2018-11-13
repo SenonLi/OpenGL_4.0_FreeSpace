@@ -7,7 +7,17 @@ glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
 if using glPixelStorei(GL_PACK_ALIGNMENT, 1) after glTexImage2D, texture after this one may not be renderered correctly, e.g., freetype font will be vague.
 
+## Core-profile vs Immediate mode
+* Immediate mode: fixed function pipeline (in the old days)
+* Core-profile: removed all old deprecated functionality
+When using OpenGL's core-profile, OpenGL forces us to use modern practices. 
+Whenever we try to use one of OpenGL's deprecated functions, OpenGL raises an error and stops drawing.
 
+## State machine
+OpenGL is by itself a large state machine: a collection of variables that define how OpenGL should currently operate. 
+The state of OpenGL is commonly referred to as the OpenGL context. 
+* state-changing functions;
+* state-using functions;
 
 ## Collision Detection
 * Axis-Aligned Bounding Box
