@@ -1,36 +1,20 @@
 To Do:
 
-000. Write a class specially for GLFW_Window
-GLFW_Window is the GUI, which should be a private class in Glfw3DPlayer, a member of any public GlfwApplication like 01_Texture.
-
-01_Texture in SLGlfw3DPlayer should be put into folder Bin, cause they are application level widget ready for Unit_VisualTest.
-
-001. Try to create 2 GLFW widgets, write for loop in Unit_VisualTest
-002. Replace GLEW with GLAD;
-
 
 0. Use std::unordered_map<SLLibreImagePaintable, GLTextureID> such that whenever paintable is gone, GLTextureID could be removed
 2. put LibreImageCImageHandles.h into private folder, split SLDigitalImageProcess
 
-
-
 Add Operator = into SLLibreImage
 newImage.GetBufferEntry() != m_LibreImage.GetBufferEntry()
-
 
 Split library into public (header only) and private (header + CPP)
 
 Add image renderer into slgeom project;
 Add different shader specially for 8bit image;
 
-
 3. Move LoadShader.h/cpp to SLGeometry project;
-4. Move SenAbstractGLFW to SLGlfw3DPlayer, make SLUnit_VisualTest Level 4 with Warning to Error
 
 
-
-
-0. Split SLDigitalImageProcess into independent lib with SL3DPlayer's widget;
 
 When Rebuilding GLFW 3D Engine and MFC 3D Engine, 
 1. Add general SL3DPlayer project first;
