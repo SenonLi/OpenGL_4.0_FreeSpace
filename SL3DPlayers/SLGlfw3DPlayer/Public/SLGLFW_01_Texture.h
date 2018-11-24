@@ -2,7 +2,7 @@
 #define __SLGLFW_01_TEXTURE__
 #pragma once
 
-#include "SLAbstractGLFW_GLEW.h"                 // Virtual GLFW_GLEW class
+#include "SLAbstract_GlfwGlad.h"                 // Virtual GLFW_GLAD class
 #include "Paintables\SLLibreImagePaintable.h"    // slgeom: LibreImage to load texture
 
 /// <remark> std::unique_ptr require SLTexture2D_Renderer to be declared in header,
@@ -10,13 +10,14 @@
 #include "Rendering/SLTexture2D_Renderer.h" 
 
 
-class SLGLFW_01_Texture : public SLAbstractGLFW_GLEW
+class SLGLFW_01_Texture : public SLAbstract_GlfwGlad
 {
 public:
 	SLGLFW_01_Texture();
 
 protected:
 	void InitPaintContext() override;
+	void GLResize(GLFWwindow* glfwWindow, int width, int height) override;
 	void PaintGL() override;
 	void FinalizeGL() override;
 	void PostPaintProcess() override;

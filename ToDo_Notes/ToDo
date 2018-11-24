@@ -1,8 +1,15 @@
 To Do:
 
+000. Write a class specially for GLFW_Window
+GLFW_Window is the GUI, which should be a private class in Glfw3DPlayer, a member of any public GlfwApplication like 01_Texture.
+
+01_Texture in SLGlfw3DPlayer should be put into folder Bin, cause they are application level widget ready for Unit_VisualTest.
+
+001. Try to create 2 GLFW widgets, write for loop in Unit_VisualTest
+002. Replace GLEW with GLAD;
+
+
 0. Use std::unordered_map<SLLibreImagePaintable, GLTextureID> such that whenever paintable is gone, GLTextureID could be removed
-
-
 2. put LibreImageCImageHandles.h into private folder, split SLDigitalImageProcess
 
 

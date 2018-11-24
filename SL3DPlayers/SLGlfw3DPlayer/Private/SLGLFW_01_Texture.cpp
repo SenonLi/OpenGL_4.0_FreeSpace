@@ -1,16 +1,23 @@
 #include "../stdafx.h"
 #include "SLGLFW_01_Texture.h"
-
-#include "SLDigitalImageProcess.h"               // sldip:  For Basic LibreImage Process
+#include "glad/glad.h"                  // Basic OpenGL commands: e.g., glViewport
+#include "SLDigitalImageProcess.h"      // sldip:  For Basic LibreImage Process
 
 SLGLFW_01_Texture::SLGLFW_01_Texture()
 {
-	m_WindowName = "Sen UnitTest_Visual Test Texture ";
+	m_DefaultWidget.SetWindowName("Sen UnitTest_Visual Test Texture ");
 
 	// Load Image to CPU memory
 	LoadTexture();
-	m_WidgetWidth = m_LibreImage.GetWidth();
-	m_WidgetHeight = m_LibreImage.GetHeight();
+	m_DefaultWidget.SetWidth(m_LibreImage.GetWidth());
+	m_DefaultWidget.SetHeight(m_LibreImage.GetHeight());
+}
+
+void SLGLFW_01_Texture::GLResize(GLFWwindow* /*glfwWindow*/, int width, int height)
+{
+	m_DefaultWidget.SetWidth(width);
+	m_DefaultWidget.SetHeight(height);
+	glViewport(0, 0, m_DefaultWidget.Width(), m_DefaultWidget.Height());
 }
 
 void SLGLFW_01_Texture::InitPaintContext()

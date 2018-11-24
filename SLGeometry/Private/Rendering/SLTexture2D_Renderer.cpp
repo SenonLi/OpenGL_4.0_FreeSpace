@@ -1,9 +1,6 @@
 #include "../../stdafx.h"
 
-#ifndef GLEW_STATIC
-#define GLEW_STATIC
-#include <GL/glew.h>       // Support basic OpenGL
-#endif
+#include "glad/glad.h" // Support basic OpenGL
 
 #include "../../Public/Rendering/SLTexture2D_Renderer.h"
 #include "../../Public/Paintables/SLLibreImagePaintable.h"

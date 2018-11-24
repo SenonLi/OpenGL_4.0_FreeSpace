@@ -2,10 +2,7 @@
 #include "SLShaderProgram.h"
 #include "../Resources/SLGLShadersResource.h"
 
-#ifndef GLEW_STATIC
-#define GLEW_STATIC
-#include <GL/glew.h>       // Support basic OpenGL
-#endif
+#include "glad/glad.h" // Support basic OpenGL
 
 #include <cstdlib>
 #include <iostream>
@@ -94,12 +91,6 @@ namespace slgeom
 
 			++entry;
 		}
-
-#ifdef GL_VERSION_4_1
-		if (GLEW_VERSION_4_1) {
-			// glProgramParameteri( program, GL_PROGRAM_SEPARABLE, GL_TRUE );
-		}
-#endif /* GL_VERSION_4_1 */
 
 		glLinkProgram(program);
 

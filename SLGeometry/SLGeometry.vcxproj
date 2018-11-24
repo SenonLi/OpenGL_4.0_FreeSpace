@@ -234,6 +234,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SL3DPlayers\GLAD\GLAD.vcxproj">
+      <Project>{4fd7ab2e-0d8a-4c2e-9f74-8b3827353943}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\SLDigitalImageProcess\SLDigitalImageProcess.vcxproj">
       <Project>{801e69dd-5a95-48ce-a212-b6ea98392a88}</Project>
     </ProjectReference>

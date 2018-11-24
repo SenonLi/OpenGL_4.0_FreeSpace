@@ -180,19 +180,26 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Public\SLAbstractGLFW_GLEW.h" />
+    <ClInclude Include="Public\SLAbstract_GlfwGlad.h" />
     <ClInclude Include="Public\SLGLFW_01_Texture.h" />
+    <ClInclude Include="Public\SLGUIContext_GlfwGlad.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Private\SLAbstractGLFW_GLEW.cpp">
+    <ClCompile Include="Private\SLAbstract_GlfwGlad.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Private\SLGLFW_01_Texture.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Private\SLGUIContext_GlfwGlad.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../stdafx.h</PrecompiledHeaderFile>
@@ -214,6 +221,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\SLInternalUtility\SLInternalUtility.vcxproj">
       <Project>{11478a94-c9ed-45e0-b0b8-7a0774152bdf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GLAD\GLAD.vcxproj">
+      <Project>{4fd7ab2e-0d8a-4c2e-9f74-8b3827353943}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

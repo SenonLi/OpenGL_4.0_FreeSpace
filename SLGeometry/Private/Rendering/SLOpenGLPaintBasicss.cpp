@@ -1,10 +1,7 @@
 #include "../../stdafx.h"
 #include "../../Public/Rendering/SLOpenGLPaintBasicss.h"
 
-#ifndef GLEW_STATIC
-#define GLEW_STATIC
-#include <GL/glew.h>       // Support basic OpenGL
-#endif
+#include "glad/glad.h" // Support basic OpenGL
 
 #include "SLImageParam.h"
 #include "SLLibreImage.h"
