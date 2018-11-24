@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "SLGLFW_01_Texture.h"
 #include "glad/glad.h"                  // Basic OpenGL commands: e.g., glViewport
 #include "SLDigitalImageProcess.h"      // sldip:  For Basic LibreImage Process

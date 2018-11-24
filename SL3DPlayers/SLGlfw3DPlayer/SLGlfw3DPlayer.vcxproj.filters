@@ -13,6 +13,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Bin">
+      <UniqueIdentifier>{741264a6-d3f6-4a01-9038-b7fa96afbdd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -21,21 +24,18 @@
     <ClInclude Include="targetver.h">
       <Filter>Private Header</Filter>
     </ClInclude>
-    <ClInclude Include="Public\SLGLFW_01_Texture.h">
-      <Filter>Public Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Public\SLGUIContext_GlfwGlad.h">
       <Filter>Public Headers</Filter>
     </ClInclude>
     <ClInclude Include="Public\SLAbstract_GlfwGlad.h">
       <Filter>Public Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Public\Bin\SLGLFW_01_Texture.h">
+      <Filter>Bin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Private\SLGLFW_01_Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Private\SLGUIContext_GlfwGlad.cpp">
@@ -43,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="Private\SLAbstract_GlfwGlad.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Bin\SLGLFW_01_Texture.cpp">
+      <Filter>Bin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
