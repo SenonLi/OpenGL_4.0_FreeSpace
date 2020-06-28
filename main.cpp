@@ -17,13 +17,13 @@
 #include "Sinks/BreakOut/Sen_BreakOut.h"
 #include "Sinks/TeapotExplosion/Sen_TeapotExplosion.h"
 
-//int main(int argc, char *argv[])
-//{
-//	//Sen_TeapotExplosion cameraWidget;
-//	//cameraWidget.ShowWidget();
-//
-//	return 1;
-//}
+int main(int argc, char *argv[])
+{
+	Sen_07_TextureGLFW widget;
+	widget.ShowWidget();
+
+	return 1;
+}
 
 
 

@@ -113,7 +113,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\Debug\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SLGLShadersResource.res;opencv_world341d.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SLGLShadersResource.res;opengl32.lib;GLFW/glfw3.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -198,7 +198,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\..\2017\$(SolutionName)$(Platform)$(Configuration)_Dir\SLGeometry\;S:\SenGraphicsUsr\VS2017\Lib\Release\GLFW;S:\OpenCV3\CV_OfficialDynamic_341\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SLGLShadersResource.res;opencv_world341.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SLGLShadersResource.res;GLFW/glfw3.lib;opengl32.lib;opencv_world341.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

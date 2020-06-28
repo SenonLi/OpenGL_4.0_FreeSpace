@@ -44,6 +44,7 @@ void Sen_07_TextureGLFW::initGlfwGlewGL()
 {
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/awesomeface.png", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGB);
 	textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SenPortrait.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
+	//textureImagePtr = SOIL_load_image("../vsSenOpenGL/LearnOpenGL_GLFW/Images/SunRaise.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
 	//textureImagePtr = SOIL_load_image("./LearnOpenGL_GLFW/Images/apple.jpg", &m_WidgetWidth, &m_WidgetHeight, 0, SOIL_LOAD_RGBA);
 
 	SenAbstractGLFW::initGlfwGlewGL();
