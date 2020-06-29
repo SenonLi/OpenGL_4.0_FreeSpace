@@ -7,6 +7,7 @@
 #include <vector>
 
 // GL Includes
+#define GLM_FORCE_SWIZZLE // Have to add this for new glm version without default structure initialization 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

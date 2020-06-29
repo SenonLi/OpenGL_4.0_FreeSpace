@@ -67,7 +67,7 @@ void Sen_24_BlendingTest::paintFrontAndSideTransparentWindows(){
 	glBindVertexArray(transparentWindowVAO);
 	for (GLuint i = 0; i < sideWindowAddressVector.size(); i++)
 	{
-		model = glm::mat4();
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, sideWindowAddressVector[i]);
 		glUniformMatrix4fv(glGetUniformLocation(programB, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -85,7 +85,7 @@ void Sen_24_BlendingTest::paintFrontAndSideTransparentWindows(){
 	glBindVertexArray(grassAlphaDiscardVAO);
 	for (std::map<float, glm::vec3>::reverse_iterator map = sortedFrontWindowMap.rbegin(); map != sortedFrontWindowMap.rend(); map++)
 	{
-		model = glm::mat4();
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, map->second);
 		glUniformMatrix4fv(glGetUniformLocation(programB, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -122,7 +122,7 @@ void Sen_24_BlendingTest::paintGrassAlphaDiscard(){
 	glBindTexture(GL_TEXTURE_2D, grassAlphaDiscardTexture);
 	for (GLuint i = 0; i < grassAddressVector.size(); i++)
 	{
-		model = glm::mat4();
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, grassAddressVector[i]);
 		glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -143,7 +143,7 @@ void Sen_24_BlendingTest::paintFloor(){
 
 	glBindVertexArray(verArrObjArray[0]);
 	glBindTexture(GL_TEXTURE_2D, floorTexture);
-	model = glm::mat4();
+	model = glm::mat4(1.0f);
 	glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }

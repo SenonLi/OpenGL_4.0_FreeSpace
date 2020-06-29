@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[])
 {
-	Sen_22_DepthTest widget;
+	Sen_BreakOut widget;
 	widget.ShowWidget();
 
 	return 1;

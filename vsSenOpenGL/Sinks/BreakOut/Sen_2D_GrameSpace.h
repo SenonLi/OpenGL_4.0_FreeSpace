@@ -25,7 +25,7 @@ protected:
 
 	//GLfloat lastX = 400, lastY = 300;
 	//bool firstMouse = true;
-	glm::mat4 model;
+	glm::mat4 model{ 1.0f };
 
 	bool keys[1024];
 	GLfloat deltaTime = 0.0f;

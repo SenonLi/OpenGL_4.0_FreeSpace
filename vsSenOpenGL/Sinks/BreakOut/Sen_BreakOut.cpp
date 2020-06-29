@@ -348,7 +348,7 @@ void Sen_BreakOut::paintBricksMap()	{
 				glBindTexture(GL_TEXTURE_2D, solidBlockTexture);
 			else  glBindTexture(GL_TEXTURE_2D, blockTexture);
 
-			model = glm::mat4();
+			model = glm::mat4(1.0f);
 			model = glm::translate(	model, 
 				glm::vec3(brickMapsVector.at(breakOutLevel).bricksVector.at(i).getBrickPosition(), 
 				0.0f)	
@@ -390,7 +390,7 @@ void Sen_BreakOut::paintBall()	{
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, ballTexture);
 
-	model = glm::mat4();
+	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(ballPosition, 0.0f));
 	model = glm::scale(model,
 		glm::vec3(ballSquareSIDE * m_WidgetHeight / m_WidgetWidth, ballSquareSIDE, 1.0f)
@@ -416,7 +416,7 @@ void Sen_BreakOut::paintPlayer()	{
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, playerBoardTexture);
 
-	model = glm::mat4();
+	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(playerBoardPosition, 0.0f));
 	glUniformMatrix4fv(glGetUniformLocation(programB, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	

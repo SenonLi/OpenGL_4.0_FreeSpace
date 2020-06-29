@@ -92,7 +92,7 @@ void Sen_22_DepthTest::paintFreeSpaceGL(void)
 	glUseProgram(programA);
 	glBindVertexArray(verArrObjArray[0]);
 	glBindTexture(GL_TEXTURE_2D, floorTexture);
-	model = glm::mat4();
+	model = glm::mat4(1.0f);
 	glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 

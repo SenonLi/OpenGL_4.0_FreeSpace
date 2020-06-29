@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <soil/SOIL.h>
 // GLM Mathematics
+#define GLM_FORCE_SWIZZLE // Have to add this for new glm version without default structure initialization 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -134,7 +135,7 @@ protected:
 	GLfloat centerToBorderCubeLogo = sideCubeLogo * 1.0f;
 	
 	glm::vec3 cubeWorldSpaceAddr, scaleRatio;
-	glm::mat4 cubeModel, logoCubeCameraView, logoCubeModel, logoCubeProjection;
+	glm::mat4 cubeModel{ 1.0f }, logoCubeCameraView{ 1.0f }, logoCubeModel{ 1.0f }, logoCubeProjection{ 1.0f };
 	GLuint cubeProgram;
 	glm::vec3 selfSpinAxis;
 	GLfloat selfSpinAngle;
@@ -145,7 +146,7 @@ protected:
 	GLuint cubeVertexArrayObject, cubeVertexBufferObject, cubeVertexIndicesObject;
 
 	void initialCubeModel()	{
-		glm::mat4 identityMatrix;
+		glm::mat4 identityMatrix{ 1.0f };
 		cubeModel = glm::translate(identityMatrix, cubeWorldSpaceAddr);
 
 		selfSpinAngle = float(glm::radians(-70.0));
@@ -155,7 +156,7 @@ protected:
 	}
 
 	void updateCubeModel(glm::vec3 &worldSpaceAddress, float spinSpeedRate = 0.0f, glm::vec3 vecSpinAxis = glm::vec3(0.0f, 1.0f, 0.0f))	{
-		glm::mat4 identityMatrix;
+		glm::mat4 identityMatrix{ 1.0f };
 		cubeModel = glm::translate(identityMatrix, worldSpaceAddress);
 		cubeModel = glm::scale(cubeModel, scaleRatio);
 
@@ -293,7 +294,7 @@ protected:
 
 private:
 	GLfloat angleTmp;
-	glm::mat4 identityMatrix, xRotation, yRotation;
+	glm::mat4 identityMatrix{ 1.0f }, xRotation{ 1.0f }, yRotation{ 1.0f };
 
 	void paintCubeFaces()	{
 		glActiveTexture(GL_TEXTURE0);

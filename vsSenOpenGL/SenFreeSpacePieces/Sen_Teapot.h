@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 //#include <soil/SOIL.h>
 // GLM Mathematics
+#define GLM_FORCE_SWIZZLE // Have to add this for new glm version without default structure initialization 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -55,7 +56,7 @@ public:
 		glUseProgram(program);
 		glBindVertexArray(teapotVAO);
 
-		glm::mat4 identityMatrix;
+		glm::mat4 identityMatrix{ 1.0f };
 		teapotModel = glm::translate(identityMatrix, teapotWorldSpaceAddr);
 		teapotModel = glm::scale(teapotModel, teapotScaleRatio);
 
@@ -77,7 +78,7 @@ public:
 protected:
 	GLfloat selfSpinAngle;
 	glm::vec3 teapotWorldSpaceAddr, teapotScaleRatio, selfSpinAxis;
-	glm::mat4 teapotModel;// , teapotCameraView, teapotProjection;
+	glm::mat4 teapotModel{ 1.0f };// , teapotCameraView, teapotProjection;
 	GLuint teapotProgram, teapotVAO, teapotVBO, teapotEBO;
 
 	//unsigned char* textureImagePtr;

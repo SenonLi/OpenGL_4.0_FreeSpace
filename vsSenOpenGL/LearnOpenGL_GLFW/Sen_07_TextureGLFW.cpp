@@ -24,7 +24,7 @@ void Sen_07_TextureGLFW::paintGL(void)
 	bindNewLayerTexture();
 
 	// Create transformations
-	glm::mat4 transform;
+	glm::mat4 transform{ 1.0f };
 	//transform = glm::translate(transform, glm::vec3(0.0f, -0.0f, -1.0f));
 	transform = glm::rotate(transform, (GLfloat)glfwGetTime() * float(glm::radians(50.0)), glm::vec3(1.0f, 0.0f, 1.0f));
 

@@ -72,7 +72,7 @@ void Sen_47_BlendSprite::paint2DGameSpaceGL()	{
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, spriteTexture);
 
-	model = glm::mat4();
+	model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
 	glUniformMatrix4fv(glGetUniformLocation(programA, "model"), 1, GL_FALSE, glm::value_ptr(model));
 

@@ -232,7 +232,7 @@ void Sen_09_ModelViewProjection::updateModelViewProjection()
 	// Create transformations
 	//model = glm::rotate(model, (GLfloat)glfwGetTime() * float(glm::radians(10.0)), glm::vec3(1.0f, 0.0f, 0.0f));
 
-	glm::mat4 identityMatrix;
+	glm::mat4 identityMatrix{ 1.0f };
 	model = glm::translate(identityMatrix, glm::vec3(1.0f, 0.0f, viewCenter));
 	model = glm::rotate(model, (GLfloat)glfwGetTime() * float(glm::radians(90.0)), glm::vec3(-1.0f, 1.0f, 1.0f));
 
@@ -244,7 +244,7 @@ void Sen_09_ModelViewProjection::updateModelViewProjection()
 
 void Sen_09_ModelViewProjection::updateSecondModelViewProjection()
 {
-	glm::mat4 identityMatrix;
+	glm::mat4 identityMatrix{ 1.0f };
 	model = glm::translate(identityMatrix, glm::vec3(-1.0f, 0.0f, viewCenter));
 	model = glm::rotate(model, (GLfloat)glfwGetTime() * float(glm::radians(-90.0)), glm::vec3(1.0f, 1.0f, -1.0f));
 
